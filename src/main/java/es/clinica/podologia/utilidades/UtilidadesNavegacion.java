@@ -1,0 +1,120 @@
+package es.clinica.podologia.utilidades;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import es.clinica.podologia.JavaFxApplicationSupport;
+import es.clinica.podologia.constantes.Accion;
+import es.clinica.podologia.controladores.AccesoController;
+import es.clinica.podologia.controladores.PrincipalController;
+import es.clinica.podologia.javafx.jfxsupport.AbstractFxmlView;
+import es.clinica.podologia.javafx.jfxsupport.GUIState;
+import es.clinica.podologia.javafx.jfxsupport.PropertyReaderHelper;
+import javafx.scene.Scene;
+import javafx.stage.WindowEvent;
+
+/**
+ * <p>Clase con métodos estáticos para la navegación entre vistas.</p>
+ * 
+ * @author Ignacio Rafael
+ *
+ */
+public class UtilidadesNavegacion {
+    
+    // Trazas
+    private static Logger trazas = LoggerFactory.getLogger(UtilidadesNavegacion.class);
+    
+    /**
+     * <p>Constructor privado vacío.</p>
+     */
+    private UtilidadesNavegacion() {
+	throw new IllegalStateException("Constructor privado de la clase de utilidades de navegación.");
+    }
+    
+    /**
+     * <p>Método para mostrar una vista.</p>
+     * 
+     * @param vista {@link AbstractFxmlView} vista que se quiere mostrar
+     * @param controlador {@link String} cadena de caracteres que identifica el controlador
+     * @param accion {@link Accion} cadena de caracteres identifica la acción con la que se va a abrir la vista
+     */
+    @SuppressWarnings("unused")
+    public static void mostrarVista(
+	    final Class<? extends AbstractFxmlView> vista, 
+	    String controlador, 
+	    Accion accion) {
+	
+	// Obtener el contexto de la aplicación
+	ConfigurableApplicationContext contexto = JavaFxApplicationSupport.getContexto();
+	
+	try {
+	    
+	    // Obtener la vista que se quiere mostrar
+	    final AbstractFxmlView vistaJavaFXSpringBoot = contexto.getBean(vista);
+
+	    // Comprobar si la escena está vacía
+	    if (GUIState.getScene() == null) {
+		// Si está vacía, se creará una nueva escena
+		GUIState.setScene(new Scene(vistaJavaFXSpringBoot.getView()));
+	    } else {
+		// En caso de que no esté vacía, se sustituirá por la ruta de la vista que se quiere mostrar
+		GUIState.getScene().setRoot(vistaJavaFXSpringBoot.getView());
+	    }
+	    
+	    // Aplicar la escena resultante
+	    GUIState.getStage().setScene(GUIState.getScene());
+	    
+	    // Aplicar propiedades del entorno a la vista
+	    aplicarPropiedadesEntornoVista(contexto);
+	    
+	    // Añadir los iconos a la vista
+	    GUIState.getStage().getIcons().addAll(JavaFxApplicationSupport.getIconos());
+	    
+	    // Aquí se asignará el controlador correspondiente a la vista
+	    GUIState.getStage().addEventHandler(WindowEvent.WINDOW_SHOWN, e -> {
+		
+		if (vistaJavaFXSpringBoot.getFxmlLoader().getController() instanceof AccesoController) {
+		    // Vista para autenticarse en la aplicación
+		    AccesoController accesoController = (AccesoController) vistaJavaFXSpringBoot.getFxmlLoader().getController();
+		} else if (vistaJavaFXSpringBoot.getFxmlLoader().getController() instanceof PrincipalController) {
+		    // Vista principal de la aplicación
+		    PrincipalController principalController = (PrincipalController) vistaJavaFXSpringBoot.getFxmlLoader().getController();
+		}
+		trazas.debug("Vista que se va a mostrar: {} ", vistaJavaFXSpringBoot.getClass());
+	    });
+	    
+	    // Mostrar la vista
+	    GUIState.getStage().show();
+	    
+	} catch (Exception excepcion) {
+	    
+	    trazas.error("La aplicación no ha podido iniciarse: ", excepcion);
+	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    
+	}
+    }
+	
+    /**
+     * <p>
+     * Aplicar las propiedades del entorno a la vista.
+     * </p>
+     * 
+     * @param contexto {@link ConfigurableApplicationContext} contexto de la
+     *                 aplicación
+     */
+    private static void aplicarPropiedadesEntornoVista(ConfigurableApplicationContext contexto) {
+
+	PropertyReaderHelper.setIfPresent(contexto.getEnvironment(), "javafx.title", String.class, GUIState.getStage()::setTitle);
+	PropertyReaderHelper.setIfPresent(contexto.getEnvironment(), "javafx.stage.width", Double.class, GUIState.getStage()::setWidth);
+	PropertyReaderHelper.setIfPresent(contexto.getEnvironment(), "javafx.stage.height", Double.class, GUIState.getStage()::setHeight);
+	PropertyReaderHelper.setIfPresent(contexto.getEnvironment(), "javafx.stage.resizable", Boolean.class, GUIState.getStage()::setResizable);
+	
+    }
+
+//	private static void showErrorAlert(Throwable throwable) {
+//		Alert alert = new Alert(AlertType.ERROR, "Oops! An unrecoverable error occurred.\n"  + "Please contact your software vendor.\n\n" + "The application will stop now.");
+//		alert.showAndWait().ifPresent(response -> Platform.exit());
+//	}
+
+}

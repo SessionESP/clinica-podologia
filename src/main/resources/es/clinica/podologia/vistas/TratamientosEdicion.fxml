@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
+<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.TratamientoEdicionController">
+   <center>
+      <AnchorPane prefHeight="480.0" prefWidth="720.0" styleClass="panel-default" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="tituloLabel" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" text="Alta de un tratamiento" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="nombreLabel" layoutX="20.0" layoutY="40.0" prefHeight="40.0" text="Nombre" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font></Label>
+            <TextField fx:id="nombreTextField" layoutX="186.0" layoutY="40.0" prefHeight="40.0" prefWidth="540.0" promptText="Nombre del tratamiento" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font></TextField>
+            <Label fx:id="descripcionLabel" layoutX="20.0" layoutY="107.0" prefHeight="40.0" text="Descripción" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font></Label>
+            <TextArea fx:id="descripcionTextArea" layoutX="174.0" layoutY="189.0" prefHeight="200.0" prefWidth="540.0" promptText="Descripción del tratamiento" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font></TextArea>
+            <Button fx:id="aceptarButton" layoutX="326.0" layoutY="269.0" mnemonicParsing="false" onAction="#aceptarTratamiento" prefHeight="40.0" prefWidth="100.0" text="Aceptar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="250.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font></Button>
+            <Button fx:id="cancelarButton" layoutX="200.0" layoutY="410.0" mnemonicParsing="false" onAction="#cancelarTratamiento" prefHeight="40.0" prefWidth="100.0" text="Cancelar" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="250.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+            </Button>
 
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

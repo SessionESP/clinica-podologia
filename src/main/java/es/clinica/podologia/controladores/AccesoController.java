@@ -1,14 +1,17 @@
 package es.clinica.podologia.controladores;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.constantes.Accion;
+import es.clinica.podologia.entidades.Citas;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
 import es.clinica.podologia.servicios.AccesoService;
+import es.clinica.podologia.servicios.CitasService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
@@ -43,6 +46,9 @@ public class AccesoController {
     @Autowired
     private AccesoService accesoService;
     
+    @Autowired
+    private CitasService citasService;
+    
     @FXML
     public void initialize() {
 	
@@ -53,6 +59,8 @@ public class AccesoController {
 
     @FXML
     private void autenticarUsuario() {
+	
+	List<Citas> listadoCitas = citasService.listarCitas();
 
 	// Realizar la consulta en la tabla de la base de datos
 	Boolean autenticado = accesoService.autenticarUsuario(usuarioTextField.getText(), contrasenaPasswordField.getText());
@@ -66,10 +74,6 @@ public class AccesoController {
 	    // Mostrar la vista principal de la aplicación
 	    UtilidadesNavegacion.mostrarVista(PrincipalView.class, "PrincipalController", Accion.CONSULTA);
 	}
-    }
-    
-    public String getTituloVista() {
-        return tituloVista;
     }
 
 }

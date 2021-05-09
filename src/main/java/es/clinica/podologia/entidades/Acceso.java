@@ -16,10 +16,10 @@ import javax.persistence.Table;
 public class Acceso {
 
 	@Id
-	@Column(name="usuario", length=20, nullable=true, unique=false)
+	@Column(name = "usuario", length = 20, nullable = true, unique = false)
 	private String usuario;
 	
-	@Column(name="contrasena", length=20, nullable=true, unique=false)
+	@Column(name = "contrasena", length = 20, nullable = true, unique = false)
 	private String contrasena;
 
 

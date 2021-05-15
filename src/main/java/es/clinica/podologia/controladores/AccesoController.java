@@ -8,10 +8,16 @@ import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.entidades.Citas;
+import es.clinica.podologia.entidades.Pacientes;
+import es.clinica.podologia.entidades.Sanitarios;
+import es.clinica.podologia.entidades.Tratamientos;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
 import es.clinica.podologia.servicios.AccesoService;
 import es.clinica.podologia.servicios.CitasService;
+import es.clinica.podologia.servicios.PacientesService;
+import es.clinica.podologia.servicios.SanitariosService;
+import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
@@ -49,6 +55,15 @@ public class AccesoController {
     @Autowired
     private CitasService citasService;
     
+    @Autowired
+    private PacientesService pacientesService;
+    
+    @Autowired
+    private SanitariosService sanitariosService;
+    
+    @Autowired
+    private TratamientosService tratamientosService;
+    
     @FXML
     public void initialize() {
 	
@@ -59,6 +74,12 @@ public class AccesoController {
 
     @FXML
     private void autenticarUsuario() {
+	
+	List<Pacientes> listadoPacientes = pacientesService.listarPacientes();
+	
+	List<Sanitarios> listadoSanitarios = sanitariosService.listarSanitarios();
+	
+	List<Tratamientos> listadoTratamientos = tratamientosService.listarTratamientos();
 	
 	List<Citas> listadoCitas = citasService.listarCitas();
 

@@ -1,12 +1,10 @@
 package es.clinica.podologia.entidades;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,7 +24,7 @@ public class Citas {
     @Column(name = "id_cita", nullable = false, unique = true)
     private Integer idCita;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "dni_paciente", updatable = true, nullable = false)
     private Pacientes paciente;
 

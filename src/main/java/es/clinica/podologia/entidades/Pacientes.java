@@ -3,7 +3,6 @@ package es.clinica.podologia.entidades;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 /**
@@ -34,7 +33,7 @@ public class Pacientes {
     @Column(name = "telefono", length = 20, nullable = true, unique = false)
     private String telefono;
 
-    @Lob
+    @Column(name = "adjunto", columnDefinition = "LONGVARBINARY")
     private byte[] adjunto;
 
     /**

@@ -1,5 +1,12 @@
 package es.clinica.podologia.servicios.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import es.clinica.podologia.entidades.Tratamientos;
+import es.clinica.podologia.repositorios.TratamientosRepository;
 import es.clinica.podologia.servicios.TratamientosService;
 
 /**
@@ -8,6 +15,18 @@ import es.clinica.podologia.servicios.TratamientosService;
  * @author Ignacio Rafael
  *
  */
+@Service
 public class TratamientosServiceImpl implements TratamientosService {
+    
+    @Autowired
+    private TratamientosRepository tratamientosRepository;
+
+    /**
+     * <p>Método que retorna un listado con todos los registros de la vista.</p>
+     */
+    @Override
+    public List<Tratamientos> listarTratamientos() {
+	return tratamientosRepository.findAll();
+    }
 
 }

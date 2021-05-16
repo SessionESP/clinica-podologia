@@ -22,12 +22,29 @@ public class UtilidadesAlertas {
     }
     
     /**
+     * <p>Alerta configurable.</p>
+     * 
+     * @param tipoAlerta {@link AlertType} tipo de alerta que se quiere generar
+     * @param mensaje {@link String} cadena de caracteres con la información de la alerta
+     * @param botones {@link ButtonType} botones con los que se quiere que se abra la alerta
+     * 
+     * @return {@link Optional} {@link ButtonType} el botón que se ha pulsado en la alerta
+     */
+    public static Optional<ButtonType> mostrarAlerta(AlertType tipoAlerta, String mensaje, ButtonType... botones) {
+	Alert alerta = new Alert(tipoAlerta, Utilidades.comprobarCadena(mensaje, ""), botones);
+	return alerta.showAndWait();
+    }
+    
+    /**
      * <p>Alerta de tipo <b>NONE</b>.</p>
      * 
      * @param mensaje {@link String} cadena de caracteres informativa de la alerta
      * 
      * @return {@link Optional} {@link ButtonType} el botón que se ha pulsado en la alerta
+     * 
+     * @see UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)
      */
+    @Deprecated
     public static Optional<ButtonType> mostrarAlertaPlana(String mensaje) {
 	Alert alerta = new Alert(AlertType.NONE, Utilidades.comprobarCadena(mensaje, ""));
 	return alerta.showAndWait();
@@ -36,10 +53,15 @@ public class UtilidadesAlertas {
     /**
      * <p>Alerta de tipo <b>INFORMATION</b>.</p>
      * 
+     * @deprecated nuevo método configurable y dinámico: {@code UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)}
+     * 
      * @param mensaje {@link String} cadena de caracteres informativa
      * 
      * @return {@link Optional} {@link ButtonType} el botón que se ha pulsado en la alerta
+     * 
+     * @see UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)
      */
+    @Deprecated
     public static Optional<ButtonType> mostrarAlertaInformativa(String mensaje) {
 	Alert alerta = new Alert(AlertType.INFORMATION, Utilidades.comprobarCadena(mensaje, ""));
 	return alerta.showAndWait();
@@ -48,10 +70,15 @@ public class UtilidadesAlertas {
     /**
      * <p>Alerta de tipo <b>WARNING</b>.</p>
      * 
+     * @deprecated nuevo método configurable y dinámico: {@code UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)}
+     * 
      * @param mensaje {@link String} cadena de caracteres informativa de la advertencia
      * 
      * @return {@link Optional} {@link ButtonType} el botón que se ha pulsado en la alerta
+     * 
+     * @see UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)
      */
+    @Deprecated
     public static Optional<ButtonType> mostrarAlertaAdvertencia(String mensaje) {
 	Alert alerta = new Alert(AlertType.WARNING, Utilidades.comprobarCadena(mensaje, ""));
 	return alerta.showAndWait();
@@ -60,10 +87,15 @@ public class UtilidadesAlertas {
     /**
      * <p>Alerta de tipo <b>CONFIRMATION</b>.</p>
      * 
+     * @deprecated nuevo método configurable y dinámico: {@code UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)}
+     * 
      * @param mensaje {@link String} cadena de caracteres informativa de la confirmación
      * 
      * @return {@link Optional} {@link ButtonType} el botón que se ha pulsado en la alerta
+     * 
+     * @see UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)
      */
+    @Deprecated
     public static Optional<ButtonType> mostrarAlertaConfirmacion(String mensaje) {
 	Alert alerta = new Alert(AlertType.CONFIRMATION, Utilidades.comprobarCadena(mensaje, ""));
 	return alerta.showAndWait();
@@ -72,9 +104,13 @@ public class UtilidadesAlertas {
     /**
      * <p>Alerta de tipo <b>ERROR</b>.</p>
      * 
+     * @deprecated nuevo método configurable y dinámico: {@code UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)}
+     * 
      * @param mensaje {@link String} cadena de caracteres informativa del error
      * 
      * @return {@link Optional} {@link ButtonType} el botón que se ha pulsado en la alerta
+     * 
+     * @see UtilidadesAlertas#mostrarAlerta(AlertType, String, ButtonType...)
      */
     public static Optional<ButtonType> mostrarAlertaError(String mensaje) {
 	Alert alerta = new Alert(AlertType.ERROR, Utilidades.comprobarCadena(mensaje, ""));

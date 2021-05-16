@@ -7,6 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import es.clinica.podologia.JavaFxApplicationSupport;
 import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.controladores.AccesoController;
+import es.clinica.podologia.controladores.CitasListadoController;
 import es.clinica.podologia.controladores.PrincipalController;
 import es.clinica.podologia.javafx.jfxsupport.AbstractFxmlView;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
@@ -77,9 +78,9 @@ public class UtilidadesNavegacion {
 		if (vistaJavaFXSpringBoot.getFxmlLoader().getController() instanceof AccesoController) {
 		    // Vista para autenticarse en la aplicación
 		    AccesoController accesoController = (AccesoController) vistaJavaFXSpringBoot.getFxmlLoader().getController();
-		} else if (vistaJavaFXSpringBoot.getFxmlLoader().getController() instanceof PrincipalController) {
+		} else if (vistaJavaFXSpringBoot.getFxmlLoader().getController() instanceof CitasListadoController) {
 		    // Vista principal de la aplicación
-		    PrincipalController principalController = (PrincipalController) vistaJavaFXSpringBoot.getFxmlLoader().getController();
+		    CitasListadoController citasListadoController = (CitasListadoController) vistaJavaFXSpringBoot.getFxmlLoader().getController();
 		}
 		trazas.debug("Vista que se va a mostrar: {} ", vistaJavaFXSpringBoot.getClass());
 	    });

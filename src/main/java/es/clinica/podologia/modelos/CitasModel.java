@@ -55,6 +55,10 @@ public class CitasModel {
     public void setIdCita(Integer idCita) {
         this.idCita.set(idCita);
     }
+    
+    public IntegerProperty idCitaProperty() {
+	return this.idCita;
+    }
 
     public String getPaciente() {
         return paciente.get();
@@ -62,6 +66,10 @@ public class CitasModel {
 
     public void setPaciente(String paciente) {
         this.paciente.set(paciente);
+    }
+    
+    public StringProperty pacienteProperty() {
+	return this.paciente;
     }
 
     public String getSanitario() {
@@ -71,6 +79,10 @@ public class CitasModel {
     public void setSanitario(String sanitario) {
         this.sanitario.set(sanitario);
     }
+    
+    public StringProperty sanitarioProperty() {
+	return this.sanitario;
+    }
 
     public String getTratamiento() {
         return tratamiento.get();
@@ -78,6 +90,10 @@ public class CitasModel {
 
     public void setTratamiento(String tratamiento) {
         this.tratamiento.set(tratamiento);
+    }
+    
+    public StringProperty tratamientoProperty() {
+	return this.tratamiento;
     }
 
     public LocalDate getFecha() {
@@ -87,6 +103,10 @@ public class CitasModel {
     public void setFecha(LocalDate fecha) {
         this.fecha.set(fecha);
     }
+    
+    public ObjectProperty<LocalDate> fechaProperty() {
+	return this.fecha;
+    }
 
     public LocalTime getHoraDesde() {
         return horaDesde.get();
@@ -94,6 +114,10 @@ public class CitasModel {
 
     public void setHoraDesde(LocalTime horaDesde) {
         this.horaDesde.set(horaDesde);
+    }
+    
+    public ObjectProperty<LocalTime> horaDesdeProperty() {
+	return this.horaDesde;
     }
 
     public LocalTime getHoraHasta() {
@@ -103,6 +127,10 @@ public class CitasModel {
     public void setHoraHasta(LocalTime horaHasta) {
         this.horaHasta.set(horaHasta);
     }
+    
+    public ObjectProperty<LocalTime> horaHastaProperty() {
+	return this.horaHasta;
+    }
 
     public String getObservaciones() {
         return observaciones.get();
@@ -110,6 +138,10 @@ public class CitasModel {
 
     public void setObservaciones(String observaciones) {
         this.observaciones.set(observaciones);
+    }
+    
+    public StringProperty observacionesProperty() {
+	return this.observaciones;
     }
 
 }

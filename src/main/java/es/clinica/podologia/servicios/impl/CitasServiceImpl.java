@@ -54,7 +54,7 @@ public class CitasServiceImpl implements CitasService {
 	    modelo.setIdCita(entidad.getIdCita());
 	    modelo.setPaciente(entidad.getPaciente() != null ? entidad.getPaciente().toString() : Constantes.CADENA_VACIA);
 	    modelo.setSanitario(entidad.getSanitario() != null ? entidad.getSanitario().toString() : Constantes.CADENA_VACIA);
-	    modelo.setTratamiento(entidad.getPaciente() != null ? entidad.getPaciente().toString() : Constantes.CADENA_VACIA);
+	    modelo.setTratamiento(entidad.getTratamiento() != null ? entidad.getTratamiento().getNombre() : Constantes.CADENA_VACIA);
 	    modelo.setFecha(Utilidades.cadenaFecha(entidad.getFecha()));
 	    modelo.setHoraDesde(Utilidades.cadenaHora(entidad.getHoraDesde()));
 	    modelo.setHoraHasta(Utilidades.cadenaHora(entidad.getHoraHasta()));

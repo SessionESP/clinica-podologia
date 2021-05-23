@@ -1,22 +1,6 @@
 package es.clinica.podologia.controladores;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Value;
-
-import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
-import es.clinica.podologia.javafx.jfxsupport.GUIState;
-import es.clinica.podologia.modelos.TratamientosModel;
-import es.clinica.podologia.utilidades.Utilidades;
-import es.clinica.podologia.utilidades.UtilidadesAlertas;
-import es.clinica.podologia.utilidades.UtilidadesNavegacion;
-import es.clinica.podologia.vistas.PrincipalView;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 /**
  * <p>Controlador para los Tratamientos.</p>

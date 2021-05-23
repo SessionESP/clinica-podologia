@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import es.clinica.podologia.constantes.Constantes;
+
 /**
  * <p>
  * Modelo para la tabla {@code pacientes}.
@@ -91,6 +93,14 @@ public class Pacientes {
 
     public void setAdjunto(byte[] adjunto) {
 	this.adjunto = adjunto;
+    }
+
+    /**
+     * <p>Nombre y apellidos formateados</p>
+     */
+    @Override
+    public String toString() {
+	return this.nombre + Constantes.ESPACIO + this.apellidos;
     }
 
 }

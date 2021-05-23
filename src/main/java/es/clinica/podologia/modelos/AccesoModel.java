@@ -11,35 +11,34 @@ import javafx.beans.property.StringProperty;
  */
 public class AccesoModel {
 
-	private final StringProperty usuario;
-	private final StringProperty contrasena;
+    private final StringProperty usuario;
+    private final StringProperty contrasena;
 
+    /**
+     * <p>Constructor vacío.</p>
+     */
+    public AccesoModel() {
+	this(null, null);
+    }
 
-	/**
-	 * <p>Constructor vac�o.</p>
-	 */
-	public AccesoModel() {
-		this(null, null);
-	}
+    /**
+     * <p>Constructor con todos los atributos de la clase.</p>
+     *
+     * @param usuario    {@link String} el identificador
+     * @param contrasena {@link String} la contraseña correspondiente al identificador
+     */
+    public AccesoModel(String usuario, String contrasena) {
+	super();
+	this.usuario = new SimpleStringProperty(usuario);
+	this.contrasena = new SimpleStringProperty(contrasena);
+    }
 
-	/**
-	 * <p>Constructor con todos los atributos de la clase.</p>
-	 *
-	 * @param usuario {@link String} el identificador
-	 * @param contrasena {@link String} la contrase�a correspondiente al identificador
-	 */
-	public AccesoModel(String usuario, String contrasena) {
-		super();
-		this.usuario = new SimpleStringProperty(usuario);
-		this.contrasena = new SimpleStringProperty(contrasena);
-	}
+    public StringProperty getUsuario() {
+	return usuario;
+    }
 
-	public StringProperty getUsuario() {
-		return usuario;
-	}
-
-	public StringProperty getContrasena() {
-		return contrasena;
-	}
+    public StringProperty getContrasena() {
+	return contrasena;
+    }
 
 }

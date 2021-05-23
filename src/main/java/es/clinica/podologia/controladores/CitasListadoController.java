@@ -1,11 +1,16 @@
 package es.clinica.podologia.controladores;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
-import es.clinica.podologia.javafx.jfxsupport.GUIState;
-import es.clinica.podologia.utilidades.Utilidades;
+import es.clinica.podologia.modelos.CitasModel;
+import es.clinica.podologia.servicios.CitasService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 /**
  * <p>Controlador para el listado de citas.</p>
@@ -16,14 +21,41 @@ import javafx.fxml.FXML;
 @FXMLController
 public class CitasListadoController {
     
-    @Value("${citas.listado.consulta.titulo}")
-    private String tituloVista;
+    @FXML
+    private TextField identificadorTextField;
+    
+    @FXML
+    private DatePicker fechaDesdeDatePicker;
+    
+    @FXML
+    private DatePicker fechaHastaDatePicker;
+    
+    @FXML
+    private TextField pacienteTextField;
+    
+    @FXML
+    private TextField sanitarioTextField;
+    
+    @FXML
+    private TextField tratamientoTextField;
+
+    @FXML
+    private Button aceptarButton;
+    
+    @FXML
+    private Button cancelarButton;
+    
+    @Autowired
+    private CitasService citasService;
+    
+    
     
     @FXML
     public void initialize() {
 	
-	// Aplicar el título de la vista
-        GUIState.getStage().setTitle(Utilidades.comprobarCadena(tituloVista, ""));
+	List<CitasModel> listado = citasService.listarCitas();
+	
+	listado.isEmpty();
         
     }
 

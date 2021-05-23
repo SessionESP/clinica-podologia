@@ -19,7 +19,7 @@
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font></Label>
-            <TextField fx:id="nombreTextField" layoutX="186.0" layoutY="40.0" prefHeight="40.0" prefWidth="220.0" promptText="*" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="120.0">
+            <TextField fx:id="identificadorTextField" layoutX="186.0" layoutY="40.0" prefHeight="40.0" prefWidth="220.0" promptText="*" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="120.0">
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font></TextField>
@@ -28,7 +28,7 @@
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="nombreTextField1" layoutX="196.0" layoutY="130.0" prefHeight="40.0" prefWidth="220.0" promptText="*" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="180.0">
+            <TextField fx:id="pacienteTextField" layoutX="196.0" layoutY="130.0" prefHeight="40.0" prefWidth="220.0" promptText="*" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="180.0">
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="nombreTextField11" layoutX="584.0" layoutY="180.0" prefHeight="40.0" prefWidth="220.0" promptText="*" AnchorPane.leftAnchor="640.0" AnchorPane.topAnchor="180.0">
+            <TextField fx:id="sanitarioTextField" layoutX="584.0" layoutY="180.0" prefHeight="40.0" prefWidth="220.0" promptText="*" AnchorPane.leftAnchor="640.0" AnchorPane.topAnchor="180.0">
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
@@ -48,7 +48,7 @@
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="nombreTextField111" layoutX="216.0" layoutY="150.0" prefHeight="40.0" prefWidth="220.0" promptText="*" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
+            <TextField fx:id="tratamientoTextField" layoutX="216.0" layoutY="150.0" prefHeight="40.0" prefWidth="220.0" promptText="*" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font>

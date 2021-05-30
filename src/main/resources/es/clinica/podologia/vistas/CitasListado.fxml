@@ -58,22 +58,17 @@
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
-            <DatePicker fx:id="fechaDesdeDatePicker" prefHeight="40.0" prefWidth="120.0" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="120.0" />
+            <DatePicker fx:id="fechaDesdeDatePicker" editable="false" prefHeight="40.0" prefWidth="120.0" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="120.0" />
             <Label fx:id="nombreLabel11111" layoutX="70.0" layoutY="170.0" prefHeight="40.0" prefWidth="60.0" text="Hasta" textAlignment="RIGHT" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="120.0">
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
-            <DatePicker fx:id="fechaHastaDatePicker" prefHeight="40.0" prefWidth="120.0" AnchorPane.leftAnchor="740.0" AnchorPane.topAnchor="120.0" />
-            <Button fx:id="aceptarButton" layoutX="326.0" layoutY="269.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Aceptar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="250.0">
+            <DatePicker fx:id="fechaHastaDatePicker" editable="false" prefHeight="40.0" prefWidth="120.0" AnchorPane.leftAnchor="740.0" AnchorPane.topAnchor="120.0" />
+            <Button fx:id="buscarButton" layoutX="1150.0" layoutY="107.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Buscar" AnchorPane.bottomAnchor="753.0" AnchorPane.leftAnchor="1150.0">
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font></Button>
-            <Button fx:id="cancelarButton" layoutX="200.0" layoutY="410.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Cancelar" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="250.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font>
-            </Button>
             <TableView fx:id="citasTableView" layoutX="137.0" layoutY="331.0" prefHeight="200.0" prefWidth="715.0" stylesheets="@../estilos/tableViewStyles.css" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
               <columns>
                 <TableColumn fx:id="identificadorColumn" prefWidth="160.0" text="Identificador de la cita" />
@@ -85,6 +80,8 @@
                   <TableColumn fx:id="horaFinColumn" prefWidth="100.0" text="Hora de fin" />
               </columns>
             </TableView>
+            <Pagination fx:id="paginacionTabla" layoutX="451.0" layoutY="818.0" prefHeight="40.0" prefWidth="400.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="440.0" />
+            <ComboBox fx:id="tamanioPaginacion" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefWidth="50.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="20.0" />
 
          </children>
       </AnchorPane>

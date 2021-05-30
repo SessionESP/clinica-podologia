@@ -1,11 +1,11 @@
 package es.clinica.podologia.modelos;
 
 /**
- * <p>Modelo para la tabla {@code tratamientos}.</p>
+ * <p>Modelo para la tabla {@code pacientes}.</p>
  *
  * @author Ignacio Rafael
  *
  */
-public class TratamientosModel {
+public class PacientesModelo {
 
 }

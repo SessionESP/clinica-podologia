@@ -16,7 +16,7 @@ import javafx.beans.property.StringProperty;
  * @author Ignacio Rafael
  *
  */
-public class CitasModel {
+public class CitasModelo {
     
     private IntegerProperty idCita;
 
@@ -37,7 +37,7 @@ public class CitasModel {
     /**
      * <p>Constructor vacío.</p>
      */
-    public CitasModel() {
+    public CitasModelo() {
 	this.idCita = new SimpleIntegerProperty();
 	this.paciente = new SimpleStringProperty();
 	this.sanitario = new SimpleStringProperty();

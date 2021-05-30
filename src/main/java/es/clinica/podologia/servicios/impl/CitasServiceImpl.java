@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.entidades.Citas;
-import es.clinica.podologia.modelos.CitasModel;
+import es.clinica.podologia.modelos.CitasModelo;
 import es.clinica.podologia.repositorios.CitasRepository;
 import es.clinica.podologia.servicios.CitasService;
 import es.clinica.podologia.utilidades.Utilidades;
+import es.clinica.podologia.utilidades.UtilidadesConversores;
 
 /**
  * <p>Implementación de la interfaz del servicio de la tabla {@code citas}.</p>
@@ -29,7 +30,7 @@ public class CitasServiceImpl implements CitasService {
      * <p>Método que retorna un listado con todos los registros de la vista.</p>
      */
     @Override
-    public List<CitasModel> listarCitas() {
+    public List<CitasModelo> listarCitas() {
 	return listadoEntidadesListadoModelos(citasRepository.findAll());
     }
     
@@ -38,15 +39,15 @@ public class CitasServiceImpl implements CitasService {
      * 
      * @param entidad {@link Citas} entidad que se quiere convertir
      * 
-     * @return {@link CitasModel} modelo resultante
+     * @return {@link CitasModelo} modelo resultante
      * 
      * @see Citas
-     * @see CitasModel
+     * @see CitasModelo
      */
-    private CitasModel entidadModelo(Citas entidad) {
+    private CitasModelo entidadModelo(Citas entidad) {
 	
 	// Inicializar el modelo que se va retornar al final
-	CitasModel modelo = new CitasModel();
+	CitasModelo modelo = new CitasModelo();
 	
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if(entidad != null) {
@@ -55,9 +56,9 @@ public class CitasServiceImpl implements CitasService {
 	    modelo.setPaciente(entidad.getPaciente() != null ? entidad.getPaciente().toString() : Constantes.CADENA_VACIA);
 	    modelo.setSanitario(entidad.getSanitario() != null ? entidad.getSanitario().toString() : Constantes.CADENA_VACIA);
 	    modelo.setTratamiento(entidad.getTratamiento() != null ? entidad.getTratamiento().getNombre() : Constantes.CADENA_VACIA);
-	    modelo.setFecha(Utilidades.cadenaFecha(entidad.getFecha()));
-	    modelo.setHoraDesde(Utilidades.cadenaHora(entidad.getHoraDesde()));
-	    modelo.setHoraHasta(Utilidades.cadenaHora(entidad.getHoraHasta()));
+	    modelo.setFecha(UtilidadesConversores.cadenaFecha(entidad.getFecha()));
+	    modelo.setHoraDesde(UtilidadesConversores.cadenaHora(entidad.getHoraDesde()));
+	    modelo.setHoraHasta(UtilidadesConversores.cadenaHora(entidad.getHoraHasta()));
 	    modelo.setObservaciones(entidad.getObservaciones());
 	    
 	}
@@ -72,14 +73,14 @@ public class CitasServiceImpl implements CitasService {
      * 
      * @param lista {@link List} {@link Citas} listado de entidades que se quiere convertir
      * 
-     * @return {@link List} {@link CitasModel} listado de entidades resultante
+     * @return {@link List} {@link CitasModelo} listado de entidades resultante
      * 
      * @see List#forEach(java.util.function.Consumer)
      */
-    private List<CitasModel> listadoEntidadesListadoModelos(List<Citas> listaEntidades) {
+    private List<CitasModelo> listadoEntidadesListadoModelos(List<Citas> listaEntidades) {
 	
 	// Inicializar el listado de modelos que se va a retornar
-	List<CitasModel> listaModelos = new ArrayList<CitasModel>();
+	List<CitasModelo> listaModelos = new ArrayList<CitasModelo>();
 	
 	// Comprobar que el lsitado de entidades NO es nulo ni está vacío
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {

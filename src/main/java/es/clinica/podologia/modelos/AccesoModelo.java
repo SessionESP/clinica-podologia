@@ -9,7 +9,7 @@ import javafx.beans.property.StringProperty;
  * @author Ignacio Rafael
  *
  */
-public class AccesoModel {
+public class AccesoModelo {
 
     private final StringProperty usuario;
     private final StringProperty contrasena;
@@ -17,7 +17,7 @@ public class AccesoModel {
     /**
      * <p>Constructor vacío.</p>
      */
-    public AccesoModel() {
+    public AccesoModelo() {
 	this(null, null);
     }
 
@@ -27,7 +27,7 @@ public class AccesoModel {
      * @param usuario    {@link String} el identificador
      * @param contrasena {@link String} la contraseña correspondiente al identificador
      */
-    public AccesoModel(String usuario, String contrasena) {
+    public AccesoModelo(String usuario, String contrasena) {
 	super();
 	this.usuario = new SimpleStringProperty(usuario);
 	this.contrasena = new SimpleStringProperty(contrasena);

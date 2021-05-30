@@ -1,8 +1,5 @@
 package es.clinica.podologia.utilidades;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 import org.apache.commons.lang3.StringUtils;
@@ -94,42 +91,6 @@ public class Utilidades {
      */
     public static Boolean comprobarArray(Object[] array) {
 	return array != null && array.length > 0;
-    }
-    
-    
-    /**
-     * <p>Convertir una cadena de caracteres en una fecha.</p>
-     * 
-     * @param cadena {@link String} cadena de caracteres que se quiere convertir
-     * 
-     * @return {@link LocalDate} fecha convertida
-     * 
-     * @see DateTimeFormatter
-     */
-    public static LocalDate cadenaFecha(String cadena) {
-	
-//	DateTimeFormatter formateador = DateTimeFormatter.ISO_LOCAL_DATE;
-	DateTimeFormatter formateador = DateTimeFormatter.ofPattern(Constantes.PATRON_FECHA);
-	return LocalDate.parse(cadena, formateador);
-	
-    }
-    
-    
-    /**
-     * <p>Convertir una cadena de caracteres en una hora.</p>
-     * 
-     * @param cadena {@link String} cadena de caracteres que se quiere convertir
-     * 
-     * @return {@link LocalTime} hora convertida
-     * 
-     * @see DateTimeFormatter
-     */
-    public static LocalTime cadenaHora(String cadena) {
-	
-//	DateTimeFormatter formateador = DateTimeFormatter.ISO_LOCAL_TIME;
-	DateTimeFormatter formateador = DateTimeFormatter.ofPattern(Constantes.PATRON_HORA);
-	return LocalTime.parse(cadena, formateador);
-	
     }
 
 }

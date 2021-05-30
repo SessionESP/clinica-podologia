@@ -1,5 +1,7 @@
 package es.clinica.podologia.constantes;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * <p>Clase de constantes comunes de la aplicación.</p>
  * 
@@ -18,6 +20,7 @@ public class Constantes {
     public static final String CADENA_VACIA = "";
     public static final String ESPACIO = " ";
     
+    public static final String ASTERISCO = "*";
     public static final String PUNTO = ".";
     
     public static final String TITULO = "titulo";
@@ -35,5 +38,7 @@ public class Constantes {
     public static final String PACIENTES = "pacientes";
     public static final String SANITARIOS = "sanitarios";
     public static final String TRATAMIENTOS = "tratamientos";
+    
+    public static final DateTimeFormatter FORMATEADOR_FECHA = DateTimeFormatter.ofPattern(PATRON_FECHA);
 
 }

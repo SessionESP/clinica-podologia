@@ -81,7 +81,7 @@
               </columns>
             </TableView>
             <Pagination fx:id="paginacionTabla" layoutX="451.0" layoutY="818.0" prefHeight="40.0" prefWidth="400.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="440.0" />
-            <ComboBox fx:id="tamanioPaginacion" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefWidth="50.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="20.0" />
+            <ComboBox fx:id="tamanioPaginacionComboBox" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefWidth="50.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="20.0" />
 
          </children>
       </AnchorPane>

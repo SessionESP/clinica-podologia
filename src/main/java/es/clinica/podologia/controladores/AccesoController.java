@@ -10,7 +10,7 @@ import es.clinica.podologia.servicios.AccesoService;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
-import es.clinica.podologia.vistas.CitasListadoView;
+import es.clinica.podologia.vistas.PrincipalEdicionView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -63,7 +63,7 @@ public class AccesoController {
 	if (Boolean.TRUE.equals(autenticado) && Boolean.TRUE.equals(alerta.isPresent()) && alerta.get() == ButtonType.OK) {
 
 	    // Mostrar la vista principal de la aplicación
-	    UtilidadesNavegacion.mostrarVista(CitasListadoView.class, "CitasListadoController", Accion.LISTADO);
+	    UtilidadesNavegacion.mostrarVista(PrincipalEdicionView.class, "PrincipalEdicionController", Accion.EDICION);
 	}
     }
     

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="contenedorPrincipalBorderPane" styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.PrincipalEdicionController">
+   <center>
+      <AnchorPane fx:id="principalAnchorPane" prefHeight="900.0" prefWidth="1600.0" styleClass="panel-default" BorderPane.alignment="CENTER">
+         <children>
+            <TabPane fx:id="principalTabPane" prefHeight="900.0" prefWidth="1600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                  <Tab fx:id="agendaTab" text="Agenda">
+                    <content>
+                      <AnchorPane fx:id="agendaAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab fx:id="citasTab" text="Citas">
+                    <content>
+                      <AnchorPane fx:id="citasAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab fx:id="pacientesTab" text="Pacientes">
+                    <content>
+                      <AnchorPane fx:id="pacientesAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                <Tab fx:id="sanitariosTab" text="Sanitarios">
+                  <content>
+                    <AnchorPane fx:id="sanitariosAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab fx:id="tratamientosTab" text="Tratamientos">
+                  <content>
+                    <AnchorPane fx:id="tratamientosAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children></AnchorPane>
+   </center>
+   <top>
+      <MenuBar fx:id="principalMenuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu fx:id="archivoMenu" mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem fx:id="cerrarMenuItem" mnemonicParsing="false" text="Cerrar" />
+            </items>
+          </Menu>
+          <Menu fx:id="edicionMenu" mnemonicParsing="false" text="Editar">
+            <items>
+              <MenuItem fx:id="eliminarMenuItem" mnemonicParsing="false" text="Eliminar" />
+            </items>
+          </Menu>
+          <Menu fx:id="ayudaMenu" mnemonicParsing="false" text="Ayuda">
+            <items>
+              <MenuItem fx:id="acercaDeMenuItem" mnemonicParsing="false" text="Acerca de" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

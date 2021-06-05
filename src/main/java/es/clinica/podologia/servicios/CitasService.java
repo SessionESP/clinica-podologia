@@ -1,5 +1,6 @@
 package es.clinica.podologia.servicios;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import es.clinica.podologia.modelos.CitasModelo;
@@ -18,5 +19,14 @@ public interface CitasService {
      * @return {@link List} {@link CitasModelo} listado de Citas
      */
     public List<CitasModelo> listarCitas();
+    
+    /**
+     * <p>Método que retorna un listado con todos los registros de la vista para una determinada fecha.</p>
+     * 
+     * @param fecha {@link LocalDate} fecha para la que se quiere buscar las citas
+     * 
+     * @return {@link List} {@link CitasModelo} listado de Citas
+     */
+    public List<CitasModelo> listarCitasPorFecha(LocalDate fecha);
 
 }

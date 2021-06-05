@@ -1,5 +1,6 @@
 package es.clinica.podologia.servicios.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,25 @@ public class CitasServiceImpl implements CitasService {
     @Override
     public List<CitasModelo> listarCitas() {
 	return listadoEntidadesListadoModelos(citasRepository.findAll());
+    }
+    
+    /**
+     * <p>Método que retorna un listado con todos los registros de la vista para una determinada fecha.</p>
+     */
+    @Override
+    public List<CitasModelo> listarCitasPorFecha(LocalDate fecha) {
+	
+	// Inicializar el listado que se va a retornar al final de la ejecución del método
+	List<CitasModelo> listado = new ArrayList<CitasModelo>();
+	
+	// Comprobar que la fecha pasada como prámetro NO es nula
+	if(fecha != null) {
+	    
+	    // Realizar la consulta y conversión
+	    listado = listadoEntidadesListadoModelos(citasRepository.findByFecha(UtilidadesConversores.fechaCadena(fecha)));
+	}
+	
+	return listado;
     }
     
     /**

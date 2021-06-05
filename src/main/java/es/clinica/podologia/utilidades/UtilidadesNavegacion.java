@@ -12,7 +12,9 @@ import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.AbstractFxmlView;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
 import es.clinica.podologia.javafx.jfxsupport.PropertyReaderHelper;
+import es.clinica.podologia.vistas.AgendaEdicionView;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 
@@ -96,13 +98,41 @@ public class UtilidadesNavegacion {
 	    
 	}
     }
-	
+
     /**
-     * <p>Aplicar las propiedades del entorno a la vista.</p>
+     * <p>Método que recupera una vista del contexto.</p>
+     * <p>Implementado para cargar una vista dentro de otra.</p>
      * 
-     * @param contexto {@link ConfigurableApplicationContext} contexto de la
-     *                 aplicación
+     * @param vista {@link AbstractFxmlView} vista que se quiere mostrar
+     * 
+     * @return {@link Parent} nodo donde se encapsula la vista para ser añadida en otra
      */
+    public static Parent cargarVista(final Class<? extends AbstractFxmlView> vista) {
+	
+	// Obtener el contexto de la aplicación
+	ConfigurableApplicationContext contexto = JavaFxApplicationSupport.getContexto();
+	
+	// Inicializar el nodo que se va a retornar al final de la aplicación
+	Parent nodoVista = null;
+
+	try {
+
+	    // Obtener la vista que se quiere mostrar
+	    final AbstractFxmlView vistaJavaFXSpringBoot = contexto.getBean(AgendaEdicionView.class);
+	    nodoVista = vistaJavaFXSpringBoot.getView();
+
+	} catch (Exception excepcion) {
+
+	    trazas.error("La vista no ha podido cargarse: ", excepcion);
+	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+
+	}
+	
+	
+	// Retornar el nodo obtenido
+	return nodoVista;
+	
+    }
 
     /**
      * <p>Aplicar las propiedades del entorno a la vista.</p>
@@ -183,6 +213,7 @@ public class UtilidadesNavegacion {
 	return Boolean.TRUE.equals(Utilidades.comprobarArray(controladorSeparado)) ? controladorSeparado[0].toLowerCase() : Constantes.CADENA_VACIA;
 	
     }
+    
 
 //	private static void showErrorAlert(Throwable throwable) {
 //		Alert alert = new Alert(AlertType.ERROR, "Oops! An unrecoverable error occurred.\n"  + "Please contact your software vendor.\n\n" + "The application will stop now.");

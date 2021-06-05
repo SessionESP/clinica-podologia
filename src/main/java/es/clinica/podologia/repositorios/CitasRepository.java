@@ -1,7 +1,9 @@
 package es.clinica.podologia.repositorios;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import es.clinica.podologia.entidades.Citas;
 
@@ -11,6 +13,18 @@ import es.clinica.podologia.entidades.Citas;
  * @author Ignacio Rafael
  *
  */
-public interface CitasRepository extends PagingAndSortingRepository<Citas, Integer>, JpaRepository<Citas, Integer> {
+@Repository
+public interface CitasRepository extends JpaRepository<Citas, Integer> {
+    
+    /**
+     * <p>Consulta filtrando por la columna CITAS.FECHA</p>
+     * 
+     * @param fecha {@link String} valor de la fecha por el que se quiere filtrar
+     * 
+     * @return {@link List} {@link Citas} listado de CITAS
+     * 
+     * @see Citas
+     */
+    public List<Citas> findByFecha(String fecha);
 
 }

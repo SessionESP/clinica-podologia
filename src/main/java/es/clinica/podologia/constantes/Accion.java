@@ -8,7 +8,7 @@ package es.clinica.podologia.constantes;
  */
 public enum Accion {
 
-    ALTA("Alta"), BAJA("Baja"), CONSULTA("Consulta"), EDICION("Edición"), LISTADO("Listado");
+    ALTA("Alta"), BAJA("Baja"), CONSULTA("Consulta"), EDICION("Edicion"), LISTADO("Listado");
 
     // Atributo con la acción
     public final String nombre;

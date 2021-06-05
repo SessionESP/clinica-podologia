@@ -16,6 +16,7 @@ import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
 import es.clinica.podologia.vistas.AccesoView;
+import es.clinica.podologia.vistas.PrincipalEdicionView;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;

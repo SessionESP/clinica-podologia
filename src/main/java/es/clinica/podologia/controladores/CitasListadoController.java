@@ -76,7 +76,7 @@ public class CitasListadoController {
     
     // Listas desplegables
     @FXML
-    private ComboBox<Integer> tamanioPaginacion;
+    private ComboBox<Integer> tamanioPaginacionComboBox;
     
     
     @Autowired
@@ -91,10 +91,11 @@ public class CitasListadoController {
     @FXML
     public void initialize() {
 	
-	// TODO: no se cargan los valores en la lista desplegable
-	tamanioPaginacion = new ComboBox<>();
-	tamanioPaginacion.getItems().addAll(5, 10, 15);
-	tamanioPaginacion.setValue(5);
+	// no se cargan los valores en la lista desplegable
+	ObservableList<Integer> opciones = FXCollections.observableArrayList();
+        opciones.addAll(5, 10, 15);
+	tamanioPaginacionComboBox = new ComboBox<>(opciones);
+	tamanioPaginacionComboBox.setValue(5);
 	
 	List<CitasModelo> listado = citasService.listarCitas();
 	
@@ -107,12 +108,12 @@ public class CitasListadoController {
 	fechaDesdeDatePicker.setConverter(new RecogedorFechas());
 	fechaHastaDatePicker.setConverter(new RecogedorFechas());
 	
-        int totalPage = (int) (Math.ceil(listadoCitas.size() * 1.0 / tamanioPaginacion.getValue()));
+        int totalPage = (int) (Math.ceil(listadoCitas.size() * 1.0 / tamanioPaginacionComboBox.getValue()));
         paginacionTabla.setPageCount(totalPage);
         paginacionTabla.setCurrentPageIndex(0);
-        cambiarPaginacion(0, tamanioPaginacion.getValue());
+        cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
         paginacionTabla.currentPageIndexProperty().addListener(
-                (observable, oldValue, newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacion.getValue()));
+                (observable, oldValue, newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
         
     }
     
@@ -159,7 +160,7 @@ public class CitasListadoController {
      */
     @FXML
     private void cambiarSeleccionTamanioPaginacion(ActionEvent event) {
-	cambiarPaginacion(0, tamanioPaginacion.getValue());
+	cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
     }
     
     /**
@@ -168,10 +169,23 @@ public class CitasListadoController {
     private void cargarFiltros() {
 	
 	// TODO: NO FUNCIONA. Filtro por el identificador de la cita
-	identificadorTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() ||  cita.getIdCita().equals(UtilidadesConversores.cadenaEntero(newValue)));
-	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacion.getValue());
-	});
+//	identificadorTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+//	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty();
+//	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
+//	});
+	    
+	    identificadorTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+		listadoCitasFiltrado.setPredicate(cita -> {
+	                if (newValue == null || newValue.isEmpty()) {
+	                    return true;
+	                } else if( UtilidadesConversores.enteroCadena(cita.getIdCita()).toLowerCase().contains(newValue)) {
+	                    return true;
+	                }
+	                    
+	                return false;
+	            });
+		cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
+	        });
 	
 	// TODO: NO FUNCIONA. filtros de intervalo de fechas
 	listadoCitasFiltrado.predicateProperty().bind(Bindings.createObjectBinding(() -> {
@@ -181,26 +195,28 @@ public class CitasListadoController {
 
 	    final LocalDate finalMinima = fechaMinima == null ? LocalDate.MIN : fechaMinima;
 	    final LocalDate finalMaxima = fechaMaxima == null ? LocalDate.MAX : fechaMaxima;
+	    
+	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
 
 	    return ti -> !finalMinima.isAfter(ti.getFecha()) && !finalMaxima.isBefore(ti.getFecha());
 	}, fechaDesdeDatePicker.valueProperty(), fechaHastaDatePicker.valueProperty()));
 	
 	// Filtro por el nombre y apellidos del paciente
 	pacienteTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() ||  cita.getPaciente().toLowerCase().contains(newValue.toLowerCase()));
-	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacion.getValue());
+	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getPaciente().toLowerCase().contains(newValue.toLowerCase()));
+	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
 	});
 	
 	// Filtro por el nombre y apellidos del paciente
 	sanitarioTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() ||  cita.getSanitario().toLowerCase().contains(newValue.toLowerCase()));
-	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacion.getValue());
+	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getSanitario().toLowerCase().contains(newValue.toLowerCase()));
+	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
 	});
 	
 	// Filtro por el nombre del tratamiento del paciente
 	tratamientoTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() ||  cita.getTratamiento().toLowerCase().contains(newValue.toLowerCase()));
-	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacion.getValue());
+	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getTratamiento().toLowerCase().contains(newValue.toLowerCase()));
+	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
 	});
 	
     }

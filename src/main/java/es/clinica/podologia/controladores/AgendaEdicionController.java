@@ -3,6 +3,7 @@ package es.clinica.podologia.controladores;
 import java.time.LocalDate;
 
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
+import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
@@ -30,6 +31,10 @@ public class AgendaEdicionController {
     public void initialize() {
 	
 	fechaDatePicker.setValue(LocalDate.now());
+	
+	fechaDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+            UtilidadesAlertas.mostrarAlertaInformativa("Fecha seleccionada: " + newValue);
+        });
 	
     }
 

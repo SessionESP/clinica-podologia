@@ -4,7 +4,7 @@ import es.clinica.podologia.javafx.jfxsupport.AbstractFxmlView;
 import es.clinica.podologia.javafx.jfxsupport.FXMLView;
 
 /**
- * <p>Vista del listado principal de la aplicación con las citas.</p>
+ * <p>Vista del listado general de citas.</p>
  * 
  * @author Ignacio Rafael
  *

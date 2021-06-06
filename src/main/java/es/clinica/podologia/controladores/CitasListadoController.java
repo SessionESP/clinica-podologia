@@ -28,7 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 /**
- * <p>Controlador para el listado de citas.</p>
+ * <p>Controlador para el listado de Citas.</p>
  *
  * @author Ignacio Rafael
  *

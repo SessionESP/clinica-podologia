@@ -118,7 +118,7 @@ public class UtilidadesNavegacion {
 	try {
 
 	    // Obtener la vista que se quiere mostrar
-	    final AbstractFxmlView vistaJavaFXSpringBoot = contexto.getBean(AgendaEdicionView.class);
+	    final AbstractFxmlView vistaJavaFXSpringBoot = contexto.getBean(vista);
 	    nodoVista = vistaJavaFXSpringBoot.getView();
 
 	} catch (Exception excepcion) {

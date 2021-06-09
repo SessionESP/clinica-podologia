@@ -36,6 +36,7 @@ public class CitasModelo {
     
     /**
      * <p>Constructor vacío.</p>
+     * <p>Inicializa todos los atributos de la clase para evitar {@code NullPointerException}.</p>
      */
     public CitasModelo() {
 	this.idCita = new SimpleIntegerProperty();

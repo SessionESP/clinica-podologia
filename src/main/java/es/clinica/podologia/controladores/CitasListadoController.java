@@ -174,32 +174,32 @@ public class CitasListadoController {
 //	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
 //	});
 	    
-	    identificadorTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-		listadoCitasFiltrado.setPredicate(cita -> {
-	                if (newValue == null || newValue.isEmpty()) {
-	                    return true;
-	                } else if( UtilidadesConversores.enteroCadena(cita.getIdCita()).toLowerCase().contains(newValue)) {
-	                    return true;
-	                }
-	                    
-	                return false;
-	            });
-		cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
-	        });
+//	    identificadorTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+//		listadoCitasFiltrado.setPredicate(cita -> {
+//	                if (newValue == null || newValue.isEmpty()) {
+//	                    return true;
+//	                } else if( UtilidadesConversores.enteroCadena(cita.getIdCita()).toLowerCase().contains(newValue)) {
+//	                    return true;
+//	                }
+//	                    
+//	                return false;
+//	            });
+//		cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
+//	        });
 	
 	// TODO: NO FUNCIONA. filtros de intervalo de fechas
-	listadoCitasFiltrado.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-
-	    LocalDate fechaMinima = fechaDesdeDatePicker.getValue();
-	    LocalDate fechaMaxima = fechaHastaDatePicker.getValue();
-
-	    final LocalDate finalMinima = fechaMinima == null ? LocalDate.MIN : fechaMinima;
-	    final LocalDate finalMaxima = fechaMaxima == null ? LocalDate.MAX : fechaMaxima;
-	    
-	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
-
-	    return ti -> !finalMinima.isAfter(ti.getFecha()) && !finalMaxima.isBefore(ti.getFecha());
-	}, fechaDesdeDatePicker.valueProperty(), fechaHastaDatePicker.valueProperty()));
+//	listadoCitasFiltrado.predicateProperty().bind(Bindings.createObjectBinding(() -> {
+//
+//	    LocalDate fechaMinima = fechaDesdeDatePicker.getValue();
+//	    LocalDate fechaMaxima = fechaHastaDatePicker.getValue();
+//
+//	    final LocalDate finalMinima = fechaMinima == null ? LocalDate.MIN : fechaMinima;
+//	    final LocalDate finalMaxima = fechaMaxima == null ? LocalDate.MAX : fechaMaxima;
+//	    
+//	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
+//
+//	    return ti -> !finalMinima.isAfter(ti.getFecha()) && !finalMaxima.isBefore(ti.getFecha());
+//	}, fechaDesdeDatePicker.valueProperty(), fechaHastaDatePicker.valueProperty()));
 	
 	// Filtro por el nombre y apellidos del paciente
 	pacienteTextField.textProperty().addListener((observable, oldValue, newValue) -> {

@@ -11,12 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
 import es.clinica.podologia.vistas.AccesoView;
-import es.clinica.podologia.vistas.PrincipalEdicionView;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -29,7 +29,9 @@ import javafx.stage.StageStyle;
  *
  */
 @SpringBootApplication
-@PropertySource("classpath:es-ES.properties")
+@PropertySources(value = { 
+	@PropertySource("classpath:es-ES.properties"),
+	@PropertySource("classpath:configuracion.properties") })
 public class JavaFxApplicationSupport extends Application {
 
 	private static Logger logger = LoggerFactory.getLogger(JavaFxApplicationSupport.class);

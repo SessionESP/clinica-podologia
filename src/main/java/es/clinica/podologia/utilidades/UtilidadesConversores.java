@@ -3,6 +3,7 @@ package es.clinica.podologia.utilidades;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -59,6 +60,28 @@ public class UtilidadesConversores {
 	// Convertir siempre y cuando la cadena de caracteres pasada como parámetro NO sea nula NI esté vacía
 	return entero != null ? String.valueOf(entero) : null;
 	
+    }
+    
+    /**
+     * <p>Convertir un {@code Long} a {@code Integer}.</p>
+     * 
+     * @param numero {@link Long} valor que se quiere convertir
+     * 
+     * @return {@link Integer} valor convertido
+     */
+    public static Integer longEntero(Long numero) {
+	return numero != null ? Math.toIntExact(numero) : null ;
+    }
+    
+    /**
+     * <p>Convertir un {@code Long} a {@code Integer}.</p>
+     * 
+     * @param numero {@link Integer} valor que se quiere convertir
+     * 
+     * @return {@link Long} valor convertido
+     */
+    public static Long enteroLong(Integer numero) {
+	return numero != null ? numero.longValue() : null;
     }
     
     // NÚMEROS ENTEROS - FIN
@@ -128,10 +151,33 @@ public class UtilidadesConversores {
      * 
      * @see DateTimeFormatter
      */
-    public static String horaCadena(LocalDate fecha) {
+    public static String horaCadena(LocalTime hora) {
 	
 	// Convertir siempre y cuando el la fecha pasada como parámetro de entrada NO sea nula
-	return fecha != null ? formateadorHora.format(fecha) : Constantes.CADENA_VACIA;
+	return hora != null ? formateadorHora.format(hora) : Constantes.CADENA_VACIA;
+	
+    }
+    
+    /**
+     * <p>Diferencia de minutos entre dos horas.</p>
+     * 
+     * @param horaInicio {@link LocalTime} primera hora
+     * @param horaFin {@link LocalTime} segunda hora
+     * 
+     * @return {@link Integer} número de minutos entre las dos horas
+     */
+    public static Integer diferenciaMinutos(LocalTime horaInicio, LocalTime horaFin) {
+	
+	// Inicializar el entero que se retornará al fina del método
+	Integer diferencia = null;
+	
+	// Comprobar que ambos parámetros de entrada NO son nulos
+	if(horaInicio != null && horaFin != null) {
+	    diferencia = longEntero(ChronoUnit.MINUTES.between(horaInicio, horaFin));
+	}
+	
+	// Retornar el la diferencia entre las dos horas
+	return diferencia;
 	
     }
     

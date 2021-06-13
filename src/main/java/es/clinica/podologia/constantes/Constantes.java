@@ -29,7 +29,7 @@ public class Constantes {
     public static final String REDIMENSIONABLE = "redimensionable";
     
     public static final String PATRON_FECHA = "dd/MM/yyyy";
-    public static final String PATRON_HORA = "HH:MM";
+    public static final String PATRON_HORA = "HH:mm";
     public static final String PATRON_MAYUSCULAS = "(?<!^)(?=[A-Z])";
     
     public static final String ACCESO = "citas";

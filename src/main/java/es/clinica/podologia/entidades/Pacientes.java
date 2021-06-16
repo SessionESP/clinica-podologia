@@ -96,7 +96,9 @@ public class Pacientes {
     }
 
     /**
-     * <p>Nombre y apellidos formateados</p>
+     * <p>
+     * Nombre y apellidos formateados
+     * </p>
      */
     @Override
     public String toString() {

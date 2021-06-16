@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
+<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.PacientesListadoController">
+   <center>
+      <AnchorPane prefHeight="480.0" prefWidth="800.0" styleClass="panel-default" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="tituloLabel" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" text="Listado de pacientes" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="descripcionLabel" layoutX="346.0" layoutY="114.0" prefHeight="40.0" text="Descripción" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="120.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font></Label>
+            <TextArea fx:id="descripcionTextArea" disable="true" layoutX="174.0" layoutY="189.0" prefHeight="200.0" prefWidth="500.0" promptText="Descripción del tratamiento" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font></TextArea>
+            <Button fx:id="seleccionarButton" layoutX="326.0" layoutY="269.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" text="Seleccionar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="250.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font></Button>
+            <Button fx:id="cancelarButton" layoutX="200.0" layoutY="410.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Cancelar" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="250.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+            </Button>
+            <TableView fx:id="tratamientosListView" layoutX="59.0" layoutY="140.0" prefHeight="240.0" prefWidth="240.0" stylesheets="@../estilos/tableViewStyles.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
+              <columns>
+                <TableColumn fx:id="nombreColumn" prefWidth="200.0" text="Nombre" />
+              </columns>
+            </TableView>
 
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

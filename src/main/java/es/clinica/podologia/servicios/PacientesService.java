@@ -2,7 +2,7 @@ package es.clinica.podologia.servicios;
 
 import java.util.List;
 
-import es.clinica.podologia.entidades.Pacientes;
+import es.clinica.podologia.modelos.PacientesModelo;
 
 /**
  * <p>Interfaz del servicio de la tabla {@code pacientes}.</p>
@@ -15,8 +15,8 @@ public interface PacientesService {
     /**
      * <p>Método que retorna un listado con todos los registros de la vista.</p>
      * 
-     * @return {@link List} {@link Pacientes} listado de Pacientes
+     * @return {@link List} {@link PacientesModelo} listado de Pacientes
      */
-    public List<Pacientes> listarPacientes();
+    public List<PacientesModelo> listarPacientes();
 
 }

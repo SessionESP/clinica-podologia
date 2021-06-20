@@ -34,7 +34,7 @@ import javafx.stage.StageStyle;
 	@PropertySource("classpath:configuracion.properties") })
 public class JavaFxApplicationSupport extends Application {
 
-	private static Logger logger = LoggerFactory.getLogger(JavaFxApplicationSupport.class);
+	private static Logger trazas = LoggerFactory.getLogger(JavaFxApplicationSupport.class);
 	private static ConfigurableApplicationContext contexto;
 	private static List<Image> iconos = new ArrayList<>();
 
@@ -54,9 +54,9 @@ public class JavaFxApplicationSupport extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		GUIState.setStage(primaryStage);
-		GUIState.setHostServices(this.getHostServices());
-		mostrarVistaInicial();
+	    GUIState.setStage(primaryStage);
+	    GUIState.setHostServices(this.getHostServices());
+	    mostrarVistaInicial();
 		
 	}
 

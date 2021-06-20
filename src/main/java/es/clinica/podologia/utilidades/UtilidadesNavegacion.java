@@ -140,7 +140,7 @@ public class UtilidadesNavegacion {
      * @param controlador {@link String} cadena de caracteres que identifica el controlador
      * @param accion {@link Accion} cadena de caracteres identifica la acción con la que se va a abrir la vista
      */
-    private static void aplicarPropiedadesEntornoVista(ConfigurableApplicationContext contexto, String controlador, Accion accion) {
+    public static void aplicarPropiedadesEntornoVista(ConfigurableApplicationContext contexto, String controlador, Accion accion) {
 
 	PropertyReaderHelper.setIfPresent(
 		contexto.getEnvironment(), 

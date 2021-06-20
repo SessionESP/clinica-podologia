@@ -75,6 +75,13 @@ public class ConfiguracionEdicionController {
 	
 	TRAZAS.debug("Vista de: " + this.getClass().getName());
 	
+	aperturaComboBox.setValue(apertura);
+	cierreComboBox.setValue(cierre);
+	duracionCitasComboBox.setValue(duracionCitas);
+	eliminacionPasadasComboBox.setValue(tipoEliminacion);
+	tipoEliminacionComboBox.setValue(tipoEliminacion);
+	diasEliminacionComboBox.setValue(diasEliminacion);
+	
     }
     
     @FXML

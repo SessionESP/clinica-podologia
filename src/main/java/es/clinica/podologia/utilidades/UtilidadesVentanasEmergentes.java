@@ -1,8 +1,7 @@
-/**
- * 
- */
 package es.clinica.podologia.utilidades;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import es.clinica.podologia.JavaFxApplicationSupport;
@@ -13,10 +12,7 @@ import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 
 /**
- * <p>
- * Clase con métodos estáticos para invocar ventanas emergentes de uso común a
- * lo largo de toda la aplicación.
- * </p>
+ * <p>Clase con métodos estáticos para invocar ventanas emergentes de uso común a lo largo de toda la aplicación.</p>
  * 
  * @author Ignacio Rafael
  * 
@@ -24,42 +20,76 @@ import javafx.stage.Stage;
  *
  */
 public class UtilidadesVentanasEmergentes {
+    
+    // Trazas
+    private static Logger trazas = LoggerFactory.getLogger(UtilidadesVentanasEmergentes.class);
+    
+    /**
+     * <p>Constructor privado vacío.</p>
+     */
+    private UtilidadesVentanasEmergentes() {
+	throw new IllegalStateException("Constructor privado de la clase de utilidades de navegación.");
+    }
 
-    private static Stage dialogStage;
+    private static Stage dialogStage = new Stage();
     private static Scene dialogScene;
 
     /**
-     * <p>
-     * Método para abrir una vista dentro de una ventana emergente.
-     * </p>
+     * <p>Método para abrir una vista dentro de una ventana emergente.</p>
      * 
      * @param vista       {@link AbstractFxmlView} vista que se quiere mostrar
-     * @param controlador {@link String} cadena de caracteres que identifica el
-     *                    controlador
-     * @param accion      {@link Accion} cadena de caracteres identifica la acción
-     *                    con la que se va a abrir la vista
+     * @param controlador {@link String} cadena de caracteres que identifica el controlador
+     * @param accion      {@link Accion} cadena de caracteres identifica la acción con la que se va a abrir la vista
      */
-    public static void abrirVentanaEmergente(final Class<? extends AbstractFxmlView> vista, String controlador,
+    public static void abrirVentanaEmergente(
+	    final Class<? extends AbstractFxmlView> vista, 
+	    String controlador,
 	    Accion accion) {
 
 	// Obtener el contexto de la aplicación
 	ConfigurableApplicationContext contexto = JavaFxApplicationSupport.getContexto();
+	
+	try {
 
-	// Obtener la vista que se quiere mostrar
-	final AbstractFxmlView vistaJavaFXSpringBoot = contexto.getBean(vista);
+	    // Obtener la vista que se quiere mostrar
+	    final AbstractFxmlView vistaJavaFXSpringBoot = contexto.getBean(vista);
 
-	dialogStage = new Stage();
+	    // Comprobar si la escena está vacía
+	    if (dialogScene == null) {
+		// Si está vacía, se creará una nueva escena
+		dialogScene = new Scene(vistaJavaFXSpringBoot.getView());
+	    } else {
+		// En caso de que no esté vacía, se sustituirá por la ruta de la vista que se quiere mostrar
+		dialogScene.setRoot(vistaJavaFXSpringBoot.getView());
+	    }
 
-	dialogScene = new Scene(vistaJavaFXSpringBoot.getView());
-	dialogStage.setTitle("Dialog");
-	dialogStage.setScene(dialogScene);
-	dialogStage.show();
+	    // Aplicar la escena resultante
+	    dialogStage.setScene(dialogScene);
+
+	    // Aplicar propiedades del entorno a la vista
+	    UtilidadesNavegacion.aplicarPropiedadesEntornoVista(contexto, controlador, accion);
+
+	    // Añadir los iconos a la vista
+	    dialogStage.getIcons().addAll(JavaFxApplicationSupport.getIconos());
+
+	    // Mostrar el diálogo
+	    dialogStage.show();
+
+	} catch (Exception excepcion) {
+
+	    trazas.error("La ventana emergente no ha podido abrirse: ", excepcion);
+	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+
+	}
+
+
     }
-    
+
+    /**
+     * <p>Método para cerrar la ventana emergente activa.</p>
+     */
     public static void cerrarVentanaEmergente() {
 	dialogStage.hide();
-	dialogStage.setScene(null);
-	dialogScene = null;
     }
 
 }

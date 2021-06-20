@@ -57,7 +57,7 @@
             <items>
               <MenuItem fx:id="acercaDeMenuItem" mnemonicParsing="false" text="Acerca de" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="configuracionMenuItem" mnemonicParsing="false" text="Configuración" />
+                  <MenuItem fx:id="configuracionMenuItem" mnemonicParsing="false" onAction="#abrirConfiguracion" text="Configuración" />
             </items>
           </Menu>
         </menus>

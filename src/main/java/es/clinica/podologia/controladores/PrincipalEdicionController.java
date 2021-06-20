@@ -1,9 +1,12 @@
 package es.clinica.podologia.controladores;
 
+import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
+import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import es.clinica.podologia.vistas.AgendaEdicionView;
 import es.clinica.podologia.vistas.CitasListadoView;
+import es.clinica.podologia.vistas.ConfiguracionEdicionView;
 import es.clinica.podologia.vistas.PacientesListadoView;
 import es.clinica.podologia.vistas.SanitariosListadoView;
 import es.clinica.podologia.vistas.TratamientosListadoView;
@@ -50,6 +53,13 @@ public class PrincipalEdicionController {
 	
 	tratamientosAnchorPane.getChildren().add(UtilidadesNavegacion.cargarVista(TratamientosListadoView.class));
 
+    }
+    
+    @FXML
+    private void abrirConfiguracion() {
+	
+	UtilidadesVentanasEmergentes.abrirVentanaEmergente(ConfiguracionEdicionView.class, "ConfiguracionEdicionController", Accion.EDICION);
+	
     }
 
 }

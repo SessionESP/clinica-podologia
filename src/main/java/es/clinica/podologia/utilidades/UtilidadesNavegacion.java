@@ -12,7 +12,6 @@ import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.AbstractFxmlView;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
 import es.clinica.podologia.javafx.jfxsupport.PropertyReaderHelper;
-import es.clinica.podologia.vistas.AgendaEdicionView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

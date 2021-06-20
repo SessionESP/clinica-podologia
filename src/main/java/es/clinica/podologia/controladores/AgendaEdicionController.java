@@ -54,7 +54,7 @@ public class AgendaEdicionController {
     @Value("${clinica.horario.cierre}")
     private LocalTime cierre;
     
-    @Value("${horario.duracion.citas}")
+    @Value("${clinica.citas.duracion}")
     private Integer duracionCitas;
     
     @Value("${agenda.edicion.columna1}")

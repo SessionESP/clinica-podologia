@@ -42,8 +42,8 @@
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <ComboBox fx:id="aperturaComboBox" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" />
-                                                <ComboBox fx:id="cierreComboBox" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <ComboBox fx:id="aperturaComboBox" onAction="#cambiarApertura" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" />
+                                                <ComboBox fx:id="cierreComboBox" onAction="#cambiarCierre" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
                                        </children>
@@ -66,7 +66,6 @@
                                               <RowConstraints maxHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
                                               <RowConstraints maxHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
                                               <RowConstraints maxHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                                                <RowConstraints maxHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
                                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" text="Duración de las citas">
@@ -79,20 +78,22 @@
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" text="Tipo de eliminación" GridPane.rowIndex="2">
+                                                <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" text="Eliminación física" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" text="Días de eliminacón" GridPane.rowIndex="3">
+                                                <ComboBox fx:id="duracionCitasComboBox" onAction="#cambiarDuracionCitas" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" />
+                                                <CheckBox fx:id="eliminacionCitasCheckBox" layoutX="295.0" layoutY="103.0" mnemonicParsing="false" onAction="#eliminarCitas" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
-                                                </Label>
-                                                <ComboBox fx:id="duracionCitasComboBox" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" />
-                                                <ComboBox fx:id="tipoEliminacionComboBox" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                <ComboBox fx:id="diasEliminacionComboBox" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                <ComboBox fx:id="eliminacionPasadasComboBox" prefHeight="40.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                </CheckBox>
+                                                <CheckBox fx:id="eliminacionFisicaCheckBox" mnemonicParsing="false" onAction="#eliminarFisicamente" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Comic Sans MS" size="18.0" />
+                                                   </font>
+                                                </CheckBox>
                                              </children>
                                           </GridPane>
                                        </children>

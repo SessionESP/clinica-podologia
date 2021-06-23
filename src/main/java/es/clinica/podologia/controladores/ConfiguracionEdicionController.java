@@ -1,20 +1,14 @@
 package es.clinica.podologia.controladores;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
-import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.event.ActionEvent;
@@ -23,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * <p>Controlador para la configuración de la aplicación.</p>
@@ -35,19 +30,19 @@ public class ConfiguracionEdicionController {
     
     private static final Logger TRAZAS = LoggerFactory.getLogger(ConfiguracionEdicionController.class);
     
-    @Value("${clinica.horario.apertura}")
+    @Value("${clinica.horario.apertura:09:00}")
     private LocalTime apertura;
     
-    @Value("${clinica.horario.cierre}")
+    @Value("${clinica.horario.cierre:21:00}")
     private LocalTime cierre;
     
-    @Value("${clinica.citas.duracion}")
+    @Value("${clinica.citas.duracion:30}")
     private Integer duracionCitas;
     
-    @Value("${clinica.citas.eliminacion.pasadas}")
+    @Value("${clinica.citas.eliminacion.pasadas:true}")
     private Boolean eliminacionCitas;
     
-    @Value("${clinica.citas.eliminacion.fisica}")
+    @Value("${clinica.citas.eliminacion.fisica:false}")
     private Boolean eliminacionFisica;
     
     @FXML
@@ -57,7 +52,7 @@ public class ConfiguracionEdicionController {
     private ComboBox<LocalTime> cierreComboBox;
     
     @FXML
-    private ComboBox<Integer> duracionCitasComboBox;
+    private TextField duracionCitasTextField;
     
     @FXML
     private CheckBox eliminacionCitasCheckBox;
@@ -73,7 +68,6 @@ public class ConfiguracionEdicionController {
     
     
     
-    
     /**
      * <p>Método que se ejecuta al inicializarse la vista de la configuración de la aplicación.</p>
      */
@@ -82,10 +76,14 @@ public class ConfiguracionEdicionController {
 	
 	TRAZAS.debug("Vista de: " + this.getClass().getName());
 	
+	// Listas desplegables con el horario de la clínica
 	cargarHorarios();
-	duracionCitasComboBox.setValue(duracionCitas);
-	eliminacionCitasCheckBox.setSelected(eliminacionCitas);
-	eliminacionFisicaCheckBox.setSelected(eliminacionFisica);
+	
+	// Duración de las citas
+	cargarDuracionCitas();
+
+	// Configuración del borrado de citas pasadas
+	cargarConfiguracionEliminacionCitas();
 	
     }
     
@@ -183,6 +181,24 @@ public class ConfiguracionEdicionController {
     }
     
     /**
+     * <p>Método que carga la duración de las citas desde el fichero de configuración e inicializa su formateador.</p>
+     */
+    private void cargarDuracionCitas() {
+	
+	duracionCitasTextField.setText(UtilidadesConversores.enteroCadena(duracionCitas));
+	
+    }
+    
+    /**
+     * <p>Método que carga la configuración de la eliminación de citas de la base de datos.</p>
+     */
+    private void cargarConfiguracionEliminacionCitas() {
+	
+	eliminacionCitasCheckBox.setSelected(eliminacionCitas);
+	eliminacionFisicaCheckBox.setSelected(eliminacionFisica);
+    }
+    
+    /**
      * <p>Método que guarda una propiedad en el archivo donde se guardan las propiedades de {@code configuration.properties}. </p>
      * 
      * @param nombre {@link String} identificador de la propiedad
@@ -190,21 +206,24 @@ public class ConfiguracionEdicionController {
      */
     private void guardarPropiedad(String nombre, String valor) {
 	
-        try (OutputStream ficheroSalida = new FileOutputStream("classpath:configuracion.properties")) {
-
-            Properties propiedad = new Properties();
-            
-	    if (StringUtils.isNotBlank(nombre)) {
-		
-		propiedad.setProperty(nombre, valor);
-		propiedad.store(ficheroSalida, null);
-
-	    }
-
-        } catch (IOException excepcion) {
-            TRAZAS.debug(excepcion.getMessage());
-            UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
-        }
+//	PropertiesConfiguration properties = new PropertiesConfiguration("C://demo//config.properties");
+//	
+//        try {
+//
+//            Properties propiedades = new Properties();
+//            propiedades.load(ConfiguracionEdicionController.class.getClassLoader().getResourceAsStream("configuracion.properties"));
+//            
+//	    if (StringUtils.isNotBlank(nombre)) {
+//		
+//		propiedades.setProperty(nombre, valor);
+//		propiedades.store(null, valor);
+//
+//	    }
+//
+//        } catch (IOException excepcion) {
+//            TRAZAS.debug(excepcion.getMessage());
+//            UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+//        }
 	
     }
 

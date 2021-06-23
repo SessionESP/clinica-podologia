@@ -28,9 +28,10 @@ public class Constantes {
     public static final String ANCHURA = "anchura";
     public static final String REDIMENSIONABLE = "redimensionable";
     
-    public static final String PATRON_FECHA = "dd/MM/yyyy";
-    public static final String PATRON_HORA = "HH:mm";
+    public static final String PATRON_FECHA = "dd-MM-yyyy";
+    public static final String PATRON_HORA = "HH:mm:ss";
     public static final String PATRON_MAYUSCULAS = "(?<!^)(?=[A-Z])";
+    public static final String PATRON_NUMEROS_ENTEROS = "\\d+";
     
     public static final String ACCESO = "citas";
     public static final String CITAS = "citas";

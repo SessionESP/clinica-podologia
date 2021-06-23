@@ -31,7 +31,7 @@ import javafx.stage.StageStyle;
 @SpringBootApplication
 @PropertySources(value = { 
 	@PropertySource("classpath:es-ES.properties"),
-	@PropertySource("classpath:configuracion.properties") })
+	@PropertySource("classpath:rutas.properties") })
 public class JavaFxApplicationSupport extends Application {
 
 	private static Logger trazas = LoggerFactory.getLogger(JavaFxApplicationSupport.class);

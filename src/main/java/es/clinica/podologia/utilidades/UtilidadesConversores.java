@@ -182,5 +182,32 @@ public class UtilidadesConversores {
     }
     
     // HORAS - FIN
+    
+    
+    // BOOLEANO - INICIO
+    
+    /**
+     * <p>Convertir un {@code Boolean} en una cadena que represente su valor.</p>
+     * 
+     * @param booleano {@link Boolean} objeto booleano
+     * 
+     * @return {@link String} cadena de caracteres correspondiente al valor del objeto booleano
+     */
+    public static String booleanoCadena(Boolean booleano) {
+	return booleano != null ? booleano.toString() : Constantes.CADENA_VACIA;
+    }
+    
+    /**
+     * <p>Convertir una cadena de caracteres en un {@code Booleano}.</p>
+     * 
+     * @param cadenaBooleana {@link String} cadena de caracteres que represente un valor posible
+     * @return {@link Boolean} booleano correspondiente
+     */
+    public static Boolean cadenaBooleano(String cadenaBooleana) {
+	return StringUtils.isNotBlank(cadenaBooleana) ? Boolean.valueOf(cadenaBooleana) : null;
+    }
+    
+    
+    // BOOLEANO - INICIO
 
 }

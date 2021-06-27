@@ -1,8 +1,12 @@
 package es.clinica.podologia.controladores;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
+import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
@@ -50,6 +55,9 @@ public class ConfiguracionEdicionController {
     @Value("${clinica.citas.eliminacion.fisica:false}")
     private Boolean eliminacionFisica;
     
+    @Value("${configuracion.edicion.error}")
+    private String errorGuardado;
+    
     @FXML
     private ComboBox<LocalTime> aperturaComboBox;
     
@@ -79,8 +87,6 @@ public class ConfiguracionEdicionController {
     @FXML
     public void initialize() {
 	
-	TRAZAS.debug("Vista de: " + this.getClass().getName());
-	
 	// Listas desplegables con el horario de la clínica
 	cargarHorarios();
 	
@@ -100,21 +106,20 @@ public class ConfiguracionEdicionController {
     @FXML
     private void cambiarApertura(Event evento) {
 	apertura = aperturaComboBox.getSelectionModel().getSelectedItem();
-	guardarPropiedad("clinica.horario.apertura", UtilidadesConversores.horaCadena(aperturaComboBox.getSelectionModel().getSelectedItem()));
     }
     
     /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#aperturaComboBox}</p>
+     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#cierreComboBox}</p>
      * 
      * @param evento {@link ActionEvent} parámetro con la información asociada al evento
      */
     @FXML
     private void cambiarCierre(Event evento) {
-	TRAZAS.debug("cambiarCierre: ");
+	cierre = cierreComboBox.getSelectionModel().getSelectedItem();
     }
     
     /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#aperturaComboBox}</p>
+     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#duracionCitasTextField}</p>
      * 
      * @param evento {@link ActionEvent} parámetro con la información asociada al evento
      */
@@ -124,7 +129,7 @@ public class ConfiguracionEdicionController {
     }
     
     /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#aperturaComboBox}</p>
+     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#eliminacionCitasCheckBox}</p>
      * 
      * @param evento {@link ActionEvent} parámetro con la información asociada al evento
      */
@@ -134,7 +139,7 @@ public class ConfiguracionEdicionController {
     }
     
     /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#aperturaComboBox}</p>
+     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#eliminacionFisicaCheckBox}</p>
      * 
      * @param evento {@link ActionEvent} parámetro con la información asociada al evento
      */
@@ -148,7 +153,7 @@ public class ConfiguracionEdicionController {
      */
     @FXML
     private void guardar() {
-	TRAZAS.debug("guardar: ");
+	guardarPropiedades();
     }
     
     /**
@@ -205,32 +210,35 @@ public class ConfiguracionEdicionController {
     }
     
     /**
-     * <p>Método que guarda una propiedad en el archivo donde se guardan las propiedades de {@code configuration.properties}. </p>
+     * <p>Método que guarda todas las propiedades de la ventana.</p>
      * 
-     * @param nombre {@link String} identificador de la propiedad
-     * @param valor {@link String} nuevo valor que se asignará a la propiedad
+     * TODO: usar librería de Apache Commons Configuration
      */
-    private void guardarPropiedad(String nombre, String valor) {
-	
-//	PropertiesConfiguration properties = new PropertiesConfiguration(url);
-//	
-//        try {
-//
-//            Properties propiedades = new Properties();
-//            propiedades.load(ConfiguracionEdicionController.class.getClassLoader().getResourceAsStream("configuracion.properties"));
-//            
-//	    if (StringUtils.isNotBlank(nombre)) {
-//		
-//		propiedades.setProperty(nombre, valor);
-//		propiedades.store(null, valor);
-//
-//	    }
-//
-//        } catch (IOException excepcion) {
-//            TRAZAS.debug(excepcion.getMessage());
-//            UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
-//        }
-	
+    private void guardarPropiedades() {
+
+	// Abrir el fichero de propiedades
+	try (OutputStream salida = new FileOutputStream(propiedadesExternas)) {
+
+	    // Instanciar el objeto de propiedades
+	    Properties propiedades = new Properties();
+
+	    // Asignar los valores correspondientes a la propiedades
+	    propiedades.setProperty("clinica.horario.apertura", UtilidadesConversores.horaCadena(apertura));
+	    propiedades.setProperty("clinica.horario.cierre", UtilidadesConversores.horaCadena(cierre));
+	    propiedades.setProperty("clinica.citas.duracion", UtilidadesConversores.enteroCadena(duracionCitas));
+	    propiedades.setProperty("clinica.citas.eliminacion.pasadas", UtilidadesConversores.booleanoCadena(eliminacionCitas));
+	    propiedades.setProperty("clinica.citas.eliminacion.fisica", UtilidadesConversores.booleanoCadena(eliminacionFisica));
+
+	    // Guardar las propiedades
+	    propiedades.store(salida, null);
+
+	} catch (IOException excepcion) {
+
+	    // Error en caso de que no se pueda abrir el fichero de propiedades
+	    TRAZAS.error(excepcion.getMessage());
+	    excepcion.printStackTrace();
+	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	}
     }
 
 }

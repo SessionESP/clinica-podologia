@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
+import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
+import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.event.ActionEvent;
@@ -29,6 +31,9 @@ import javafx.scene.control.TextField;
 public class ConfiguracionEdicionController {
     
     private static final Logger TRAZAS = LoggerFactory.getLogger(ConfiguracionEdicionController.class);
+    
+    @Value("${spring.config.import}")
+    private String propiedadesExternas;
     
     @Value("${clinica.horario.apertura:09:00}")
     private LocalTime apertura;
@@ -185,6 +190,7 @@ public class ConfiguracionEdicionController {
      */
     private void cargarDuracionCitas() {
 	
+	duracionCitasTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_NUMEROS_ENTEROS, 2));
 	duracionCitasTextField.setText(UtilidadesConversores.enteroCadena(duracionCitas));
 	
     }
@@ -206,7 +212,7 @@ public class ConfiguracionEdicionController {
      */
     private void guardarPropiedad(String nombre, String valor) {
 	
-//	PropertiesConfiguration properties = new PropertiesConfiguration("C://demo//config.properties");
+//	PropertiesConfiguration properties = new PropertiesConfiguration(url);
 //	
 //        try {
 //

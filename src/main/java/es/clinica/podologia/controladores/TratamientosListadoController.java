@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.TratamientosService;
-import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,7 +24,7 @@ import javafx.fxml.FXML;
 @FXMLController
 public class TratamientosListadoController {
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(TratamientosListadoController.class);
+    private static final Logger TRAZAS = LoggerFactory.getLogger(TratamientosListadoController.class);
     
     @Autowired
     private TratamientosService tratamientosService;
@@ -46,13 +45,13 @@ public class TratamientosListadoController {
     @FXML
     public void initialize() {
 	
-	UtilidadesAlertas.mostrarAlertaInformativa("Vista de: " + this.getClass().getName());
+	TRAZAS.info("Vista de: " + this.getClass().getName());
 	
 	List<TratamientosModelo> listado = tratamientosService.listarTratamientos();
 	
 	listadoTratamientos.addAll(listado);
 	
-	LOGGER.info("Se han recuperado " + listado.size() + " tratamientos.");
+	TRAZAS.info("Se han recuperado " + listado.size() + " tratamientos.");
 	
     }
     

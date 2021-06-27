@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.clinica.podologia.formateadores.CitasModeloFecha;
-import es.clinica.podologia.formateadores.RecogedorFechas;
+import es.clinica.podologia.formateadores.DatePickerFormatted;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.CitasModelo;
 import es.clinica.podologia.servicios.CitasService;
@@ -105,8 +105,8 @@ public class CitasListadoController {
 	
 	citasTableView.setItems(listadoCitas);
 	
-	fechaDesdeDatePicker.setConverter(new RecogedorFechas());
-	fechaHastaDatePicker.setConverter(new RecogedorFechas());
+	fechaDesdeDatePicker.setConverter(new DatePickerFormatted());
+	fechaHastaDatePicker.setConverter(new DatePickerFormatted());
 	
         int totalPage = (int) (Math.ceil(listadoCitas.size() * 1.0 / tamanioPaginacionComboBox.getValue()));
         paginacionTabla.setPageCount(totalPage);

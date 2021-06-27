@@ -1,7 +1,9 @@
 package es.clinica.podologia.controladores;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
-import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import javafx.fxml.FXML;
 
 /**
@@ -13,13 +15,15 @@ import javafx.fxml.FXML;
 @FXMLController
 public class PacientesEdicionController {
     
+    private static final Logger TRAZAS = LoggerFactory.getLogger(PacientesEdicionController.class);
+    
     /**
      * <p>Método que se ejecuta al inicializarse la vista de la edición de Pacientes.</p>
      */
     @FXML
     public void initialize() {
 	
-	UtilidadesAlertas.mostrarAlertaInformativa("Vista de: " + this.getClass().getName());
+	TRAZAS.info("Vista de: " + this.getClass().getName());
 	
     }
 

@@ -1,6 +1,7 @@
 package es.clinica.podologia.constantes;
 
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 /**
  * <p>Clase de constantes comunes de la aplicación.</p>
@@ -31,7 +32,7 @@ public class Constantes {
     public static final String PATRON_FECHA = "dd-MM-yyyy";
     public static final String PATRON_HORA = "HH:mm:ss";
     public static final String PATRON_MAYUSCULAS = "(?<!^)(?=[A-Z])";
-    public static final String PATRON_NUMEROS_ENTEROS = "\\d+";
+    public static final Pattern PATRON_NUMEROS_ENTEROS = Pattern.compile("\\d*");
     
     public static final String ACCESO = "citas";
     public static final String CITAS = "citas";

@@ -1,5 +1,8 @@
 package es.clinica.podologia.controladores;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
@@ -21,6 +24,8 @@ import javafx.scene.layout.AnchorPane;
  */
 @FXMLController
 public class PrincipalEdicionController {
+    
+    private static final Logger TRAZAS = LoggerFactory.getLogger(PrincipalEdicionController.class);
 
     @FXML
     private AnchorPane agendaAnchorPane;

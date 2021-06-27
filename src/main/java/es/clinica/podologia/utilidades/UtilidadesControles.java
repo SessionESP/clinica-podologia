@@ -1,5 +1,10 @@
 package es.clinica.podologia.utilidades;
 
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
+
+import es.clinica.podologia.constantes.Constantes;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -40,6 +45,25 @@ public class UtilidadesControles {
 	// Si llega aquí, es que alguno de los parámetros es nulo o no se ha pulsado la tecla, se retorna false
 	return Boolean.FALSE;
 
+    }
+    
+    /**
+     * <p>Método que genera un formateador para una caja de texto.</p>
+     * 
+     * @param patron {@link Pattern} patrón por el que se filtrará
+     * @param numeroCaracteres {@link Integer} número máximo de caracteres del campo
+     * 
+     * @return {@link TextFormatter} {@link String} 
+     */
+    public static TextFormatter<String> formateador(Pattern patron, Integer numeroCaracteres) {
+	
+	UnaryOperator<TextFormatter.Change> filtro = 
+		cambios -> 
+			cambios.getControlNewText().matches(patron.toString()) && cambios.getControlNewText().length() <= numeroCaracteres ? 
+			cambios : 
+			null;
+	return new TextFormatter<>(filtro);
+	
     }
 
 }

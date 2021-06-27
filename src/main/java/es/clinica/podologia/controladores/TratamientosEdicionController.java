@@ -1,5 +1,7 @@
 package es.clinica.podologia.controladores;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
@@ -18,6 +20,8 @@ import javafx.scene.control.TextField;
  */
 @FXMLController
 public class TratamientosEdicionController {
+    
+    private static final Logger TRAZAS = LoggerFactory.getLogger(TratamientosEdicionController.class);
     
     @Value("${tratamientos.listado.alta.titulo}")
     private String tituloAltaVista;

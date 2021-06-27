@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.constantes.Constantes;
-import es.clinica.podologia.formateadores.RecogedorFechas;
+import es.clinica.podologia.formateadores.DatePickerFormatted;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.SanitariosModelo;
 import es.clinica.podologia.servicios.SanitariosService;
@@ -73,7 +73,7 @@ public class AgendaEdicionController {
             UtilidadesAlertas.mostrarAlertaInformativa("Fecha seleccionada: " + newValue);
         });
 	
-	fechaDatePicker.setConverter(new RecogedorFechas());
+	fechaDatePicker.setConverter(new DatePickerFormatted());
 	
 	generarTabla();
 	

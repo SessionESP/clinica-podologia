@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.SanitariosModelo;
 import es.clinica.podologia.servicios.SanitariosService;
-import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,7 +23,7 @@ import javafx.fxml.FXML;
 @FXMLController
 public class SanitariosListadoController {
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(SanitariosListadoController.class);
+    private static final Logger TRAZAS = LoggerFactory.getLogger(SanitariosListadoController.class);
     
     @Autowired
     private SanitariosService sanitariosService;
@@ -39,13 +38,13 @@ public class SanitariosListadoController {
     @FXML
     public void initialize() {
 	
-	UtilidadesAlertas.mostrarAlertaInformativa("Vista de: " + this.getClass().getName());
+	TRAZAS.info("Vista de: " + this.getClass().getName());
 	
 	List<SanitariosModelo> listado = sanitariosService.listarSanitarios();
 	
 	listadoSanitarios.addAll(listado);
 	
-	LOGGER.info("Se han recuperado " + listado.size() + " sanitarios.");
+	TRAZAS.info("Se han recuperado " + listado.size() + " sanitarios.");
 	
     }
 

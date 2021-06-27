@@ -24,7 +24,7 @@ import javafx.fxml.FXML;
 @FXMLController
 public class PacientesListadoController {
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(PacientesListadoController.class);
+    private static final Logger TRAZAS = LoggerFactory.getLogger(PacientesListadoController.class);
     
     @Autowired
     private PacientesService pacientesService;
@@ -39,13 +39,13 @@ public class PacientesListadoController {
     @FXML
     public void initialize() {
 	
-	UtilidadesAlertas.mostrarAlertaInformativa("Vista de: " + this.getClass().getName());
+	TRAZAS.info("Vista de: " + this.getClass().getName());
 	
 	List<PacientesModelo> listado = pacientesService.listarPacientes();
 	
 	listadoPacientes.addAll(listado);
 	
-	LOGGER.info("Se han recuperado " + listado.size() + " pacientes.");
+	TRAZAS.info("Se han recuperado " + listado.size() + " pacientes.");
 	
     }
 

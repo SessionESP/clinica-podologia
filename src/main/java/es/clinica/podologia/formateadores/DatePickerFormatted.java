@@ -11,12 +11,12 @@ import javafx.util.StringConverter;
  * @author Ignacio Rafael
  *
  */
-public class RecogedorFechas extends StringConverter<LocalDate> {
+public class DatePickerFormatted extends StringConverter<LocalDate> {
     
     /**
      * <p>Constructor vacío de la clase.</p>
      */
-    public RecogedorFechas() {
+    public DatePickerFormatted() {
 	// Constructor vacío de la clase
     }
 

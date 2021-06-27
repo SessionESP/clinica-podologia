@@ -2,6 +2,8 @@ package es.clinica.podologia.controladores;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.clinica.podologia.constantes.Accion;
@@ -29,6 +31,8 @@ import javafx.scene.input.KeyEvent;
  */
 @FXMLController
 public class AccesoController {
+    
+    private static final Logger TRAZAS = LoggerFactory.getLogger(AccesoController.class);
 
     @FXML
     private TextField usuarioTextField;

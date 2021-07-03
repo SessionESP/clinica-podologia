@@ -65,8 +65,6 @@ public class AgendaEdicionController {
     
     private Integer duracionCitas;
     
-    private FileBasedConfigurationBuilder<FileBasedConfiguration> constructor;
-    
     
     /**
      * <p>Método que se ejecuta al inicializarse la vista de la agenda de la aplicación.</p>
@@ -75,7 +73,7 @@ public class AgendaEdicionController {
     public void initialize() {
 	
 	// Inicializar el constructor con los parámetros del fichero externo
-	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas, Constantes.COMA);
+	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas, Constantes.COMA);
 	
 	try {
 

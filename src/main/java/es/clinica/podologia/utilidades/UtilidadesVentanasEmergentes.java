@@ -89,6 +89,15 @@ public class UtilidadesVentanasEmergentes {
 
 
     }
+    
+    /**
+     * <p>Método que retorna el {@code Stage} de la ventana emergente.</p>
+     * 
+     * @return {@link Stage} donde se ubica al ventana emergente
+     */
+    public static Stage getDialogStage() {
+        return dialogStage;
+    }
 
     /**
      * <p>Método para cerrar la ventana emergente activa.</p>

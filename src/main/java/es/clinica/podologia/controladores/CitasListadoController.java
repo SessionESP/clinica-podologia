@@ -11,8 +11,6 @@ import es.clinica.podologia.formateadores.DatePickerFormatted;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.CitasModelo;
 import es.clinica.podologia.servicios.CitasService;
-import es.clinica.podologia.utilidades.UtilidadesConversores;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

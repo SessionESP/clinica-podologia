@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
+import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import es.clinica.podologia.vistas.AgendaEdicionView;
@@ -60,10 +61,23 @@ public class PrincipalEdicionController {
 
     }
     
+    /**
+     * <p>Método que abre la configuración de la aplicación.</p>
+     */
     @FXML
     private void abrirConfiguracion() {
 	
 	UtilidadesVentanasEmergentes.abrirVentanaEmergente(ConfiguracionEdicionView.class, "ConfiguracionEdicionController", Accion.EDICION);
+	
+    }
+    
+    /**
+     * <p>Método que abre la información principal de la aplicación.</p>
+     */
+    @FXML
+    private void abrirAcercaDe() {
+	
+	UtilidadesAlertas.mostrarAlertaConfirmacion("Podología y fisioterapia 1.0. https://github.com/SessionESP/clinica-podologia.");
 	
     }
 

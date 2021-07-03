@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
 import es.clinica.podologia.utilidades.Utilidades;
+import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -23,10 +24,10 @@ public class TratamientosEdicionController {
     
     private static final Logger TRAZAS = LoggerFactory.getLogger(TratamientosEdicionController.class);
     
-    @Value("${tratamientos.listado.alta.titulo}")
+    @Value("${tratamientos.alta.titulo}")
     private String tituloAltaVista;
     
-    @Value("${tratamientos.listado.edicion.titulo}")
+    @Value("${tratamientos.edicion.titulo}")
     private String tituloEdicionVista;
 
     @FXML
@@ -48,17 +49,25 @@ public class TratamientosEdicionController {
     public void initialize() {
 	
 	// Aplicar el título de la vista
-        GUIState.getStage().setTitle(Utilidades.comprobarCadena(tituloAltaVista, ""));
+	UtilidadesVentanasEmergentes.getDialogStage().setTitle(Utilidades.comprobarCadena(tituloAltaVista, ""));
         
     }
     
+    /**
+     * <p>Método invocado como un evento para guardar el tratamiento.</p>
+     */
     @FXML
     private void aceptarTratamiento() {
 
     }
     
+    /**
+     * <p>Método invocado como un evento para cerrar la ventana emergente.</p>
+     */
     @FXML
     private void cancelarTratamiento() {
+	
+	UtilidadesVentanasEmergentes.cerrarVentanaEmergente();
 
     }
 

@@ -55,7 +55,7 @@
           </Menu>
           <Menu fx:id="ayudaMenu" mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem fx:id="acercaDeMenuItem" mnemonicParsing="false" text="Acerca de" />
+              <MenuItem fx:id="acercaDeMenuItem" mnemonicParsing="false" onAction="#abrirAcercaDe" text="Acerca de" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="configuracionMenuItem" mnemonicParsing="false" onAction="#abrirConfiguracion" text="Configuración" />
             </items>

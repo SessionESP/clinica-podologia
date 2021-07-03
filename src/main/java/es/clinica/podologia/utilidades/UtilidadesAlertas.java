@@ -2,9 +2,11 @@ package es.clinica.podologia.utilidades;
 
 import java.util.Optional;
 
+import es.clinica.podologia.JavaFxApplicationSupport;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 
 /**
  * <p>Clase con métodos estáticos para invocar alertas de uso común a lo largo de toda la aplicación.</p>
@@ -34,6 +36,7 @@ public class UtilidadesAlertas {
      */
     public static Optional<ButtonType> mostrarAlerta(AlertType tipoAlerta, String mensaje, ButtonType... botones) {
 	Alert alerta = new Alert(tipoAlerta, Utilidades.comprobarCadena(mensaje, ""), botones);
+	((Stage) alerta.getDialogPane().getScene().getWindow()).getIcons().addAll(JavaFxApplicationSupport.getIconos());
 	return alerta.showAndWait();
     }
     
@@ -48,6 +51,7 @@ public class UtilidadesAlertas {
      */
     public static Optional<ButtonType> mostrarAlertaPlana(String mensaje) {
 	Alert alerta = new Alert(AlertType.NONE, Utilidades.comprobarCadena(mensaje, ""));
+	((Stage) alerta.getDialogPane().getScene().getWindow()).getIcons().addAll(JavaFxApplicationSupport.getIconos());
 	return alerta.showAndWait();
     }
     
@@ -62,6 +66,7 @@ public class UtilidadesAlertas {
      */
     public static Optional<ButtonType> mostrarAlertaInformativa(String mensaje) {
 	Alert alerta = new Alert(AlertType.INFORMATION, Utilidades.comprobarCadena(mensaje, ""));
+	((Stage) alerta.getDialogPane().getScene().getWindow()).getIcons().addAll(JavaFxApplicationSupport.getIconos());
 	return alerta.showAndWait();
     }
     
@@ -76,6 +81,7 @@ public class UtilidadesAlertas {
      */
     public static Optional<ButtonType> mostrarAlertaAdvertencia(String mensaje) {
 	Alert alerta = new Alert(AlertType.WARNING, Utilidades.comprobarCadena(mensaje, ""));
+	((Stage) alerta.getDialogPane().getScene().getWindow()).getIcons().addAll(JavaFxApplicationSupport.getIconos());
 	return alerta.showAndWait();
     }
     
@@ -90,6 +96,7 @@ public class UtilidadesAlertas {
      */
     public static Optional<ButtonType> mostrarAlertaConfirmacion(String mensaje) {
 	Alert alerta = new Alert(AlertType.CONFIRMATION, Utilidades.comprobarCadena(mensaje, ""));
+	((Stage) alerta.getDialogPane().getScene().getWindow()).getIcons().addAll(JavaFxApplicationSupport.getIconos());
 	return alerta.showAndWait();
     }
     
@@ -104,6 +111,7 @@ public class UtilidadesAlertas {
      */
     public static Optional<ButtonType> mostrarAlertaError(String mensaje) {
 	Alert alerta = new Alert(AlertType.ERROR, Utilidades.comprobarCadena(mensaje, ""));
+	((Stage) alerta.getDialogPane().getScene().getWindow()).getIcons().addAll(JavaFxApplicationSupport.getIconos());
 	return alerta.showAndWait();
     }
 

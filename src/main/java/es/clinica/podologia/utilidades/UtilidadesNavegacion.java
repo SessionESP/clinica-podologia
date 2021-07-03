@@ -16,6 +16,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 /**
  * <p>Clase con métodos estáticos para la navegación entre vistas.</p>
@@ -69,7 +70,7 @@ public class UtilidadesNavegacion {
 	    GUIState.getStage().setScene(GUIState.getScene());
 	    
 	    // Aplicar propiedades del entorno a la vista
-	    aplicarPropiedadesEntornoVista(contexto, controlador, accion);
+	    aplicarPropiedadesEntornoVista(GUIState.getStage(), contexto, controlador, accion);
 	    
 	    // Añadir los iconos a la vista
 	    GUIState.getStage().getIcons().addAll(JavaFxApplicationSupport.getIconos());
@@ -136,40 +137,41 @@ public class UtilidadesNavegacion {
     /**
      * <p>Aplicar las propiedades del entorno a la vista.</p>
      * 
+     * @param stage {@link Stage} stage donde se ubicará la ventana
      * @param contexto {@link ConfigurableApplicationContext} contexto de la aplicación
      * @param controlador {@link String} cadena de caracteres que identifica el controlador
      * @param accion {@link Accion} cadena de caracteres identifica la acción con la que se va a abrir la vista
      */
-    public static void aplicarPropiedadesEntornoVista(ConfigurableApplicationContext contexto, String controlador, Accion accion) {
+    public static void aplicarPropiedadesEntornoVista(Stage stage, ConfigurableApplicationContext contexto, String controlador, Accion accion) {
 
 	PropertyReaderHelper.setIfPresent(
 		contexto.getEnvironment(), 
 		obtenerSubmenuAccion(controlador, accion).add(Constantes.TITULO).toString(), 
 		String.class, 
-		GUIState.getStage()::setTitle);
+		stage::setTitle);
 	
 	PropertyReaderHelper.setIfPresent(
 		contexto.getEnvironment(), 
 		obtenerSubmenuAccion(controlador, accion).add(Constantes.ALTURA).toString(), 
 		Double.class, 
-		GUIState.getStage()::setHeight);
+		stage::setHeight);
 	
 	PropertyReaderHelper.setIfPresent(
 		contexto.getEnvironment(), 
 		obtenerSubmenuAccion(controlador, accion).add(Constantes.ANCHURA).toString(), 
 		Double.class, 
-		GUIState.getStage()::setWidth);
+		stage::setWidth);
 	
 	PropertyReaderHelper.setIfPresent(
 		contexto.getEnvironment(), 
 		obtenerSubmenuAccion(controlador, accion).add(Constantes.REDIMENSIONABLE).toString(), 
 		Boolean.class, 
-		GUIState.getStage()::setResizable);
+		stage::setResizable);
 	
 	// Colocar la ventana en el centro de la pantalla
         Rectangle2D tamanioPantalla = Screen.getPrimary().getVisualBounds();
-        GUIState.getStage().setX((tamanioPantalla.getWidth() - GUIState.getStage().getWidth()) / 2); 
-        GUIState.getStage().setY((tamanioPantalla.getHeight() - GUIState.getStage().getHeight()) / 2);  
+        stage.setX((tamanioPantalla.getWidth() - stage.getWidth()) / 2); 
+        stage.setY((tamanioPantalla.getHeight() - stage.getHeight()) / 2);  
 	
     }
     
@@ -212,11 +214,5 @@ public class UtilidadesNavegacion {
 	return Boolean.TRUE.equals(Utilidades.comprobarArray(controladorSeparado)) ? controladorSeparado[0].toLowerCase() : Constantes.CADENA_VACIA;
 	
     }
-    
-
-//	private static void showErrorAlert(Throwable throwable) {
-//		Alert alert = new Alert(AlertType.ERROR, "Oops! An unrecoverable error occurred.\n"  + "Please contact your software vendor.\n\n" + "The application will stop now.");
-//		alert.showAndWait().ifPresent(response -> Platform.exit());
-//	}
 
 }

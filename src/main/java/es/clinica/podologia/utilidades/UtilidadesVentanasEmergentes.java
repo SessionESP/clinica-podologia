@@ -56,18 +56,22 @@ public class UtilidadesVentanasEmergentes {
 
 	    // Comprobar si la escena está vacía
 	    if (dialogScene == null) {
+		
 		// Si está vacía, se creará una nueva escena
 		dialogScene = new Scene(vistaJavaFXSpringBoot.getView());
+		
 	    } else {
+		
 		// En caso de que no esté vacía, se sustituirá por la ruta de la vista que se quiere mostrar
 		dialogScene.setRoot(vistaJavaFXSpringBoot.getView());
+		
 	    }
 
 	    // Aplicar la escena resultante
 	    dialogStage.setScene(dialogScene);
 
 	    // Aplicar propiedades del entorno a la vista
-	    UtilidadesNavegacion.aplicarPropiedadesEntornoVista(contexto, controlador, accion);
+	    UtilidadesNavegacion.aplicarPropiedadesEntornoVista(dialogStage, contexto, controlador, accion);
 
 	    // Añadir los iconos a la vista
 	    dialogStage.getIcons().addAll(JavaFxApplicationSupport.getIconos());
@@ -78,6 +82,7 @@ public class UtilidadesVentanasEmergentes {
 	} catch (Exception excepcion) {
 
 	    trazas.error("La ventana emergente no ha podido abrirse: ", excepcion);
+	    excepcion.printStackTrace();
 	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
 
 	}

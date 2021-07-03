@@ -5,6 +5,10 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.configuration2.FileBasedConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import es.clinica.podologia.servicios.SanitariosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
+import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -34,7 +39,7 @@ import javafx.scene.layout.AnchorPane;
 @FXMLController
 public class AgendaEdicionController {
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(AgendaEdicionController.class);
+    private static final Logger TRAZAS = LoggerFactory.getLogger(AgendaEdicionController.class);
     
     @FXML
     private AnchorPane agendaAnchorPane;
@@ -48,17 +53,19 @@ public class AgendaEdicionController {
     @Autowired
     private SanitariosService sanitariosService;
     
-    @Value("${clinica.horario.apertura}")
-    private LocalTime apertura;
-    
-    @Value("${clinica.horario.cierre}")
-    private LocalTime cierre;
-    
-    @Value("${clinica.citas.duracion}")
-    private Integer duracionCitas;
+    @Value("${spring.config.import}")
+    private String propiedadesExternas;
     
     @Value("${agenda.edicion.columna1}")
     private String columna1;
+    
+    private LocalTime apertura;
+    
+    private LocalTime cierre;
+    
+    private Integer duracionCitas;
+    
+    private FileBasedConfigurationBuilder<FileBasedConfiguration> constructor;
     
     
     /**
@@ -66,6 +73,43 @@ public class AgendaEdicionController {
      */
     @FXML
     public void initialize() {
+	
+	// Inicializar el constructor con los parámetros del fichero externo
+	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas, Constantes.COMA);
+	
+	try {
+
+	    // Comprobar que el constructor y los parámetros NO son nulos
+	    if (constructor != null && constructor.getConfiguration() != null) {
+
+		// Guardar la información del fichero de configuración en un objeto
+		FileBasedConfiguration configuracion = constructor.getConfiguration();
+
+		// Hora de apertura
+		apertura = UtilidadesConversores.cadenaHora(configuracion.getString(
+			Constantes.CONFIGURACION_HORA_APERTURA, 
+			Constantes.CONFIGURACION_APERTURA_DEFECTO));
+
+		// Hora de cierre
+		cierre = UtilidadesConversores.cadenaHora(configuracion.getString(
+			Constantes.CONFIGURACION_HORA_CIERRE, 
+			Constantes.CONFIGURACION_CIERRE_DEFECTO));
+
+		// Duración de las citas en minutos
+		duracionCitas = configuracion.getInteger(
+			Constantes.CONFIGURACION_DURACION, 
+			Constantes.CONFIGURACION_DURACION_DEFECTO);
+
+	    }
+
+	} catch (ConfigurationException excepcion) {
+
+	    // Error al intentar guardar las propiedades del fichero en un objeto
+	    TRAZAS.error(excepcion.getMessage());
+	    excepcion.printStackTrace();
+	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+
+	}
 	
 	fechaDatePicker.setValue(LocalDate.now());
 	

@@ -22,6 +22,7 @@ public class Constantes {
     public static final String ESPACIO = " ";
     
     public static final String ASTERISCO = "*";
+    public static final String COMA = ",";
     public static final String PUNTO = ".";
     
     public static final String TITULO = "titulo";
@@ -40,6 +41,16 @@ public class Constantes {
     public static final String PACIENTES = "pacientes";
     public static final String SANITARIOS = "sanitarios";
     public static final String TRATAMIENTOS = "tratamientos";
+    
+    public static final String CONFIGURACION_HORA_APERTURA = "clinica.horario.apertura";
+    public static final String CONFIGURACION_HORA_CIERRE = "clinica.horario.cierre";
+    public static final String CONFIGURACION_DURACION = "clinica.citas.duracion";
+    public static final String CONFIGURACION_ELIMINACION_CITAS_PASADAS = "clinica.citas.eliminacion.pasadas";
+    public static final String CONFIGURACION_ELIMINACION_FISICA_CITAS = "clinica.citas.eliminacion.fisica";
+    
+    public static final String CONFIGURACION_APERTURA_DEFECTO = "09:00:00";
+    public static final String CONFIGURACION_CIERRE_DEFECTO = "21:00:00";
+    public static final Integer CONFIGURACION_DURACION_DEFECTO = 30;
     
     public static final DateTimeFormatter FORMATEADOR_FECHA = DateTimeFormatter.ofPattern(PATRON_FECHA);
 

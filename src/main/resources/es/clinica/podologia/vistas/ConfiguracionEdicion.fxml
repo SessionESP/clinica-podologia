@@ -93,7 +93,7 @@
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </CheckBox>
-                                                <TextField fx:id="duracionCitasTextField" prefHeight="40.0" prefWidth="120.0" promptText="en minutos" GridPane.columnIndex="1">
+                                                <TextField fx:id="duracionCitasTextField" onKeyTyped="#cambiarDuracionCitas" prefHeight="40.0" prefWidth="120.0" promptText="en minutos" GridPane.columnIndex="1">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>

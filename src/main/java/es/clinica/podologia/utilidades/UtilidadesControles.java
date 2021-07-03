@@ -3,7 +3,6 @@ package es.clinica.podologia.utilidades;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-import es.clinica.podologia.constantes.Constantes;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

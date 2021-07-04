@@ -1,6 +1,7 @@
 package es.clinica.podologia.utilidades;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -91,6 +92,19 @@ public class Utilidades {
      */
     public static Boolean comprobarArray(Object[] array) {
 	return array != null && array.length > 0;
+    }
+    
+    /**
+     * <p>Método que comprueba si una mapa es <b>NULO</b> o está vacío.</p>
+     * 
+     * @param coleccion {@link Map} mapa que se quiere comprobar
+     * 
+     * @return {@link Boolean} retorna {@code true} en caso de que el mapa <b>NO</b> sea nulo <b>NI</b> esté vacío
+     * 
+     * @see Map
+     */
+    public static Boolean comprobarMapa(Map<?, ?> mapa) {
+	return mapa != null && !mapa.isEmpty();
     }
 
 }

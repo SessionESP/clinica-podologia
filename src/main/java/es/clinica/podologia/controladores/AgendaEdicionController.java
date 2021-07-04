@@ -138,6 +138,9 @@ public class AgendaEdicionController {
      */
     private void generarColumnas() {
 	
+	// Limpiar la tabla de columnas anteriores, por si las tuviera (caso de refrescar la vista)
+	agendaTableView.getColumns().clear();
+	
 	// Genera la primera columna con las horas
 	generarColumna(agendaTableView, columna1, 0);
 	
@@ -190,6 +193,9 @@ public class AgendaEdicionController {
 	
 	// Calcular el número de filas que se van a generar
 	Integer numeroFilas = Math.floorDiv(UtilidadesConversores.diferenciaMinutos(apertura, cierre), duracionCitas);
+	
+	// Limpiar la tabla de filas anteriores, por si las tuviera (caso de refrescar la vista)
+	agendaTableView.getItems().clear();
 	
 	// Iterar sobre el número de filas obtenido
 	for (int i = 0; i < numeroFilas; i++) {

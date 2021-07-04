@@ -10,9 +10,10 @@ import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import es.clinica.podologia.JavaFxApplicationSupport;
+import es.clinica.podologia.componentes.BeansComponent;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
@@ -20,7 +21,6 @@ import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -39,6 +39,9 @@ import javafx.scene.control.TextField;
 public class ConfiguracionEdicionController {
     
     private static final Logger TRAZAS = LoggerFactory.getLogger(ConfiguracionEdicionController.class);
+    
+    @Autowired
+    private BeansComponent beansComponent;
     
     @Value("${spring.config.import}")
     private String propiedadesExternas;
@@ -185,6 +188,8 @@ public class ConfiguracionEdicionController {
     private void salir() {
 	initialize();
 	UtilidadesVentanasEmergentes.cerrarVentanaEmergente();
+	AgendaEdicionController controlador = (AgendaEdicionController)beansComponent.obtenerControlador("agendaEdicionController");
+	controlador.initialize();
     }
     
     /**

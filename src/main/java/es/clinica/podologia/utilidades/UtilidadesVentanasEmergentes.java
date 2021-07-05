@@ -9,6 +9,7 @@ import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.javafx.jfxsupport.AbstractFxmlView;
 import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**

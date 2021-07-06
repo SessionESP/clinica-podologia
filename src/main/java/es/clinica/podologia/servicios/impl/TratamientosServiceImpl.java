@@ -2,6 +2,7 @@ package es.clinica.podologia.servicios.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,84 @@ public class TratamientosServiceImpl implements TratamientosService {
      */
     @Override
     public List<TratamientosModelo> listarTratamientos() {
-	return listadoEntidadesListadoModelos(tratamientosRepository.findAll());
+	return convertirListadoEntidadesListadoModelos(tratamientosRepository.findAll());
+    }
+    
+    /**
+     * <p>Método que retorna un registro buscado por su identificador</p>
+     */
+    @Override
+    public TratamientosModelo encontrarTratamiento(Integer identificador) {
+	
+	// Declarar el modelo que se va a retornar al final del método
+	TratamientosModelo modelo = null;
+	
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if(identificador != null) {
+	    
+	    // Recuperar el tratamiento correspondiente a ese identificador
+	    Optional<Tratamientos> entidad = tratamientosRepository.findById(identificador);
+	    
+	    // Convertir la entidad recuperada en un modelo
+	    modelo = convertirEntidadModelo(entidad.isPresent() ? entidad.get() : null);
+	    
+	}
+	
+	// Retornar el modelo
+	return modelo;
+    }
+
+    /**
+     * <p>Método que inserta o actualiza un registro de la tabla.</p>
+     */
+    @Override
+    public Boolean insertarActualizarTratamiento(TratamientosModelo modelo) {
+	
+	// Inicializar el booleano que indicará si la inserción/actualización se ha realizado con éxito
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el modelo pasado como parámetro NO es nulo
+	if (modelo != null) {
+	    
+	    // Convertir el modelo en una entidad
+	    Tratamientos entidad = convertirModeloEntidad(modelo);
+	    
+	    // Guarda la entidad en la base de datos y persiste definitivamente los cambios
+	    resultado = tratamientosRepository.saveAndFlush(entidad) != null;
+	    
+	}
+	
+	// Retornar el resultado de la inserción/actualización
+	return resultado;
+	
+    }
+
+    /**
+     * <p>Método que elimina un registro de la tabla.</p>
+     */
+    @Override
+    public Boolean eliminarTratamiento(Integer identificador) {
+	
+	// Inicializar el booleano que indicará si la eliminación se ha realizado con éxito
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if (identificador != null) {
+	    
+	    // Eliminar el registro que coincida con el identificador
+	    tratamientosRepository.deleteById(identificador);
+	    
+	    // Persistir los cambios
+	    tratamientosRepository.flush();
+	    
+	    // Comprobar si se ha eliminado correctamente
+	    resultado = !tratamientosRepository.existsById(identificador);
+	    
+	}
+	
+	// Retornar el resultado de la eliminación
+	return resultado;
+	
     }
     
     /**
@@ -42,13 +120,16 @@ public class TratamientosServiceImpl implements TratamientosService {
      * @see Tratamientos
      * @see TratamientosModelo
      */
-    private TratamientosModelo entidadModelo(Tratamientos entidad) {
+    private TratamientosModelo convertirEntidadModelo(Tratamientos entidad) {
 	
-	// Inicializar el modelo que se va retornar al final
-	TratamientosModelo modelo = new TratamientosModelo();
+	// Declarar el modelo que se va retornar al final
+	TratamientosModelo modelo = null;
 	
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if(entidad != null) {
+	    
+	    // Inicializar el modelo
+	    modelo = new TratamientosModelo();
 	    
 	    modelo.setIdTratamiento(entidad.getIdTratamiento());
 	    modelo.setNombre(entidad.getNombre());
@@ -62,6 +143,38 @@ public class TratamientosServiceImpl implements TratamientosService {
     }
     
     /**
+     * <p>Método que convierte un objeto de tipo modelo en uno de tipo entidad.<p>
+     * 
+     * @param entidad {@link TratamientosModelo} modelo que se quiere convertir
+     * 
+     * @return {@link Tratamientos} entidad resultante
+     * 
+     * @see TratamientosModelo
+     * @see Tratamientos
+     */
+    private Tratamientos convertirModeloEntidad(TratamientosModelo modelo) {
+	
+	// Declarar la entidad que se va retornar al final
+	Tratamientos entidad = null;
+	
+	// Comprobar que la entidad pasada como parámetro NO es nula
+	if(modelo != null) {
+	    
+	    // Inicializar la entidad
+	    entidad = new Tratamientos();
+	    
+	    entidad.setIdTratamiento(modelo.getIdTratamiento());
+	    entidad.setNombre(modelo.getNombre());
+	    entidad.setDescripcion(modelo.getDescripcion());
+	    
+	}
+	
+	// Retornar la entidad convertida
+	return entidad;
+	
+    }
+    
+    /**
      * <p>Método que convierte un listado de entidades en un listado de modelos.</p>
      * 
      * @param lista {@link List} {@link Tratamientos} listado de entidades que se quiere convertir
@@ -70,16 +183,16 @@ public class TratamientosServiceImpl implements TratamientosService {
      * 
      * @see List#forEach(java.util.function.Consumer)
      */
-    private List<TratamientosModelo> listadoEntidadesListadoModelos(List<Tratamientos> listaEntidades) {
+    private List<TratamientosModelo> convertirListadoEntidadesListadoModelos(List<Tratamientos> listaEntidades) {
 	
 	// Inicializar el listado de modelos que se va a retornar
-	List<TratamientosModelo> listaModelos = new ArrayList<TratamientosModelo>();
+	List<TratamientosModelo> listaModelos = new ArrayList<>();
 	
 	// Comprobar que el lsitado de entidades NO es nulo ni está vacío
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {
 	    
 	    // Recorrer el listado de entidades e ir añadiéndolo al listado de modelos
-	    listaEntidades.forEach(entidad -> listaModelos.add(entidadModelo(entidad)));
+	    listaEntidades.forEach(entidad -> listaModelos.add(convertirEntidadModelo(entidad)));
 	    
 	}
 	

@@ -9,6 +9,7 @@ import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
+import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,6 +34,18 @@ public class TratamientosEdicionController {
     @Value("${tratamientos.edicion.titulo}")
     private String tituloEdicionVista;
     
+    @Value("${tratamientos.alta.guardado.true}")
+    private String altaCorrecta;
+    
+    @Value("${tratamientos.alta.guardado.false}")
+    private String altaIncorrecta;
+    
+    @Value("${tratamientos.modificacion.guardado.true}")
+    private String modificacionCorrecta;
+    
+    @Value("${tratamientos.modificacion.guardado.false}")
+    private String modificacionIncorrecta;
+    
     @FXML
     private Label tituloLabel;
 
@@ -54,17 +67,36 @@ public class TratamientosEdicionController {
     // Modelo sobre el que se trabajará la vista
     private TratamientosModelo modelo;
     
+    // Este atributo indicará si se trata de una inserción o de una modificación
+    private Boolean modo;
+    
     /**
      * <p>Método que se ejecuta al inicializarse la vista de la edición de tratamientos.</p>
      */
     @FXML
     public void initialize() {
 	
-	// Si el modelo es nulo, se trata de una nueva alta, en caso contrario es una modificación
-	if(modelo == null) {
-	    prepararAlta();
+	// Comprobar si el modelo es nulo
+	if(modelo != null) {
+	    
+	    // En caso de que NO sea nulo, comprobar si existe
+	    modo = tratamientoService.comprobarExistenciaTratamiento(modelo.getIdTratamiento());
+	    
+	    if(Boolean.TRUE.equals(modo)) {
+		
+		// Si existe, se trarta de una actualización
+		prepararModificacion();
+	    } else {
+		
+		// Si NO existe, se trarta de una inserción
+		prepararAlta();
+	    }
+	    
 	} else {
-	    prepararModificacion();
+	    
+	    // Si el modelo es nulo, se trata de una inserción
+	    prepararAlta();
+	    
 	}
 	
 
@@ -77,8 +109,35 @@ public class TratamientosEdicionController {
     @FXML
     private void guardarTratamiento() {
 	
-	// Comprobar si el modelo es nulo
-	if(modelo != null) {
+	try {
+	    
+	    // Comprobar si el modelo es nulo
+	    if (modelo != null) {
+
+		// Guardar el tratamiento
+		Boolean resultado = tratamientoService.insertarActualizarTratamiento(modelo);
+
+		// Comprobar si se ha realizaco correctamente el guardado del tratamiento
+		if (Boolean.TRUE.equals(resultado)) {
+
+		    // El tratamiento se ha guardado bien
+		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
+
+		} else {
+
+		    // El tratamiento no se ha guardado
+		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? altaIncorrecta : modificacionIncorrecta);
+
+		}
+
+	    }
+	    
+	} catch (Exception excepcion) {
+	    
+	    // Error al intentar guardar el tratamiento
+	    TRAZAS.error(excepcion.getMessage());
+	    excepcion.printStackTrace();
+	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
 	    
 	}
 

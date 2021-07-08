@@ -56,6 +56,27 @@ public class TratamientosServiceImpl implements TratamientosService {
 	// Retornar el modelo
 	return modelo;
     }
+    
+    /**
+     * <p>Método que comprueba si un tratamiento existe.</p>
+     */
+    @Override
+    public Boolean comprobarExistenciaTratamiento(Integer identificador) {
+	
+	// Inicializar el booleano que indicará si el registro existe en la tabla
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if(identificador != null) {
+	    
+	    // Comprobar si el tratamiento existe
+	    resultado = tratamientosRepository.existsById(identificador);
+	    
+	}
+	
+	// Retornar el resultado de la búsqueda
+	return resultado;
+    }
 
     /**
      * <p>Método que inserta o actualiza un registro de la tabla.</p>

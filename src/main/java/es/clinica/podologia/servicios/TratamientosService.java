@@ -23,7 +23,7 @@ public interface TratamientosService {
     public List<TratamientosModelo> listarTratamientos();
     
     /**
-     * <p>Método que retorna un registro buscado por su identificador</p>
+     * <p>Método que retorna un registro buscado por su identificador.</p>
      * 
      * @param identificador {@link Integer} identificador del registro que se quiere recuperar
      * 
@@ -32,6 +32,17 @@ public interface TratamientosService {
      * @see TratamientosRepository#findById(Integer)
      */
     public TratamientosModelo encontrarTratamiento(Integer identificador);
+    
+    /**
+     * <p>Método que comprueba si un tratamiento existe.</p>
+     * 
+     * @param identificador {@link Integer} identificador del registro que se quiere recuperar
+     * 
+     * @return {@link Boolean} {@code true} en caso de que el identificado se corresponda a un tratamiento existente
+     * 
+     * @see TratamientosRepository#existsById(Integer)
+     */
+    public Boolean comprobarExistenciaTratamiento(Integer identificador);
     
     /**
      * <p>Método que inserta o actualiza un registro de la tabla.</p>

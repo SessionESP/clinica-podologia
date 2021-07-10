@@ -1,7 +1,10 @@
 package es.clinica.podologia.entidades;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,6 +22,8 @@ public class Tratamientos {
 
     @Id
     @Column(name = "id_tratamiento", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic
     private Integer idTratamiento;
 
     @Column(name = "nombre", length = 50, nullable = true, unique = false)

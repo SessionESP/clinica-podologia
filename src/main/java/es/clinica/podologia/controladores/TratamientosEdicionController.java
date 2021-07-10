@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import es.clinica.podologia.componentes.BeansComponent;
+import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.TratamientosService;
@@ -62,6 +64,9 @@ public class TratamientosEdicionController {
     private Button cancelarButton;
     
     @Autowired
+    private BeansComponent beansComponent;
+    
+    @Autowired
     private TratamientosService tratamientoService;
     
     // Modelo sobre el que se trabajará la vista
@@ -113,6 +118,9 @@ public class TratamientosEdicionController {
 	    
 	    // Comprobar si el modelo es nulo
 	    if (modelo != null) {
+		
+		modelo.setNombre(nombreTextField.getText());
+		modelo.setDescripcion(descripcionTextArea.getText());
 
 		// Guardar el tratamiento
 		Boolean resultado = tratamientoService.insertarActualizarTratamiento(modelo);
@@ -122,6 +130,10 @@ public class TratamientosEdicionController {
 
 		    // El tratamiento se ha guardado bien
 		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
+		    
+		    TratamientosListadoController tratamientosListadoController = (TratamientosListadoController) beansComponent.obtenerControlador(Constantes.TRATAMIENTOS_LISTADO_CONTROLLER);
+		    tratamientosListadoController.initialize();
+		    cancelarTratamiento();
 
 		} else {
 
@@ -169,6 +181,9 @@ public class TratamientosEdicionController {
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloAltaVista);
 	
+	nombreTextField.setText(Constantes.CADENA_VACIA);
+	descripcionTextArea.setText(Constantes.CADENA_VACIA);
+	
     }
     
     /**
@@ -181,6 +196,9 @@ public class TratamientosEdicionController {
 	
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloAltaVista);
+	
+	nombreTextField.setText(modelo.getNombre());
+	descripcionTextArea.setText(modelo.getDescripcion());
 	
     }
 

@@ -40,6 +40,6 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      */
-    public List<Citas> findByFechaAndSanitarios(String fecha, Sanitarios sanitario);
+    public List<Citas> findByFechaAndSanitario(String fecha, Sanitarios sanitario);
 
 }

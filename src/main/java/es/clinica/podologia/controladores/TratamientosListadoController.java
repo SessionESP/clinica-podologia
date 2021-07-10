@@ -1,8 +1,8 @@
 package es.clinica.podologia.controladores;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,6 +43,9 @@ import javafx.scene.control.TextField;
 public class TratamientosListadoController {
     
     private static final Logger TRAZAS = LoggerFactory.getLogger(TratamientosListadoController.class);
+    
+    @Value("${tratamientos.eliminacion.confirmacion}")
+    private String confirmacionEliminacion;
     
     @Value("${tratamientos.eliminacion.true}")
     private String eliminacionCorrecta;
@@ -85,13 +90,14 @@ public class TratamientosListadoController {
     @FXML
     public void initialize() {
 	
-	List<Integer> opciones = new ArrayList<>();
+	ObservableList<Integer> opciones = FXCollections.observableArrayList();
         opciones.addAll(Arrays.asList(5, 10, 15));
-	tamanioPaginacionComboBox.getItems().addAll(opciones);
+	tamanioPaginacionComboBox.setItems(opciones);
 	tamanioPaginacionComboBox.setValue(5);
 	
 	List<TratamientosModelo> listado = tratamientosService.listarTratamientos();
 	
+	listadoTratamientos.clear();
 	listadoTratamientos.addAll(listado);
 	
 	inicializarTabla();
@@ -107,7 +113,6 @@ public class TratamientosListadoController {
         
         tratamientosTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> mostrarDescripcion(newValue));
         
-        tratamientosEdicionController = (TratamientosEdicionController) beansComponent.obtenerControlador(Constantes.TRATAMIENTOS_EDICION_CONTROLLER);
 	
     }
     
@@ -129,12 +134,11 @@ public class TratamientosListadoController {
      */
     private void cambiarPaginacion(Integer indice, Integer limite) {
 	
-        int numeroPaginas = (int) (Math.ceil(listadoTratamientos.size() * 1.0 / tamanioPaginacionComboBox.getValue()));
+        int numeroPaginas = (int) (Math.ceil(listadoTratamientosFiltrado.size() * 1.0 / tamanioPaginacionComboBox.getValue()));
         paginacionTabla.setPageCount(numeroPaginas);
-        paginacionTabla.setCurrentPageIndex(0);
 
         Integer indiceDesde = indice * limite;
-        Integer indiceHasta = Math.min(indiceDesde + limite, listadoTratamientos.size());
+        Integer indiceHasta = Math.min(indiceDesde + limite, listadoTratamientosFiltrado.size());
         Integer indiceMinimo = Math.min(indiceHasta, listadoTratamientosFiltrado.size());
         
         SortedList<TratamientosModelo> datosOrdenados = new SortedList<>(FXCollections.observableArrayList(listadoTratamientosFiltrado.subList(Math.min(indiceDesde, indiceMinimo), indiceMinimo)));
@@ -151,7 +155,9 @@ public class TratamientosListadoController {
      */
     @FXML
     private void cambiarSeleccionTamanioPaginacion(ActionEvent event) {
-	cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
+	if(tamanioPaginacionComboBox.getValue() != null) {
+	    cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
+	}
     }
     
     /**
@@ -170,39 +176,51 @@ public class TratamientosListadoController {
     @FXML
     private void crearTratamiento() {
 	
+	UtilidadesVentanasEmergentes.abrirVentanaEmergente(TratamientosEdicionView.class, Constantes.TRATAMIENTOS_EDICION_CONTROLLER, Accion.ALTA);
+	
+	tratamientosEdicionController = (TratamientosEdicionController) beansComponent.obtenerControlador(Constantes.TRATAMIENTOS_EDICION_CONTROLLER);
 	tratamientosEdicionController.setModelo(null);
 	tratamientosEdicionController.initialize();
-	
-	UtilidadesVentanasEmergentes.abrirVentanaEmergente(TratamientosEdicionView.class, Constantes.TRATAMIENTOS_EDICION_CONTROLLER, Accion.ALTA);
 	
     }
     
     @FXML
     private void editarTratamiento() {
 	
+	UtilidadesVentanasEmergentes.abrirVentanaEmergente(TratamientosEdicionView.class, Constantes.TRATAMIENTOS_EDICION_CONTROLLER, Accion.EDICION);
+	
+	tratamientosEdicionController = (TratamientosEdicionController) beansComponent.obtenerControlador(Constantes.TRATAMIENTOS_EDICION_CONTROLLER);
 	tratamientosEdicionController.setModelo(modeloSeleccionado);
 	tratamientosEdicionController.initialize();
-	
-	UtilidadesVentanasEmergentes.abrirVentanaEmergente(TratamientosEdicionView.class, Constantes.TRATAMIENTOS_EDICION_CONTROLLER, Accion.EDICION);	
 
     }
     
     @FXML
     private void eliminarTratamiento() {
 	
-	Boolean resultado = tratamientosService.eliminarTratamiento(modeloSeleccionado.getIdTratamiento());
+	// Mostrar alerta de confirmación
+	Optional<ButtonType> confirmacion = UtilidadesAlertas.mostrarAlertaConfirmacion(confirmacionEliminacion);
 	
-	// Comprobar si se ha realizaco correctamente el guardado del tratamiento
-	if (Boolean.TRUE.equals(resultado)) {
+	// Borrar en caso de que se haya pulsado el botón de aceptar
+	if(confirmacion.isPresent() && confirmacion.get() == ButtonType.OK) {
+	    
+	    // Elimiar el registro
+	    Boolean resultado = tratamientosService.eliminarTratamiento(modeloSeleccionado.getIdTratamiento());
 
-	    // El tratamiento se ha eliminado
-	    UtilidadesAlertas.mostrarAlertaInformativa(eliminacionCorrecta);
+	    // Comprobar si se ha realizaco correctamente el guardado del tratamiento
+	    if (Boolean.TRUE.equals(resultado)) {
 
-	} else {
+		// El tratamiento se ha eliminado
+		UtilidadesAlertas.mostrarAlertaInformativa(eliminacionCorrecta);
+		initialize();
 
-	    // El tratamiento no se ha eliminado
-	    UtilidadesAlertas.mostrarAlertaError(eliminacionIncorrecta);
+	    } else {
 
+		// El tratamiento no se ha eliminado
+		UtilidadesAlertas.mostrarAlertaError(eliminacionIncorrecta);
+
+	    }
+	    
 	}
 
     }

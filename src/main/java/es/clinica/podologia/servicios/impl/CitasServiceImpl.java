@@ -86,7 +86,7 @@ public class CitasServiceImpl implements CitasService {
 	    if(Boolean.TRUE.equals(sanitario.isPresent())) {
 		
 		// Realizar la consulta y conversión
-		listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAndSanitarios(UtilidadesConversores.fechaCadena(fecha), sanitario.get()));
+		listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAndSanitario(UtilidadesConversores.fechaCadena(fecha), sanitario.get()));
 		
 	    }
 	    

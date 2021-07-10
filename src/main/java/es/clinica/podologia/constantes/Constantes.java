@@ -52,7 +52,8 @@ public class Constantes {
     public static final String CONFIGURACION_CIERRE_DEFECTO = "21:00:00";
     public static final Integer CONFIGURACION_DURACION_DEFECTO = 30;
     
-    public static final String TRATAMIENTOS_EDICION_CONTROLLER = "TratamientosEdicionController";
+    public static final String TRATAMIENTOS_LISTADO_CONTROLLER = "tratamientosListadoController";
+    public static final String TRATAMIENTOS_EDICION_CONTROLLER = "tratamientosEdicionController";
     
     public static final DateTimeFormatter FORMATEADOR_FECHA = DateTimeFormatter.ofPattern(PATRON_FECHA);
 

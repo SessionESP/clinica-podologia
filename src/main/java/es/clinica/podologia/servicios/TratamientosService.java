@@ -38,7 +38,7 @@ public interface TratamientosService {
      * 
      * @param identificador {@link Integer} identificador del registro que se quiere recuperar
      * 
-     * @return {@link Boolean} {@code true} en caso de que el identificado se corresponda a un tratamiento existente
+     * @return {@link Boolean} {@code true} en caso de que el identificador se corresponda a un tratamiento existente
      * 
      * @see TratamientosRepository#existsById(Integer)
      */

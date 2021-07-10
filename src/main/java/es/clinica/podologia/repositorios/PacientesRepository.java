@@ -11,6 +11,6 @@ import es.clinica.podologia.entidades.Pacientes;
  * @author Ignacio Rafael
  *
  */
-public interface PacientesRepository extends PagingAndSortingRepository<Pacientes, Integer>, JpaRepository<Pacientes, Integer> {
+public interface PacientesRepository extends PagingAndSortingRepository<Pacientes, String>, JpaRepository<Pacientes, String> {
 
 }

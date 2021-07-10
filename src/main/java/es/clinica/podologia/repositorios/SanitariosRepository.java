@@ -11,6 +11,6 @@ import es.clinica.podologia.entidades.Sanitarios;
  * @author Ignacio Rafael
  *
  */
-public interface SanitariosRepository extends PagingAndSortingRepository<Sanitarios, Integer>, JpaRepository<Sanitarios, Integer> {
+public interface SanitariosRepository extends PagingAndSortingRepository<Sanitarios, String>, JpaRepository<Sanitarios, String> {
 
 }

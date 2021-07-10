@@ -2,7 +2,9 @@ package es.clinica.podologia.servicios.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ import es.clinica.podologia.servicios.PacientesService;
 import es.clinica.podologia.utilidades.Utilidades;
 
 /**
- * <p>Implementaci�n de la interfaz del servicio de la tabla {@code pacientes}.</p>
+ * <p>Implementación de la interfaz del servicio de la tabla {@code pacientes}.</p>
  *
  * @author Ignacio Rafael
  *
@@ -30,7 +32,106 @@ public class PacientesServiceImpl implements PacientesService {
      */
     @Override
     public List<PacientesModelo> listarPacientes() {
-	return listadoEntidadesListadoModelos(pacientesRepository.findAll());
+	return convertirListadoEntidadesListadoModelos(pacientesRepository.findAll());
+    }
+    
+    /**
+     * <p>Método que retorna un registro buscado por su identificador DNI.</p>
+     */
+    @Override
+    public PacientesModelo encontrarPaciente(String dniPaciente) {
+	
+	// Declarar el modelo que se va a retornar al final del método
+	PacientesModelo modelo = null;
+	
+	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
+	if(StringUtils.isNotBlank(dniPaciente)) {
+	    
+	    // Recuperar el tratamiento correspondiente a ese identificador
+	    Optional<Pacientes> entidad = pacientesRepository.findById(dniPaciente);
+	    
+	    // Convertir la entidad recuperada en un modelo
+	    modelo = convertirEntidadModelo(entidad.isPresent() ? entidad.get() : null);
+	    
+	}
+	
+	// Retornar el modelo
+	return modelo;
+    }
+
+    /**
+     * <p>Método que comprueba si un paciente existe.</p>
+     */
+    @Override
+    public Boolean comprobarExistenciaPaciente(String dniPaciente) {
+
+	// Inicializar el booleano que indicará si el registro existe en la tabla
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
+	if(StringUtils.isNotBlank(dniPaciente)) {
+	    
+	    // Comprobar si el tratamiento existe
+	    resultado = pacientesRepository.existsById(dniPaciente);
+	    
+	}
+	
+	// Retornar el resultado de la búsqueda
+	return resultado;
+	
+    }
+
+    /**
+     * <p>Método que inserta o actualiza un registro de la tabla.</p>
+     */
+    @Override
+    public Boolean insertarActualizarPaciente(PacientesModelo modelo) {
+	
+	// Inicializar el booleano que indicará si la inserción/actualización se ha realizado con éxito
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el modelo pasado como parámetro NO es nulo
+	if (modelo != null) {
+	    
+	    // Convertir el modelo en una entidad
+	    Pacientes entidad = convertirModeloEntidad(modelo);
+	    
+	    // Guarda la entidad en la base de datos y persiste definitivamente los cambios
+	    resultado = pacientesRepository.saveAndFlush(entidad) != null;
+	    
+	}
+	
+	// Retornar el resultado de la inserción/actualización
+	return resultado;
+	
+    }
+
+    /**
+     * <p>Método que elimina un registro de la tabla.</p>
+     */
+    @Override
+    public Boolean eliminarPaciente(String dniPaciente) {
+
+	// Inicializar el booleano que indicará si la eliminación se ha realizado con éxito
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
+	if(StringUtils.isNotBlank(dniPaciente)) {
+	    
+	    // Eliminar el registro que coincida con el identificador
+	    pacientesRepository.deleteById(dniPaciente);
+	    
+	    // Persistir los cambios
+	    pacientesRepository.flush();
+	    
+	    // Comprobar si se ha eliminado correctamente
+	    resultado = !pacientesRepository.existsById(dniPaciente);
+	    
+	}
+	
+	// Retornar el resultado de la eliminación
+	return resultado;
+	
     }
     
     /**
@@ -43,7 +144,7 @@ public class PacientesServiceImpl implements PacientesService {
      * @see Pacientes
      * @see PacientesModelo
      */
-    private PacientesModelo entidadModelo(Pacientes entidad) {
+    private PacientesModelo convertirEntidadModelo(Pacientes entidad) {
 	
 	// Inicializar el modelo que se va retornar al final
 	PacientesModelo modelo = new PacientesModelo();
@@ -68,6 +169,43 @@ public class PacientesServiceImpl implements PacientesService {
     }
     
     /**
+     * <p>Método que convierte un objeto de tipo modelo en uno de tipo entidad.<p>
+     * 
+     * @param entidad {@link PacientesModelo} modelo que se quiere convertir
+     * 
+     * @return {@link Pacientes} entidad resultante
+     * 
+     * @see PacientesModelo
+     * @see Pacientes
+     */
+    private Pacientes convertirModeloEntidad(PacientesModelo modelo) {
+	
+	// Declarar la entidad que se va retornar al final
+	Pacientes entidad = null;
+	
+	// Comprobar que la entidad pasada como parámetro NO es nula
+	if(modelo != null) {
+	    
+	    // Inicializar la entidad
+	    entidad = new Pacientes();
+	    
+	    entidad.setDniPaciente(modelo.getDniPaciente());
+	    entidad.setNombre(modelo.getNombre());
+	    entidad.setApellidos(modelo.getApellidos());
+	    entidad.setDireccion(modelo.getDireccion());
+	    entidad.setTelefono(modelo.getTelefono());
+	    // TODO: sustituir cuando la base de datos tenga valores en esta columna
+	    // modelo.setAdjunto(modelo.getAdjunto());
+	    entidad.setAdjunto(Constantes.CADENA_VACIA.getBytes());
+	    
+	}
+	
+	// Retornar la entidad convertida
+	return entidad;
+	
+    }
+    
+    /**
      * <p>Método que convierte un listado de entidades en un listado de modelos.</p>
      * 
      * @param lista {@link List} {@link Pacientes} listado de entidades que se quiere convertir
@@ -76,7 +214,7 @@ public class PacientesServiceImpl implements PacientesService {
      * 
      * @see List#forEach(java.util.function.Consumer)
      */
-    private List<PacientesModelo> listadoEntidadesListadoModelos(List<Pacientes> listaEntidades) {
+    private List<PacientesModelo> convertirListadoEntidadesListadoModelos(List<Pacientes> listaEntidades) {
 	
 	// Inicializar el listado de modelos que se va a retornar
 	List<PacientesModelo> listaModelos = new ArrayList<PacientesModelo>();
@@ -85,7 +223,7 @@ public class PacientesServiceImpl implements PacientesService {
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {
 	    
 	    // Recorrer el listado de entidades e ir añadiéndolo al listado de modelos
-	    listaEntidades.forEach(entidad -> listaModelos.add(entidadModelo(entidad)));
+	    listaEntidades.forEach(entidad -> listaModelos.add(convertirEntidadModelo(entidad)));
 	    
 	}
 	

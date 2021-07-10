@@ -14,7 +14,7 @@ import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
 
 /**
- * <p>Implementaci�n de la interfaz del servicio de la tabla {@code tratamientos}.</p>
+ * <p>Implementación de la interfaz del servicio de la tabla {@code tratamientos}.</p>
  *
  * @author Ignacio Rafael
  *

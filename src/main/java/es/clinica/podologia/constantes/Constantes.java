@@ -48,6 +48,10 @@ public class Constantes {
     public static final String CONFIGURACION_ELIMINACION_CITAS_PASADAS = "clinica.citas.eliminacion.pasadas";
     public static final String CONFIGURACION_ELIMINACION_FISICA_CITAS = "clinica.citas.eliminacion.fisica";
     
+    public static final String ESTADOS_TRATAMIENTOS_PAGINACIONES = "estados.tratamientos.paginaciones";
+    public static final String ESTADOS_TRATAMIENTOS_PAGINACION = "estados.tratamientos.paginacion";
+    public static final Integer ESTADOS_PAGINACION_DEFECTO = 5;
+    
     public static final String CONFIGURACION_APERTURA_DEFECTO = "09:00:00";
     public static final String CONFIGURACION_CIERRE_DEFECTO = "21:00:00";
     public static final Integer CONFIGURACION_DURACION_DEFECTO = 30;

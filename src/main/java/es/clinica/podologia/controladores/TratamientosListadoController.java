@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.configuration2.FileBasedConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,8 @@ import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
+import es.clinica.podologia.utilidades.UtilidadesConversores;
+import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import es.clinica.podologia.vistas.TratamientosEdicionView;
 import javafx.collections.FXCollections;
@@ -53,6 +59,9 @@ public class TratamientosListadoController {
     @Value("${tratamientos.eliminacion.false}")
     private String eliminacionIncorrecta;
     
+    @Value("${spring.config.import}")
+    private String propiedadesExternas;
+    
     @Autowired
     private TratamientosService tratamientosService;
     
@@ -66,6 +75,8 @@ public class TratamientosListadoController {
     private TratamientosModelo modeloSeleccionado;
     
     private TratamientosEdicionController tratamientosEdicionController;
+    
+    private FileBasedConfigurationBuilder<FileBasedConfiguration> constructor;
     
     @FXML
     private TextField busquedaTextField;
@@ -90,10 +101,7 @@ public class TratamientosListadoController {
     @FXML
     public void initialize() {
 	
-	ObservableList<Integer> opciones = FXCollections.observableArrayList();
-        opciones.addAll(Arrays.asList(5, 10, 15));
-	tamanioPaginacionComboBox.setItems(opciones);
-	tamanioPaginacionComboBox.setValue(5);
+	cargarEstado();
 	
 	List<TratamientosModelo> listado = tratamientosService.listarTratamientos();
 	
@@ -117,6 +125,46 @@ public class TratamientosListadoController {
     }
     
     /**
+     * <p>Cargar el estado del formulario.</p>
+     */
+    private void cargarEstado() {
+	
+	// Inicializar el constructor con los parámetros del fichero externo
+	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas, Constantes.COMA);
+	
+	try {
+	    
+	    // Comprobar que el constructor y los parámetros NO son nulos
+	    if (constructor != null && constructor.getConfiguration() != null) {
+
+		// Guardar la información del fichero de configuración en un objeto
+		FileBasedConfiguration configuracion = constructor.getConfiguration();
+		
+		List<Integer> paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(configuracion.getStringArray(Constantes.ESTADOS_TRATAMIENTOS_PAGINACIONES));
+		
+		Integer paginacion = configuracion.getInteger(
+			Constantes.ESTADOS_TRATAMIENTOS_PAGINACION, 
+			Constantes.ESTADOS_PAGINACION_DEFECTO);
+		
+	    }
+
+	} catch (ConfigurationException excepcion) {
+
+	    // Error al intentar guardar las propiedades del fichero en un objeto
+	    TRAZAS.error(excepcion.getMessage());
+	    excepcion.printStackTrace();
+	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+
+	}
+	
+	ObservableList<Integer> opciones = FXCollections.observableArrayList();
+        opciones.addAll(Arrays.asList(5, 10, 15));
+	tamanioPaginacionComboBox.setItems(opciones);
+	tamanioPaginacionComboBox.setValue(5);
+	
+    }
+    
+    /**
      * <p>Inicializar la tabla.</p>
      */
     private void inicializarTabla() {
@@ -129,7 +177,7 @@ public class TratamientosListadoController {
     /**
      * <p>Cargar la tabla con los filtros y </p>
      * 
-     * @param indice {@link Integer} indice de la paginación
+     * @param indice {@link Integer} índice de la paginación
      * @param limite {@link Integer} límite de la paginación
      */
     private void cambiarPaginacion(Integer indice, Integer limite) {

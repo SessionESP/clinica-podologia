@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -82,6 +85,41 @@ public class UtilidadesConversores {
      */
     public static Long enteroLong(Integer numero) {
 	return numero != null ? numero.longValue() : null;
+    }
+    
+    /**
+     * <p>Método que convierte una array de {@code String} en un listado.</p>
+     * 
+     * @param arrayCadenas {@link String}[] array de cadenas de caracteres
+     * 
+     * @return {@link List}<{@link String}> lsitado de cadenas de caracteres
+     */
+    public static List<String> convertirArrayCadenasListaCadenas(String[] arrayCadenas) {
+	return Boolean.TRUE.equals(Utilidades.comprobarArray(arrayCadenas)) ? Arrays.asList(arrayCadenas) : null;
+    }
+    
+    /**
+     * <p>Método que convierte un listado de enteros ({@code Integer}) en uno de cadenas de caracteres ({@code String}).</p>
+     * 
+     * @param listadoCadenas {@link List}<{@link String}> listado de cadenas de caracteres
+     * 
+     * @return {@link List}<{@link Integer}> listado de cadenas de enteros
+     */
+    public static List<Integer> convertirListadoCadenasListadoEnteros(List<String> listadoCadenas) {
+	return Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoCadenas)) ? 
+		listadoCadenas.stream().map(Integer::valueOf).collect(Collectors.toList()) : null;
+    }
+    
+    /**
+     * <p>Método que convierte una array de cadenas ({@code String}) en un listado de enteros ({@code Integer}).</p>
+     * 
+     * @param arrayCadenas {@link String}[] array de cadenas de caracteres
+     * 
+     * @return {@link List}<{@link Integer}> listado de cadenas de enteros
+     */
+    public static List<Integer> convertirArrayCadenasListaEnteros(String[] arrayCadenas) {
+	return Boolean.TRUE.equals(Utilidades.comprobarArray(arrayCadenas)) ? 
+		convertirListadoCadenasListadoEnteros(convertirArrayCadenasListaCadenas(arrayCadenas)) : null;
     }
     
     // NÚMEROS ENTEROS - FIN

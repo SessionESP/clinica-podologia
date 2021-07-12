@@ -6,37 +6,119 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.PacientesListadoController">
+<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.TratamientosListadoController">
    <center>
-      <AnchorPane prefHeight="480.0" prefWidth="800.0" styleClass="panel-default" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="800.0" prefWidth="1600.0" styleClass="panel-default" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="tituloLabel" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" text="Listado de pacientes" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
                <font>
                   <Font name="Comic Sans MS Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="descripcionLabel" layoutX="346.0" layoutY="114.0" prefHeight="40.0" text="Descripción" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="120.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font></Label>
-            <TextArea fx:id="descripcionTextArea" disable="true" layoutX="174.0" layoutY="189.0" prefHeight="200.0" prefWidth="500.0" promptText="Descripción del tratamiento" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font></TextArea>
-            <Button fx:id="seleccionarButton" layoutX="326.0" layoutY="269.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" text="Seleccionar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="250.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font></Button>
-            <Button fx:id="cancelarButton" layoutX="200.0" layoutY="410.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Cancelar" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="250.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font>
-            </Button>
-            <TableView fx:id="tratamientosListView" layoutX="59.0" layoutY="140.0" prefHeight="240.0" prefWidth="240.0" stylesheets="@../estilos/tableViewStyles.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
+            <GridPane layoutX="245.0" layoutY="103.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
+              <columnConstraints>
+                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="40.0" prefWidth="100.0" text="DNI">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="13.0" prefHeight="40.0" prefWidth="100.0" text="Nombre" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="13.0" prefHeight="40.0" prefWidth="100.0" text="Apellidos" GridPane.columnIndex="4">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="13.0" prefHeight="40.0" prefWidth="100.0" text="Dirección" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="13.0" prefHeight="40.0" prefWidth="100.0" text="Teléfono" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="dniTextField" prefHeight="40.0" prefWidth="160.0" promptText="*" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="nombreTextField" layoutX="233.0" layoutY="13.0" prefHeight="40.0" prefWidth="280.0" promptText="*" GridPane.columnIndex="3">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="apellidosTextField" layoutX="233.0" layoutY="13.0" prefHeight="40.0" prefWidth="320.0" promptText="*" GridPane.columnIndex="5">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="direccionTextField" layoutX="10.0" layoutY="13.0" prefHeight="40.0" prefWidth="320.0" promptText="*" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="telefonoTextField" layoutX="10.0" layoutY="13.0" prefHeight="40.0" prefWidth="160.0" promptText="*" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </GridPane>
+            <TableView fx:id="tratamientosTableView" layoutX="59.0" layoutY="140.0" prefHeight="400.0" prefWidth="480.0" stylesheets="@../estilos/tableViewStyles.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
               <columns>
-                <TableColumn fx:id="nombreColumn" prefWidth="200.0" text="Nombre" />
+                <TableColumn fx:id="dniColumn" maxWidth="1600.0" minWidth="20.0" prefWidth="160.0" text="DNI" />
+                  <TableColumn fx:id="nombreColumn" maxWidth="2800.0" minWidth="50.0" prefWidth="280.0" text="Nombre" />
+                  <TableColumn fx:id="apellidosColumn" maxWidth="3200.0" minWidth="50.0" prefWidth="320.0" text="Apellidos" />
+                  <TableColumn fx:id="direccionColumn" minWidth="100.0" prefWidth="500.0" text="Dirección" />
+                  <TableColumn fx:id="telefonoColumn" maxWidth="1600.0" minWidth="20.0" prefWidth="160.0" text="Teléfono" />
               </columns>
             </TableView>
+            <ComboBox fx:id="tamanioPaginacionComboBox" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefHeight="40.0" prefWidth="80.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />
+            <Pagination fx:id="paginacionTabla" layoutX="451.0" layoutY="818.0" prefHeight="40.0" prefWidth="360.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="600.0" />
+            <GridPane fx:id="botoneraGridPane" alignment="CENTER" layoutX="489.0" layoutY="670.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="560.0" AnchorPane.rightAnchor="560.0">
+              <columnConstraints>
+                <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="nuevoButton" alignment="CENTER" mnemonicParsing="false" onAction="#crearTratamiento" prefHeight="40.0" prefWidth="140.0" text="Nuevo" textAlignment="CENTER">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="editarButton" alignment="CENTER" mnemonicParsing="false" onAction="#editarTratamiento" prefHeight="40.0" prefWidth="140.0" text="Editar" textAlignment="CENTER" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="eliminarButton" alignment="CENTER" mnemonicParsing="false" onAction="#eliminarTratamiento" prefHeight="40.0" prefWidth="140.0" text="Eliminar" textAlignment="CENTER" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </GridPane>
 
          </children>
       </AnchorPane>

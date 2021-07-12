@@ -38,8 +38,8 @@
                 <TableColumn fx:id="nombreColumn" prefWidth="470.0" text="Nombre" />
               </columns>
             </TableView>
-            <ComboBox fx:id="tamanioPaginacionComboBox" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefHeight="40.0" prefWidth="50.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />
-            <Pagination fx:id="paginacionTabla" layoutX="451.0" layoutY="818.0" maxPageIndicatorCount="5" prefHeight="40.0" prefWidth="360.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="80.0" />
+            <ComboBox fx:id="tamanioPaginacionComboBox" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefHeight="40.0" prefWidth="80.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />
+            <Pagination fx:id="paginacionTabla" layoutX="451.0" layoutY="818.0" maxPageIndicatorCount="5" prefHeight="40.0" prefWidth="320.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="100.0" />
             <GridPane fx:id="botoneraGridPane" alignment="CENTER" layoutX="489.0" layoutY="670.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="560.0" AnchorPane.rightAnchor="560.0">
               <columnConstraints>
                 <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

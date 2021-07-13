@@ -32,7 +32,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -144,7 +143,7 @@ public class TratamientosListadoController {
 		
 		Integer paginacion = configuracion.getInteger(
 			Constantes.ESTADOS_TRATAMIENTOS_PAGINACION, 
-			Constantes.ESTADOS_PAGINACION_DEFECTO);
+			Constantes.ESTADOS_PAGINACION_DEFECTO_5);
 		
 	    }
 

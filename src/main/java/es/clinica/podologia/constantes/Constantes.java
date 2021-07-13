@@ -48,14 +48,21 @@ public class Constantes {
     public static final String CONFIGURACION_ELIMINACION_CITAS_PASADAS = "clinica.citas.eliminacion.pasadas";
     public static final String CONFIGURACION_ELIMINACION_FISICA_CITAS = "clinica.citas.eliminacion.fisica";
     
+    public static final String ESTADOS_PACIENTES_PAGINACIONES = "estados.pacientes.paginaciones";
+    public static final String ESTADOS_PACIENTES_PAGINACION = "estados.pacientes.paginacion";
     public static final String ESTADOS_TRATAMIENTOS_PAGINACIONES = "estados.tratamientos.paginaciones";
     public static final String ESTADOS_TRATAMIENTOS_PAGINACION = "estados.tratamientos.paginacion";
-    public static final Integer ESTADOS_PAGINACION_DEFECTO = 5;
+    public static final Integer ESTADOS_PAGINACION_DEFECTO_5 = 5;
+    public static final Integer ESTADOS_PAGINACION_DEFECTO_10 = 10;
     
     public static final String CONFIGURACION_APERTURA_DEFECTO = "09:00:00";
     public static final String CONFIGURACION_CIERRE_DEFECTO = "21:00:00";
     public static final Integer CONFIGURACION_DURACION_DEFECTO = 30;
     
+    public static final String PACIENTES_LISTADO_CONTROLLER = "pacientesListadoController";
+    public static final String PACIENTES_EDICION_CONTROLLER = "pacientesEdicionController";
+    public static final String SANITARIOS_LISTADO_CONTROLLER = "sanitariosListadoController";
+    public static final String SANITARIOS_EDICION_CONTROLLER = "sanitariosEdicionController";
     public static final String TRATAMIENTOS_LISTADO_CONTROLLER = "tratamientosListadoController";
     public static final String TRATAMIENTOS_EDICION_CONTROLLER = "tratamientosEdicionController";
     

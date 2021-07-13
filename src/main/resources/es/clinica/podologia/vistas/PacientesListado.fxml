@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.TratamientosListadoController">
+<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.PacientesListadoController">
    <center>
       <AnchorPane prefHeight="800.0" prefWidth="1600.0" styleClass="panel-default" BorderPane.alignment="CENTER">
          <children>
@@ -54,7 +54,7 @@
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="dniTextField" prefHeight="40.0" prefWidth="160.0" promptText="*" GridPane.columnIndex="1">
+                  <TextField fx:id="dniPacienteTextField" prefHeight="40.0" prefWidth="160.0" promptText="*" GridPane.columnIndex="1">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
@@ -81,9 +81,9 @@
                   </TextField>
                </children>
             </GridPane>
-            <TableView fx:id="tratamientosTableView" layoutX="59.0" layoutY="140.0" prefHeight="400.0" prefWidth="480.0" stylesheets="@../estilos/tableViewStyles.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
+            <TableView fx:id="pacientesTableView" layoutX="59.0" layoutY="140.0" prefHeight="400.0" prefWidth="480.0" stylesheets="@../estilos/tableViewStyles.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
               <columns>
-                <TableColumn fx:id="dniColumn" maxWidth="1600.0" minWidth="20.0" prefWidth="160.0" text="DNI" />
+                <TableColumn fx:id="dniPacienteColumn" maxWidth="1600.0" minWidth="20.0" prefWidth="160.0" text="DNI" />
                   <TableColumn fx:id="nombreColumn" maxWidth="2800.0" minWidth="50.0" prefWidth="280.0" text="Nombre" />
                   <TableColumn fx:id="apellidosColumn" maxWidth="3200.0" minWidth="50.0" prefWidth="320.0" text="Apellidos" />
                   <TableColumn fx:id="direccionColumn" minWidth="100.0" prefWidth="500.0" text="Dirección" />
@@ -102,17 +102,17 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="nuevoButton" alignment="CENTER" mnemonicParsing="false" onAction="#crearTratamiento" prefHeight="40.0" prefWidth="140.0" text="Nuevo" textAlignment="CENTER">
+                  <Button fx:id="nuevoButton" alignment="CENTER" mnemonicParsing="false" onAction="#crearPaciente" prefHeight="40.0" prefWidth="140.0" text="Nuevo" textAlignment="CENTER">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="editarButton" alignment="CENTER" mnemonicParsing="false" onAction="#editarTratamiento" prefHeight="40.0" prefWidth="140.0" text="Editar" textAlignment="CENTER" GridPane.columnIndex="1">
+                  <Button fx:id="editarButton" alignment="CENTER" mnemonicParsing="false" onAction="#editarPaciente" prefHeight="40.0" prefWidth="140.0" text="Editar" textAlignment="CENTER" GridPane.columnIndex="1">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="eliminarButton" alignment="CENTER" mnemonicParsing="false" onAction="#eliminarTratamiento" prefHeight="40.0" prefWidth="140.0" text="Eliminar" textAlignment="CENTER" GridPane.columnIndex="2">
+                  <Button fx:id="eliminarButton" alignment="CENTER" mnemonicParsing="false" onAction="#eliminarPaciente" prefHeight="40.0" prefWidth="140.0" text="Eliminar" textAlignment="CENTER" GridPane.columnIndex="2">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>

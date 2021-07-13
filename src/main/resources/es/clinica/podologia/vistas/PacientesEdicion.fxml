@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.TratamientosEdicionController">
+<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.PacientesEdicionController">
    <center>
       <AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="panel-default" BorderPane.alignment="CENTER">
          <children>
@@ -59,7 +59,7 @@
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="dniTextField" prefHeight="40.0" prefWidth="600.0" promptText="Identificador del paciente" GridPane.columnIndex="1">
+                  <TextField fx:id="dniPacienteTextField" prefHeight="40.0" prefWidth="600.0" promptText="Identificador del paciente" GridPane.columnIndex="1">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>

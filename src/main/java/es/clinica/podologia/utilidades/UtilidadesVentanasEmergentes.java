@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * <p>Clase con métodos estáticos para invocar ventanas emergentes de uso común a lo largo de toda la aplicación.</p>
@@ -32,7 +33,7 @@ public class UtilidadesVentanasEmergentes {
 	throw new IllegalStateException("Constructor privado de la clase de utilidades de navegación.");
     }
 
-    private static Stage dialogStage = new Stage();
+    private static Stage dialogStage;
     private static Scene dialogScene;
 
     /**
@@ -67,6 +68,8 @@ public class UtilidadesVentanasEmergentes {
 		dialogScene.setRoot(vistaJavaFXSpringBoot.getView());
 		
 	    }
+	    
+	    dialogStage = new Stage();
 
 	    // Aplicar la escena resultante
 	    dialogStage.setScene(dialogScene);
@@ -76,6 +79,9 @@ public class UtilidadesVentanasEmergentes {
 
 	    // Añadir los iconos a la vista
 	    dialogStage.getIcons().addAll(JavaFxApplicationSupport.getIconos());
+	    
+	    // Evita que se pueda hacer click fuera de la ventana emergente
+	    dialogStage.initModality(Modality.APPLICATION_MODAL);
 
 	    // Mostrar el diálogo
 	    dialogStage.show();
@@ -105,6 +111,7 @@ public class UtilidadesVentanasEmergentes {
      */
     public static void cerrarVentanaEmergente() {
 	dialogStage.hide();
+	dialogStage = null;
     }
 
 }

@@ -46,8 +46,11 @@ public class ConfiguracionEdicionController {
     @Value("${spring.config.import}")
     private String propiedadesExternas;
     
+    @Value("${configuracion.edicion.guardar}")
+    private String guardadoCorrecto;
+    
     @Value("${configuracion.edicion.error}")
-    private String errorGuardado;
+    private String guardadoError;
     
     @FXML
     private ComboBox<LocalTime> aperturaComboBox;
@@ -288,6 +291,8 @@ public class ConfiguracionEdicionController {
 	    // Guardar
 	    constructor.save();
 	    
+	    // Informar de que se ha guardado correctamente
+	    UtilidadesAlertas.mostrarAlertaInformativa(guardadoCorrecto);
 
 	} catch (ConfigurationException excepcion) {
 

@@ -47,6 +47,9 @@ public class PacientesEdicionController {
     @FXML
     private Button seleccionarButton;
     
+    @FXML
+    private Button abrirButton;
+    
     // Modelo sobre el que se trabajará la vista
     private PacientesModelo modelo;
     
@@ -65,6 +68,11 @@ public class PacientesEdicionController {
     
     @FXML
     private void seleccionarAdjunto() {
+	
+    }
+    
+    @FXML
+    private void abrirAdjunto() {
 	
     }
     

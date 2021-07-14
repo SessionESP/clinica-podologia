@@ -58,7 +58,7 @@ public class PacientesListadoController {
     private String eliminacionIncorrecta;
     
     @Value("${spring.config.import}")
-    private String propiedadesExternas;
+    private List<String> propiedadesExternas;
     
     @Autowired
     private PacientesService pacientesService;
@@ -141,7 +141,7 @@ public class PacientesListadoController {
     private void cargarEstado() {
 	
 	// Inicializar el constructor con los parámetros del fichero externo
-	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas, Constantes.COMA);
+	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(1), Constantes.COMA);
 	
 	try {
 	    

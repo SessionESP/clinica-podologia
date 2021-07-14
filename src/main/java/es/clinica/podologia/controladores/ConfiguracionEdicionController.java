@@ -44,7 +44,7 @@ public class ConfiguracionEdicionController {
     private BeansComponent beansComponent;
     
     @Value("${spring.config.import}")
-    private String propiedadesExternas;
+    private List<String> propiedadesExternas;
     
     @Value("${configuracion.edicion.guardar}")
     private String guardadoCorrecto;
@@ -92,7 +92,7 @@ public class ConfiguracionEdicionController {
     public void initialize() {
 	
 	// Inicializar el constructor con los parámetros del fichero externo
-	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas, Constantes.COMA);
+	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
 	
 	try {
 	    

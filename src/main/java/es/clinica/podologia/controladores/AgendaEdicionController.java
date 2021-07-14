@@ -54,7 +54,7 @@ public class AgendaEdicionController {
     private SanitariosService sanitariosService;
     
     @Value("${spring.config.import}")
-    private String propiedadesExternas;
+    private List<String> propiedadesExternas;
     
     @Value("${agenda.edicion.columna1}")
     private String columna1;
@@ -73,7 +73,7 @@ public class AgendaEdicionController {
     public void initialize() {
 	
 	// Inicializar el constructor con los parámetros del fichero externo
-	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas, Constantes.COMA);
+	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
 	
 	try {
 

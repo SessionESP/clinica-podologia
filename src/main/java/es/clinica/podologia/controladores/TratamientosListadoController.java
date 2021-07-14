@@ -59,7 +59,7 @@ public class TratamientosListadoController {
     private String eliminacionIncorrecta;
     
     @Value("${spring.config.import}")
-    private String propiedadesExternas;
+    private List<String> propiedadesExternas;
     
     @Autowired
     private TratamientosService tratamientosService;
@@ -129,7 +129,7 @@ public class TratamientosListadoController {
     private void cargarEstado() {
 	
 	// Inicializar el constructor con los parámetros del fichero externo
-	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas, Constantes.COMA);
+	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(1), Constantes.COMA);
 	
 	try {
 	    

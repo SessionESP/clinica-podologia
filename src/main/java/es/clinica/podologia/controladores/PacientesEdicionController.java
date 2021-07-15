@@ -1,14 +1,25 @@
 package es.clinica.podologia.controladores;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
+import es.clinica.podologia.componentes.BeansComponent;
+import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.PacientesModelo;
+import es.clinica.podologia.modelos.TratamientosModelo;
+import es.clinica.podologia.servicios.TratamientosService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
 /**
  * <p>Controlador para la edición de Pacientes.</p>
@@ -20,6 +31,9 @@ import javafx.scene.control.TextField;
 public class PacientesEdicionController {
     
     private static final Logger TRAZAS = LoggerFactory.getLogger(PacientesEdicionController.class);
+    
+    @Value("${pacientes.seleccionar.ficha}")
+    private String tituloSelectorFicha;
     
     @FXML
     private Label tituloLabel;
@@ -50,6 +64,12 @@ public class PacientesEdicionController {
     @FXML
     private Button abrirButton;
     
+    @Autowired
+    private BeansComponent beansComponent;
+    
+    @Autowired
+    private TratamientosService tratamientoService;
+    
     // Modelo sobre el que se trabajará la vista
     private PacientesModelo modelo;
     
@@ -64,10 +84,24 @@ public class PacientesEdicionController {
 	
 	TRAZAS.info("Vista de: " + this.getClass().getName());
 	
+	modelo = new PacientesModelo();
+	
     }
     
     @FXML
     private void seleccionarAdjunto() {
+	
+	FileChooser selectorFichero = new FileChooser();
+	File fichero = selectorFichero.showOpenDialog(new Stage());
+	selectorFichero.setTitle(tituloSelectorFicha);
+	selectorFichero.setInitialDirectory(new File("C:\\"));
+	selectorFichero.getExtensionFilters().addAll(new ExtensionFilter("Ficheros PDF", "*.pdf"));
+
+	if (fichero != null) {
+	    nombreAdjuntoLabel.setText(fichero.getName());
+	} else {
+	    nombreAdjuntoLabel.setText(Constantes.CADENA_VACIA);
+	}
 	
     }
     

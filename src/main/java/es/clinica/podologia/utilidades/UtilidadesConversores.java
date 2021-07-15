@@ -1,5 +1,6 @@
 package es.clinica.podologia.utilidades;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -247,5 +248,55 @@ public class UtilidadesConversores {
     
     
     // BOOLEANO - INICIO
+    
+    
+    // FICHEROS - INICIO
+    
+    /**
+     * <p>Método para convertir un fichero de tipo {@code File} en un array de {@code byte}.</p>
+     * 
+     * @param fichero {@link File} fichero que se quiere convertir
+     * 
+     * @return {@link byte}[] array de bytes resultante
+     */
+    public static byte[] convertirFicheroArrayBytes (File fichero) {
+	
+	// Inicializar el array de bytes que se va a retornar al final del método
+	byte[] arrayBytes = null;
+	
+	// Comprobar que el fichero pasado como parámetro NO es nulo
+	if(fichero != null) {
+	    
+	}
+	
+	// Retornar el array de bytes
+	return arrayBytes;
+	
+    }
+    
+    /**
+     * <p>Método para convertir un array de {@code byte} en un fichero de tipo {@code File}.</p>
+     * 
+     * @param arrayBytes {@link byte}[] array de bytes que se quiere convertir
+     * 
+     * @return {@link File} fichero resultante
+     */
+    public static File convertirArrayBytesFichero (byte[] arrayBytes) {
+	
+	// Inicializar el fichero que se va a retornar al final del método
+	File fichero = null;
+	
+	// Comprobar que el array de bytes pasado como parámetro NO es nulo
+	if(arrayBytes != null) {
+	    
+	}
+	
+	
+	// Retornar el fichero
+	return fichero;
+	
+    }
+    
+    // FICHEROS -FIN
 
 }

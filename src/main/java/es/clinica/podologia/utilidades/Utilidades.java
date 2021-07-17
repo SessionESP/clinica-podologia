@@ -98,11 +98,11 @@ public class Utilidades {
     /**
      * <p>Método que comprueba si un array de {@code byte} es <b>NULO</b> o está vacío.</p>
      * 
-     * @param coleccion {@link Object} array de objetos que se quiere comprobar
+     * @param coleccion {@link byte} array de objetos que se quiere comprobar
      * 
      * @return {@link Boolean} retorna {@code true} en caso de que el array <b>NO</b> sea nulo <b>NI</b> esté vacío
      */
-    public static Boolean comprobarArrayByte(Object[] array) {
+    public static Boolean comprobarArrayByte(byte[] array) {
 	return array != null && array.length > 0;
     }
     
@@ -122,14 +122,43 @@ public class Utilidades {
     
     
     /**
-     * <p>Comprobar si un archivo {@code File} es nulo o está vacío.</p>
+     * <p>Método que comprueba si un archivo {@code File} es nulo o está vacío.</p>
      * 
      * @param archivo {@link File} archivo que se quiere comprobar
      * 
-     * @return {@code true} en caso de que el archivo <b>NO</b> sea nulo <b>NI</b> esté vacío
+     * @return {@link Boolean} {@code true} en caso de que el archivo <b>NO</b> sea nulo <b>NI</b> esté vacío
      */
-    public static Boolean comprobarFichero(File archivo) {
+    public static Boolean comprobarArchivo(File archivo) {
 	return archivo != null && archivo.length() > 0;
+    }
+    
+    
+    /**
+     * <p>Método que comprueba si una cadena de caracteres representa la localización de un archivo válido.</p>
+     * 
+     * @param ubicacion {@link String} cadena que representa la ubicación de un archivo
+     * 
+     * @return {@link Boolean} {@code true} en caso de que el archivo exista en la localización
+     */
+    public static Boolean comprobarUbicacionArchivo(String ubicacion) {
+	
+	// Inicializar la variable que se retornará al final del método
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que la cadena de caracteres NO es nula
+	if(StringUtils.isNotBlank(ubicacion)) {
+	    
+	    // Instanciar un archivo con la ubicación para realizar las comprobaciones
+	    File archivo = new File(ubicacion);
+	    
+	    // Comprobar que el archivo existe, que es un directorio y que es un archivo
+	    resultado = archivo.exists() && archivo.isFile();
+	    
+	}
+	
+	// Retornar el resultado de la comprobación del método
+	return resultado;
+	
     }
 
 }

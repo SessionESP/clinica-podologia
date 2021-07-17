@@ -1,15 +1,21 @@
 package es.clinica.podologia.utilidades;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import es.clinica.podologia.constantes.Constantes;
 
@@ -20,6 +26,8 @@ import es.clinica.podologia.constantes.Constantes;
  *
  */
 public class UtilidadesConversores {
+    
+    private static final Logger TRAZAS = LoggerFactory.getLogger(UtilidadesConversores.class);
     
     /**
      * <p>Constructor privado vacío.</p>
@@ -96,7 +104,8 @@ public class UtilidadesConversores {
      * @return {@link List}<{@link String}> lsitado de cadenas de caracteres
      */
     public static List<String> convertirArrayCadenasListaCadenas(String[] arrayCadenas) {
-	return Boolean.TRUE.equals(Utilidades.comprobarArray(arrayCadenas)) ? Arrays.asList(arrayCadenas) : null;
+	return Boolean.TRUE.equals(Utilidades.comprobarArray(arrayCadenas)) ? 
+		Arrays.asList(arrayCadenas) : new ArrayList<>();
     }
     
     /**
@@ -107,8 +116,7 @@ public class UtilidadesConversores {
      * @return {@link List}<{@link Integer}> listado de cadenas de enteros
      */
     public static List<Integer> convertirListadoCadenasListadoEnteros(List<String> listadoCadenas) {
-	return Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoCadenas)) ? 
-		listadoCadenas.stream().map(Integer::valueOf).collect(Collectors.toList()) : null;
+	return ListUtils.emptyIfNull(listadoCadenas).stream().map(Integer::valueOf).collect(Collectors.toList());
     }
     
     /**
@@ -232,7 +240,7 @@ public class UtilidadesConversores {
      * 
      * @return {@link String} cadena de caracteres correspondiente al valor del objeto booleano
      */
-    public static String booleanoCadena(Boolean booleano) {
+    public static String convertirBooleanoCadena(Boolean booleano) {
 	return booleano != null ? booleano.toString() : Constantes.CADENA_VACIA;
     }
     
@@ -253,19 +261,33 @@ public class UtilidadesConversores {
     // FICHEROS - INICIO
     
     /**
-     * <p>Método para convertir un fichero de tipo {@code File} en un array de {@code byte}.</p>
+     * <p>Método para convertir un archivo de tipo {@code File} en un array de {@code byte}.</p>
      * 
-     * @param fichero {@link File} fichero que se quiere convertir
+     * @param archivo {@link File} archivo que se quiere convertir
      * 
      * @return {@link byte}[] array de bytes resultante
      */
-    public static byte[] convertirFicheroArrayBytes (File fichero) {
+    public static byte[] convertirFicheroArrayBytes (File archivo) {
 	
 	// Inicializar el array de bytes que se va a retornar al final del método
 	byte[] arrayBytes = null;
 	
 	// Comprobar que el fichero pasado como parámetro NO es nulo
-	if(fichero != null) {
+	if(Boolean.TRUE.equals(Utilidades.comprobarArchivo(archivo))) {
+	    
+	    try {
+		
+		// Convertir el archivo en una array de bytes
+		arrayBytes = FileUtils.readFileToByteArray(archivo);
+		
+	    } catch (IOException excepcion) {
+		
+		// Error al intentar convertir el archivo
+		TRAZAS.error(excepcion.getMessage());
+		excepcion.printStackTrace();
+		UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+		
+	    }
 	    
 	}
 	
@@ -274,26 +296,47 @@ public class UtilidadesConversores {
 	
     }
     
+
     /**
-     * <p>Método para convertir un array de {@code byte} en un fichero de tipo {@code File}.</p>
+     * <p>Método para convertir un array de {@code byte} en un archivo de tipo {@code File}.</p>
      * 
      * @param arrayBytes {@link byte}[] array de bytes que se quiere convertir
+     * @param archivo {@link String} ubicación donde se colocará el archivo resultante
      * 
-     * @return {@link File} fichero resultante
+     * @return {@link File} archivo que se quiere convertir
      */
-    public static File convertirArrayBytesFichero (byte[] arrayBytes) {
+    public static File convertirArrayBytesFichero (byte[] arrayBytes, String ubicacion) {
 	
 	// Inicializar el fichero que se va a retornar al final del método
-	File fichero = null;
+	File archivo = new File(ubicacion);
 	
 	// Comprobar que el array de bytes pasado como parámetro NO es nulo
-	if(arrayBytes != null) {
+	if(Boolean.TRUE.equals(Utilidades.comprobarArrayByte(arrayBytes))) {
+	    
+	    try {
+		
+		// Eliminar el fichero si ya existe
+		if(Boolean.TRUE.equals(Utilidades.comprobarUbicacionArchivo(ubicacion))) {
+		    FileUtils.delete(archivo);
+		}
+		
+		// Convertir el array de bytes en un archivo
+		FileUtils.writeByteArrayToFile(archivo, arrayBytes);
+		
+	    } catch (IOException excepcion) {
+		
+		// Error al intentar convertir el array de bytes
+		TRAZAS.error(excepcion.getMessage());
+		excepcion.printStackTrace();
+		UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+		
+	    }
 	    
 	}
 	
 	
 	// Retornar el fichero
-	return fichero;
+	return archivo;
 	
     }
     

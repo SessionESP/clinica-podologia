@@ -102,7 +102,7 @@
                         <Insets right="10.0" />
                      </padding>
                   </Label>
-                  <ImageView fx:id="verAdjuntoImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                  <ImageView fx:id="verAdjuntoImageView" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#abrirAdjunto" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                      <image>
                         <Image url="@../imagenes/pdf.png" />
                      </image>

@@ -285,8 +285,8 @@ public class ConfiguracionEdicionController {
 	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_HORA_APERTURA, UtilidadesConversores.convertirHoraCadena(apertura));
 	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_HORA_CIERRE, UtilidadesConversores.convertirHoraCadena(cierre));
 	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_DURACION, UtilidadesConversores.convertirEnteroCadena(duracionCitas));
-	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_CITAS_PASADAS, UtilidadesConversores.booleanoCadena(eliminacionCitas));
-	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_FISICA_CITAS, UtilidadesConversores.booleanoCadena(eliminacionFisica));
+	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_CITAS_PASADAS, UtilidadesConversores.convertirBooleanoCadena(eliminacionCitas));
+	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_FISICA_CITAS, UtilidadesConversores.convertirBooleanoCadena(eliminacionFisica));
 	    
 	    // Guardar
 	    constructor.save();

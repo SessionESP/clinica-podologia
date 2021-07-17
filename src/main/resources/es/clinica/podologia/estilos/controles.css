@@ -11,5 +11,5 @@
 }
 
 .image-view:pressed {
-	transform:scale(1.5);
+	-fx-transform: scale(1.5);
 }

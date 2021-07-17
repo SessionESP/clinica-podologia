@@ -1,6 +1,8 @@
 package es.clinica.podologia.controladores;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,10 @@ import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.servicios.TratamientosService;
+import es.clinica.podologia.utilidades.Utilidades;
+import es.clinica.podologia.utilidades.UtilidadesAlertas;
+import es.clinica.podologia.utilidades.UtilidadesConversores;
+import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,6 +40,12 @@ public class PacientesEdicionController {
     
     @Value("${pacientes.seleccionar.ficha}")
     private String tituloSelectorFicha;
+    
+    @Value("${clinica.directorio.inicial}")
+    private String directorioInicial;
+    
+    @Value("${clinica.adjunto.temporal}")
+    private String adjuntoTemporal;
     
     @FXML
     private Label tituloLabel;
@@ -89,6 +101,8 @@ public class PacientesEdicionController {
 	
 	modelo = new PacientesModelo();
 	
+	desasignarAdjunto();
+	
 
 	
     }
@@ -97,33 +111,87 @@ public class PacientesEdicionController {
     private void seleccionarAdjunto() {
 	
 	FileChooser selectorFichero = new FileChooser();
-	File fichero = selectorFichero.showOpenDialog(new Stage());
 	selectorFichero.setTitle(tituloSelectorFicha);
-	selectorFichero.setInitialDirectory(new File("C:\\"));
+	selectorFichero.setInitialDirectory(new File(directorioInicial));
 	selectorFichero.getExtensionFilters().addAll(new ExtensionFilter("Ficheros PDF", "*.pdf"));
+	File archivo = selectorFichero.showOpenDialog(new Stage());
 
-	if (fichero != null) {
-	    nombreAdjuntoLabel.setText(fichero.getName());
-	    verAdjuntoImageView.setVisible(false);
+	if (Utilidades.comprobarArchivo(archivo) && Utilidades.comprobarUbicacionArchivo(archivo.getAbsolutePath())) {
+	    asignarAdjunto(archivo);
 	} else {
-	    nombreAdjuntoLabel.setText(Constantes.CADENA_VACIA);
+	    desasignarAdjunto();
 	}
 	
     }
     
+    /**
+     * <p>Método invocado como un evento abrir el adjunto del paciente.</p>
+     */
     @FXML
     private void abrirAdjunto() {
 	
+	if(modelo != null && Utilidades.comprobarArrayByte(modelo.getAdjunto())) {
+	    
+	    String ubicacionFichero = adjuntoTemporal.concat("prueba.pdf");
+	    
+	    File archivo = UtilidadesConversores.convertirArrayBytesFichero(modelo.getAdjunto(), new File(ubicacionFichero).getAbsolutePath());
+	    
+	    try {
+		
+		// Abrir el fichero .PDF con el programa por defecto instalado en el ordenador
+
+		Process proceso = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + ubicacionFichero);
+		proceso.waitFor();
+
+	    } catch (InterruptedException | IOException excepcion) {
+		// Error intentando abrir el adjunto
+		TRAZAS.error(excepcion.getMessage());
+		excepcion.printStackTrace();
+		UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    }
+	    
+	}
+	
     }
     
+    /**
+     * <p>Método invocado como un evento para guardar el paciente.</p>
+     */
     @FXML
     private void guardarPaciente() {
 	
     }
     
+    /**
+     * <p>Método invocado como un evento para cerrar la ventana emergente.</p>
+     */
     @FXML
     private void cancelarPaciente() {
 	
+	modelo = null;
+	
+	UtilidadesVentanasEmergentes.cerrarVentanaEmergente();
+	
+    }
+    
+    /**
+     * <p>Método que asigna el adjunto seleccionado al atributo correspondiente del modelo y actualiza el campo de la vista.</p>
+     * 
+     * @param archivo {@link File} archivo que se va a adjuntar al modelo
+     */
+    private void asignarAdjunto(File archivo) {
+	nombreAdjuntoLabel.setText(archivo.getName());
+	verAdjuntoImageView.setVisible(Boolean.TRUE);
+	modelo.setAdjunto(UtilidadesConversores.convertirFicheroArrayBytes(archivo));
+    }
+    
+    /**
+     * <p>Método que desasigna el adjunto seleccionado al atributo correspondiente del modelo y actualiza el campo de la vista.</p>
+     */
+    private void desasignarAdjunto() {
+	nombreAdjuntoLabel.setText(Constantes.CADENA_VACIA);
+	verAdjuntoImageView.setVisible(Boolean.FALSE);
+	modelo.setAdjunto(Constantes.CADENA_VACIA.getBytes());
     }
     
     public PacientesModelo getModelo() {

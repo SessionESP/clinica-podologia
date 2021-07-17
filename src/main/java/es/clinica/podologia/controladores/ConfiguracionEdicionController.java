@@ -153,7 +153,7 @@ public class ConfiguracionEdicionController {
      */
     @FXML
     private void cambiarDuracionCitas(Event evento) {
-	duracionCitas = UtilidadesConversores.cadenaEntero(duracionCitasTextField.getText());
+	duracionCitas = UtilidadesConversores.convertirCadenaEntero(duracionCitasTextField.getText());
     }
     
     /**
@@ -203,12 +203,12 @@ public class ConfiguracionEdicionController {
     private void cargarHorarios(FileBasedConfiguration configuracion) {
 	
 	// Hora de apertura
-	apertura = UtilidadesConversores.cadenaHora(configuracion.getString(
+	apertura = UtilidadesConversores.convertirCadenaHora(configuracion.getString(
 		Constantes.CONFIGURACION_HORA_APERTURA, 
 		Constantes.CONFIGURACION_APERTURA_DEFECTO));
 
 	// Hora de cierre
-	cierre = UtilidadesConversores.cadenaHora(configuracion.getString(
+	cierre = UtilidadesConversores.convertirCadenaHora(configuracion.getString(
 		Constantes.CONFIGURACION_HORA_CIERRE, 
 		Constantes.CONFIGURACION_CIERRE_DEFECTO));
 
@@ -217,7 +217,7 @@ public class ConfiguracionEdicionController {
 
 	// Cargar el listado con las veinticuatro horas del día
 	for (int i = 0; i < 24; i++) {
-	    listadoHorarios.add(LocalTime.MIN.plusHours(UtilidadesConversores.enteroLong(i)));
+	    listadoHorarios.add(LocalTime.MIN.plusHours(UtilidadesConversores.convertirEnteroLong(i)));
 	}
 
 	// Cargar todas las horas del día en el selector de hora de apertura
@@ -250,7 +250,7 @@ public class ConfiguracionEdicionController {
 		Constantes.CONFIGURACION_DURACION_DEFECTO);
 
 	duracionCitasTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_NUMEROS_ENTEROS, 2));
-	duracionCitasTextField.setText(UtilidadesConversores.enteroCadena(duracionCitas));
+	duracionCitasTextField.setText(UtilidadesConversores.convertirEnteroCadena(duracionCitas));
 	
     }
     
@@ -282,9 +282,9 @@ public class ConfiguracionEdicionController {
 	try {
 	    
 	    // Setear el valor de cada control en el fichero de propiedades externo
-	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_HORA_APERTURA, UtilidadesConversores.horaCadena(apertura));
-	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_HORA_CIERRE, UtilidadesConversores.horaCadena(cierre));
-	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_DURACION, UtilidadesConversores.enteroCadena(duracionCitas));
+	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_HORA_APERTURA, UtilidadesConversores.convertirHoraCadena(apertura));
+	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_HORA_CIERRE, UtilidadesConversores.convertirHoraCadena(cierre));
+	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_DURACION, UtilidadesConversores.convertirEnteroCadena(duracionCitas));
 	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_CITAS_PASADAS, UtilidadesConversores.booleanoCadena(eliminacionCitas));
 	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_FISICA_CITAS, UtilidadesConversores.booleanoCadena(eliminacionFisica));
 	    

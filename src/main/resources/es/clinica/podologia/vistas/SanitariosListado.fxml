@@ -32,7 +32,7 @@
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Button>
-            <TableView fx:id="tratamientosListView" layoutX="59.0" layoutY="140.0" prefHeight="240.0" prefWidth="240.0" stylesheets="@../estilos/tableViewStyles.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
+            <TableView fx:id="tratamientosListView" layoutX="59.0" layoutY="140.0" prefHeight="240.0" prefWidth="240.0" stylesheets="@../estilos/estilos.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
               <columns>
                 <TableColumn fx:id="nombreColumn" prefWidth="200.0" text="Nombre" />
               </columns>

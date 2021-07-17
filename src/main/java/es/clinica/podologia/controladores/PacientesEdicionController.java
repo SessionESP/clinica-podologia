@@ -11,12 +11,12 @@ import es.clinica.podologia.componentes.BeansComponent;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.PacientesModelo;
-import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.TratamientosService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -64,6 +64,9 @@ public class PacientesEdicionController {
     @FXML
     private Button abrirButton;
     
+    @FXML
+    private ImageView verAdjuntoImageView;
+    
     @Autowired
     private BeansComponent beansComponent;
     
@@ -86,6 +89,8 @@ public class PacientesEdicionController {
 	
 	modelo = new PacientesModelo();
 	
+
+	
     }
     
     @FXML
@@ -99,6 +104,7 @@ public class PacientesEdicionController {
 
 	if (fichero != null) {
 	    nombreAdjuntoLabel.setText(fichero.getName());
+	    verAdjuntoImageView.setVisible(false);
 	} else {
 	    nombreAdjuntoLabel.setText(Constantes.CADENA_VACIA);
 	}

@@ -1,5 +1,6 @@
 package es.clinica.podologia.utilidades;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
@@ -86,13 +87,25 @@ public class Utilidades {
     /**
      * <p>Método que comprueba si un array es <b>NULO</b> o está vacío.</p>
      * 
-     * @param coleccion {@link Object} array de objetos que se quiere comprobar
+     * @param array {@link Object}{} array de objetos que se quiere comprobar
      * 
      * @return {@link Boolean} retorna {@code true} en caso de que el array <b>NO</b> sea nulo <b>NI</b> esté vacío
      */
     public static Boolean comprobarArray(Object[] array) {
 	return array != null && array.length > 0;
     }
+    
+    /**
+     * <p>Método que comprueba si un array de {@code byte} es <b>NULO</b> o está vacío.</p>
+     * 
+     * @param coleccion {@link Object} array de objetos que se quiere comprobar
+     * 
+     * @return {@link Boolean} retorna {@code true} en caso de que el array <b>NO</b> sea nulo <b>NI</b> esté vacío
+     */
+    public static Boolean comprobarArrayByte(Object[] array) {
+	return array != null && array.length > 0;
+    }
+    
     
     /**
      * <p>Método que comprueba si una mapa es <b>NULO</b> o está vacío.</p>
@@ -105,6 +118,18 @@ public class Utilidades {
      */
     public static Boolean comprobarMapa(Map<?, ?> mapa) {
 	return mapa != null && !mapa.isEmpty();
+    }
+    
+    
+    /**
+     * <p>Comprobar si un archivo {@code File} es nulo o está vacío.</p>
+     * 
+     * @param archivo {@link File} archivo que se quiere comprobar
+     * 
+     * @return {@code true} en caso de que el archivo <b>NO</b> sea nulo <b>NI</b> esté vacío
+     */
+    public static Boolean comprobarFichero(File archivo) {
+	return archivo != null && archivo.length() > 0;
     }
 
 }

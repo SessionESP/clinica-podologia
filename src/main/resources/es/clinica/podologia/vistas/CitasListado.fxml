@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane styleClass="panel-default" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.CitasListadoController">
+<BorderPane styleClass="panel-default" stylesheets="@../estilos/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.CitasListadoController">
    <center>
       <AnchorPane prefHeight="800.0" prefWidth="1600.0" styleClass="panel-default" BorderPane.alignment="CENTER">
          <children>
@@ -69,7 +69,7 @@
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font></Button>
-            <TableView fx:id="citasTableView" layoutX="137.0" layoutY="331.0" prefHeight="200.0" prefWidth="715.0" stylesheets="@../estilos/tableViewStyles.css" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
+            <TableView fx:id="citasTableView" layoutX="137.0" layoutY="331.0" prefHeight="200.0" prefWidth="715.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
               <columns>
                 <TableColumn fx:id="identificadorColumn" prefWidth="160.0" text="Identificador de la cita" />
                 <TableColumn fx:id="nombrePacienteColumn" prefWidth="240.0" text="Nombre del paciente" />

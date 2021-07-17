@@ -45,7 +45,7 @@ public class UtilidadesConversores {
      * 
      * @return {@link Integer} entero convertido
      */
-    public static Integer cadenaEntero(String cadena) {
+    public static Integer convertirCadenaEntero(String cadena) {
 	
 	// Convertir siempre y cuando la cadena de caracteres pasada como parámetro NO sea nula NI esté vacía
 	return StringUtils.isNotBlank(cadena) ? Integer.valueOf(cadena) : null;
@@ -59,7 +59,7 @@ public class UtilidadesConversores {
      * 
      * @return {@link String} cadena de caracteres convertida
      */
-    public static String enteroCadena(Integer entero) {
+    public static String convertirEnteroCadena(Integer entero) {
 	
 	// Convertir siempre y cuando la cadena de caracteres pasada como parámetro NO sea nula NI esté vacía
 	return entero != null ? String.valueOf(entero) : null;
@@ -73,7 +73,7 @@ public class UtilidadesConversores {
      * 
      * @return {@link Integer} valor convertido
      */
-    public static Integer longEntero(Long numero) {
+    public static Integer convertirLongEntero(Long numero) {
 	return numero != null ? Math.toIntExact(numero) : null ;
     }
     
@@ -84,7 +84,7 @@ public class UtilidadesConversores {
      * 
      * @return {@link Long} valor convertido
      */
-    public static Long enteroLong(Integer numero) {
+    public static Long convertirEnteroLong(Integer numero) {
 	return numero != null ? numero.longValue() : null;
     }
     
@@ -137,7 +137,7 @@ public class UtilidadesConversores {
      * 
      * @see DateTimeFormatter
      */
-    public static LocalDate cadenaFecha(String cadena) {
+    public static LocalDate convertirCadenaFecha(String cadena) {
 	
 	// Convertir siempre y cuando la cadena de caracteres pasada como parámetro NO sea nula NI esté vacía
 	return StringUtils.isNotBlank(cadena) ? LocalDate.parse(cadena, formateadorFecha) : null;
@@ -153,7 +153,7 @@ public class UtilidadesConversores {
      * 
      * @see DateTimeFormatter
      */
-    public static String fechaCadena(LocalDate fecha) {
+    public static String convertirFechaCadena(LocalDate fecha) {
 	
 	// Convertir siempre y cuando el la fecha pasada como parámetro de entrada NO sea nula
 	return fecha != null ? formateadorFecha.format(fecha) : Constantes.CADENA_VACIA;
@@ -174,7 +174,7 @@ public class UtilidadesConversores {
      * 
      * @see DateTimeFormatter
      */
-    public static LocalTime cadenaHora(String cadena) {
+    public static LocalTime convertirCadenaHora(String cadena) {
 	
 	// Convertir siempre y cuando la cadena de caracteres pasada como parámetro NO sea nula NI esté vacía
 	return StringUtils.isNotBlank(cadena) ? LocalTime.parse(cadena, formateadorHora) : null;
@@ -190,7 +190,7 @@ public class UtilidadesConversores {
      * 
      * @see DateTimeFormatter
      */
-    public static String horaCadena(LocalTime hora) {
+    public static String convertirHoraCadena(LocalTime hora) {
 	
 	// Convertir siempre y cuando el la fecha pasada como parámetro de entrada NO sea nula
 	return hora != null ? formateadorHora.format(hora) : Constantes.CADENA_VACIA;
@@ -205,14 +205,14 @@ public class UtilidadesConversores {
      * 
      * @return {@link Integer} número de minutos entre las dos horas
      */
-    public static Integer diferenciaMinutos(LocalTime horaInicio, LocalTime horaFin) {
+    public static Integer calcularDiferenciaMinutos(LocalTime horaInicio, LocalTime horaFin) {
 	
 	// Inicializar el entero que se retornará al fina del método
 	Integer diferencia = null;
 	
 	// Comprobar que ambos parámetros de entrada NO son nulos
 	if(horaInicio != null && horaFin != null) {
-	    diferencia = longEntero(ChronoUnit.MINUTES.between(horaInicio, horaFin));
+	    diferencia = convertirLongEntero(ChronoUnit.MINUTES.between(horaInicio, horaFin));
 	}
 	
 	// Retornar el la diferencia entre las dos horas

@@ -22,12 +22,12 @@ public class DatePickerFormatted extends StringConverter<LocalDate> {
 
     @Override
     public String toString(LocalDate fecha) {
-	return UtilidadesConversores.fechaCadena(fecha);
+	return UtilidadesConversores.convertirFechaCadena(fecha);
     }
 
     @Override
     public LocalDate fromString(String cadena) {
-	return UtilidadesConversores.cadenaFecha(cadena);
+	return UtilidadesConversores.convertirCadenaFecha(cadena);
     }
 
 }

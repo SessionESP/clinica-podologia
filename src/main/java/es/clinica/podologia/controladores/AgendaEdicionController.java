@@ -84,12 +84,12 @@ public class AgendaEdicionController {
 		FileBasedConfiguration configuracion = constructor.getConfiguration();
 
 		// Hora de apertura
-		apertura = UtilidadesConversores.cadenaHora(configuracion.getString(
+		apertura = UtilidadesConversores.convertirCadenaHora(configuracion.getString(
 			Constantes.CONFIGURACION_HORA_APERTURA, 
 			Constantes.CONFIGURACION_APERTURA_DEFECTO));
 
 		// Hora de cierre
-		cierre = UtilidadesConversores.cadenaHora(configuracion.getString(
+		cierre = UtilidadesConversores.convertirCadenaHora(configuracion.getString(
 			Constantes.CONFIGURACION_HORA_CIERRE, 
 			Constantes.CONFIGURACION_CIERRE_DEFECTO));
 
@@ -192,7 +192,7 @@ public class AgendaEdicionController {
     private void generarFilas() {
 	
 	// Calcular el número de filas que se van a generar
-	Integer numeroFilas = Math.floorDiv(UtilidadesConversores.diferenciaMinutos(apertura, cierre), duracionCitas);
+	Integer numeroFilas = Math.floorDiv(UtilidadesConversores.calcularDiferenciaMinutos(apertura, cierre), duracionCitas);
 	
 	// Limpiar la tabla de filas anteriores, por si las tuviera (caso de refrescar la vista)
 	agendaTableView.getItems().clear();
@@ -226,7 +226,7 @@ public class AgendaEdicionController {
 	List<String> valoresFila = new ArrayList<>();
 	
 	// Primera columna con las horas de las citas
-	valoresFila.add(UtilidadesConversores.horaCadena(apertura.plusMinutes(UtilidadesConversores.enteroLong(numeroFila * duracionCitas))));
+	valoresFila.add(UtilidadesConversores.convertirHoraCadena(apertura.plusMinutes(UtilidadesConversores.convertirEnteroLong(numeroFila * duracionCitas))));
 	
 	// Iterar sobre el resto de columnas
 	for(int i = 1; i < agendaTableView.getColumns().size(); i++) {

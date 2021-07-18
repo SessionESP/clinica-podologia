@@ -23,7 +23,12 @@ public class Constantes {
     
     public static final String ASTERISCO = "*";
     public static final String COMA = ",";
+    public static final String EXTENSION_PDF = ".pdf";
+    public static final String GUION_BAJO = "_";
     public static final String PUNTO = ".";
+    public static final String SIN_DNI = "sin_dni";
+    public static final String SIN_NOMBRE = "sin_nombre";
+    public static final String SIN_APELLIDOS = "sin_apellidos";
     
     public static final String TITULO = "titulo";
     public static final String ALTURA = "altura";

@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.entidades.Pacientes;
 import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.repositorios.PacientesRepository;
@@ -157,9 +156,7 @@ public class PacientesServiceImpl implements PacientesService {
 	    modelo.setApellidos(entidad.getApellidos());
 	    modelo.setDireccion(entidad.getDireccion());
 	    modelo.setTelefono(entidad.getTelefono());
-	    // TODO: sustituir cuando la base de datos tenga valores en esta columna
-	    // modelo.setAdjunto(entidad.getAdjunto());
-	    modelo.setAdjunto(Constantes.CADENA_VACIA.getBytes());
+	    modelo.setAdjunto(Utilidades.comprobarArrayByteNulo(entidad.getAdjunto()));
 	    
 	}
 	
@@ -194,9 +191,7 @@ public class PacientesServiceImpl implements PacientesService {
 	    entidad.setApellidos(modelo.getApellidos());
 	    entidad.setDireccion(modelo.getDireccion());
 	    entidad.setTelefono(modelo.getTelefono());
-	    // TODO: sustituir cuando la base de datos tenga valores en esta columna
-	    // modelo.setAdjunto(modelo.getAdjunto());
-	    entidad.setAdjunto(Constantes.CADENA_VACIA.getBytes());
+	    modelo.setAdjunto(Utilidades.comprobarArrayByteNulo(modelo.getAdjunto()));
 	    
 	}
 	

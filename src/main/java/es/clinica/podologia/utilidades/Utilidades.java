@@ -38,6 +38,7 @@ public class Utilidades {
 	return StringUtils.isNotBlank(cadena) ? cadena : defecto;
     }
     
+    
     /**
      * <p>Método que comprueba si una cadena de caracteres es nula, retornando una cadena vacía en caso de que lo sea</p>
      * 
@@ -95,15 +96,28 @@ public class Utilidades {
 	return array != null && array.length > 0;
     }
     
+    
     /**
      * <p>Método que comprueba si un array de {@code byte} es <b>NULO</b> o está vacío.</p>
      * 
-     * @param coleccion {@link byte} array de objetos que se quiere comprobar
+     * @param array {@link byte}[] array de objetos que se quiere comprobar
      * 
      * @return {@link Boolean} retorna {@code true} en caso de que el array <b>NO</b> sea nulo <b>NI</b> esté vacío
      */
     public static Boolean comprobarArrayByte(byte[] array) {
 	return array != null && array.length > 0;
+    }
+    
+    
+    /**
+     * <p>Método que retornar un array de {@code byte} en caso de que sea nulo.</p>
+     * 
+     * @param array {@link byte}[] array de bytes que se quiere comprobar
+     * 
+     * @return {@link byte}[] retorna el mismo array si  <b>NO ES NULO</b> o uno vacío en caso de que lo sea
+     */
+    public static byte[] comprobarArrayByteNulo(byte[] array) {
+	return comprobarArrayByte(array) ? array : Constantes.CADENA_VACIA.getBytes();
     }
     
     

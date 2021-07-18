@@ -340,6 +340,46 @@ public class UtilidadesConversores {
 	
     }
     
+    
+    /**
+     * <p>Método que elimina un archivo de una ubicación.</p>
+     * 
+     * @param archivo {@link File} archivo que se quiere eliminar
+     * 
+     * @return {@link Boolean} retorna {@code true} en caso de que el archivo se haya borrado correctamente
+     */
+    public static Boolean eliminarArchico (File archivo) {
+	
+	// Inicializar la variable que se va a retornar al final del método
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el archivo NO es nulo y que existe
+	if(Utilidades.comprobarArchivo(archivo) && Utilidades.comprobarUbicacionArchivo(archivo.getAbsolutePath())) {
+	    
+	    try {
+		
+		// Eliminar el archivo
+		FileUtils.delete(archivo);
+		
+		// Comprobar que el archivo ya no existe
+		resultado = !Utilidades.comprobarUbicacionArchivo(archivo.getAbsolutePath());
+		
+	    } catch (IOException excepcion) {
+		
+		// Error al intentar convertir el array de bytes
+		TRAZAS.error(excepcion.getMessage());
+		excepcion.printStackTrace();
+		UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+		
+	    }
+	}
+
+	
+	// Retornar el resultado del borrado del fichero
+	return resultado;
+	
+    }
+    
     // FICHEROS -FIN
 
 }

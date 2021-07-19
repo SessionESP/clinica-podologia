@@ -16,10 +16,9 @@ import org.springframework.context.annotation.PropertySources;
 import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.javafx.jfxsupport.GUIState;
 import es.clinica.podologia.utilidades.UtilidadesNavegacion;
+import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import es.clinica.podologia.vistas.AccesoView;
 import javafx.application.Application;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -59,8 +58,8 @@ public class JavaFxApplicationSupport extends Application {
     public void start(Stage primaryStage) throws Exception {
 	GUIState.setStage(primaryStage);
 	GUIState.setHostServices(this.getHostServices());
+	UtilidadesVentanasEmergentes.setDialogStage(new Stage());
 	mostrarVistaInicial();
-
     }
 
     /**

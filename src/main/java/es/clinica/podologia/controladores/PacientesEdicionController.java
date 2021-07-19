@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.StringJoiner;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,7 +156,7 @@ public class PacientesEdicionController {
 	selectorFichero.setInitialDirectory(new File(directorioInicial));
 	
 	// Establecer el filtro de ficheros para que únicamente permita archivos .PDF
-	selectorFichero.getExtensionFilters().addAll(new ExtensionFilter("Ficha podológica en formato PDF", "*.pdf"));
+	selectorFichero.getExtensionFilters().addAll(new ExtensionFilter("Archivos PDF", "*.pdf"));
 	
 	// Abrir el selector de ficheros
 	File archivo = selectorFichero.showOpenDialog(new Stage());

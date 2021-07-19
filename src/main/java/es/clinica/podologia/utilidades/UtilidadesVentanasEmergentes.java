@@ -69,7 +69,8 @@ public class UtilidadesVentanasEmergentes {
 		
 	    }
 	    
-	    dialogStage = new Stage();
+	    // Crear una nueva instancia
+//	    dialogStage = new Stage();
 
 	    // Aplicar la escena resultante
 	    dialogStage.setScene(dialogScene);
@@ -79,9 +80,6 @@ public class UtilidadesVentanasEmergentes {
 
 	    // Añadir los iconos a la vista
 	    dialogStage.getIcons().addAll(JavaFxApplicationSupport.getIconos());
-	    
-	    // Evita que se pueda hacer click fuera de la ventana emergente
-	    dialogStage.initModality(Modality.APPLICATION_MODAL);
 
 	    // Mostrar el diálogo
 	    dialogStage.show();
@@ -105,13 +103,25 @@ public class UtilidadesVentanasEmergentes {
     public static Stage getDialogStage() {
         return dialogStage;
     }
+    
+    /**
+     * <p>Método que setea el {@code Stage} de la ventana emergente.</p>
+     * 
+     * @param dialogStage {@link Stage} donde se ubica al ventana emergente
+     */
+    public static void setDialogStage(Stage dialogStage) {
+	
+	UtilidadesVentanasEmergentes.dialogStage = dialogStage;
+	
+	// Evita que se pueda hacer click fuera de la ventana emergente
+	UtilidadesVentanasEmergentes.dialogStage.initModality(Modality.APPLICATION_MODAL);
+    }
 
     /**
      * <p>Método para cerrar la ventana emergente activa.</p>
      */
     public static void cerrarVentanaEmergente() {
-	dialogStage.hide();
-	dialogStage = null;
+	dialogStage.close();
     }
 
 }

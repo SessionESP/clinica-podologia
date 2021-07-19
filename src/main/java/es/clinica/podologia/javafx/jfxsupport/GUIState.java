@@ -13,47 +13,46 @@ import javafx.stage.Stage;
  */
 public enum GUIState {
 
-	INSTANCE;
-	private static Scene scene;
+    INSTANCE;
 
-	private static Stage stage;
+    private static Scene scene;
 
-	private static String title;
-	
-	private static HostServices hostServices;
+    private static Stage stage;
 
-	public static String getTitle() {
-		return title;
-	}
+    private static String title;
 
-	public static Scene getScene() {
-		return scene;
-	}
+    private static HostServices hostServices;
 
-	public static Stage getStage() {
-		return stage;
-	}
+    public static String getTitle() {
+	return title;
+    }
 
-	public static void setScene(final Scene scene) {
-		GUIState.scene = scene;
-	}
+    public static Scene getScene() {
+	return scene;
+    }
 
-	public static void setStage(final Stage stage) {
-		GUIState.stage = stage;
-	}
+    public static Stage getStage() {
+	return stage;
+    }
 
-	public static void setTitle(final String title) {
-		GUIState.title = title;
-	}
+    public static void setScene(final Scene scene) {
+	GUIState.scene = scene;
+    }
 
-        public static HostServices getHostServices() {
-            return hostServices;
-        }
+    public static void setStage(final Stage stage) {
+	GUIState.stage = stage;
+    }
 
-        public static void setHostServices(HostServices hostServices) {
-            GUIState.hostServices = hostServices;
-        }
-	
-	
+    public static void setTitle(final String title) {
+	GUIState.title = title;
+    }
+
+    public static HostServices getHostServices() {
+	return hostServices;
+    }
+
+    public static void setHostServices(HostServices hostServices) {
+	GUIState.hostServices = hostServices;
+    }
 
 }

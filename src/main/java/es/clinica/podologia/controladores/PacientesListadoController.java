@@ -30,6 +30,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Pagination;
@@ -108,6 +109,13 @@ public class PacientesListadoController {
     @FXML
     private TableColumn<PacientesModelo, String> telefonoColumn;
     
+    @FXML
+    private Button nuevoButton;
+    @FXML
+    private Button editarButton;
+    @FXML
+    private Button eliminarButton;
+    
     /**
      * <p>Método que se ejecuta al inicializarse la vista del listado de Pacientes.</p>
      */
@@ -129,8 +137,9 @@ public class PacientesListadoController {
         paginacionTabla.currentPageIndexProperty().addListener(
                 (observable, oldValue, newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
         
+        habilitarBotonesFila(null);
         
-        pacientesTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> TRAZAS.info(newValue.toString()));
+        pacientesTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
         
 	
     }
@@ -260,6 +269,9 @@ public class PacientesListadoController {
 	
     }
     
+    /**
+     * <p>Método para abrir la vista de edición para dar de alta un nuevo paciente.</p>
+     */
     @FXML
     private void crearPaciente() {
 	
@@ -271,6 +283,9 @@ public class PacientesListadoController {
 	
     }
     
+    /**
+     * <p>Método para abrir la vista de edición para modificar un paciente seleccionado de la tabla.</p>
+     */
     @FXML
     private void editarPaciente() {
 	
@@ -282,6 +297,9 @@ public class PacientesListadoController {
 
     }
     
+    /**
+     * <p>Método para eliminar un paciente seleccionado de la tabla.</p>
+     */
     @FXML
     private void eliminarPaciente() {
 	
@@ -310,6 +328,28 @@ public class PacientesListadoController {
 	    
 	}
 
+    }
+    
+    /**
+     * <p>Método que habilita o deshabilita los botones asociados a acciones a nivel de fila de la tabla: </p>
+     * <ul>
+     * <li>{@code editarButton}: para editar el paciente seleccionado.</li>
+     * <li>{@code eliminarButton}: para eliminar el paciente seleccionado.</li>
+     * </ul>
+     * 
+     * <p>Adicionalmente, asigna el modelo seleccionado al atributo que se utiliza en los métodos de dichos botones.</p>
+     * 
+     * @param modelo {@link PacientesModelo} objeto de paciente
+     */
+    private void habilitarBotonesFila(PacientesModelo modelo) {
+	
+	// Se asigan el modelo seleccionado al que se pasará la vista
+	modeloSeleccionado = modelo;
+	
+	// Habilidar o deshabilitar los botones dependiendo de si se ha seleccionado o no algo en la tabla
+	editarButton.setDisable(modelo != null ? Boolean.FALSE : Boolean.TRUE);
+	eliminarButton.setDisable(modelo != null ? Boolean.FALSE : Boolean.TRUE);
+	
     }
 
 }

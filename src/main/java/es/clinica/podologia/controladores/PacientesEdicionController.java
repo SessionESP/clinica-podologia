@@ -264,13 +264,17 @@ public class PacientesEdicionController {
     @FXML
     private void cancelarPaciente() {
 	
+	// Comprobar que el modelo NO es nulo
+	if (modelo != null) {
+	    
+	    // Eliminar el archvo temporal, si es que hubiese llegado a generarse
+	    UtilidadesConversores.eliminarArchico(UtilidadesConversores.convertirArrayBytesFichero(modelo.getAdjunto(),
+		    new File(adjuntoTemporal.concat(generarNombreArchivo())).getAbsolutePath()));
+	    
+	}
+	
 	// Limpiar el modelo
 	modelo = null;
-	
-	// Eliminar el archvo temporal, si es que hubiese llegado a generarse
-	UtilidadesConversores.eliminarArchico(
-		UtilidadesConversores.convertirArrayBytesFichero(
-			modelo.getAdjunto(), new File(adjuntoTemporal.concat(generarNombreArchivo())).getAbsolutePath()));
 	
 	// Cerrar la ventana emergente
 	UtilidadesVentanasEmergentes.cerrarVentanaEmergente();

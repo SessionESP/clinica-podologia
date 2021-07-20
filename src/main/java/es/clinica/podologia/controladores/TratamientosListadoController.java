@@ -17,8 +17,10 @@ import es.clinica.podologia.componentes.BeansComponent;
 import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
+import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.TratamientosService;
+import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
@@ -30,6 +32,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Pagination;
@@ -94,6 +97,13 @@ public class TratamientosListadoController {
     @FXML
     private TableColumn<TratamientosModelo, String> nombreColumn;
     
+    @FXML
+    private Button nuevoButton;
+    @FXML
+    private Button editarButton;
+    @FXML
+    private Button eliminarButton;
+    
     /**
      * <p>Método que se ejecuta al inicializarse la vista del listado de Tratamientos.</p>
      */
@@ -116,9 +126,9 @@ public class TratamientosListadoController {
                 (observable, oldValue, newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
         
         // Inicializar la descripción
-        mostrarDescripcion(null);
+        habilitarBotonesFila(null);
         
-        tratamientosTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> mostrarDescripcion(newValue));
+        tratamientosTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
         
 	
     }
@@ -220,6 +230,9 @@ public class TratamientosListadoController {
 	
     }
     
+    /**
+     * <p>Método para abrir la vista de edición para dar de alta un nuevo tratamiento.</p>
+     */
     @FXML
     private void crearTratamiento() {
 	
@@ -231,6 +244,9 @@ public class TratamientosListadoController {
 	
     }
     
+    /**
+     * <p>Método para abrir la vista de edición para modificar un tratamiento seleccionado de la tabla.</p>
+     */
     @FXML
     private void editarTratamiento() {
 	
@@ -242,6 +258,9 @@ public class TratamientosListadoController {
 
     }
     
+    /**
+     * <p>Método para eliminar un tratamiento seleccionado de la tabla.</p>
+     */
     @FXML
     private void eliminarTratamiento() {
 	
@@ -273,26 +292,26 @@ public class TratamientosListadoController {
     }
     
     /**
-     * <p>Método que muestra la descripción de un tratamiento seleccionado.</p>
+     * <p>Método que habilita o deshabilita los botones asociados a acciones a nivel de fila de la tabla: </p>
+     * <ul>
+     * <li>{@code editarButton}: para editar el paciente seleccionado.</li>
+     * <li>{@code eliminarButton}: para eliminar el paciente seleccionado.</li>
+     * </ul>
+     * <p>Adicionalmente, asigna el modelo seleccionado al atributo que se utiliza en los métodos de dichos botones y muestra la descripción correspondiente.</p>
      * 
-     * @param modelo {@link TratamientosModelo} objeto de tratamiento
+     * @param modelo {@link PacientesModelo} objeto de paciente
      */
-    private void mostrarDescripcion(TratamientosModelo modelo) {
+    private void habilitarBotonesFila(TratamientosModelo modelo) {
 	
+	// Se asigan el modelo seleccionado al que se pasará la vista
 	modeloSeleccionado = modelo;
 	
-	// Comprobar que el objeto modelo pasado como parámetro NO es nulo
-	if(modelo != null) {
-	    
-	    // Si el objeto NO es nulo, mostrar el valor atributo de la descripción en el área de texto
-	    descripcionTextArea.setText(modelo.getDescripcion());
-	    
-	} else {
-	    
-	    // Si el objeto modelo es nulo, vaciar el área de texto
-	    descripcionTextArea.setText(Constantes.CADENA_VACIA);
-	    
-	}
+	// Habilidar o deshabilitar los botones dependiendo de si se ha seleccionado o no algo en la tabla
+	editarButton.setDisable(modelo != null ? Boolean.FALSE : Boolean.TRUE);
+	eliminarButton.setDisable(modelo != null ? Boolean.FALSE : Boolean.TRUE);
+	
+	// Mostrar la descripción o no dependiendo de si el modelo NO es nulo
+	descripcionTextArea.setText(modelo != null ? Utilidades.comprobarCadena(modelo.getDescripcion(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
 	
     }
 

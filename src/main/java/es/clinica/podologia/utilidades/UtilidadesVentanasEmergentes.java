@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * <p>Clase con métodos estáticos para invocar ventanas emergentes de uso común a lo largo de toda la aplicación.</p>
@@ -68,9 +67,6 @@ public class UtilidadesVentanasEmergentes {
 		dialogScene.setRoot(vistaJavaFXSpringBoot.getView());
 		
 	    }
-	    
-	    // Crear una nueva instancia
-//	    dialogStage = new Stage();
 
 	    // Aplicar la escena resultante
 	    dialogStage.setScene(dialogScene);

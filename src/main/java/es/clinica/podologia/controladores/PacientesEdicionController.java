@@ -16,6 +16,7 @@ import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.servicios.PacientesService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
+import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
@@ -120,6 +121,9 @@ public class PacientesEdicionController {
 	
 	// Comprobar si el modelo es nulo
 	if(modelo != null) {
+	    
+	    // Cargar los formateadores de cada una de las cajas de texto
+	    cargarFormateadores();
 	    
 	    // En caso de que NO sea nulo, comprobar si existe
 	    modo = pacienteService.comprobarExistenciaPaciente(modelo.getDniPaciente());
@@ -319,6 +323,9 @@ public class PacientesEdicionController {
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloAltaVista);
 	
+	// Habilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
+	dniPacienteTextField.setDisable(Boolean.FALSE);
+	
 	// Inicializar todas las cajas de texto vacías
 	dniPacienteTextField.setText(Constantes.CADENA_VACIA);
 	nombreTextField.setText(Constantes.CADENA_VACIA);
@@ -341,6 +348,9 @@ public class PacientesEdicionController {
 	
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloAltaVista);
+	
+	// Deshabilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
+	dniPacienteTextField.setDisable(Boolean.TRUE);
 	
 	// Inicializar todas las cajas de texto con los valores de los atributos del modelo
 	dniPacienteTextField.setText(modelo.getDniPaciente());
@@ -371,6 +381,10 @@ public class PacientesEdicionController {
 	nombreAdjuntoLabel.setText(archivo.getName());
 	verAdjuntoImageView.setVisible(Boolean.TRUE);
 	modelo.setAdjunto(UtilidadesConversores.convertirFicheroArrayBytes(archivo));
+    }
+    
+    private void cargarFormateadores() {
+	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
     }
     
     /**

@@ -191,7 +191,7 @@ public class PacientesServiceImpl implements PacientesService {
 	    entidad.setApellidos(modelo.getApellidos());
 	    entidad.setDireccion(modelo.getDireccion());
 	    entidad.setTelefono(modelo.getTelefono());
-	    modelo.setAdjunto(Utilidades.comprobarArrayByteNulo(modelo.getAdjunto()));
+	    entidad.setAdjunto(Utilidades.comprobarArrayByteNulo(modelo.getAdjunto()));
 	    
 	}
 	

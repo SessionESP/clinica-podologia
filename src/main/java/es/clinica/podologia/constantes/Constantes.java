@@ -39,6 +39,7 @@ public class Constantes {
     public static final String PATRON_HORA = "HH:mm:ss";
     public static final String PATRON_MAYUSCULAS = "(?<!^)(?=[A-Z])";
     public static final Pattern PATRON_NUMEROS_ENTEROS = Pattern.compile("\\d*");
+    public static final Pattern PATRON_DNI = Pattern.compile("^(([A-Z]\\d{8})|(\\d{8}[A-Z]))$");
     
     public static final String ACCESO = "citas";
     public static final String CITAS = "citas";

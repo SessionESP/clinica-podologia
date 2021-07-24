@@ -58,6 +58,8 @@ public class Constantes {
     public static final String ESTADOS_PACIENTES_PAGINACION = "estados.pacientes.paginacion";
     public static final String ESTADOS_TRATAMIENTOS_PAGINACIONES = "estados.tratamientos.paginaciones";
     public static final String ESTADOS_TRATAMIENTOS_PAGINACION = "estados.tratamientos.paginacion";
+    public static final String ESTADOS_SANITARIOS_PAGINACIONES = "estados.sanitarios.paginaciones";
+    public static final String ESTADOS_SANITARIOS_PAGINACION = "estados.sanitarios.paginacion";
     public static final Integer ESTADOS_PAGINACION_DEFECTO_5 = 5;
     public static final Integer ESTADOS_PAGINACION_DEFECTO_10 = 10;
     

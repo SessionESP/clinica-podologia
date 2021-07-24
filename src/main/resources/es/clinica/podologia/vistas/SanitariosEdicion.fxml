@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -7,11 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane styleClass="panel-default" stylesheets="@../estilos/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.PacientesEdicionController">
+<BorderPane styleClass="panel-default" stylesheets="@../estilos/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.SanitariosEdicionController">
    <center>
-      <AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="panel-default" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="450.0" prefWidth="900.0" styleClass="panel-default" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="tituloLabel" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" text="Alta de un paciente" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
+            <Label fx:id="tituloLabel" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" text="Alta de un sanitarios" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
                <font>
                   <Font name="Comic Sans MS Bold" size="18.0" />
                </font>
@@ -19,93 +20,55 @@
             <GridPane layoutX="64.0" layoutY="201.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
               <columnConstraints>
                 <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="240.0" />
-                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="620.0" minWidth="10.0" prefWidth="620.0" />
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="640.0" minWidth="10.0" prefWidth="640.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="40.0" prefWidth="100.0" text="DNI">
+                  <Label prefHeight="40.0" prefWidth="120.0" text="DNI">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="1">
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="120.0" text="Nombre" GridPane.rowIndex="1">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="100.0" text="Apellidos" GridPane.rowIndex="2">
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="120.0" text="Apellidos" GridPane.rowIndex="2">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="100.0" text="Dirección" GridPane.rowIndex="3">
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="120.0" text="Especialidad" GridPane.rowIndex="3">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="100.0" text="Teléfono" GridPane.rowIndex="4">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="100.0" text="Adjunto" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="dniPacienteTextField" prefHeight="40.0" prefWidth="600.0" promptText="Identificador del paciente" GridPane.columnIndex="1">
+                  <TextField fx:id="dniSanitarioTextField" prefHeight="40.0" prefWidth="610.0" promptText="Identificador del sanitario" GridPane.columnIndex="1">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="nombreTextField" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="600.0" promptText="Nombre del paciente" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="nombreTextField" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="610.0" promptText="Nombre del sanitario" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="apellidosTextField" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="600.0" promptText="Apellidos del paciente" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="apellidosTextField" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="610.0" promptText="Apellidos del sanitario" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="direccionTextField" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="600.0" promptText="Dirección del paciente" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="especialidadTextField" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="610.0" promptText="Especialidad del sanitario" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="telefonoTextField" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="600.0" promptText="Telefono del paciente" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </TextField>
-                  <Button fx:id="seleccionarButton" mnemonicParsing="false" onAction="#seleccionarAdjunto" prefHeight="40.0" prefWidth="160.0" text="Seleccionar" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="nombreAdjuntoLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="13.0" prefHeight="40.0" prefWidth="320.0" text="Nombre del adjunto" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets right="120.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Button id="pdf-button" fx:id="abrirButton" layoutX="250.0" layoutY="238.0" mnemonicParsing="false" onAction="#abrirAdjunto" prefHeight="40.0" prefWidth="80.0" styleClass="pdf-button" stylesheets="@../estilos/estilos.css" text="Abrir" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets right="20.0" />
-                     </GridPane.margin>
-                  </Button>
                </children>
             </GridPane>
             <GridPane layoutX="69.0" layoutY="390.0" prefHeight="50.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="240.0">
@@ -117,12 +80,12 @@
                 <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="guardarButton" mnemonicParsing="false" onAction="#guardarPaciente" prefHeight="40.0" prefWidth="100.0" text="Aceptar">
+                  <Button fx:id="guardarButton" mnemonicParsing="false" onAction="#guardarSanitario" prefHeight="40.0" prefWidth="100.0" text="Aceptar">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="cancelarButton" mnemonicParsing="false" onAction="#cancelarPaciente" prefHeight="40.0" prefWidth="100.0" text="Cancelar" GridPane.columnIndex="1">
+                  <Button fx:id="cancelarButton" mnemonicParsing="false" onAction="#cancelarSanitario" prefHeight="40.0" prefWidth="100.0" text="Cancelar" GridPane.columnIndex="1">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>

@@ -160,7 +160,7 @@ public class PacientesListadoController {
 		// Guardar la información del fichero de configuración en un objeto
 		FileBasedConfiguration configuracion = constructor.getConfiguration();
 		
-		List<Integer> paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(configuracion.getStringArray(Constantes.ESTADOS_TRATAMIENTOS_PAGINACIONES));
+		List<Integer> paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(configuracion.getStringArray(Constantes.ESTADOS_PACIENTES_PAGINACIONES));
 		
 		Integer paginacion = configuracion.getInteger(
 			Constantes.ESTADOS_PACIENTES_PAGINACION, 

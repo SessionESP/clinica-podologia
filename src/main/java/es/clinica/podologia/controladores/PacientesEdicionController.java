@@ -347,7 +347,7 @@ public class PacientesEdicionController {
 	UtilidadesVentanasEmergentes.getDialogStage().setTitle(Utilidades.comprobarCadena(tituloEdicionVista, ""));
 	
 	// Etiqueta con el título del formulario
-	tituloLabel.setText(tituloAltaVista);
+	tituloLabel.setText(tituloEdicionVista);
 	
 	// Deshabilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
 	dniPacienteTextField.setDisable(Boolean.TRUE);

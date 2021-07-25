@@ -18,7 +18,7 @@ import es.clinica.podologia.entidades.Sanitarios;
 public interface CitasRepository extends JpaRepository<Citas, Integer> {
     
     /**
-     * <p>Consulta filtrando por la columna {@code CITAS.FECHA}</p>
+     * <p>Consulta filtrando por la columna {@code CITAS.FECHA}.</p>
      * 
      * @param fecha {@link String} valor de la fecha por el que se quiere filtrar
      * 
@@ -27,6 +27,40 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * @see Citas
      */
     public List<Citas> findByFecha(String fecha);
+    
+    /**
+     * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha menor.</p>
+     * 
+     * @param fecha {@link String} valor de la fecha por el que se quiere filtrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     * 
+     * @see Citas
+     */
+    public List<Citas> findByFechaBefore(String fecha);
+    
+    /**
+     * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha mayor.</p>
+     * 
+     * @param fecha {@link String} valor de la fecha por el que se quiere filtrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     * 
+     * @see Citas
+     */
+    public List<Citas> findByFechaAfter(String fecha);
+    
+    /**
+     * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha dentro del rango.</p>
+     * 
+     * @param inicio {@link String} valor de la fecha de inicio por la que se quiere filtrar
+     * @param fin {@link String} valor de la fecha de fin por la que se quiere filtrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     * 
+     * @see Citas
+     */
+    public List<Citas> findByFechaBetween(String inicio, String fin);
     
     /**
      * <p>Consulta filtrando por las columnas: </p>

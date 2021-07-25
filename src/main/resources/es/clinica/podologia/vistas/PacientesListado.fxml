@@ -81,7 +81,7 @@
                   </TextField>
                </children>
             </GridPane>
-            <TableView fx:id="pacientesTableView" layoutX="59.0" layoutY="140.0" prefHeight="400.0" prefWidth="480.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
+            <TableView fx:id="pacientesTableView" layoutX="59.0" layoutY="140.0" prefHeight="400.0" prefWidth="1560.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
               <columns>
                 <TableColumn fx:id="dniPacienteColumn" maxWidth="1600.0" minWidth="20.0" prefWidth="160.0" text="DNI" />
                   <TableColumn fx:id="nombreColumn" maxWidth="2800.0" minWidth="50.0" prefWidth="280.0" text="Nombre" />

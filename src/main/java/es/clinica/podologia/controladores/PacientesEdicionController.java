@@ -88,13 +88,10 @@ public class PacientesEdicionController {
     
     @FXML
     private Button aceptarButton;
-    
     @FXML
     private Button cancelarButton;
-    
     @FXML
     private Button seleccionarButton;
-    
     @FXML
     private Button abrirButton;
     

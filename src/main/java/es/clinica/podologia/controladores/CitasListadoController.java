@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.componentes.BeansComponent;
+import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.formateadores.CitasModeloFecha;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
@@ -24,6 +25,8 @@ import es.clinica.podologia.servicios.CitasService;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
+import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
+import es.clinica.podologia.vistas.CitasEdicionView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -277,11 +280,11 @@ public class CitasListadoController {
     @FXML
     private void crearCita() {
 	
-//	UtilidadesVentanasEmergentes.abrirVentanaEmergente(PacientesEdicionView.class, Constantes.CITAS_EDICION_CONTROLLER, Accion.ALTA);
-//	
-//	citasEdicionController = (CitasEdicionController) beansComponent.obtenerControlador(Constantes.CITAS_EDICION_CONTROLLER);
-//	citasEdicionController.setModelo(null);
-//	citasEdicionController.initialize();
+	UtilidadesVentanasEmergentes.abrirVentanaEmergente(CitasEdicionView.class, Constantes.CITAS_EDICION_CONTROLLER, Accion.ALTA);
+	
+	citasEdicionController = (CitasEdicionController) beansComponent.obtenerControlador(Constantes.CITAS_EDICION_CONTROLLER);
+	citasEdicionController.setModelo(null);
+	citasEdicionController.initialize();
 	
     }
     
@@ -291,11 +294,11 @@ public class CitasListadoController {
     @FXML
     private void editarCita() {
 	
-//	UtilidadesVentanasEmergentes.abrirVentanaEmergente(PacientesEdicionView.class, Constantes.CITAS_EDICION_CONTROLLER, Accion.EDICION);
-//	
-//	citasEdicionController = (CitasEdicionController) beansComponent.obtenerControlador(Constantes.CITAS_EDICION_CONTROLLER);
-//	citasEdicionController.setModelo(modeloSeleccionado);
-//	citasEdicionController.initialize();
+	UtilidadesVentanasEmergentes.abrirVentanaEmergente(CitasEdicionView.class, Constantes.CITAS_EDICION_CONTROLLER, Accion.EDICION);
+	
+	citasEdicionController = (CitasEdicionController) beansComponent.obtenerControlador(Constantes.CITAS_EDICION_CONTROLLER);
+	citasEdicionController.setModelo(modeloSeleccionado);
+	citasEdicionController.initialize();
 
     }
     

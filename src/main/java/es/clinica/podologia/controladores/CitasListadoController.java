@@ -135,7 +135,7 @@ public class CitasListadoController {
 	
 	cargarEstado();
 	
-	List<CitasModelo> listado = citasService.listarCitas();
+	List<CitasModelo> listado = citasService.listarCitasPorRangoDeFechas(fechaDesdeDatePicker.getValue(), fechaHastaDatePicker.getValue());
 	
 	listadoCitas.clear();
 	listadoCitas.addAll(listado);

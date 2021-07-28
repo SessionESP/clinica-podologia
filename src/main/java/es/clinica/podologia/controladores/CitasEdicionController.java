@@ -1,7 +1,9 @@
 package es.clinica.podologia.controladores;
 
 import java.time.LocalTime;
+import java.util.stream.Collectors;
 
+import org.controlsfx.control.textfield.TextFields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import es.clinica.podologia.componentes.BeansComponent;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.CitasModelo;
 import es.clinica.podologia.servicios.CitasService;
+import es.clinica.podologia.servicios.PacientesService;
+import es.clinica.podologia.servicios.SanitariosService;
+import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -70,6 +75,15 @@ public class CitasEdicionController {
     @Autowired
     private CitasService citasService;
     
+    @Autowired
+    private PacientesService pacientesService;
+    
+    @Autowired
+    private SanitariosService sanitariosService;
+    
+    @Autowired
+    private TratamientosService tratamientosService;
+    
     // Modelo sobre el que se trabajará la vista
     private CitasModelo modelo;
     
@@ -83,6 +97,8 @@ public class CitasEdicionController {
     public void initialize() {
 	
 	TRAZAS.info("Vista de: " + this.getClass().getName());
+	
+	cargarAutocompletados();
 	
     }
     
@@ -113,6 +129,15 @@ public class CitasEdicionController {
 	
 	// Cerrar la ventana emergente
 	UtilidadesVentanasEmergentes.cerrarVentanaEmergente();
+	
+    }
+    
+    /**
+     * <p>Método que carga los autocompletados para determinados controles.</p>
+     */
+    private void cargarAutocompletados() {
+	
+	TextFields.bindAutoCompletion(dniPacienteTextField, pacientesService.listarPacientes().stream().map(paciente -> paciente.getDniPaciente()).collect(Collectors.toList()));
 	
     }
     

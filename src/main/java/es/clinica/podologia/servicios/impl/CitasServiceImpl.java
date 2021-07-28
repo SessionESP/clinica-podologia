@@ -70,6 +70,45 @@ public class CitasServiceImpl implements CitasService {
     }
     
     /**
+     * <p>Método que retorna un listado con todos los registros de la vista para un determinado rango de fechas.</p>
+     */
+    @Override
+    public List<CitasModelo> listarCitasPorRangoDeFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+	
+	// Inicializar el listado que se va a retornar al final de la ejecución del método
+	List<CitasModelo> listado = new ArrayList<>();
+	
+	// Convertir las fechas pasadas como parámetros a cadenas de caracteres
+	String inicio = UtilidadesConversores.convertirFechaCadena(fechaInicial);
+	String fin = UtilidadesConversores.convertirFechaCadena(fechaFinal);
+	
+	// Realizar una u otra búsqueda en función de los parámetros que NO sean nulos
+	if(StringUtils.isNotBlank(inicio) && StringUtils.isNotBlank(fin)) {
+	    
+	    // Ambas fechas NO son nulas
+	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaBetween(inicio, fin));
+	    
+	} else if(StringUtils.isBlank(inicio) && StringUtils.isNotBlank(fin)) {
+	    
+	    // La fecha inicial es nula
+	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaBefore(fin));
+	    
+	} else if(StringUtils.isNotBlank(inicio) && StringUtils.isBlank(fin)) {
+	    
+	    // La fecha final es nula
+	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAfter(inicio));
+	    
+	} else {
+	    
+	    // Ambas fechas son nulas
+	    listado = listarCitas();
+	}
+	
+	// Retornar el listado
+	return listado;
+    }
+    
+    /**
      * <p>Método que retorna un listado con todos los registros de la vista para una determinada fecha y sanitario.</p>
      */
     @Override
@@ -92,6 +131,7 @@ public class CitasServiceImpl implements CitasService {
 	    
 	}
 	
+	// Retornar el listado
 	return listado;
 	
     }
@@ -281,7 +321,7 @@ public class CitasServiceImpl implements CitasService {
     private List<CitasModelo> convertirListadoEntidadesListadoModelos(List<Citas> listaEntidades) {
 	
 	// Inicializar el listado de modelos que se va a retornar
-	List<CitasModelo> listaModelos = new ArrayList<CitasModelo>();
+	List<CitasModelo> listaModelos = new ArrayList<>();
 	
 	// Comprobar que el lsitado de entidades NO es nulo ni está vacío
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {

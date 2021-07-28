@@ -31,12 +31,15 @@ public interface CitasService {
     public List<CitasModelo> listarCitasPorFecha(LocalDate fecha);
     
     /**
-     * <p>Método que retorna un listado con todos los registros de la vista para una determinada fecha.</p>
+     * <p>Método que retorna un listado con todos los registros de la vista para un determinado rango de fechas.</p>
      * 
-     * @param fecha {@link LocalDate} fecha para la que se quiere buscar las citas
+     * @param fechaInicial {@link LocalDate} fecha inicial para la que se quiere buscar las citas
+     * @param fechaFinal {@link LocalDate} fecha final para la que se quiere buscar las citas
      * 
      * @return {@link List}<{@link CitasModelo}> listado de {@code CitasModelo}
      */
+    public List<CitasModelo> listarCitasPorRangoDeFechas(LocalDate fechaInicial, LocalDate fechaFinal);
+    
     /**
      * <p>Método que retorna un listado con todos los registros de la vista para una determinada fecha y sanitario.</p>
      * 

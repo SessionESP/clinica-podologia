@@ -1,6 +1,7 @@
 package es.clinica.podologia.controladores;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.controlsfx.control.textfield.TextFields;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import es.clinica.podologia.componentes.BeansComponent;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.CitasModelo;
+import es.clinica.podologia.modelos.PacientesModelo;
+import es.clinica.podologia.modelos.SanitariosModelo;
+import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.CitasService;
 import es.clinica.podologia.servicios.PacientesService;
 import es.clinica.podologia.servicios.SanitariosService;
@@ -90,6 +94,10 @@ public class CitasEdicionController {
     // Este atributo indicará si se trata de una inserción o de una modificación
     private Boolean modo;
     
+    private List<PacientesModelo> listadoPacientes;
+    private List<SanitariosModelo> listadoSanitarios;
+    private List<TratamientosModelo> listadoTratamientos;
+    
     /**
      * <p>Método que se ejecuta al inicializarse la vista de la edición de Citas.</p>
      */
@@ -137,9 +145,17 @@ public class CitasEdicionController {
      */
     private void cargarAutocompletados() {
 	
-	TextFields.bindAutoCompletion(dniPacienteTextField, pacientesService.listarPacientes().stream().map(paciente -> paciente.getDniPaciente()).collect(Collectors.toList()));
+	listadoPacientes = pacientesService.listarPacientes();
+	TextFields.bindAutoCompletion(dniPacienteTextField, listadoPacientes.stream().map(PacientesModelo::getDniPaciente).collect(Collectors.toList()));
+	
+	listadoSanitarios = sanitariosService.listarSanitarios();
+	TextFields.bindAutoCompletion(dniSanitarioTextField, listadoSanitarios.stream().map(SanitariosModelo::getDniSanitario).collect(Collectors.toList()));
+	
+	listadoTratamientos = tratamientosService.listarTratamientos();
+	TextFields.bindAutoCompletion(nombreTratamientoTextField, listadoTratamientos.stream().map(TratamientosModelo::getNombre).collect(Collectors.toList()));
 	
     }
+    
     
     public CitasModelo getModelo() {
         return modelo;

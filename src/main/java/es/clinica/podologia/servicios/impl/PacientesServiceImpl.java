@@ -212,7 +212,7 @@ public class PacientesServiceImpl implements PacientesService {
     private List<PacientesModelo> convertirListadoEntidadesListadoModelos(List<Pacientes> listaEntidades) {
 	
 	// Inicializar el listado de modelos que se va a retornar
-	List<PacientesModelo> listaModelos = new ArrayList<PacientesModelo>();
+	List<PacientesModelo> listaModelos = new ArrayList<>();
 	
 	// Comprobar que el lsitado de entidades NO es nulo ni está vacío
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {

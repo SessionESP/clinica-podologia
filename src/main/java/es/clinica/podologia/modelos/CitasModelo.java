@@ -19,12 +19,18 @@ import javafx.beans.property.StringProperty;
 public class CitasModelo {
     
     private IntegerProperty idCita;
+    
+    private StringProperty dniPaciente;
 
-    private StringProperty paciente;
+    private StringProperty nombrePaciente;
+    
+    private StringProperty dniSanitario;
 
-    private StringProperty sanitario;
+    private StringProperty nombreSanitario;
+    
+    private IntegerProperty idTratamiento;
 
-    private StringProperty tratamiento;
+    private StringProperty nombreTratamiento;
 
     private ObjectProperty<LocalDate> fecha;
 
@@ -40,9 +46,12 @@ public class CitasModelo {
      */
     public CitasModelo() {
 	this.idCita = new SimpleIntegerProperty();
-	this.paciente = new SimpleStringProperty();
-	this.sanitario = new SimpleStringProperty();
-	this.tratamiento = new SimpleStringProperty();
+	this.dniPaciente = new SimpleStringProperty();
+	this.nombrePaciente = new SimpleStringProperty();
+	this.dniSanitario = new SimpleStringProperty();
+	this.nombreSanitario = new SimpleStringProperty();
+	this.idTratamiento = new SimpleIntegerProperty();
+	this.nombreTratamiento = new SimpleStringProperty();
 	this.fecha = new SimpleObjectProperty<>();
 	this.horaDesde = new SimpleObjectProperty<>();
 	this.horaHasta = new SimpleObjectProperty<>();
@@ -61,40 +70,76 @@ public class CitasModelo {
 	return this.idCita;
     }
 
-    public String getPaciente() {
-        return paciente.get();
+    public String getDniPaciente() {
+        return dniPaciente.get();
     }
 
-    public void setPaciente(String paciente) {
-        this.paciente.set(paciente);
+    public void setDniPaciente(String dniPaciente) {
+        this.dniPaciente.set(dniPaciente);
     }
     
-    public StringProperty pacienteProperty() {
-	return this.paciente;
-    }
-
-    public String getSanitario() {
-        return sanitario.get();
-    }
-
-    public void setSanitario(String sanitario) {
-        this.sanitario.set(sanitario);
+    public StringProperty dniPacienteProperty() {
+	return this.dniPaciente;
     }
     
-    public StringProperty sanitarioProperty() {
-	return this.sanitario;
+    public String getNombrePaciente() {
+        return nombrePaciente.get();
     }
 
-    public String getTratamiento() {
-        return tratamiento.get();
-    }
-
-    public void setTratamiento(String tratamiento) {
-        this.tratamiento.set(tratamiento);
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente.set(nombrePaciente);
     }
     
-    public StringProperty tratamientoProperty() {
-	return this.tratamiento;
+    public StringProperty nombrePacienteProperty() {
+	return this.nombrePaciente;
+    }
+
+    public String getDniSanitario() {
+        return dniSanitario.get();
+    }
+
+    public void setDniSanitario(String dniSanitario) {
+        this.dniSanitario.set(dniSanitario);
+    }
+    
+    public StringProperty dniSanitarioProperty() {
+	return this.dniSanitario;
+    }
+    
+    public String getNombreSanitario() {
+        return nombreSanitario.get();
+    }
+
+    public void setNombreSanitario(String nombreSanitario) {
+        this.nombreSanitario.set(nombreSanitario);
+    }
+    
+    public StringProperty nombreSanitarioProperty() {
+	return this.nombreSanitario;
+    }
+    
+    public Integer getIdTratamiento() {
+        return idTratamiento.get();
+    }
+
+    public void setIdTratamiento(Integer idTratamiento) {
+        this.idTratamiento.set(idTratamiento);
+    }
+    
+    public IntegerProperty idTratamientoProperty() {
+	return this.idTratamiento;
+    }
+
+    public String getNombreTratamiento() {
+        return nombreTratamiento.get();
+    }
+
+    public void setNombreTratamiento(String nombreTratamiento) {
+        this.nombreTratamiento.set(nombreTratamiento);
+    }
+    
+    public StringProperty nombreTratamientoProperty() {
+	return this.nombreTratamiento;
     }
 
     public LocalDate getFecha() {

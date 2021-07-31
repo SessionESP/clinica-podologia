@@ -205,9 +205,9 @@ public class CitasListadoController {
 	cargarFiltros();
 	
 	identificadorColumn.setCellValueFactory(dato -> dato.getValue().idCitaProperty().asObject());
-	nombrePacienteColumn.setCellValueFactory(dato -> dato.getValue().pacienteProperty());
-	nombreSanitarioColumn.setCellValueFactory(dato -> dato.getValue().sanitarioProperty());
-	nombreTratamientoColumn.setCellValueFactory(dato -> dato.getValue().tratamientoProperty());
+	nombrePacienteColumn.setCellValueFactory(dato -> dato.getValue().nombrePacienteProperty());
+	nombreSanitarioColumn.setCellValueFactory(dato -> dato.getValue().nombreSanitarioProperty());
+	nombreTratamientoColumn.setCellValueFactory(dato -> dato.getValue().nombreTratamientoProperty());
 	fechaColumn.setCellValueFactory(dato -> dato.getValue().fechaProperty());
 	fechaColumn.setCellFactory(dato -> new CitasModeloFecha());
 	horaInicioColumn.setCellValueFactory(dato -> dato.getValue().horaDesdeProperty());
@@ -256,19 +256,19 @@ public class CitasListadoController {
 	
 	// Filtro por el nombre y apellidos del paciente
 	pacienteTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getPaciente().toLowerCase().contains(newValue.toLowerCase()));
+	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getNombrePaciente().toLowerCase().contains(newValue.toLowerCase()));
 	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
 	});
 		
 	// Filtro por el nombre y apellidos del paciente
 	sanitarioTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getSanitario().toLowerCase().contains(newValue.toLowerCase()));
+	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getNombreSanitario().toLowerCase().contains(newValue.toLowerCase()));
 	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
 	});
 		
 	// Filtro por el nombre del tratamiento del paciente
 	tratamientoTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getTratamiento().toLowerCase().contains(newValue.toLowerCase()));
+	    listadoCitasFiltrado.setPredicate(cita -> newValue == null || newValue.isEmpty() || cita.getNombreTratamiento().toLowerCase().contains(newValue.toLowerCase()));
 	    cambiarPaginacion(paginacionTabla.getCurrentPageIndex(), tamanioPaginacionComboBox.getValue());
 	});
 	

@@ -223,15 +223,13 @@ public class ConfiguracionEdicionController {
 	// Cargar todas las horas del día en el selector de hora de apertura
 	aperturaComboBox.getItems().addAll(listadoHorarios);
 
-	// Asignar el valor de apertura si existe dentro de las posibilidades o un valor
-	// por defecto en caso contrario
+	// Asignar el valor de apertura si existe dentro de las posibilidades o un valor por defecto en caso contrario
 	aperturaComboBox.setValue(listadoHorarios.contains(apertura) ? apertura : listadoHorarios.get(9));
 
 	// Cargar todas las horas del día en el selector de hora de cierre
 	cierreComboBox.getItems().addAll(listadoHorarios);
 
-	// Asignar el valor de cierre si existe dentro de las posibilidades o un valor
-	// por defecto en caso contrario
+	// Asignar el valor de cierre si existe dentro de las posibilidades o un valor por defecto en caso contrario
 	cierreComboBox.setValue(listadoHorarios.contains(cierre) ? cierre : listadoHorarios.get(21));
 	
     }

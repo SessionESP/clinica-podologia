@@ -254,9 +254,17 @@ public class CitasServiceImpl implements CitasService {
 	if(entidad != null) {
 	    
 	    modelo.setIdCita(entidad.getIdCita());
-	    modelo.setPaciente(entidad.getPaciente() != null ? entidad.getPaciente().toString() : Constantes.CADENA_VACIA);
-	    modelo.setSanitario(entidad.getSanitario() != null ? entidad.getSanitario().toString() : Constantes.CADENA_VACIA);
-	    modelo.setTratamiento(entidad.getTratamiento() != null ? entidad.getTratamiento().getNombre() : Constantes.CADENA_VACIA);
+	    modelo.setDniPaciente(entidad.getPaciente() != null ? 
+		    Utilidades.comprobarCadena(entidad.getPaciente().getDniPaciente(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
+	    modelo.setNombrePaciente(entidad.getPaciente() != null ? 
+		    Utilidades.comprobarCadena(entidad.getPaciente().toString(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
+	    modelo.setDniSanitario(entidad.getSanitario() != null ? 
+		    Utilidades.comprobarCadena(entidad.getSanitario().getDniSanitario(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
+	    modelo.setNombreSanitario(entidad.getSanitario() != null ? 
+		    Utilidades.comprobarCadena(entidad.getSanitario().toString(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
+	    modelo.setIdTratamiento(entidad.getTratamiento() != null ? entidad.getTratamiento().getIdTratamiento() : null);
+	    modelo.setNombreTratamiento(entidad.getTratamiento() != null ? 
+		    Utilidades.comprobarCadena(entidad.getTratamiento().getNombre(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
 	    modelo.setFecha(UtilidadesConversores.convertirCadenaFecha(entidad.getFecha()));
 	    modelo.setHoraDesde(UtilidadesConversores.convertirCadenaHora(entidad.getHoraDesde()));
 	    modelo.setHoraHasta(UtilidadesConversores.convertirCadenaHora(entidad.getHoraHasta()));
@@ -291,12 +299,12 @@ public class CitasServiceImpl implements CitasService {
 	    entidad = new Citas();
 	    
 	    entidad.setIdCita(modelo.getIdCita());
-	    entidad.setPaciente(StringUtils.isNotBlank(modelo.getPaciente()) ? 
-		    pacientesRepository.findById(modelo.getPaciente()).orElse(null) : null);
-	    entidad.setSanitario(StringUtils.isNotBlank(modelo.getSanitario()) ? 
-		    sanitariosRepository.findById(modelo.getPaciente()).orElse(null) : null);
-	    entidad.setTratamiento(StringUtils.isNotBlank(modelo.getTratamiento()) ? 
-		    tratamientosRepository.findById(UtilidadesConversores.convertirCadenaEntero(modelo.getTratamiento())).orElse(null) : null);
+	    entidad.setPaciente(StringUtils.isNotBlank(modelo.getDniPaciente()) ? 
+		    pacientesRepository.findById(modelo.getDniPaciente()).orElse(null) : null);
+	    entidad.setSanitario(StringUtils.isNotBlank(modelo.getDniSanitario()) ? 
+		    sanitariosRepository.findById(modelo.getDniPaciente()).orElse(null) : null);
+	    entidad.setTratamiento(Boolean.TRUE.equals(modelo.getIdTratamiento() != null) ? 
+		    tratamientosRepository.findById(modelo.getIdTratamiento()).orElse(null) : null);
 	    entidad.setFecha(UtilidadesConversores.convertirFechaCadena(modelo.getFecha()));
 	    entidad.setHoraDesde(UtilidadesConversores.convertirHoraCadena(modelo.getHoraDesde()));
 	    entidad.setHoraHasta(UtilidadesConversores.convertirHoraCadena(modelo.getHoraHasta()));

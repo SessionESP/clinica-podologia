@@ -56,20 +56,77 @@ public class CitasEdicionController {
     @Value("${citas.edicion.titulo}")
     private String tituloEdicionVista;
     
+    
     @Value("${citas.alta.guardado.true}")
-    private String altaCorrecta;
+    private String citasAltaCorrecta;
     
     @Value("${citas.alta.guardado.false}")
-    private String altaIncorrecta;
+    private String citasAltaIncorrecta;
     
     @Value("${citas.modificacion.guardado.true}")
-    private String modificacionCorrecta;
+    private String citasModificacionCorrecta;
     
     @Value("${citas.modificacion.guardado.false}")
-    private String modificacionIncorrecta;
+    private String citasModificacionIncorrecta;
+    
+    
+    @Value("${pacientes.alta.guardado.true}")
+    private String pacientesAltaCorrecta;
+    
+    @Value("${pacientes.alta.guardado.false}")
+    private String pacientesAltaIncorrecta;
+    
+    @Value("${pacientes.modificacion.guardado.true}")
+    private String pacientesModificacionCorrecta;
+    
+    @Value("${pacientes.modificacion.guardado.false}")
+    private String pacientesModificacionIncorrecta;
+    
+    
+    @Value("${sanitarios.alta.guardado.true}")
+    private String sanitariosAltaCorrecta;
+    
+    @Value("${sanitarios.alta.guardado.false}")
+    private String sanitariosAltaIncorrecta;
+    
+    @Value("${sanitarios.modificacion.guardado.true}")
+    private String sanitariosModificacionCorrecta;
+    
+    @Value("${sanitarios.modificacion.guardado.false}")
+    private String sanitariosModificacionIncorrecta;
+    
+    
+    @Value("${tratamientos.alta.guardado.true}")
+    private String tratamientosAltaCorrecta;
+    
+    @Value("${tratamientos.alta.guardado.false}")
+    private String tratamientosAltaIncorrecta;
+    
+    @Value("${tratamientos.modificacion.guardado.true}")
+    private String tratamientosModificacionCorrecta;
+    
+    @Value("${tratamientos.modificacion.guardado.false}")
+    private String tratamientosModificacionIncorrecta;
+    
     
     @Value("${spring.config.import}")
     private List<String> propiedadesExternas;
+    
+    
+    @Autowired
+    private BeansComponent beansComponent;
+    
+    @Autowired
+    private CitasService citasService;
+    
+    @Autowired
+    private PacientesService pacientesService;
+    
+    @Autowired
+    private SanitariosService sanitariosService;
+    
+    @Autowired
+    private TratamientosService tratamientosService;
     
     
     @FXML
@@ -110,34 +167,23 @@ public class CitasEdicionController {
     @FXML
     private Button cancelarButton;
     
-    @Autowired
-    private BeansComponent beansComponent;
-    
-    @Autowired
-    private CitasService citasService;
-    
-    @Autowired
-    private PacientesService pacientesService;
-    
-    @Autowired
-    private SanitariosService sanitariosService;
-    
-    @Autowired
-    private TratamientosService tratamientosService;
-    
+
     // Modelo sobre el que se trabajará la vista
     private CitasModelo modelo;
     
-    // Este atributo indicará si se trata de una inserción o de una modificación
-    private Boolean modo;
-    
+    // Modelos de paciente, sanitario y tratamiento
     private PacientesModelo paciente;
     private SanitariosModelo sanitario;
     private TratamientosModelo tratamiento;
     
+    // Listados de paciente, sanitario y tratamiento
     private List<PacientesModelo> listadoPacientes;
     private List<SanitariosModelo> listadoSanitarios;
     private List<TratamientosModelo> listadoTratamientos;
+    
+    
+    // Este atributo indicará si se trata de una inserción o de una modificación
+    private Boolean modo;
     
     /**
      * <p>Método que se ejecuta al inicializarse la vista de la edición de Citas.</p>
@@ -178,42 +224,41 @@ public class CitasEdicionController {
     }
     
     /**
-     * <p>Método que guarda un {@code paciente}></p>
+     * <p>Método que guarda un {@code paciente} de forma rápida en esta vista.</p>
      */
     @FXML
     private void crearPacienteRapido() {
 	
 	try {
 	    
-	    // Comprobar si el modelo es nulo
-	    if (paciente != null) {
+	    // Inicializar el modelo
+	    paciente = new PacientesModelo();
 		
-		// Setear los valores de las cajas de texto en los atributos del modelo
-		paciente.setDniPaciente(dniPacienteTextField.getText());
-		paciente.setNombre(nombrePacienteTextField.getText());
+	    // Setear los valores de las cajas de texto en los atributos del modelo
+	    paciente.setDniPaciente(dniPacienteTextField.getText());
+	    paciente.setNombre(nombrePacienteTextField.getText());
 
-		// Guardar el tratamiento
-		Boolean resultado = pacientesService.insertarActualizarPaciente(paciente);
+	    // Guardar el tratamiento
+	    Boolean resultado = pacientesService.insertarActualizarPaciente(paciente);
 
-		// Comprobar si se ha realizaco correctamente el guardado del paciente
-		if (Boolean.TRUE.equals(resultado)) {
+	    // Comprobar si se ha realizaco correctamente el guardado del paciente
+	    if (Boolean.TRUE.equals(resultado)) {
 
-		    // El sanitario se ha guardado bien
-		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
-		    
-		    PacientesListadoController pacientesListadoController = (PacientesListadoController) beansComponent.obtenerControlador(Constantes.PACIENTES_LISTADO_CONTROLLER);
-		    pacientesListadoController.initialize();
-		    cargarAutocompletadoPacientes();
-		    
+		// El sanitario se ha guardado bien
+		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? pacientesAltaCorrecta : pacientesModificacionCorrecta);
 
-		} else {
+		PacientesListadoController pacientesListadoController = (PacientesListadoController) beansComponent.obtenerControlador(Constantes.PACIENTES_LISTADO_CONTROLLER);
+		pacientesListadoController.initialize();
+		cargarAutocompletadoPacientes();
 
-		    // El sanitario no se ha guardado
-		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? altaIncorrecta : modificacionIncorrecta);
+	    } else {
 
-		}
+		// El sanitario no se ha guardado
+		UtilidadesAlertas.mostrarAlertaError(
+			Boolean.TRUE.equals(modo) ? pacientesAltaIncorrecta : pacientesModificacionIncorrecta);
 
 	    }
+
 	    
 	} catch (Exception excepcion) {
 	    
@@ -227,42 +272,41 @@ public class CitasEdicionController {
     }
     
     /**
-     * <p>Método que guarda un {@code sanitarios}></p>
+     * <p>Método que guarda un {@code sanitario} de forma rápida en esta vista.</p>
      */
     @FXML
     private void crearSanitarioRapido() {
 
 	try {
 	    
-	    // Comprobar si el modelo es nulo
-	    if (sanitario != null) {
-		
-		// Setear los valores de las cajas de texto en los atributos del modelo
-		sanitario.setDniSanitario(dniSanitarioTextField.getText());
-		sanitario.setNombre(nombreSanitarioTextField.getText());
+	    // Inicializar el modelo
+	    sanitario = new SanitariosModelo();
 
-		// Guardar el tratamiento
-		Boolean resultado = sanitariosService.insertarActualizarSanitario(sanitario);
+	    // Setear los valores de las cajas de texto en los atributos del modelo
+	    sanitario.setDniSanitario(dniSanitarioTextField.getText());
+	    sanitario.setNombre(nombreSanitarioTextField.getText());
 
-		// Comprobar si se ha realizaco correctamente el guardado del sanitario
-		if (Boolean.TRUE.equals(resultado)) {
+	    // Guardar el tratamiento
+	    Boolean resultado = sanitariosService.insertarActualizarSanitario(sanitario);
 
-		    // El sanitario se ha guardado bien
-		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
-		    
-		    SanitariosListadoController sanitariosListadoController = (SanitariosListadoController) beansComponent.obtenerControlador(Constantes.SANITARIOS_LISTADO_CONTROLLER);
-		    sanitariosListadoController.initialize();
-		    cargarAutocompletadoSanitarios();
-		    
+	    // Comprobar si se ha realizaco correctamente el guardado del sanitario
+	    if (Boolean.TRUE.equals(resultado)) {
 
-		} else {
+		// El sanitario se ha guardado bien
+		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? sanitariosAltaCorrecta : sanitariosModificacionCorrecta);
 
-		    // El sanitario no se ha guardado
-		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? altaIncorrecta : modificacionIncorrecta);
+		SanitariosListadoController sanitariosListadoController = (SanitariosListadoController) beansComponent.obtenerControlador(Constantes.SANITARIOS_LISTADO_CONTROLLER);
+		sanitariosListadoController.initialize();
+		cargarAutocompletadoSanitarios();
 
-		}
+	    } else {
+
+		// El sanitario no se ha guardado
+		UtilidadesAlertas.mostrarAlertaError(
+			Boolean.TRUE.equals(modo) ? sanitariosAltaIncorrecta : sanitariosModificacionIncorrecta);
 
 	    }
+
 	    
 	} catch (Exception excepcion) {
 	    
@@ -276,40 +320,40 @@ public class CitasEdicionController {
     }
     
     /**
-     * <p>Método que guarda un {@code tratamientos}.></p>
+     * <p>Método que guarda un {@code tratamiento} de forma rápida en esta vista.</p>
      */
     @FXML
     private void crearTratamientoRapido() {
+	
 	try {
 	    
-	    // Comprobar si el modelo es nulo
-	    if (tratamiento != null) {
-		
-		// Setear el valor de las caja de texto en el atributo del modelo
-		tratamiento.setNombre(nombreSanitarioTextField.getText());
+	    // Inicializar el modelo
+	    tratamiento = new TratamientosModelo();
 
-		// Guardar el tratamiento
-		Boolean resultado = tratamientosService.insertarActualizarTratamiento(tratamiento);
+	    // Setear el valor de las caja de texto en el atributo del modelo
+	    tratamiento.setNombre(nombreSanitarioTextField.getText());
 
-		// Comprobar si se ha realizaco correctamente el guardado del tratamiento
-		if (Boolean.TRUE.equals(resultado)) {
+	    // Guardar el tratamiento
+	    Boolean resultado = tratamientosService.insertarActualizarTratamiento(tratamiento);
 
-		    // El sanitario se ha guardado bien
-		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
-		    
-		    TratamientosListadoController tratamientosListadoController = (TratamientosListadoController) beansComponent.obtenerControlador(Constantes.TRATAMIENTOS_LISTADO_CONTROLLER);
-		    tratamientosListadoController.initialize();
-		    cargarAutocompletadoTratamientos();
-		    
+	    // Comprobar si se ha realizaco correctamente el guardado del tratamiento
+	    if (Boolean.TRUE.equals(resultado)) {
 
-		} else {
+		// El sanitario se ha guardado bien
+		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? tratamientosAltaCorrecta : tratamientosModificacionCorrecta);
 
-		    // El sanitario no se ha guardado
-		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? altaIncorrecta : modificacionIncorrecta);
+		TratamientosListadoController tratamientosListadoController = (TratamientosListadoController) beansComponent.obtenerControlador(Constantes.TRATAMIENTOS_LISTADO_CONTROLLER);
+		tratamientosListadoController.initialize();
+		cargarAutocompletadoTratamientos();
 
-		}
+	    } else {
+
+		// El sanitario no se ha guardado
+		UtilidadesAlertas.mostrarAlertaError(
+			Boolean.TRUE.equals(modo) ? tratamientosAltaIncorrecta : tratamientosModificacionIncorrecta);
 
 	    }
+
 	    
 	} catch (Exception excepcion) {
 	    
@@ -349,7 +393,7 @@ public class CitasEdicionController {
 		if (Boolean.TRUE.equals(resultado)) {
 
 		    // El sanitario se ha guardado bien
-		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
+		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? citasAltaCorrecta : citasModificacionCorrecta);
 		    
 		    CitasListadoController citasListadoController = (CitasListadoController) beansComponent.obtenerControlador(Constantes.CITAS_LISTADO_CONTROLLER);
 		    citasListadoController.initialize();
@@ -358,7 +402,7 @@ public class CitasEdicionController {
 		} else {
 
 		    // El sanitario no se ha guardado
-		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? altaIncorrecta : modificacionIncorrecta);
+		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? citasAltaIncorrecta : citasModificacionIncorrecta);
 
 		}
 
@@ -379,6 +423,10 @@ public class CitasEdicionController {
     private void cancelarCita() {
 	
 	modelo = null;
+	
+	paciente = null;
+	sanitario = null;
+	tratamiento = null;
 	
 	// Cerrar la ventana emergente
 	UtilidadesVentanasEmergentes.cerrarVentanaEmergente();
@@ -443,7 +491,7 @@ public class CitasEdicionController {
 	tituloLabel.setText(tituloAltaVista);
 	
 	// Habilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
-	dniSanitarioTextField.setDisable(Boolean.FALSE);
+	idCitaTextField.setDisable(Boolean.FALSE);
 	
 	// Inicializar todas las cajas de texto vacías
 	idCitaTextField.setText(null);
@@ -471,7 +519,7 @@ public class CitasEdicionController {
 	tituloLabel.setText(tituloEdicionVista);
 	
 	// Deshabilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
-	dniSanitarioTextField.setDisable(Boolean.TRUE);
+	idCitaTextField.setDisable(Boolean.TRUE);
 	
 	// Inicializar todas las cajas de texto con los valores de los atributos del modelo
 	idCitaTextField.setText(UtilidadesConversores.convertirEnteroCadena(modelo.getIdCita()));

@@ -27,7 +27,7 @@ public class Acceso {
 	 * <p>Constructor vacío.</p>
 	 */
 	public Acceso() {
-		
+	    // Constructor vacío de la entidad
 	}
 
 	/**

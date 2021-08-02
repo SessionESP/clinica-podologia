@@ -86,8 +86,10 @@
                 <TableColumn fx:id="dniPacienteColumn" maxWidth="1600.0" minWidth="20.0" prefWidth="160.0" text="DNI" />
                   <TableColumn fx:id="nombreColumn" maxWidth="2800.0" minWidth="50.0" prefWidth="280.0" text="Nombre" />
                   <TableColumn fx:id="apellidosColumn" maxWidth="3200.0" minWidth="50.0" prefWidth="320.0" text="Apellidos" />
+                  <TableColumn fx:id="fechaNacimientoColumn" maxWidth="1000.0" minWidth="50.0" prefWidth="200.0" text="Fecha de nacimiento" />
                   <TableColumn fx:id="direccionColumn" minWidth="100.0" prefWidth="500.0" text="Dirección" />
                   <TableColumn fx:id="telefonoColumn" maxWidth="1600.0" minWidth="20.0" prefWidth="160.0" text="Teléfono" />
+                  <TableColumn fx:id="nombreAdjuntoColumn" maxWidth="2800.0" minWidth="50.0" prefWidth="280.0" text="Nombre del adjunto" />
               </columns>
             </TableView>
             <ComboBox fx:id="tamanioPaginacionComboBox" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefHeight="40.0" prefWidth="80.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />

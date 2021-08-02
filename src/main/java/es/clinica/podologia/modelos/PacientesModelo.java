@@ -1,7 +1,11 @@
 package es.clinica.podologia.modelos;
 
+import java.time.LocalDate;
+
 import es.clinica.podologia.constantes.Constantes;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBlobProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -18,10 +22,14 @@ public class PacientesModelo {
     private StringProperty nombre;
 
     private StringProperty apellidos;
+    
+    private ObjectProperty<LocalDate> fechaNacimiento;
 
     private StringProperty direccion;
     
     private StringProperty telefono;
+    
+    private StringProperty nombreAdjunto;
     
     private SimpleBlobProperty adjunto;
 
@@ -33,8 +41,10 @@ public class PacientesModelo {
 	this.dniPaciente = new SimpleStringProperty();
 	this.nombre = new SimpleStringProperty();
 	this.apellidos = new SimpleStringProperty();
+	this.fechaNacimiento = new SimpleObjectProperty<>();
 	this.direccion = new SimpleStringProperty();
 	this.telefono = new SimpleStringProperty();
+	this.nombreAdjunto = new SimpleStringProperty();
 	this.adjunto = new SimpleBlobProperty(Constantes.CADENA_VACIA.getBytes());
     }
 
@@ -73,6 +83,18 @@ public class PacientesModelo {
     public StringProperty apellidosProperty() {
 	return this.apellidos;
     }
+    
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento.get();
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento.set(fechaNacimiento);
+    }
+    
+    public ObjectProperty<LocalDate> fechaNacimientoProperty() {
+	return this.fechaNacimiento;
+    }
 
     public String getDireccion() {
 	return direccion.get();
@@ -96,6 +118,18 @@ public class PacientesModelo {
     
     public StringProperty telefonoProperty() {
 	return this.telefono;
+    }
+    
+    public String getNombreAdjunto() {
+	return nombreAdjunto.get();
+    }
+
+    public void setNombreAdjunto(String nombreAdjunto) {
+	this.nombreAdjunto.set(nombreAdjunto);
+    }
+    
+    public StringProperty nombreAdjuntoProperty() {
+	return this.nombreAdjunto;
     }
     
     public byte[] getAdjunto() {

@@ -377,7 +377,6 @@ public class CitasEdicionController {
 	    if (modelo != null) {
 		
 		// Setear los valores de las cajas de texto en los atributos del modelo
-		modelo.setIdCita(UtilidadesConversores.convertirCadenaEntero(idCitaTextField.getText()));
 		modelo.setDniPaciente(paciente.getDniPaciente());
 		modelo.setDniSanitario(sanitario.getDniSanitario());
 		modelo.setIdTratamiento(tratamiento.getIdTratamiento());

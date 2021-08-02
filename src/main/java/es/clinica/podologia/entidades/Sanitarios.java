@@ -8,9 +8,7 @@ import javax.persistence.Table;
 import es.clinica.podologia.constantes.Constantes;
 
 /**
- * <p>
- * Modelo para la tabla {@code sanitarios}.
- * </p>
+ * <p>Modelo para la tabla {@code sanitarios}.</p>
  *
  * @author Ignacio Rafael
  *
@@ -33,12 +31,10 @@ public class Sanitarios {
     private String especialidad;
 
     /**
-     * <p>
-     * Constructor vacío.
-     * </p>
+     * <p>Constructor vacío.</p>
      */
     public Sanitarios() {
-
+	// Constructor vacío de la entidad
     }
 
     public String getDniSanitario() {

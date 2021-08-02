@@ -9,9 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * <p>
- * Modelo para la tabla {@code citas}.
- * </p>
+ * <p>Modelo para la tabla {@code citas}.</p>
  *
  * @author Ignacio Rafael
  *
@@ -49,12 +47,10 @@ public class Citas {
     private String observaciones;
 
     /**
-     * <p>
-     * Constructor vacío.
-     * </p>
+     * <p>Constructor vacío.</p>
      */
     public Citas() {
-
+	// Constructor vacío de la entidad
     }
 
     public Integer getIdCita() {

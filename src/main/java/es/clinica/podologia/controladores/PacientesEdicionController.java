@@ -21,6 +21,7 @@ import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -82,6 +83,9 @@ public class PacientesEdicionController {
     private TextField direccionTextField;
     @FXML
     private TextField telefonoTextField;
+    
+    @FXML
+    private DatePicker fechaNacimientoDatePicker;
     
     @FXML
     private Label nombreAdjuntoLabel;
@@ -353,6 +357,7 @@ public class PacientesEdicionController {
 	dniPacienteTextField.setText(modelo.getDniPaciente());
 	nombreTextField.setText(modelo.getNombre());
 	apellidosTextField.setText(modelo.getApellidos());
+	fechaNacimientoDatePicker.setValue(modelo.getFechaNacimiento());
 	direccionTextField.setText(modelo.getDireccion());
 	telefonoTextField.setText(modelo.getTelefono());
 	

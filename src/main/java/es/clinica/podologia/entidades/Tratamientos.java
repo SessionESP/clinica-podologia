@@ -9,9 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * <p>
- * Modelo para la tabla {@code tratamientos}.
- * </p>
+ * <p>Modelo para la tabla {@code tratamientos}.</p>
  *
  * @author Ignacio Rafael
  *
@@ -33,12 +31,10 @@ public class Tratamientos {
     private String descripcion;
 
     /**
-     * <p>
-     * Constructor vacío.
-     * </p>
+     * <p>Constructor vacío.</p>
      */
     public Tratamientos() {
-
+	// Constructor vacío de la entidad
     }
 
     /**

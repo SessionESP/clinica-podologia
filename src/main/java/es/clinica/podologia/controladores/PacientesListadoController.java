@@ -1,5 +1,6 @@
 package es.clinica.podologia.controladores;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import es.clinica.podologia.componentes.BeansComponent;
 import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.constantes.Constantes;
+import es.clinica.podologia.formateadores.PacientesModeloFechaNacimiento;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.servicios.PacientesService;
@@ -105,9 +107,13 @@ public class PacientesListadoController {
     @FXML
     private TableColumn<PacientesModelo, String> apellidosColumn;
     @FXML
+    private TableColumn<PacientesModelo, LocalDate> fechaNacimientoColumn;
+    @FXML
     private TableColumn<PacientesModelo, String> direccionColumn;
     @FXML
     private TableColumn<PacientesModelo, String> telefonoColumn;
+    @FXML
+    private TableColumn<PacientesModelo, String> nombreAdjuntoColumn;
     
     @FXML
     private Button nuevoButton;
@@ -194,8 +200,11 @@ public class PacientesListadoController {
 	dniPacienteColumn.setCellValueFactory(dato -> dato.getValue().dniPacienteProperty());
 	nombreColumn.setCellValueFactory(dato -> dato.getValue().nombreProperty());
 	apellidosColumn.setCellValueFactory(dato -> dato.getValue().apellidosProperty());
+	fechaNacimientoColumn.setCellValueFactory(dato -> dato.getValue().fechaNacimientoProperty());
+	fechaNacimientoColumn.setCellFactory(dato -> new PacientesModeloFechaNacimiento());
 	direccionColumn.setCellValueFactory(dato -> dato.getValue().direccionProperty());
 	telefonoColumn.setCellValueFactory(dato -> dato.getValue().telefonoProperty());
+	nombreAdjuntoColumn.setCellValueFactory(dato -> dato.getValue().nombreAdjuntoProperty());
     }
     
     /**

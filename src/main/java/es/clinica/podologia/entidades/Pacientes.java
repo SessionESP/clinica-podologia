@@ -8,9 +8,7 @@ import javax.persistence.Table;
 import es.clinica.podologia.constantes.Constantes;
 
 /**
- * <p>
- * Modelo para la tabla {@code pacientes}.
- * </p>
+ * <p>Modelo para la tabla {@code pacientes}.</p>
  *
  * @author Ignacio Rafael
  *
@@ -28,23 +26,27 @@ public class Pacientes {
 
     @Column(name = "apellidos", length = 50, nullable = true, unique = false)
     private String apellidos;
+    
+    @Column(name = "fecha_nacimiento", nullable = true, unique = false)
+    private String fechaNacimiento;
 
     @Column(name = "direccion", length = 100, nullable = true, unique = false)
     private String direccion;
 
     @Column(name = "telefono", length = 20, nullable = true, unique = false)
     private String telefono;
+    
+    @Column(name = "nombre_adjunto", length = 50, nullable = true, unique = false)
+    private String nombreAdjunto;
 
     @Column(name = "adjunto", columnDefinition = "LONGVARBINARY")
     private byte[] adjunto;
 
     /**
-     * <p>
-     * Constructor vacío.
-     * </p>
+     * <p>Constructor vacío.</p>
      */
     public Pacientes() {
-
+	// Constructor vacío de la entidad
     }
 
     public String getDniPaciente() {
@@ -70,6 +72,14 @@ public class Pacientes {
     public void setApellidos(String apellidos) {
 	this.apellidos = apellidos;
     }
+    
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     public String getDireccion() {
 	return direccion;
@@ -86,6 +96,14 @@ public class Pacientes {
     public void setTelefono(String telefono) {
 	this.telefono = telefono;
     }
+    
+    public String getNombreAdjunto() {
+        return nombreAdjunto;
+    }
+
+    public void setNombreAdjunto(String nombreAdjunto) {
+        this.nombreAdjunto = nombreAdjunto;
+    }
 
     public byte[] getAdjunto() {
 	return adjunto;
@@ -96,9 +114,7 @@ public class Pacientes {
     }
 
     /**
-     * <p>
-     * Nombre y apellidos formateados
-     * </p>
+     * <p>Nombre y apellidos formateados</p>
      */
     @Override
     public String toString() {

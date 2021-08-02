@@ -13,6 +13,7 @@ import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.repositorios.PacientesRepository;
 import es.clinica.podologia.servicios.PacientesService;
 import es.clinica.podologia.utilidades.Utilidades;
+import es.clinica.podologia.utilidades.UtilidadesConversores;
 
 /**
  * <p>Implementación de la interfaz del servicio de la tabla {@code pacientes}.</p>
@@ -154,8 +155,10 @@ public class PacientesServiceImpl implements PacientesService {
 	    modelo.setDniPaciente(entidad.getDniPaciente());
 	    modelo.setNombre(entidad.getNombre());
 	    modelo.setApellidos(entidad.getApellidos());
+	    modelo.setFechaNacimiento(UtilidadesConversores.convertirCadenaFecha(entidad.getFechaNacimiento()));
 	    modelo.setDireccion(entidad.getDireccion());
 	    modelo.setTelefono(entidad.getTelefono());
+	    modelo.setNombreAdjunto(entidad.getNombreAdjunto());
 	    modelo.setAdjunto(Utilidades.comprobarArrayByteNulo(entidad.getAdjunto()));
 	    
 	}
@@ -189,8 +192,10 @@ public class PacientesServiceImpl implements PacientesService {
 	    entidad.setDniPaciente(modelo.getDniPaciente());
 	    entidad.setNombre(modelo.getNombre());
 	    entidad.setApellidos(modelo.getApellidos());
+	    entidad.setFechaNacimiento(UtilidadesConversores.convertirFechaCadena(modelo.getFechaNacimiento()));
 	    entidad.setDireccion(modelo.getDireccion());
 	    entidad.setTelefono(modelo.getTelefono());
+	    entidad.setNombreAdjunto(modelo.getNombreAdjunto());
 	    entidad.setAdjunto(Utilidades.comprobarArrayByteNulo(modelo.getAdjunto()));
 	    
 	}

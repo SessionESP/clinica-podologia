@@ -127,7 +127,7 @@ public class TratamientosEdicionController {
 		if (Boolean.TRUE.equals(resultado)) {
 
 		    // El tratamiento se ha guardado bien
-		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
+		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? modificacionCorrecta : altaCorrecta);
 		    
 		    TratamientosListadoController tratamientosListadoController = (TratamientosListadoController) beansComponent.obtenerControlador(Constantes.TRATAMIENTOS_LISTADO_CONTROLLER);
 		    tratamientosListadoController.initialize();
@@ -136,7 +136,7 @@ public class TratamientosEdicionController {
 		} else {
 
 		    // El tratamiento no se ha guardado
-		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? altaIncorrecta : modificacionIncorrecta);
+		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? modificacionIncorrecta : altaIncorrecta);
 
 		}
 

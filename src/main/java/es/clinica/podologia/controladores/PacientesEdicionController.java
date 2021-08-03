@@ -237,7 +237,7 @@ public class PacientesEdicionController {
 		if (Boolean.TRUE.equals(resultado)) {
 
 		    // El paciente se ha guardado bien
-		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
+		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? modificacionCorrecta : altaCorrecta);
 		    
 		    PacientesListadoController pacientesListadoController = (PacientesListadoController) beansComponent.obtenerControlador(Constantes.PACIENTES_LISTADO_CONTROLLER);
 		    pacientesListadoController.initialize();
@@ -246,7 +246,7 @@ public class PacientesEdicionController {
 		} else {
 
 		    // El paciente no se ha guardado
-		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? altaIncorrecta : modificacionIncorrecta);
+		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? modificacionIncorrecta : altaIncorrecta);
 
 		}
 

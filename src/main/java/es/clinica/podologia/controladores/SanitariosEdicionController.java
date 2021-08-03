@@ -137,7 +137,7 @@ public class SanitariosEdicionController {
 		if (Boolean.TRUE.equals(resultado)) {
 
 		    // El sanitario se ha guardado bien
-		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? altaCorrecta : modificacionCorrecta);
+		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? modificacionCorrecta : altaCorrecta);
 		    
 		    SanitariosListadoController sanitariosListadoController = (SanitariosListadoController) beansComponent.obtenerControlador(Constantes.SANITARIOS_LISTADO_CONTROLLER);
 		    sanitariosListadoController.initialize();
@@ -146,7 +146,7 @@ public class SanitariosEdicionController {
 		} else {
 
 		    // El sanitario no se ha guardado
-		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? altaIncorrecta : modificacionIncorrecta);
+		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? modificacionIncorrecta : altaIncorrecta);
 
 		}
 

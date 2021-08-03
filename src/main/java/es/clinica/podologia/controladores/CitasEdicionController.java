@@ -245,7 +245,7 @@ public class CitasEdicionController {
 	    if (Boolean.TRUE.equals(resultado)) {
 
 		// El sanitario se ha guardado bien
-		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? pacientesAltaCorrecta : pacientesModificacionCorrecta);
+		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? pacientesModificacionCorrecta : pacientesAltaCorrecta);
 
 		PacientesListadoController pacientesListadoController = (PacientesListadoController) beansComponent.obtenerControlador(Constantes.PACIENTES_LISTADO_CONTROLLER);
 		pacientesListadoController.initialize();
@@ -255,7 +255,7 @@ public class CitasEdicionController {
 
 		// El sanitario no se ha guardado
 		UtilidadesAlertas.mostrarAlertaError(
-			Boolean.TRUE.equals(modo) ? pacientesAltaIncorrecta : pacientesModificacionIncorrecta);
+			Boolean.TRUE.equals(modo) ? pacientesModificacionIncorrecta : pacientesAltaIncorrecta);
 
 	    }
 
@@ -293,7 +293,7 @@ public class CitasEdicionController {
 	    if (Boolean.TRUE.equals(resultado)) {
 
 		// El sanitario se ha guardado bien
-		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? sanitariosAltaCorrecta : sanitariosModificacionCorrecta);
+		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? sanitariosModificacionCorrecta : sanitariosAltaCorrecta);
 
 		SanitariosListadoController sanitariosListadoController = (SanitariosListadoController) beansComponent.obtenerControlador(Constantes.SANITARIOS_LISTADO_CONTROLLER);
 		sanitariosListadoController.initialize();
@@ -303,7 +303,7 @@ public class CitasEdicionController {
 
 		// El sanitario no se ha guardado
 		UtilidadesAlertas.mostrarAlertaError(
-			Boolean.TRUE.equals(modo) ? sanitariosAltaIncorrecta : sanitariosModificacionIncorrecta);
+			Boolean.TRUE.equals(modo) ? sanitariosModificacionIncorrecta : sanitariosAltaIncorrecta);
 
 	    }
 
@@ -340,7 +340,7 @@ public class CitasEdicionController {
 	    if (Boolean.TRUE.equals(resultado)) {
 
 		// El sanitario se ha guardado bien
-		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? tratamientosAltaCorrecta : tratamientosModificacionCorrecta);
+		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? tratamientosModificacionCorrecta : tratamientosAltaCorrecta);
 
 		TratamientosListadoController tratamientosListadoController = (TratamientosListadoController) beansComponent.obtenerControlador(Constantes.TRATAMIENTOS_LISTADO_CONTROLLER);
 		tratamientosListadoController.initialize();
@@ -350,7 +350,7 @@ public class CitasEdicionController {
 
 		// El sanitario no se ha guardado
 		UtilidadesAlertas.mostrarAlertaError(
-			Boolean.TRUE.equals(modo) ? tratamientosAltaIncorrecta : tratamientosModificacionIncorrecta);
+			Boolean.TRUE.equals(modo) ? tratamientosModificacionIncorrecta : tratamientosAltaIncorrecta);
 
 	    }
 
@@ -392,7 +392,7 @@ public class CitasEdicionController {
 		if (Boolean.TRUE.equals(resultado)) {
 
 		    // El sanitario se ha guardado bien
-		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? citasAltaCorrecta : citasModificacionCorrecta);
+		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? citasModificacionCorrecta : citasAltaCorrecta);
 		    
 		    CitasListadoController citasListadoController = (CitasListadoController) beansComponent.obtenerControlador(Constantes.CITAS_LISTADO_CONTROLLER);
 		    citasListadoController.initialize();
@@ -401,7 +401,7 @@ public class CitasEdicionController {
 		} else {
 
 		    // El sanitario no se ha guardado
-		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? citasAltaIncorrecta : citasModificacionIncorrecta);
+		    UtilidadesAlertas.mostrarAlertaError(Boolean.TRUE.equals(modo) ? citasModificacionIncorrecta : citasAltaIncorrecta);
 
 		}
 

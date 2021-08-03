@@ -348,7 +348,7 @@ public class UtilidadesConversores {
      * 
      * @return {@link Boolean} retorna {@code true} en caso de que el archivo se haya borrado correctamente
      */
-    public static Boolean eliminarArchico (File archivo) {
+    public static Boolean eliminarArchivo (File archivo) {
 	
 	// Inicializar la variable que se va a retornar al final del método
 	Boolean resultado = Boolean.FALSE;

@@ -2,7 +2,6 @@ package es.clinica.podologia.controladores;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.StringJoiner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -176,7 +175,7 @@ public class PacientesEdicionController {
     }
     
     /**
-     * <p>Método invocado como un evento abrir el adjunto del paciente.</p>
+     * <p>Método invocado como un evento para abrir el adjunto del paciente.</p>
      */
     @FXML
     private void abrirAdjunto() {
@@ -185,7 +184,7 @@ public class PacientesEdicionController {
 	if(modelo != null && Utilidades.comprobarArrayByte(modelo.getAdjunto())) {
 	    
 	    // Ubicación temporal y nombre del archivo para poder ser abierto por el lector PDF del sistema
-	    String ubicacionFichero = adjuntoTemporal.concat(generarNombreArchivo());
+	    String ubicacionFichero = adjuntoTemporal.concat(modelo.getNombreAdjunto());
 	    
 	    // Convertir el array de bytes del modelo en un fichero .PDF
 	    File archivo = UtilidadesConversores.convertirArrayBytesFichero(modelo.getAdjunto(), new File(ubicacionFichero).getAbsolutePath());
@@ -224,6 +223,7 @@ public class PacientesEdicionController {
 		// Setear los valores de las cajas de texto en los atributos del modelo
 		modelo.setDniPaciente(dniPacienteTextField.getText());
 		modelo.setNombre(nombreTextField.getText());
+		modelo.setFechaNacimiento(fechaNacimientoDatePicker.getValue());
 		modelo.setApellidos(apellidosTextField.getText());
 		modelo.setDireccion(direccionTextField.getText());
 		modelo.setTelefono(telefonoTextField.getText());
@@ -272,9 +272,9 @@ public class PacientesEdicionController {
 	// Comprobar que el modelo NO es nulo
 	if (modelo != null) {
 	    
-	    // Eliminar el archvo temporal, si es que hubiese llegado a generarse
-	    UtilidadesConversores.eliminarArchico(UtilidadesConversores.convertirArrayBytesFichero(modelo.getAdjunto(),
-		    new File(adjuntoTemporal.concat(generarNombreArchivo())).getAbsolutePath()));
+	    // Eliminar el archivo temporal, si es que hubiese llegado a generarse
+	    UtilidadesConversores.eliminarArchivo(UtilidadesConversores.convertirArrayBytesFichero(modelo.getAdjunto(),
+		    new File(adjuntoTemporal.concat(Utilidades.comprobarCadena(modelo.getNombreAdjunto(), Constantes.CADENA_VACIA))).getAbsolutePath()));
 	    
 	}
 	
@@ -283,30 +283,6 @@ public class PacientesEdicionController {
 	
 	// Cerrar la ventana emergente
 	UtilidadesVentanasEmergentes.cerrarVentanaEmergente();
-	
-    }
-    
-    /**
-     * <p>Método donde se generará un nombre para el fichero.</p>
-     * 
-     * @return {@link String} cadena de caracteres con el nombre del fichero
-     */
-    private String generarNombreArchivo() {
-	
-	// Inicializar el objeto donde se concatenerarán los diferentes atributos para generar un nombre de fichero
-	StringJoiner nombreArchivo = new StringJoiner(Constantes.GUION_BAJO);
-	
-	// Comprobar que el modelo NO es nulo
-	if(modelo != null) {
-	    
-	    nombreArchivo.add(Utilidades.comprobarCadena(modelo.getDniPaciente(), Constantes.SIN_DNI));
-	    nombreArchivo.add(Utilidades.comprobarCadena(modelo.getNombre(), Constantes.SIN_NOMBRE));
-	    nombreArchivo.add(Utilidades.comprobarCadena(modelo.getApellidos(), Constantes.SIN_APELLIDOS));
-	    
-	}
-	
-	// Retornar el nombre del archivo concatenado con la extensión del fichero
-	return nombreArchivo.toString().concat(Constantes.EXTENSION_PDF);
 	
     }
     
@@ -328,11 +304,12 @@ public class PacientesEdicionController {
 	dniPacienteTextField.setDisable(Boolean.FALSE);
 	
 	// Inicializar todas las cajas de texto vacías
-	dniPacienteTextField.setText(Constantes.CADENA_VACIA);
-	nombreTextField.setText(Constantes.CADENA_VACIA);
-	apellidosTextField.setText(Constantes.CADENA_VACIA);
-	direccionTextField.setText(Constantes.CADENA_VACIA);
-	telefonoTextField.setText(Constantes.CADENA_VACIA);
+	dniPacienteTextField.clear();
+	nombreTextField.clear();
+	apellidosTextField.clear();
+	fechaNacimientoDatePicker.setValue(null);
+	direccionTextField.clear();
+	telefonoTextField.clear();
 	
 	// Limpiar el atributo del archivo adjunto
 	desasignarAdjunto();
@@ -365,7 +342,7 @@ public class PacientesEdicionController {
 	if(Boolean.TRUE.equals(Utilidades.comprobarArrayByte(modelo.getAdjunto()))) {
 	    
 	    // Ubicación temporal y nombre del archivo para poder ser abierto por el lector PDF del sistema
-	    String ubicacionFichero = adjuntoTemporal.concat(generarNombreArchivo());
+	    String ubicacionFichero = adjuntoTemporal.concat(modelo.getNombreAdjunto());
 	    asignarAdjunto(UtilidadesConversores.convertirArrayBytesFichero(modelo.getAdjunto(), new File(ubicacionFichero).getAbsolutePath()));
 	    
 	} else {
@@ -382,11 +359,12 @@ public class PacientesEdicionController {
     private void asignarAdjunto(File archivo) {
 	nombreAdjuntoLabel.setText(archivo.getName());
 	verAdjuntoImageView.setVisible(Boolean.TRUE);
+	modelo.setNombreAdjunto(archivo.getName());
 	modelo.setAdjunto(UtilidadesConversores.convertirFicheroArrayBytes(archivo));
     }
     
     private void cargarFormateadores() {
-	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
+//	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
     }
     
     /**

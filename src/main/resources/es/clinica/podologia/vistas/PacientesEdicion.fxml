@@ -47,6 +47,11 @@
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Label>
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Fecha de nacimiento" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                  </Label>
                   <Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Dirección" GridPane.rowIndex="4">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
@@ -77,6 +82,7 @@
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </TextField>
+                  <DatePicker fx:id="fechaNacimientoDatePicker" editable="false" prefHeight="40.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="direccionTextField" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="610.0" promptText="Dirección del paciente" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
@@ -111,12 +117,6 @@
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <Label layoutX="10.0" layoutY="103.0" prefHeight="40.0" prefWidth="180.0" text="Fecha de nacimiento" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="fechaNacimientoDatePicker" prefHeight="40.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <GridPane layoutX="69.0" layoutY="390.0" prefHeight="50.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="240.0">

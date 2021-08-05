@@ -146,7 +146,20 @@ public class PacientesModelo {
     
     
     /**
-     * <p>Nombre y apellidos formateados</p>
+     * <p>Método que retorna el DNI y el nombre completo del paciente para búsquedas.</p>
+     * 
+     * @return {@link String} DNI concatenado con el nombre completo
+     * 
+     * @see PacientesModelo#dniPaciente
+     * @see PacientesModelo#toString()
+     */
+    public String buscar() {
+	return this.dniPaciente.get() + Constantes.GUION_ESPACIADO + toString();
+    }
+    
+    
+    /**
+     * <p>Nombre y apellidos formateados.</p>
      */
     @Override
     public String toString() {

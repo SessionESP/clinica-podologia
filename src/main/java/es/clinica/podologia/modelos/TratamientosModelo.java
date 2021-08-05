@@ -1,5 +1,7 @@
 package es.clinica.podologia.modelos;
 
+import es.clinica.podologia.constantes.Constantes;
+import es.clinica.podologia.utilidades.UtilidadesConversores;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -63,6 +65,14 @@ public class TratamientosModelo {
     
     public StringProperty descripcionProperty() {
 	return this.descripcion;
+    }
+    
+    /**
+     * <p>Identificador del tratamiento y el nombre separados por un guión.</p>
+     */
+    @Override
+    public String toString() {
+	return UtilidadesConversores.convertirEnteroCadena(this.idTratamiento.get()) + Constantes.GUION_ESPACIADO + this.nombre.get();
     }
 
 }

@@ -32,12 +32,12 @@
                                               <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <Label prefHeight="40.0" text="Horario de apertura">
+                                                <Label prefHeight="40.0" prefWidth="200.0" text="Horario de apertura">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Label prefHeight="40.0" text="Horario de cierre" GridPane.rowIndex="1">
+                                                <Label prefHeight="40.0" prefWidth="200.0" text="Horario de cierre" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
@@ -65,39 +65,36 @@
                                             <rowConstraints>
                                               <RowConstraints maxHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
                                               <RowConstraints maxHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                                              <RowConstraints maxHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" text="Duración de las citas">
+                                                <Label contentDisplay="CENTER" prefHeight="40.0" prefWidth="240.0" text="Duración de las citas">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" text="Eliminación de citas pasadas" GridPane.rowIndex="1">
+                                                <Label contentDisplay="RIGHT" prefHeight="40.0" prefWidth="240.0" text="Eliminación de citas pasadas" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" text="Eliminación física" GridPane.rowIndex="2">
+                                                <Label contentDisplay="RIGHT" layoutX="10.0" layoutY="58.0" prefHeight="40.0" prefWidth="240.0" text="Eliminar citas ahora" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox fx:id="eliminacionCitasCheckBox" layoutX="295.0" layoutY="103.0" mnemonicParsing="false" onAction="#eliminarCitas" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                   <font>
-                                                      <Font name="Comic Sans MS" size="18.0" />
-                                                   </font>
-                                                </CheckBox>
-                                                <CheckBox fx:id="eliminacionFisicaCheckBox" mnemonicParsing="false" onAction="#eliminarFisicamente" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                                   <font>
-                                                      <Font name="Comic Sans MS" size="18.0" />
-                                                   </font>
-                                                </CheckBox>
                                                 <TextField fx:id="duracionCitasTextField" onKeyTyped="#cambiarDuracionCitas" prefHeight="40.0" prefWidth="120.0" promptText="en minutos" GridPane.columnIndex="1">
                                                    <font>
                                                       <Font name="Comic Sans MS" size="18.0" />
                                                    </font>
                                                 </TextField>
+                                                <ComboBox fx:id="tiempoComboBox" onAction="#cambiarTiempo" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Button fx:id="eliminarCitasPasadasButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#eliminarCitasPasadas" prefHeight="40.0" prefWidth="160.0" text="Eliminar citas" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Comic Sans MS" size="18.0" />
+                                                   </font>
+                                                </Button>
+
                                              </children>
                                           </GridPane>
                                        </children>

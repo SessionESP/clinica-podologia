@@ -95,5 +95,15 @@ public interface CitasService {
      * @see CitasRepository#existsById(Integer)
      */
     public Boolean eliminarCita(Integer identificador);
+    
+    /**
+     * <p>Método que elimina un grupo de citas dentro de un determinado rango de fechas.</p>
+     * 
+     * @param fechaInicial {@link LocalDate} fecha inicial para la que se quiere eliminar las citas
+     * @param fechaFinal {@link LocalDate} fecha final para la que se quiere eliminar las citas
+     * 
+     * @return {@link Boolean} retorna {@code true} en caso de que los registros se hayan eliminado correctamente
+     */
+    public Boolean eliminarCitasPorRangoDeFechas(LocalDate fechaInicial, LocalDate fechaFinal);
 
 }

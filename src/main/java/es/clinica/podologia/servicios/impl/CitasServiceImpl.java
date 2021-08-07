@@ -236,6 +236,36 @@ public class CitasServiceImpl implements CitasService {
     }
     
     /**
+     * <p>Método que elimina un grupo de citas dentro de un determinado rango de fechas.</p>
+     */
+    @Override
+    public Boolean eliminarCitasPorRangoDeFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+	
+	// Inicializar el booleano que indicará si la eliminación se ha realizado con éxito
+	Boolean resultado = Boolean.FALSE;
+	
+	if (fechaInicial != null && fechaFinal != null) {
+	    
+	    // Convertir las fechas pasadas como parámetros a cadenas de caracteres
+	    String inicio = UtilidadesConversores.convertirFechaCadena(fechaInicial);
+	    String fin = UtilidadesConversores.convertirFechaCadena(fechaFinal);
+	    
+	    // Eliminar las citas que estén dentro del rango
+	    citasRepository.deleteByFechaBetween(inicio, fin);
+	    
+	    // Persistir los cambios
+	    citasRepository.flush();
+	    
+	    // Comprobar si se ha eliminado correctamente
+	    resultado = !Utilidades.comprobarColeccion(citasRepository.findByFechaBetween(inicio, fin));
+	    
+	}
+	
+	// Retornar el resultado de la eliminación
+	return resultado;
+    }
+    
+    /**
      * <p>Método que convierte un objeto de tipo entidad en uno de tipo modelo.<p>
      * 
      * @param entidad {@link Citas} entidad que se quiere convertir

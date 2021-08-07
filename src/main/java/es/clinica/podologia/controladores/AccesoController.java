@@ -80,7 +80,7 @@ public class AccesoController {
 		ButtonType.YES, 
 		ButtonType.NO);
 	
-	if(alerta.get() == ButtonType.YES) {
+	if(alerta.isPresent() && alerta.get() == ButtonType.YES) {
 	    Platform.exit();
 	}
 

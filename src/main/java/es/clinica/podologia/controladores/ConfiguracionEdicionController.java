@@ -1,8 +1,11 @@
 package es.clinica.podologia.controladores;
 
+import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.configuration2.FileBasedConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
@@ -16,18 +19,23 @@ import org.springframework.beans.factory.annotation.Value;
 import es.clinica.podologia.componentes.BeansComponent;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
+import es.clinica.podologia.modelos.CitasModelo;
+import es.clinica.podologia.servicios.CitasService;
+import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * <p>Controlador para la configuración de la aplicación.</p>
@@ -43,6 +51,9 @@ public class ConfiguracionEdicionController {
     @Autowired
     private BeansComponent beansComponent;
     
+    @Autowired
+    private CitasService citasService;
+    
     @Value("${spring.config.import}")
     private List<String> propiedadesExternas;
     
@@ -52,24 +63,35 @@ public class ConfiguracionEdicionController {
     @Value("${configuracion.edicion.error}")
     private String guardadoError;
     
-    @FXML
-    private ComboBox<LocalTime> aperturaComboBox;
+    @Value("${configuracion.edicion.citas.confirmacion}")
+    private String citasConfirmacion;
+    
+    @Value("${configuracion.edicion.citas.informacion}")
+    private String citasInformacion;
+    
+    @Value("${configuracion.edicion.citas.error}")
+    private String citasError;
+    
+    @Value("${configuracion.edicion.citas.true}")
+    private String citasTrue;
+    
+    @Value("${configuracion.edicion.citas.false}")
+    private String citasFalse;
     
     @FXML
+    private ComboBox<LocalTime> aperturaComboBox;
+    @FXML
     private ComboBox<LocalTime> cierreComboBox;
+    @FXML
+    private ComboBox<String> tiempoComboBox;
     
     @FXML
     private TextField duracionCitasTextField;
     
     @FXML
-    private CheckBox eliminacionCitasCheckBox;
-    
-    @FXML
-    private CheckBox eliminacionFisicaCheckBox;
-    
+    private Button eliminarCitasPasadasButton;
     @FXML
     private Button guardarButton;
-    
     @FXML
     private Button salirButton;
     
@@ -79,9 +101,7 @@ public class ConfiguracionEdicionController {
     
     private Integer duracionCitas;
     
-    private Boolean eliminacionCitas;
-    
-    private Boolean eliminacionFisica;
+    private String tiempo;
     
     private FileBasedConfigurationBuilder<FileBasedConfiguration> constructor;
  
@@ -157,24 +177,61 @@ public class ConfiguracionEdicionController {
     }
     
     /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#eliminacionCitasCheckBox}</p>
+     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#tiempoComboBox}</p>
      * 
      * @param evento {@link ActionEvent} parámetro con la información asociada al evento
      */
     @FXML
-    private void eliminarCitas(Event evento) {
-	eliminacionCitas = eliminacionCitasCheckBox.isSelected();
+    private void cambiarTiempo(Event evento) {
+	tiempo = tiempoComboBox.getSelectionModel().getSelectedItem();
     }
     
     /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code ConfiguracionEdicionController#eliminacionFisicaCheckBox}</p>
+     * <p>Método invocado como un evento para eliminar las citas pasadas.</p>
      * 
-     * @param evento {@link ActionEvent} parámetro con la información asociada al evento
+     * @see CitasService#listarCitasPorRangoDeFechas(java.time.LocalDate, java.time.LocalDate)
+     * @see CitasService#eliminarCita(Integer)
      */
     @FXML
-    private void eliminarFisicamente(Event evento) {
-	eliminacionFisica = eliminacionFisicaCheckBox.isSelected();
+    private void eliminarCitasPasadas() {
+	
+	// Calcular el rango de fechas
+	LocalDate fechaFin = calcularFechaFin();
+	LocalDate fechaInicio = calcularFechaInicio(fechaFin);
+	
+	// Listar todas las citas dentro del rango de fechas
+	List<CitasModelo> listadoCitasEliminar = citasService.listarCitasPorRangoDeFechas(fechaInicio, fechaFin);
+
+	// Comprobar que el listado NO es nulo NI está vacío
+	if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoCitasEliminar))) {
+	    
+	    Optional<ButtonType> alerta = UtilidadesAlertas.mostrarAlerta(
+			AlertType.CONFIRMATION, 
+			MessageFormat.format(citasConfirmacion, listadoCitasEliminar.size()), 
+			ButtonType.YES, 
+			ButtonType.NO);
+	    
+	    if(alerta.isPresent() && alerta.get() == ButtonType.YES) {
+		
+		// Eliminar las citas comprendidas dentro del rango de fechas
+		Boolean resultado = citasService.eliminarCitasPorRangoDeFechas(fechaInicio, fechaFin);
+		
+		if (Boolean.TRUE.equals(resultado)) {
+		    UtilidadesAlertas.mostrarAlertaError(citasTrue);
+		} else {
+		    UtilidadesAlertas.mostrarAlertaError(citasFalse);
+		}
+	    }
+
+	} else {
+
+	    UtilidadesAlertas.mostrarAlertaError(citasError);
+
+	}
+
+	
     }
+    
     
     /**
      * <p>Método invocado como un evento para guardar todas las propiedades de la ventana emergente en el archivo de propiedades {@code configuracion.properties}</p>
@@ -260,14 +317,18 @@ public class ConfiguracionEdicionController {
      */
     private void cargarConfiguracionEliminacionCitas(FileBasedConfiguration configuracion) {
 	    
-	// Eliminar citas pasadas, mantenimiento básico de la aplicación
-	eliminacionCitas = configuracion.getBoolean(Constantes.CONFIGURACION_ELIMINACION_CITAS_PASADAS, Boolean.TRUE);
-
-	// Tipo de eliminación de las citas: true es un eliminado físico y false uno lógico que pasa las citas pasadas a un histórico
-	eliminacionFisica = configuracion.getBoolean(Constantes.CONFIGURACION_ELIMINACION_FISICA_CITAS, Boolean.TRUE);
-
-	eliminacionCitasCheckBox.setSelected(eliminacionCitas);
-	eliminacionFisicaCheckBox.setSelected(eliminacionFisica);
+	// Listado de opciones del comboBox
+	String[] arrayOpciones = {
+		Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMA_SEMANA, 
+		Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMO_MES, 
+		Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMO_ANIO};
+	List<String> listadoOpciones = UtilidadesConversores.convertirArrayCadenasListaCadenas(arrayOpciones);
+	tiempoComboBox.getItems().clear();
+	tiempoComboBox.getItems().addAll(listadoOpciones);
+	
+	// Opción seleccionada
+	String opcionSeleccionada = configuracion.getString(Constantes.CONFIGURACION_ELIMINACION_CITAS, Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMA_SEMANA);
+	tiempoComboBox.setValue(opcionSeleccionada);
 	
     }
     
@@ -283,8 +344,7 @@ public class ConfiguracionEdicionController {
 	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_HORA_APERTURA, UtilidadesConversores.convertirHoraCadena(apertura));
 	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_HORA_CIERRE, UtilidadesConversores.convertirHoraCadena(cierre));
 	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_DURACION, UtilidadesConversores.convertirEnteroCadena(duracionCitas));
-	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_CITAS_PASADAS, UtilidadesConversores.convertirBooleanoCadena(eliminacionCitas));
-	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_FISICA_CITAS, UtilidadesConversores.convertirBooleanoCadena(eliminacionFisica));
+	    constructor.getConfiguration().setProperty(Constantes.CONFIGURACION_ELIMINACION_CITAS, Utilidades.comprobarCadena(tiempo, Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMA_SEMANA));
 	    
 	    // Guardar
 	    constructor.save();
@@ -301,6 +361,50 @@ public class ConfiguracionEdicionController {
 
 	}
 	
+    }
+    
+    /**
+     * <p>Método que calcula la fecha inicial del rango para eliminar las citas.</p>
+     * <p>Se calcula restando una semana, un mes o un año a la fecha de ayer.</p>
+     * 
+     * @param fechaFin {@link LocalDate} fecha inicial para la que se quiere eliminar las citas
+     * @return {@link LocalDate} 
+     */
+    private LocalDate calcularFechaInicio(LocalDate fechaFin) {
+	
+	// Inicializar la fecha que se va a retornar al final del método
+	LocalDate fechaInicio = null;
+	
+	// Comprobar que la fecha fin pasada como parámetro NO es nula
+	if(fechaFin != null) {
+	    
+	    switch(tiempo) {
+	    case Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMA_SEMANA: 
+		fechaInicio = fechaFin.minusWeeks(1L);
+		break;
+	    case Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMO_MES: 
+		fechaInicio = fechaFin.minusMonths(1L);
+		break;
+	    case Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMO_ANIO: 
+		fechaInicio = fechaFin.minusYears(1L);
+		break;
+	    default: return fechaInicio = fechaFin;
+	    
+	    }
+	    
+	}
+	
+	return fechaInicio;
+    }
+    
+    /**
+     * <p>Método que calcula la fecha final del rango para eliminar las citas.</p>
+     * <p>Siempre se retornará la fecha del día de ayer, porque se conservarán las citas actuales y futuras.</p>
+     * 
+     * @return {@link LocalDate} la fecha de ayer
+     */
+    private LocalDate calcularFechaFin() {
+	return LocalDate.now().minusDays(1L);
     }
 
 

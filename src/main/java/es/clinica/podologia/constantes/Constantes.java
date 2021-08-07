@@ -53,8 +53,11 @@ public class Constantes {
     public static final String CONFIGURACION_HORA_APERTURA = "clinica.horario.apertura";
     public static final String CONFIGURACION_HORA_CIERRE = "clinica.horario.cierre";
     public static final String CONFIGURACION_DURACION = "clinica.citas.duracion";
-    public static final String CONFIGURACION_ELIMINACION_CITAS_PASADAS = "clinica.citas.eliminacion.pasadas";
-    public static final String CONFIGURACION_ELIMINACION_FISICA_CITAS = "clinica.citas.eliminacion.fisica";
+    public static final String CONFIGURACION_ELIMINACION_CITAS = "clinica.citas.eliminacion.seleccionada";
+    public static final String CONFIGURACION_ELIMINACION_CITAS_ULTIMA_SEMANA = "Última semana";
+    public static final String CONFIGURACION_ELIMINACION_CITAS_ULTIMO_MES = "Último mes";
+    public static final String CONFIGURACION_ELIMINACION_CITAS_ULTIMO_ANIO = "Último año";
+    
     
     public static final String ESTADOS_CITAS_PAGINACIONES = "estados.citas.paginaciones";
     public static final String ESTADOS_CITAS_PAGINACION = "estados.citas.paginacion";

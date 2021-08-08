@@ -37,8 +37,9 @@ public class UtilidadesConversores {
     }
     
     
-    // Formato de conversión para fechas
+    // Formatos de conversión para fechas
     private static DateTimeFormatter formateadorFecha = DateTimeFormatter.ofPattern(Constantes.PATRON_FECHA);
+    private static DateTimeFormatter formateadorFechaBaseDatos = DateTimeFormatter.ofPattern(Constantes.PATRON_FECHA_BASE_DATOS);
     
     // Formato de conversión para horas
     private static DateTimeFormatter formateadorHora = DateTimeFormatter.ofPattern(Constantes.PATRON_HORA);
@@ -165,6 +166,23 @@ public class UtilidadesConversores {
 	
 	// Convertir siempre y cuando el la fecha pasada como parámetro de entrada NO sea nula
 	return fecha != null ? formateadorFecha.format(fecha) : Constantes.CADENA_VACIA;
+	
+    }
+    
+    /**
+     * <p>Convertir una {@code LocalDate} en una cadena de caracteres formateada.</p>
+     * <p>Este método contiene un formato específico para poder hacer comparaciones con fechas en SQLite.</p>
+     * 
+     * @param fecha {@link LocalDate} fecha que se quiere convertir
+     * 
+     * @return {@link String} cadena de caracteres convertida
+     * 
+     * @see DateTimeFormatter
+     */
+    public static String convertirFechaCadenaBaseDatos(LocalDate fecha) {
+	
+	// Convertir siempre y cuando el la fecha pasada como parámetro de entrada NO sea nula
+	return fecha != null ? formateadorFechaBaseDatos.format(fecha) : Constantes.CADENA_VACIA;
 	
     }
     

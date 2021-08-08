@@ -27,15 +27,14 @@ import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  * <p>Controlador para la configuración de la aplicación.</p>
@@ -205,17 +204,20 @@ public class ConfiguracionEdicionController {
 	// Comprobar que el listado NO es nulo NI está vacío
 	if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoCitasEliminar))) {
 	    
+	    // Mostrar alerta de confirmación
 	    Optional<ButtonType> alerta = UtilidadesAlertas.mostrarAlerta(
 			AlertType.CONFIRMATION, 
 			MessageFormat.format(citasConfirmacion, listadoCitasEliminar.size()), 
 			ButtonType.YES, 
 			ButtonType.NO);
 	    
+	    // Comprobar si se ha pulsado el botón afirmativo
 	    if(alerta.isPresent() && alerta.get() == ButtonType.YES) {
 		
 		// Eliminar las citas comprendidas dentro del rango de fechas
 		Boolean resultado = citasService.eliminarCitasPorRangoDeFechas(fechaInicio, fechaFin);
 		
+		// Mostrar una u otra alerta dependiendo de si se han borrado correctamente las citas
 		if (Boolean.TRUE.equals(resultado)) {
 		    UtilidadesAlertas.mostrarAlertaError(citasTrue);
 		} else {
@@ -225,6 +227,7 @@ public class ConfiguracionEdicionController {
 
 	} else {
 
+	    // Mensaje de error en caso de que no haya citas dentro del rango de fechas
 	    UtilidadesAlertas.mostrarAlertaError(citasError);
 
 	}
@@ -327,8 +330,8 @@ public class ConfiguracionEdicionController {
 	tiempoComboBox.getItems().addAll(listadoOpciones);
 	
 	// Opción seleccionada
-	String opcionSeleccionada = configuracion.getString(Constantes.CONFIGURACION_ELIMINACION_CITAS, Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMA_SEMANA);
-	tiempoComboBox.setValue(opcionSeleccionada);
+	tiempo = configuracion.getString(Constantes.CONFIGURACION_ELIMINACION_CITAS, Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMA_SEMANA);
+	tiempoComboBox.setValue(tiempo);
 	
     }
     
@@ -388,7 +391,7 @@ public class ConfiguracionEdicionController {
 	    case Constantes.CONFIGURACION_ELIMINACION_CITAS_ULTIMO_ANIO: 
 		fechaInicio = fechaFin.minusYears(1L);
 		break;
-	    default: return fechaInicio = fechaFin;
+	    default: fechaInicio = fechaFin;
 	    
 	    }
 	    

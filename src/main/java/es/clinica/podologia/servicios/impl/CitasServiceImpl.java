@@ -63,7 +63,7 @@ public class CitasServiceImpl implements CitasService {
 	if(fecha != null) {
 	    
 	    // Realizar la consulta y conversión
-	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFecha(UtilidadesConversores.convertirFechaCadena(fecha)));
+	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFecha(UtilidadesConversores.convertirFechaCadenaBaseDatos(fecha)));
 	}
 	
 	return listado;
@@ -79,14 +79,14 @@ public class CitasServiceImpl implements CitasService {
 	List<CitasModelo> listado = new ArrayList<>();
 	
 	// Convertir las fechas pasadas como parámetros a cadenas de caracteres
-	String inicio = UtilidadesConversores.convertirFechaCadena(fechaInicial);
-	String fin = UtilidadesConversores.convertirFechaCadena(fechaFinal);
+	String inicio = UtilidadesConversores.convertirFechaCadenaBaseDatos(fechaInicial);
+	String fin = UtilidadesConversores.convertirFechaCadenaBaseDatos(fechaFinal);
 	
 	// Realizar una u otra búsqueda en función de los parámetros que NO sean nulos
 	if(StringUtils.isNotBlank(inicio) && StringUtils.isNotBlank(fin)) {
 	    
 	    // Ambas fechas NO son nulas
-	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaBetween(inicio, fin));
+	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAfterAndFechaBefore(inicio, fin));
 	    
 	} else if(StringUtils.isBlank(inicio) && StringUtils.isNotBlank(fin)) {
 	    
@@ -125,7 +125,7 @@ public class CitasServiceImpl implements CitasService {
 	    if(Boolean.TRUE.equals(sanitario.isPresent())) {
 		
 		// Realizar la consulta y conversión
-		listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAndSanitario(UtilidadesConversores.convertirFechaCadena(fecha), sanitario.get()));
+		listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAndSanitario(UtilidadesConversores.convertirFechaCadenaBaseDatos(fecha), sanitario.get()));
 		
 	    }
 	    
@@ -247,8 +247,8 @@ public class CitasServiceImpl implements CitasService {
 	if (fechaInicial != null && fechaFinal != null) {
 	    
 	    // Convertir las fechas pasadas como parámetros a cadenas de caracteres
-	    String inicio = UtilidadesConversores.convertirFechaCadena(fechaInicial);
-	    String fin = UtilidadesConversores.convertirFechaCadena(fechaFinal);
+	    String inicio = UtilidadesConversores.convertirFechaCadenaBaseDatos(fechaInicial);
+	    String fin = UtilidadesConversores.convertirFechaCadenaBaseDatos(fechaFinal);
 	    
 	    // Eliminar las citas que estén dentro del rango
 	    citasRepository.deleteByFechaBetween(inicio, fin);

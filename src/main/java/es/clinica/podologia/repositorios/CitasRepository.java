@@ -63,6 +63,18 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
     public List<Citas> findByFechaBetween(String inicio, String fin);
     
     /**
+     * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha dentro del rango.</p>
+     * 
+     * @param inicio {@link String} valor de la fecha de inicio por la que se quiere filtrar
+     * @param fin {@link String} valor de la fecha de fin por la que se quiere filtrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     * 
+     * @see Citas
+     */
+    public List<Citas> findByFechaAfterAndFechaBefore(String inicio, String fin);
+    
+    /**
      * <p>Consulta filtrando por las columnas: </p>
      * <ul>
      * <li>{@code CITAS.FECHA}</li>

@@ -38,6 +38,7 @@ public class Constantes {
     public static final String REDIMENSIONABLE = "redimensionable";
     
     public static final String PATRON_FECHA = "dd-MM-yyyy";
+    public static final String PATRON_FECHA_BASE_DATOS = "yyyyMMdd";
     public static final String PATRON_HORA = "HH:mm:ss";
     public static final String PATRON_MAYUSCULAS = "(?<!^)(?=[A-Z])";
     public static final Pattern PATRON_NUMEROS_ENTEROS = Pattern.compile("\\d*");

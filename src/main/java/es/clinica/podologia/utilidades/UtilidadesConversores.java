@@ -2,8 +2,10 @@ package es.clinica.podologia.utilidades;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -37,9 +39,8 @@ public class UtilidadesConversores {
     }
     
     
-    // Formatos de conversión para fechas
+    // Formato de conversión para fechas
     private static DateTimeFormatter formateadorFecha = DateTimeFormatter.ofPattern(Constantes.PATRON_FECHA);
-    private static DateTimeFormatter formateadorFechaBaseDatos = DateTimeFormatter.ofPattern(Constantes.PATRON_FECHA_BASE_DATOS);
     
     // Formato de conversión para horas
     private static DateTimeFormatter formateadorHora = DateTimeFormatter.ofPattern(Constantes.PATRON_HORA);
@@ -170,20 +171,25 @@ public class UtilidadesConversores {
     }
     
     /**
-     * <p>Convertir una {@code LocalDate} en una cadena de caracteres formateada.</p>
-     * <p>Este método contiene un formato específico para poder hacer comparaciones con fechas en SQLite.</p>
+     * <p>Convertir una fecha Epoch con milisegundos en una fecha.</p>
      * 
-     * @param fecha {@link LocalDate} fecha que se quiere convertir
+     * @param epoch {@link Long} fecha en formato Epoch con milisegundos que se desea convertir
      * 
-     * @return {@link String} cadena de caracteres convertida
-     * 
-     * @see DateTimeFormatter
+     * @return {@link LocalDate} fecha equivalente convertida
      */
-    public static String convertirFechaCadenaBaseDatos(LocalDate fecha) {
-	
-	// Convertir siempre y cuando el la fecha pasada como parámetro de entrada NO sea nula
-	return fecha != null ? formateadorFechaBaseDatos.format(fecha) : Constantes.CADENA_VACIA;
-	
+    public static LocalDate convertirLongFecha(Long epoch) {
+	return epoch != null ? Instant.ofEpochMilli(epoch * 1000).atZone(ZoneId.systemDefault()).toLocalDate() : null;
+    }
+    
+    /**
+     * <p>Convertir una fecha en una fecha Epoch con milisegundos.</p>
+     * 
+     * @param fecha {@link LocalDate} fecha que se desea convertir
+     * 
+     * @return {@link Long} fecha en formato Epoch con milisegundos equivalente convertida
+     */
+    public static Long convertirFechaLong(LocalDate fecha) {
+	return fecha != null ? fecha.atStartOfDay(ZoneId.systemDefault()).toEpochSecond() * 1000 : null;
     }
     
     // FECHAS - FIN

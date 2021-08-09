@@ -20,59 +20,59 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
     /**
      * <p>Consulta filtrando por la columna {@code CITAS.FECHA}.</p>
      * 
-     * @param fecha {@link String} valor de la fecha por el que se quiere filtrar
+     * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      * 
      * @see Citas
      */
-    public List<Citas> findByFecha(String fecha);
+    public List<Citas> findByFecha(Long fecha);
     
     /**
      * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha menor.</p>
      * 
-     * @param fecha {@link String} valor de la fecha por el que se quiere filtrar
+     * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      * 
      * @see Citas
      */
-    public List<Citas> findByFechaBefore(String fecha);
+    public List<Citas> findByFechaBefore(Long fecha);
     
     /**
      * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha mayor.</p>
      * 
-     * @param fecha {@link String} valor de la fecha por el que se quiere filtrar
+     * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      * 
      * @see Citas
      */
-    public List<Citas> findByFechaAfter(String fecha);
+    public List<Citas> findByFechaAfter(Long fecha);
     
     /**
      * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha dentro del rango.</p>
      * 
-     * @param inicio {@link String} valor de la fecha de inicio por la que se quiere filtrar
-     * @param fin {@link String} valor de la fecha de fin por la que se quiere filtrar
+     * @param inicio {@link Long} valor de la fecha de inicio por la que se quiere filtrar
+     * @param fin {@link Long} valor de la fecha de fin por la que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      * 
      * @see Citas
      */
-    public List<Citas> findByFechaBetween(String inicio, String fin);
+    public List<Citas> findByFechaBetween(Long inicio, Long fin);
     
     /**
      * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha dentro del rango.</p>
      * 
-     * @param inicio {@link String} valor de la fecha de inicio por la que se quiere filtrar
-     * @param fin {@link String} valor de la fecha de fin por la que se quiere filtrar
+     * @param inicio {@link Long} valor de la fecha de inicio por la que se quiere filtrar
+     * @param fin {@link Long} valor de la fecha de fin por la que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      * 
      * @see Citas
      */
-    public List<Citas> findByFechaAfterAndFechaBefore(String inicio, String fin);
+    public List<Citas> findByFechaAfterAndFechaBefore(Long inicio, Long fin);
     
     /**
      * <p>Consulta filtrando por las columnas: </p>
@@ -81,21 +81,21 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * <li>{@code CITAS.DNI_SANITARIO}</li>
      * </ul>
      * 
-     * @param fecha {@link String} valor de la fecha por el que se quiere filtrar
+     * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
      * @param sanitario {@link Sanitarios} valor del sanitario por el que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      */
-    public List<Citas> findByFechaAndSanitario(String fecha, Sanitarios sanitario);
+    public List<Citas> findByFechaAndSanitario(Long fecha, Sanitarios sanitario);
     
     /**
      * <p>Eliminación filtrando por la columna {@code CITAS.FECHA}.</p>
      * 
-     * @param inicio {@link String} valor de la fecha de inicio por la que se quiere filtrar
-     * @param fin {@link String} valor de la fecha de fin por la que se quiere filtrar
+     * @param inicio {@link Long} valor de la fecha de inicio por la que se quiere filtrar
+     * @param fin {@link Long} valor de la fecha de fin por la que se quiere filtrar
      * 
      * @see Citas
      */
-    public void deleteByFechaBetween(String inicio, String fin);
+    public void deleteByFechaBetween(Long inicio, Long fin);
 
 }

@@ -35,7 +35,7 @@ public class Citas {
     private Tratamientos tratamiento;
 
     @Column(name = "fecha", nullable = true, unique = false)
-    private String fecha;
+    private Long fecha;
 
     @Column(name = "hora_inicio", nullable = true, unique = false)
     private String horaDesde;
@@ -85,11 +85,11 @@ public class Citas {
 	this.tratamiento = tratamiento;
     }
 
-    public String getFecha() {
+    public Long getFecha() {
 	return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Long fecha) {
 	this.fecha = fecha;
     }
 

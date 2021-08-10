@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.3.2 on lu. ago. 9 21:49:49 2021
+-- File generated with SQLiteStudio v3.3.2 on ma. ago. 10 20:04:37 2021
 --
 -- Text encoding used: UTF-8
 --

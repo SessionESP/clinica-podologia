@@ -86,7 +86,7 @@ public class CitasServiceImpl implements CitasService {
 	if(inicio != null && fin != null) {
 	    
 	    // Ambas fechas NO son nulas
-	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAfterAndFechaBefore(inicio, fin));
+	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaBetween(inicio, fin));
 	    
 	} else if(inicio == null && fin != null) {
 	    

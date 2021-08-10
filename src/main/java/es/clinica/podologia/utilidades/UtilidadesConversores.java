@@ -178,7 +178,7 @@ public class UtilidadesConversores {
      * @return {@link LocalDate} fecha equivalente convertida
      */
     public static LocalDate convertirLongFecha(Long epoch) {
-	return epoch != null ? Instant.ofEpochMilli(epoch * 1000).atZone(ZoneId.systemDefault()).toLocalDate() : null;
+	return epoch != null ? Instant.ofEpochSecond(epoch).atZone(ZoneId.systemDefault()).toLocalDate() : null;
     }
     
     /**
@@ -189,7 +189,7 @@ public class UtilidadesConversores {
      * @return {@link Long} fecha en formato Epoch con milisegundos equivalente convertida
      */
     public static Long convertirFechaLong(LocalDate fecha) {
-	return fecha != null ? fecha.atStartOfDay(ZoneId.systemDefault()).toEpochSecond() * 1000 : null;
+	return fecha != null ? fecha.atStartOfDay(ZoneId.systemDefault()).toEpochSecond() : null;
     }
     
     // FECHAS - FIN

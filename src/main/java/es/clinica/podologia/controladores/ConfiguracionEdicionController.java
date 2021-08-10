@@ -219,10 +219,20 @@ public class ConfiguracionEdicionController {
 		
 		// Mostrar una u otra alerta dependiendo de si se han borrado correctamente las citas
 		if (Boolean.TRUE.equals(resultado)) {
-		    UtilidadesAlertas.mostrarAlertaError(citasTrue);
+		    
+		    // Alerta de citas eliminadas correctamente
+		    UtilidadesAlertas.mostrarAlertaInformativa(citasTrue);
+		    
+		    // En caso de que se hayan borrado las citas, actualizar el listado de citas
+		    CitasListadoController citasListadoController = (CitasListadoController) beansComponent.obtenerControlador(Constantes.CITAS_LISTADO_CONTROLLER);
+		    citasListadoController.initialize();
+		    
 		} else {
+		    
+		    // Alerta de error en caso de que
 		    UtilidadesAlertas.mostrarAlertaError(citasFalse);
 		}
+		
 	    }
 
 	} else {

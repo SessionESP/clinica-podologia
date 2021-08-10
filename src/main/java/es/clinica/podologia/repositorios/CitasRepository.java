@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.clinica.podologia.entidades.Citas;
 import es.clinica.podologia.entidades.Sanitarios;
@@ -63,18 +64,6 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
     public List<Citas> findByFechaBetween(Long inicio, Long fin);
     
     /**
-     * <p>Consulta filtrando por la columna {@code CITAS.FECHA}, retornando los registros con una fecha dentro del rango.</p>
-     * 
-     * @param inicio {@link Long} valor de la fecha de inicio por la que se quiere filtrar
-     * @param fin {@link Long} valor de la fecha de fin por la que se quiere filtrar
-     * 
-     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
-     * 
-     * @see Citas
-     */
-    public List<Citas> findByFechaAfterAndFechaBefore(Long inicio, Long fin);
-    
-    /**
      * <p>Consulta filtrando por las columnas: </p>
      * <ul>
      * <li>{@code CITAS.FECHA}</li>
@@ -96,6 +85,7 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * 
      * @see Citas
      */
+    @Transactional
     public void deleteByFechaBetween(Long inicio, Long fin);
 
 }

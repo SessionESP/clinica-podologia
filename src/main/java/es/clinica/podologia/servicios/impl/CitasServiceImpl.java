@@ -332,13 +332,13 @@ public class CitasServiceImpl implements CitasService {
 	    entidad.setPaciente(StringUtils.isNotBlank(modelo.getDniPaciente()) ? 
 		    pacientesRepository.findById(modelo.getDniPaciente()).orElse(null) : null);
 	    entidad.setSanitario(StringUtils.isNotBlank(modelo.getDniSanitario()) ? 
-		    sanitariosRepository.findById(modelo.getDniPaciente()).orElse(null) : null);
+		    sanitariosRepository.findById(modelo.getDniSanitario()).orElse(null) : null);
 	    entidad.setTratamiento(Boolean.TRUE.equals(modelo.getIdTratamiento() != null) ? 
 		    tratamientosRepository.findById(modelo.getIdTratamiento()).orElse(null) : null);
 	    entidad.setFecha(UtilidadesConversores.convertirFechaLong(modelo.getFecha()));
 	    entidad.setHoraDesde(UtilidadesConversores.convertirHoraCadena(modelo.getHoraDesde()));
 	    entidad.setHoraHasta(UtilidadesConversores.convertirHoraCadena(modelo.getHoraHasta()));
-	    entidad.setObservaciones(entidad.getObservaciones());
+	    entidad.setObservaciones(modelo.getObservaciones());
 	    
 	}
 	

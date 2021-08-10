@@ -33,7 +33,6 @@ import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -191,6 +190,8 @@ public class CitasEdicionController {
 	cargarAutocompletados();
 	
 	cargarHorarios();
+	
+	idCitaTextField.setDisable(Boolean.TRUE);
 	
 	// Comprobar si el modelo es nulo
 	if(modelo != null) {
@@ -610,13 +611,13 @@ public class CitasEdicionController {
 	// Deshabilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
 	idCitaTextField.setDisable(Boolean.TRUE);
 	
-	// Inicializar todas las cajas de texto con los valores de los atributos del modelo
+
+	
+	// Inicializar todas las cajas de texto, así como los modelos con los valores de los atributos del modelo principal de la cita
 	idCitaTextField.setText(UtilidadesConversores.convertirEnteroCadena(modelo.getIdCita()));
-	dniPacienteTextField.setText(modelo.getDniPaciente());
-	nombrePacienteTextField.setText(modelo.getNombrePaciente());
-	dniSanitarioTextField.setText(modelo.getDniSanitario());
-	nombreSanitarioTextField.setText(modelo.getNombreSanitario());
-	nombreTratamientoTextField.setText(modelo.getNombreTratamiento());
+	cargarModeloPaciente(modelo.getDniPaciente());
+	cargarModeloSanitario(modelo.getDniSanitario());
+	cargarModeloTratamiento(UtilidadesConversores.convertirEnteroCadena(modelo.getIdTratamiento()));
 	fechaDatePicker.setValue(modelo.getFecha());
 	horaInicioComboBox.setValue(modelo.getHoraDesde());
 	horaFinComboBox.setValue(modelo.getHoraHasta());

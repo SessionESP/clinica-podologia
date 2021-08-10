@@ -51,7 +51,8 @@ public class AccesoController {
     
     @FXML
     public void initialize() {
-        
+        // Método donde se realizan las operaciones necesarias para la inicialización la vista
+	TRAZAS.info("Inicialización de la aplicación desde la vista de acceso.");
     }
 
     @FXML
@@ -74,12 +75,14 @@ public class AccesoController {
     @FXML
     private void salir() {
 	
+	// Alerta que pide confirmación para salir realmente de la aplicación
 	Optional<ButtonType> alerta = UtilidadesAlertas.mostrarAlerta(
 		AlertType.WARNING, 
 		"¿Deseas cerrar la aplicación?", 
 		ButtonType.YES, 
 		ButtonType.NO);
 	
+	// Si se ha pulsado el botón afirmativo, salir de la aplicación
 	if(alerta.isPresent() && alerta.get() == ButtonType.YES) {
 	    Platform.exit();
 	}

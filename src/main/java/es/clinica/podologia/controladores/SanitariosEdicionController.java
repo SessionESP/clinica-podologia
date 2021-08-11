@@ -195,10 +195,10 @@ public class SanitariosEdicionController {
 	dniSanitarioTextField.setDisable(Boolean.FALSE);
 	
 	// Inicializar todas las cajas de texto vacías
-	dniSanitarioTextField.setText(Constantes.CADENA_VACIA);
-	nombreTextField.setText(Constantes.CADENA_VACIA);
-	apellidosTextField.setText(Constantes.CADENA_VACIA);
-	especialidadTextField.setText(Constantes.CADENA_VACIA);
+	dniSanitarioTextField.clear();
+	nombreTextField.clear();
+	apellidosTextField.clear();
+	especialidadTextField.clear();
 	
     }
     

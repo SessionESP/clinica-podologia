@@ -29,7 +29,6 @@ import es.clinica.podologia.servicios.SanitariosService;
 import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
-import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
@@ -584,16 +583,16 @@ public class CitasEdicionController {
 	idCitaTextField.setDisable(Boolean.FALSE);
 	
 	// Inicializar todas las cajas de texto vacías
-	idCitaTextField.setText(null);
-	dniPacienteTextField.setText(Constantes.CADENA_VACIA);
-	nombrePacienteTextField.setText(Constantes.CADENA_VACIA);
-	dniSanitarioTextField.setText(Constantes.CADENA_VACIA);
-	nombreSanitarioTextField.setText(Constantes.CADENA_VACIA);
-	nombreTratamientoTextField.setText(Constantes.CADENA_VACIA);
+	idCitaTextField.clear();
+	dniPacienteTextField.clear();
+	nombrePacienteTextField.clear();
+	dniSanitarioTextField.clear();
+	nombreSanitarioTextField.clear();
+	nombreTratamientoTextField.clear();
 	fechaDatePicker.setValue(null);
 	horaInicioComboBox.setValue(null);
 	horaFinComboBox.setValue(null);
-	observacionesTextArea.setText(Constantes.CADENA_VACIA);
+	observacionesTextArea.clear();
 	
     }
     
@@ -685,7 +684,7 @@ public class CitasEdicionController {
     
     
     private void cargarFormateadores() {
-	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
+//	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
     }
     
     

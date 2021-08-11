@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Citas {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cita", nullable = false, unique = true)
     private Integer idCita;
 

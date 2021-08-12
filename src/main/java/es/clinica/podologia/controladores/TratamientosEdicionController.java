@@ -53,13 +53,11 @@ public class TratamientosEdicionController {
 
     @FXML
     private TextField nombreTextField;
-
     @FXML
     private TextArea descripcionTextArea;
 
     @FXML
     private Button aceptarButton;
-    
     @FXML
     private Button cancelarButton;
     
@@ -179,8 +177,8 @@ public class TratamientosEdicionController {
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloAltaVista);
 	
-	nombreTextField.setText(Constantes.CADENA_VACIA);
-	descripcionTextArea.setText(Constantes.CADENA_VACIA);
+	nombreTextField.clear();
+	descripcionTextArea.clear();
 	
     }
     

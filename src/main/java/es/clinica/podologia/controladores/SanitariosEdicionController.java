@@ -98,10 +98,12 @@ public class SanitariosEdicionController {
 		
 		// Si existe, se trarta de una actualización
 		prepararModificacion();
+		
 	    } else {
 		
 		// Si NO existe, se trarta de una inserción
 		prepararAlta();
+		
 	    }
 	    
 	} else {
@@ -226,7 +228,7 @@ public class SanitariosEdicionController {
     
     
     private void cargarFormateadores() {
-	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
+//	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
     }
     
     public SanitariosModelo getModelo() {

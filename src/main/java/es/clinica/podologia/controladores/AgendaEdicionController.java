@@ -26,8 +26,11 @@ import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -41,6 +44,11 @@ public class AgendaEdicionController {
     
     private static final Logger TRAZAS = LoggerFactory.getLogger(AgendaEdicionController.class);
     
+
+    
+    @Autowired
+    private SanitariosService sanitariosService;
+    
     @FXML
     private AnchorPane agendaAnchorPane;
     
@@ -48,10 +56,59 @@ public class AgendaEdicionController {
     private TableView<List<String>> agendaTableView = new TableView<>();
     
     @FXML
-    private DatePicker fechaDatePicker;
+    private DatePicker fechaFiltroDatePicker;
     
-    @Autowired
-    private SanitariosService sanitariosService;
+    @FXML
+    private TextField identificadorCitaTextField;
+    @FXML
+    private TextField pacienteCitaTextField;
+    @FXML
+    private TextField sanitarioCitaTextField;
+    @FXML
+    private TextField tratamientoCitaTextField;
+    @FXML
+    private TextField fechaCitaTextField;
+    @FXML
+    private TextField horaInicioCitaTextField;
+    @FXML
+    private TextField horaFinCitaTextField;
+    
+    @FXML
+    private TextField dniPacienteTextField;
+    @FXML
+    private TextField nombrePacienteTextField;
+    @FXML
+    private TextField apellidosPacienteTextField;
+    @FXML
+    private TextField fechaNacimientoPacienteTextField;
+    @FXML
+    private TextField direccionPacienteTextField;
+    @FXML
+    private TextField telefonoPacienteTextField;
+    
+    @FXML
+    private Label edadPacienteLabel;
+    
+    @FXML
+    private TextField dniSanitarioTextField;
+    @FXML
+    private TextField nombreSanitarioTextField;
+    @FXML
+    private TextField apellidosSanitarioTextField;
+    @FXML
+    private TextField especialidadSanitarioTextField;
+    
+    @FXML
+    private TextField identificadorTratamientoTextField;
+    @FXML
+    private TextField nombreTratamientoTextField;
+    @FXML
+    private TextArea descripcionTratamientoTextArea;
+    
+
+    
+    @FXML
+    private TextArea observacionesTextArea;
     
     @Value("${spring.config.import}")
     private List<String> propiedadesExternas;
@@ -109,13 +166,13 @@ public class AgendaEdicionController {
 
 	}
 	
-	fechaDatePicker.setValue(LocalDate.now());
+	fechaFiltroDatePicker.setValue(LocalDate.now());
 	
-	fechaDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+	fechaFiltroDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
             UtilidadesAlertas.mostrarAlertaInformativa("Fecha seleccionada: " + newValue);
         });
 	
-	fechaDatePicker.setConverter(new DatePickerFormatted());
+	fechaFiltroDatePicker.setConverter(new DatePickerFormatted());
 	
 	generarTabla();
 	

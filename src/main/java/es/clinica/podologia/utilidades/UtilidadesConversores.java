@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -190,6 +192,34 @@ public class UtilidadesConversores {
      */
     public static Long convertirFechaLong(LocalDate fecha) {
 	return fecha != null ? fecha.atStartOfDay(ZoneId.systemDefault()).toEpochSecond() : null;
+    }
+    
+    /**
+     * <p>Método que calcula una fecha de nacimiento en base a una edad expresada como un número entero.</p>
+     * <p>Ejemplo: </p>
+     * <ul>
+     * <li>Fecha actual: {@code 14 de agosto de 2.021}</li>
+     * <li>Edad pasada como parámetro: {@code 20 años}</li>
+     * <li>Fecha de nacimiento calculada: {@code 1 de enero de 2.001}</li>
+     * </ul>
+     * 
+     * @param edad {@link Integer} entero que representa un número de años
+     * 
+     * @return {@link LocalDate} fecha de nacimiento calculada: primer día del año correspondiente
+     */
+    public static LocalDate calcularFechaNacimiento(Integer edad) {
+	return edad != null ? LocalDate.now().minusYears(convertirEnteroLong(edad)).with(TemporalAdjusters.firstDayOfYear()) : LocalDate.now();
+    }
+    
+    /**
+     * <p>Método que calcula una edad expresada como un número entero en base a fecha de nacimiento.</p>
+     * 
+     * @param fechaNacimiento {@link LocalDate} fecha de nacimiento
+     * 
+     * @return {@link Integer} entero que representa una edad de años
+     */
+    public static Integer calcularEdad(LocalDate fechaNacimiento) {
+	return fechaNacimiento != null ? Period.between(fechaNacimiento, LocalDate.now()).getYears() : 0;
     }
     
     // FECHAS - FIN

@@ -2,6 +2,7 @@ package es.clinica.podologia.controladores;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,6 +88,8 @@ public class PacientesEdicionController {
     
     @FXML
     private Label nombreAdjuntoLabel;
+    @FXML
+    private Label edadLabel;
     
     @FXML
     private Button aceptarButton;
@@ -121,9 +124,6 @@ public class PacientesEdicionController {
 	// Comprobar si el modelo es nulo
 	if(modelo != null) {
 	    
-	    // Cargar los formateadores de cada una de las cajas de texto
-	    cargarFormateadores();
-	    
 	    // En caso de que NO sea nulo, comprobar si existe
 	    modo = pacienteService.comprobarExistenciaPaciente(modelo.getDniPaciente());
 	    
@@ -131,6 +131,7 @@ public class PacientesEdicionController {
 		
 		// Si existe, se trarta de una actualización
 		prepararModificacion();
+		
 	    } else {
 		
 		// Si NO existe, se trarta de una inserción
@@ -143,6 +144,12 @@ public class PacientesEdicionController {
 	    prepararAlta();
 	    
 	}
+	
+	// Cargar los formateadores de cada una de las cajas de texto
+	cargarFormateadores();
+
+	// Carga los Escuchadores de los controles de la vista
+	cargarEscuchadores();
 	
     }
     
@@ -334,6 +341,7 @@ public class PacientesEdicionController {
 	nombreTextField.setText(modelo.getNombre());
 	apellidosTextField.setText(modelo.getApellidos());
 	fechaNacimientoDatePicker.setValue(modelo.getFechaNacimiento());
+	edadLabel.setText(imprimirEdad(modelo.getFechaNacimiento()));
 	direccionTextField.setText(modelo.getDireccion());
 	telefonoTextField.setText(modelo.getTelefono());
 	
@@ -366,6 +374,13 @@ public class PacientesEdicionController {
 //	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
     }
     
+    private void cargarEscuchadores() {
+	
+	// Recalcular la edad cada vez que cambia la fecha de nacimiento
+	fechaNacimientoDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> edadLabel.setText(imprimirEdad(newValue)));
+	
+    }
+    
     /**
      * <p>Método que desasigna el adjunto seleccionado al atributo correspondiente del modelo y actualiza el campo de la vista.</p>
      */
@@ -373,6 +388,17 @@ public class PacientesEdicionController {
 	nombreAdjuntoLabel.setText(Constantes.CADENA_VACIA);
 	verAdjuntoImageView.setVisible(Boolean.FALSE);
 	modelo.setAdjunto(Constantes.CADENA_VACIA.getBytes());
+    }
+    
+    /**
+     * <p>Imprime la edad seguida de "años" en función de una fecha de nacimiento introducida como parámetro.</p>
+     * 
+     * @param fechaNacimiento {@link LocalDate} la que se ha introducido en el campo de la vista correspondiente
+     * 
+     * @return {@link String} edad calculada seguida de " años"
+     */
+    private String imprimirEdad(LocalDate fechaNacimiento) {
+	return UtilidadesConversores.convertirEnteroCadena(UtilidadesConversores.calcularEdad(fechaNacimiento)) + Constantes.ESPACIO + Constantes.ANIOS;
     }
     
     public PacientesModelo getModelo() {

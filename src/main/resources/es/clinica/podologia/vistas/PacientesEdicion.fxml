@@ -117,6 +117,17 @@
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </ImageView>
+                  <Label fx:id="edadLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="390.0" layoutY="283.0" prefHeight="40.0" prefWidth="280.0" text="Edad en años" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets right="20.0" />
+                     </GridPane.margin>
+                  </Label>
                </children>
             </GridPane>
             <GridPane layoutX="69.0" layoutY="390.0" prefHeight="50.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="240.0">

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.configuration2.FileBasedConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
@@ -24,7 +25,10 @@ import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -55,6 +59,8 @@ public class AgendaEdicionController {
     @FXML
     private TableView<List<String>> agendaTableView = new TableView<>();
     
+    @FXML
+    private ComboBox<SanitariosModelo> sanitarioFiltroComboBox;
     @FXML
     private DatePicker fechaFiltroDatePicker;
     
@@ -122,6 +128,8 @@ public class AgendaEdicionController {
     
     private Integer duracionCitas;
     
+    private List<SanitariosModelo> listadoSanitarios;
+    
     
     /**
      * <p>Método que se ejecuta al inicializarse la vista de la agenda de la aplicación.</p>
@@ -174,8 +182,25 @@ public class AgendaEdicionController {
 	
 	fechaFiltroDatePicker.setConverter(new DatePickerFormatted());
 	
+	// Encuentra todos los sanitarios
+	listadoSanitarios = sanitariosService.listarSanitarios();
+	
+	sanitarioFiltroComboBox.getItems().clear();
+	sanitarioFiltroComboBox.getItems().addAll(listadoSanitarios);
+	listadoSanitarios.stream().map(SanitariosModelo::buscar).collect(Collectors.toList());
+	
 	generarTabla();
 	
+    }
+    
+    /**
+     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#sanitarioFiltroComBox}</p>
+     * 
+     * @param evento {@link ActionEvent} parámetro con la información asociada al evento
+     */
+    @FXML
+    private void cambiarSanitario(Event evento) {
+	UtilidadesAlertas.mostrarAlertaInformativa("Sanitario seleccionado: " + sanitarioFiltroComboBox.getSelectionModel().getSelectedItem().buscar());
     }
     
     /**
@@ -200,9 +225,6 @@ public class AgendaEdicionController {
 	
 	// Genera la primera columna con las horas
 	generarColumna(agendaTableView, columna1, 0);
-	
-	// Encuentra todos los sanitarios
-	List<SanitariosModelo> listadoSanitarios = sanitariosService.listarSanitarios();
 	
 	// Comprobar que se ha devuelto algún sanitario en la consulta
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoSanitarios))) {

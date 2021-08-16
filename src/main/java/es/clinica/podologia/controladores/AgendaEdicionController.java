@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.configuration2.FileBasedConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
@@ -18,7 +17,9 @@ import org.springframework.beans.factory.annotation.Value;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.formateadores.DatePickerFormatted;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
+import es.clinica.podologia.modelos.CitasModelo;
 import es.clinica.podologia.modelos.SanitariosModelo;
+import es.clinica.podologia.servicios.CitasService;
 import es.clinica.podologia.servicios.SanitariosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
@@ -48,7 +49,9 @@ public class AgendaEdicionController {
     
     private static final Logger TRAZAS = LoggerFactory.getLogger(AgendaEdicionController.class);
     
-
+    
+    @Autowired
+    private CitasService citasService;
     
     @Autowired
     private SanitariosService sanitariosService;
@@ -128,7 +131,7 @@ public class AgendaEdicionController {
     
     private Integer duracionCitas;
     
-    private List<SanitariosModelo> listadoSanitarios;
+    
     
     
     /**
@@ -183,14 +186,24 @@ public class AgendaEdicionController {
 	fechaFiltroDatePicker.setConverter(new DatePickerFormatted());
 	
 	// Encuentra todos los sanitarios
-	listadoSanitarios = sanitariosService.listarSanitarios();
+	List<SanitariosModelo> listadoSanitarios = sanitariosService.listarSanitarios();
 	
 	sanitarioFiltroComboBox.getItems().clear();
 	sanitarioFiltroComboBox.getItems().addAll(listadoSanitarios);
-	listadoSanitarios.stream().map(SanitariosModelo::buscar).collect(Collectors.toList());
+	sanitarioFiltroComboBox.getSelectionModel().selectFirst();
 	
 	generarTabla();
 	
+    }
+    
+    /**
+     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#fechaFiltroDatePicker}</p>
+     * 
+     * @param evento {@link ActionEvent} parámetro con la información asociada al evento
+     */
+    @FXML
+    private void cambiarFecha(Event evento) {
+	generarTabla();
     }
     
     /**
@@ -200,7 +213,7 @@ public class AgendaEdicionController {
      */
     @FXML
     private void cambiarSanitario(Event evento) {
-	UtilidadesAlertas.mostrarAlertaInformativa("Sanitario seleccionado: " + sanitarioFiltroComboBox.getSelectionModel().getSelectedItem().buscar());
+	generarTabla();
     }
     
     /**
@@ -226,19 +239,8 @@ public class AgendaEdicionController {
 	// Genera la primera columna con las horas
 	generarColumna(agendaTableView, columna1, 0);
 	
-	// Comprobar que se ha devuelto algún sanitario en la consulta
-	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoSanitarios))) {
-	    
-	    // Recorrer el listado de sanitarios
-	    for (int i = 0; i < listadoSanitarios.size(); i++) {
-		
-		// Generar la columna correspondiente a cada sanitario
-		generarColumna(agendaTableView, listadoSanitarios.get(i).toString(), i + 1);
-	    }
-	    
-
-	    
-	}
+	// Generar una segunda columna con las citas del sanitario filtrado
+	generarColumna(agendaTableView, sanitarioFiltroComboBox.getValue().toString(), 1);
 	
     }
     
@@ -305,13 +307,19 @@ public class AgendaEdicionController {
 	List<String> valoresFila = new ArrayList<>();
 	
 	// Primera columna con las horas de las citas
-	valoresFila.add(UtilidadesConversores.convertirHoraCadena(apertura.plusMinutes(UtilidadesConversores.convertirEnteroLong(numeroFila * duracionCitas))));
+	String hora = UtilidadesConversores.convertirHoraCadena(apertura.plusMinutes(UtilidadesConversores.convertirEnteroLong(numeroFila * duracionCitas)));
+	valoresFila.add(hora);
 	
 	// Iterar sobre el resto de columnas
 	for(int i = 1; i < agendaTableView.getColumns().size(); i++) {
 	    
+	    CitasModelo cita = citasService.encontrarCitaPorFechaHoraSanitario(
+		    fechaFiltroDatePicker.getValue(), 
+		    UtilidadesConversores.convertirCadenaHora(hora), 
+		    sanitarioFiltroComboBox.getValue().getDniSanitario());
+	    
 	    // TODO: realizar búsqueda para dar el valor adecuado
-	    valoresFila.add("Cita " + i);
+	    valoresFila.add("Cita " + i + " - " + (cita != null ? UtilidadesConversores.convertirEnteroCadena(cita.getIdCita()) : "SIN CITAS"));
 	    
 	}
 	

@@ -1,6 +1,7 @@
 package es.clinica.podologia.servicios.impl;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -117,7 +118,7 @@ public class CitasServiceImpl implements CitasService {
 	// Inicializar el listado que se va a retornar al final de la ejecución del método
 	List<CitasModelo> listado = new ArrayList<>();
 	
-	// Comprobar que los parámetros No son nulos
+	// Comprobar que los parámetros de entrada NO son nulos
 	if(fecha != null && StringUtils.isNotBlank(dniSanitario)) {
 	    
 	    Optional<Sanitarios> sanitario = sanitariosRepository.findById(dniSanitario);
@@ -159,6 +160,38 @@ public class CitasServiceImpl implements CitasService {
 	// Retornar el modelo
 	return modelo;
 	
+    }
+    
+    /**
+     * <p>Método que encuentra una cita filtrando por una fecha, una hora y un sanitario</p>
+     */
+    @Override
+    public CitasModelo encontrarCitaPorFechaHoraSanitario(LocalDate fecha, LocalTime hora, String dniSanitario) {
+	
+	// Declarar el modelo que se va a retornar al final del método
+	CitasModelo modelo = null;
+	
+	// Comprobar que los parámetros de entrada NO son nulos
+	if(fecha != null && hora != null && StringUtils.isNotBlank(dniSanitario)) {
+	    
+	    // Buscar el sanitario correspondiente al DNI pasado como parámetro
+	    Optional<Sanitarios> sanitario = sanitariosRepository.findById(dniSanitario);
+	    
+	    // Comprobar que se ha recuperado un sanitario con el DNI pasado como parámetro de entrada
+	    if(Boolean.TRUE.equals(sanitario.isPresent())) {
+		
+		// Realizar la consulta por fecha y sanitario
+		List<CitasModelo> listadoCitas = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAndSanitario(UtilidadesConversores.convertirFechaLong(fecha), sanitario.get()));
+		
+		// Buscar la cita dentro del listado
+		modelo = buscarCitaPorHora(listadoCitas , hora);
+		
+	    }
+	    
+	}
+	
+	// Retornar el modelo
+	return modelo;
     }
 
     /**
@@ -350,7 +383,7 @@ public class CitasServiceImpl implements CitasService {
     /**
      * <p>Método que convierte un listado de entidades en un listado de modelos.</p>
      * 
-     * @param lista {@link List} {@link Citas} listado de entidades que se quiere convertir
+     * @param lista {@link List}<{@link Citas}> listado de entidades que se quiere convertir
      * 
      * @return {@link List} {@link CitasModelo} listado de entidades resultante
      * 
@@ -371,6 +404,35 @@ public class CitasServiceImpl implements CitasService {
 	
 	// Retornar el listado de modelos
 	return listaModelos;
+	
+    }
+    
+    /**
+     * <p>Busca una cita dentro de un listado acotado por fecha y sanitario filtrando por una hora</p>
+     * 
+     * @param listaModelos {@link List}<{@link Citas}> listado de entidades que se quiere convertir
+     * @param hora {@link LocalTime} hora de la cita que se quiere buscar
+     * 
+     * @return {@link CitasModelo} cita encontrada
+     */
+    private CitasModelo buscarCitaPorHora(List<CitasModelo> listaModelos, LocalTime hora) {
+	
+	// Declarar el modelo que se va retornar al final del método
+	CitasModelo modelo = null;
+	
+	// Comprobar que los parámetros NO son nulos
+	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaModelos)) && hora != null) {
+	    
+	    // La hora debe ser menor/igual que la hora desde y menor que la hora hasta
+	    modelo = listaModelos.stream()
+		    .filter(cita -> hora.compareTo(cita.getHoraDesde()) >= 0 && hora.compareTo(cita.getHoraHasta()) < 0)
+		    .findAny()
+		    .orElse(null);
+	    
+	}
+	
+	// Retornar la entidad encontrada
+	return modelo;
 	
     }
 

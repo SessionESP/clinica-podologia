@@ -1,6 +1,7 @@
 package es.clinica.podologia.servicios;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import es.clinica.podologia.modelos.CitasModelo;
@@ -60,6 +61,17 @@ public interface CitasService {
      * @see CitasRepository#findById(Integer)
      */
     public CitasModelo encontrarCita(Integer identificador);
+    
+    /**
+     * <p>Método que encuentra una cita filtrando por una fecha, una hora y un sanitario</p>
+     * 
+     * @param fecha {@link LocalDate} fecha para la que se quiere buscar las citas
+     * @param hora {@link LocalTime} hora para la que se quiere buscar las citas
+     * @param dniSanitario {@link String} DNI identificador del sanitario
+     * 
+     * @return {@link CitasModelo} modelo recuperado
+     */
+    public CitasModelo encontrarCitaPorFechaHoraSanitario (LocalDate fecha, LocalTime hora, String dniSanitario);
     
     /**
      * <p>Método que comprueba si una cita existe.</p>

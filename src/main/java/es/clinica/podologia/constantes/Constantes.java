@@ -29,6 +29,7 @@ public class Constantes {
     public static final String GUION_BAJO = "_";
     public static final String PUNTO = ".";
     public static final String ANIOS = "años";
+    public static final String LIBRE = "Libre";
     
     public static final String TITULO = "titulo";
     public static final String ALTURA = "altura";

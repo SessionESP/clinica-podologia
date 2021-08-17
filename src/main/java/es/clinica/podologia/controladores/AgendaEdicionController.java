@@ -131,6 +131,7 @@ public class AgendaEdicionController {
     
     private Integer duracionCitas;
     
+    private CitasModelo modeloSeleccionado;
     
     
     
@@ -226,6 +227,8 @@ public class AgendaEdicionController {
 	
 	// Generar las filas de la tabla
 	generarFilas();
+	
+	agendaTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> seleccionarFila(newValue));
     }
     
     /**
@@ -313,18 +316,34 @@ public class AgendaEdicionController {
 	// Iterar sobre el resto de columnas
 	for(int i = 1; i < agendaTableView.getColumns().size(); i++) {
 	    
+	    // Buscar la cita correspondiente
 	    CitasModelo cita = citasService.encontrarCitaPorFechaHoraSanitario(
 		    fechaFiltroDatePicker.getValue(), 
 		    UtilidadesConversores.convertirCadenaHora(hora), 
 		    sanitarioFiltroComboBox.getValue().getDniSanitario());
 	    
-	    // TODO: realizar búsqueda para dar el valor adecuado
-	    valoresFila.add("Cita " + i + " - " + (cita != null ? UtilidadesConversores.convertirEnteroCadena(cita.getIdCita()) : "SIN CITAS"));
+	    valoresFila.add(cita != null ? UtilidadesConversores.convertirEnteroCadena(cita.getIdCita()) : Constantes.LIBRE);
 	    
 	}
 	
 	// Retornar el array con los valores de la fila
 	return valoresFila;
+	
+    }
+    
+    /**
+     * <p>Guardar el modelo seleccionado</p>
+     * 
+     * <p>Adicionalmente, asigna el modelo seleccionado al atributo que se utiliza en los métodos de dichos botones.</p>
+     * 
+     * @param modelo {@link CitasModelo} objeto de paciente
+     */
+    private void seleccionarFila(List<String> fila) {
+	
+	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(fila)) && Boolean.FALSE.equals(Utilidades.compararCadenas(fila.get(1), Constantes.LIBRE))) {
+	    modeloSeleccionado = citasService.encontrarCita(UtilidadesConversores.convertirCadenaEntero(fila.get(1)));
+	    TRAZAS.info("Paciente: " + modeloSeleccionado.getNombrePaciente() + "\nSanitario: " + modeloSeleccionado.getNombreSanitario());
+	}
 	
     }
 

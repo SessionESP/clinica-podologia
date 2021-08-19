@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
@@ -257,6 +258,30 @@ public class UtilidadesConversores {
 	// Convertir siempre y cuando el la fecha pasada como parámetro de entrada NO sea nula
 	return hora != null ? formateadorHora.format(hora) : Constantes.CADENA_VACIA;
 	
+    }
+    
+    /**
+     * <p>Convertir una hora Epoch con milisegundos en una hora.</p>
+     * 
+     * @param epoch {@link Long} hora en formato Epoch con milisegundos que se desea convertir
+     * 
+     * @return {@link LocalTime} hora equivalente convertida
+     */
+    public static LocalTime convertirLongHora(Long epoch) {
+	return epoch != null ? Instant.ofEpochSecond(epoch).atZone(ZoneId.systemDefault()).toLocalTime() : null;
+    }
+    
+    /**
+     * <p>Convertir una hora en una hora Epoch con milisegundos.</p>
+     * <p>Para una mayor coherencia, se requiere de una fecha concreta, ya que la hora pertenecerá a un cita con una fecha concreta.</p>
+     * 
+     * @param fecha {@link LocalDate} fecha de referencia para la hora
+     * @param hora {@link LocalTime} hora que se desea convertir
+     * 
+     * @return {@link Long} hora en formato Epoch con milisegundos equivalente convertida
+     */
+    public static Long convertirHoraLong(LocalDate fecha, LocalTime hora) {
+	return hora != null ? hora.toEpochSecond(fecha, ZoneOffset.UTC) : null;
     }
     
     /**

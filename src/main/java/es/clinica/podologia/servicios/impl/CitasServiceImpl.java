@@ -329,8 +329,8 @@ public class CitasServiceImpl implements CitasService {
 	    modelo.setNombreTratamiento(entidad.getTratamiento() != null ? 
 		    Utilidades.comprobarCadena(entidad.getTratamiento().getNombre(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
 	    modelo.setFecha(UtilidadesConversores.convertirLongFecha(entidad.getFecha()));
-	    modelo.setHoraDesde(UtilidadesConversores.convertirCadenaHora(entidad.getHoraDesde()));
-	    modelo.setHoraHasta(UtilidadesConversores.convertirCadenaHora(entidad.getHoraHasta()));
+	    modelo.setHoraDesde(UtilidadesConversores.convertirLongHora(entidad.getHoraDesde()));
+	    modelo.setHoraHasta(UtilidadesConversores.convertirLongHora(entidad.getHoraHasta()));
 	    modelo.setObservaciones(entidad.getObservaciones());
 	    
 	}
@@ -369,8 +369,8 @@ public class CitasServiceImpl implements CitasService {
 	    entidad.setTratamiento(Boolean.TRUE.equals(modelo.getIdTratamiento() != null) ? 
 		    tratamientosRepository.findById(modelo.getIdTratamiento()).orElse(null) : null);
 	    entidad.setFecha(UtilidadesConversores.convertirFechaLong(modelo.getFecha()));
-	    entidad.setHoraDesde(UtilidadesConversores.convertirHoraCadena(modelo.getHoraDesde()));
-	    entidad.setHoraHasta(UtilidadesConversores.convertirHoraCadena(modelo.getHoraHasta()));
+	    entidad.setHoraDesde(UtilidadesConversores.convertirHoraLong(modelo.getFecha(), modelo.getHoraDesde()));
+	    entidad.setHoraHasta(UtilidadesConversores.convertirHoraLong(modelo.getFecha(), modelo.getHoraHasta()));
 	    entidad.setObservaciones(modelo.getObservaciones());
 	    
 	}

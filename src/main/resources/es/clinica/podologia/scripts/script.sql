@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.3.2 on ma. ago. 10 20:04:37 2021
+-- File generated with SQLiteStudio v3.3.2 on ju. ago. 19 20:38:38 2021
 --
 -- Text encoding used: UTF-8
 --
@@ -85,10 +85,10 @@ INSERT INTO citas (
                       '10608076Q',
                       '50053553X',
                       1,
-                      1630966107,
+                      1630965600,
                       '09:15:00',
                       '09:45:00',
-                      'Muy alto'
+                      'Muy alto 123'
                   );
 
 INSERT INTO citas (
@@ -106,7 +106,7 @@ INSERT INTO citas (
                       '88336204N',
                       '50053553X',
                       3,
-                      1631225310,
+                      1631224800,
                       '10:00:00',
                       '10:30:00',
                       'Quizás llegue diez minutos tarde'
@@ -127,7 +127,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '50053553X',
                       3,
-                      1630966107,
+                      1630965600,
                       '11:00:00',
                       '11:30:00',
                       'Muy alto'
@@ -148,7 +148,7 @@ INSERT INTO citas (
                       '74298758H',
                       '50053553X',
                       2,
-                      1630966107,
+                      1630965600,
                       '12:30:00',
                       '13:00:00',
                       'Muy alto'
@@ -169,28 +169,7 @@ INSERT INTO citas (
                       '97806017N',
                       '50053553X',
                       5,
-                      1631225310,
-                      '12:30:00',
-                      '13:00:00',
-                      'Muy alto'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      6,
-                      '74298758H',
-                      '50053553X',
-                      8,
-                      1620684111,
+                      1631224800,
                       '12:30:00',
                       '13:00:00',
                       'Muy alto'
@@ -211,7 +190,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '50053553X',
                       6,
-                      1631484512,
+                      1631484000,
                       '12:30:00',
                       '13:00:00',
                       'Muy alto'
@@ -232,7 +211,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '60909365Y',
                       6,
-                      1630966107,
+                      1630965600,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -253,7 +232,7 @@ INSERT INTO citas (
                       '88336204N',
                       '60909365Y',
                       6,
-                      1630966107,
+                      1630965600,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -274,7 +253,7 @@ INSERT INTO citas (
                       '96791541C',
                       '60909365Y',
                       6,
-                      1631484512,
+                      1631484000,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -295,7 +274,7 @@ INSERT INTO citas (
                       '18364040N',
                       '60909365Y',
                       6,
-                      1631225310,
+                      1631224800,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -316,9 +295,9 @@ INSERT INTO citas (
                       '74298758H',
                       '60909365Y',
                       1,
-                      1631225310,
-                      '09:15:00',
-                      '09:45:00',
+                      1631224800,
+                      '09:00:00',
+                      '09:30:00',
                       'Muy alto'
                   );
 
@@ -337,7 +316,7 @@ INSERT INTO citas (
                       '74298758H',
                       '60909365Y',
                       1,
-                      1631484512,
+                      1631484000,
                       '09:15:00',
                       '09:45:00',
                       'Quizás llegue diez minutos tarde'
@@ -358,7 +337,7 @@ INSERT INTO citas (
                       '18364040N',
                       '50053553X',
                       7,
-                      1631484512,
+                      1631484000,
                       '09:15:00',
                       '09:45:00',
                       'Quizás llegue diez minutos tarde'
@@ -379,51 +358,9 @@ INSERT INTO citas (
                       '96791541C',
                       '50053553X',
                       7,
-                      1631484512,
+                      1631484000,
                       '13:15:00',
                       '13:45:00',
-                      'Quizás llegue diez minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      16,
-                      '88336204N',
-                      '50053553X',
-                      4,
-                      1620684111,
-                      '10:00:00',
-                      '10:30:00',
-                      'Quizás llegue diez minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      17,
-                      '10608076Q',
-                      '50053553X',
-                      2,
-                      1620684111,
-                      '10:00:00',
-                      '10:30:00',
                       'Quizás llegue diez minutos tarde'
                   );
 
@@ -442,7 +379,7 @@ INSERT INTO citas (
                       '97651891D',
                       '50053553X',
                       2,
-                      1631484512,
+                      1631484000,
                       '10:00:00',
                       '10:30:00',
                       'Muy alto'
@@ -463,7 +400,7 @@ INSERT INTO citas (
                       '61534088A',
                       '50053553X',
                       8,
-                      1630966107,
+                      1630965600,
                       '10:00:00',
                       '10:30:00',
                       'Muy alto'
@@ -484,7 +421,7 @@ INSERT INTO citas (
                       '61534088A',
                       '50053553X',
                       8,
-                      1630966107,
+                      1630965600,
                       '11:00:00',
                       '11:30:00',
                       'Muy alto'
@@ -505,7 +442,7 @@ INSERT INTO citas (
                       '61534088A',
                       '50053553X',
                       8,
-                      1630966107,
+                      1630965600,
                       '11:00:00',
                       '11:30:00',
                       'Quizás llegue diez minutos tarde'
@@ -526,51 +463,9 @@ INSERT INTO citas (
                       '61534088A',
                       '50053553X',
                       8,
-                      1631570914,
+                      1631570400,
                       '13:15:00',
                       '13:45:00',
-                      'Muy alto'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      23,
-                      '10608076Q',
-                      '60909365Y',
-                      3,
-                      1621202515,
-                      '13:15:00',
-                      '13:45:00',
-                      'Muy alto'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      24,
-                      '64717899Q',
-                      '60909365Y',
-                      8,
-                      1621202515,
-                      '10:00:00',
-                      '10:30:00',
                       'Muy alto'
                   );
 
@@ -589,93 +484,9 @@ INSERT INTO citas (
                       '10608076Q',
                       '60909365Y',
                       1,
-                      1631225310,
+                      1631224800,
                       '10:00:00',
                       '10:30:00',
-                      'Quizás llegue cinco minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      26,
-                      '10608076Q',
-                      '60909365Y',
-                      1,
-                      1621202515,
-                      '10:00:00',
-                      '10:30:00',
-                      'Quizás llegue cinco minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      27,
-                      '64717899Q',
-                      '60909365Y',
-                      1,
-                      1621202515,
-                      '13:15:00',
-                      '13:45:00',
-                      'Quizás llegue cinco minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      28,
-                      '10608076Q',
-                      '88643753M',
-                      4,
-                      1620684111,
-                      '11:00:00',
-                      '11:30:00',
-                      'Quizás llegue cinco minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      29,
-                      '97651891D',
-                      '88643753M',
-                      2,
-                      1620684111,
-                      '11:00:00',
-                      '11:30:00',
                       'Quizás llegue cinco minutos tarde'
                   );
 
@@ -694,7 +505,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '88643753M',
                       8,
-                      1631743712,
+                      1631743200,
                       '11:00:00',
                       '11:30:00',
                       'Quizás llegue cinco minutos tarde'
@@ -715,7 +526,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '50053553X',
                       1,
-                      1630534107,
+                      1630533600,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -736,7 +547,7 @@ INSERT INTO citas (
                       '88336204N',
                       '50053553X',
                       3,
-                      1631743712,
+                      1631743200,
                       '10:00:00',
                       '10:30:00',
                       'Quizás llegue diez minutos tarde'
@@ -757,7 +568,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '50053553X',
                       3,
-                      1631743712,
+                      1631743200,
                       '11:00:00',
                       '11:30:00',
                       'Muy alto'
@@ -778,7 +589,7 @@ INSERT INTO citas (
                       '74298758H',
                       '50053553X',
                       2,
-                      1631743712,
+                      1631743200,
                       '12:30:00',
                       '13:00:00',
                       'Muy alto'
@@ -799,28 +610,7 @@ INSERT INTO citas (
                       '97806017N',
                       '50053553X',
                       5,
-                      1631743712,
-                      '12:30:00',
-                      '13:00:00',
-                      'Muy alto'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      36,
-                      '74298758H',
-                      '50053553X',
-                      8,
-                      1620684111,
+                      1631743200,
                       '12:30:00',
                       '13:00:00',
                       'Muy alto'
@@ -841,7 +631,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '50053553X',
                       6,
-                      1631743712,
+                      1631743200,
                       '12:30:00',
                       '13:00:00',
                       'Muy alto'
@@ -862,7 +652,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '60909365Y',
                       6,
-                      1630966107,
+                      1630965600,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -883,7 +673,7 @@ INSERT INTO citas (
                       '88336204N',
                       '60909365Y',
                       6,
-                      1630966107,
+                      1630965600,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -904,7 +694,7 @@ INSERT INTO citas (
                       '96791541C',
                       '60909365Y',
                       6,
-                      1630966107,
+                      1630965600,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -925,28 +715,7 @@ INSERT INTO citas (
                       '18364040N',
                       '60909365Y',
                       6,
-                      1630966107,
-                      '09:15:00',
-                      '09:45:00',
-                      'Muy alto'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      42,
-                      '74298758H',
-                      '60909365Y',
-                      1,
-                      1620684111,
+                      1630965600,
                       '09:15:00',
                       '09:45:00',
                       'Muy alto'
@@ -967,7 +736,7 @@ INSERT INTO citas (
                       '74298758H',
                       '60909365Y',
                       1,
-                      1631743712,
+                      1631743200,
                       '09:15:00',
                       '09:45:00',
                       'Quizás llegue diez minutos tarde'
@@ -988,7 +757,7 @@ INSERT INTO citas (
                       '18364040N',
                       '50053553X',
                       7,
-                      1631570914,
+                      1631570400,
                       '09:15:00',
                       '09:45:00',
                       'Quizás llegue diez minutos tarde'
@@ -1009,135 +778,9 @@ INSERT INTO citas (
                       '96791541C',
                       '50053553X',
                       7,
-                      1631570914,
+                      1631570400,
                       '13:15:00',
                       '13:45:00',
-                      'Quizás llegue diez minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      46,
-                      '88336204N',
-                      '50053553X',
-                      4,
-                      1620684111,
-                      '10:00:00',
-                      '10:30:00',
-                      'Quizás llegue diez minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      47,
-                      '10608076Q',
-                      '50053553X',
-                      2,
-                      1620684111,
-                      '10:00:00',
-                      '10:30:00',
-                      'Quizás llegue diez minutos tarde'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      48,
-                      '97651891D',
-                      '50053553X',
-                      2,
-                      1620684111,
-                      '10:00:00',
-                      '10:30:00',
-                      'Muy alto'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      49,
-                      '61534088A',
-                      '50053553X',
-                      8,
-                      1620684111,
-                      '10:00:00',
-                      '10:30:00',
-                      'Muy alto'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      50,
-                      '61534088A',
-                      '50053553X',
-                      8,
-                      1620684111,
-                      '11:00:00',
-                      '11:30:00',
-                      'Muy alto'
-                  );
-
-INSERT INTO citas (
-                      id_cita,
-                      dni_paciente,
-                      dni_sanitario,
-                      id_tratamiento,
-                      fecha,
-                      hora_inicio,
-                      hora_fin,
-                      observaciones
-                  )
-                  VALUES (
-                      51,
-                      '61534088A',
-                      '50053553X',
-                      8,
-                      1620684111,
-                      '11:00:00',
-                      '11:30:00',
                       'Quizás llegue diez minutos tarde'
                   );
 
@@ -1156,7 +799,7 @@ INSERT INTO citas (
                       '61534088A',
                       '50053553X',
                       8,
-                      1630966107,
+                      1630965600,
                       '13:15:00',
                       '13:45:00',
                       'Muy alto'
@@ -1177,7 +820,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '60909365Y',
                       3,
-                      1631484512,
+                      1631484000,
                       '13:15:00',
                       '13:45:00',
                       'Muy alto'
@@ -1198,7 +841,7 @@ INSERT INTO citas (
                       '64717899Q',
                       '60909365Y',
                       8,
-                      1631484512,
+                      1631484000,
                       '10:00:00',
                       '10:30:00',
                       'Muy alto'
@@ -1219,7 +862,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '60909365Y',
                       1,
-                      1631484512,
+                      1631484000,
                       '10:00:00',
                       '10:30:00',
                       'Quizás llegue cinco minutos tarde'
@@ -1240,7 +883,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '60909365Y',
                       1,
-                      1631484512,
+                      1631484000,
                       '10:00:00',
                       '10:30:00',
                       'Quizás llegue cinco minutos tarde'
@@ -1261,7 +904,7 @@ INSERT INTO citas (
                       '64717899Q',
                       '60909365Y',
                       1,
-                      1631484512,
+                      1631484000,
                       '13:15:00',
                       '13:45:00',
                       'Quizás llegue cinco minutos tarde'
@@ -1282,7 +925,7 @@ INSERT INTO citas (
                       '10608076Q',
                       '88643753M',
                       4,
-                      1631484512,
+                      1631484000,
                       '11:00:00',
                       '11:30:00',
                       'Quizás llegue cinco minutos tarde'
@@ -1303,7 +946,7 @@ INSERT INTO citas (
                       '97651891D',
                       '88643753M',
                       2,
-                      1630966107,
+                      1630965600,
                       '11:00:00',
                       '11:30:00',
                       'Quizás llegue cinco minutos tarde'
@@ -1320,15 +963,135 @@ INSERT INTO citas (
                       observaciones
                   )
                   VALUES (
-                      60,
-                      '10608076Q',
-                      '88643753M',
-                      8,
-                      1630966107,
-                      '11:00:00',
-                      '11:30:00',
-                      'Quizás llegue cinco minutos tarde'
+                      62,
+                      '97651891D',
+                      '60909365Y',
+                      5,
+                      1629237600,
+                      '09:00:00',
+                      '09:30:00',
+                      'Cita a primera hora del día'
                   );
+
+INSERT INTO citas (
+                      id_cita,
+                      dni_paciente,
+                      dni_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      63,
+                      '08231730F',
+                      '50053553X',
+                      7,
+                      1629842400,
+                      '09:00:00',
+                      '09:30:00',
+                      'Observaciones'
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      dni_paciente,
+                      dni_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      64,
+                      '03160917G',
+                      '60909365Y',
+                      3,
+                      1629842400,
+                      '10:00:00',
+                      '11:30:00',
+                      'Cita triple'
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      dni_paciente,
+                      dni_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      65,
+                      '08231730F',
+                      '50053553X',
+                      2,
+                      1629324000,
+                      '09:00:00',
+                      '10:30:00',
+                      'Triple cita'
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      dni_paciente,
+                      dni_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      66,
+                      '01586330C',
+                      '88643753M',
+                      4,
+                      1629324000,
+                      '09:00:00',
+                      '20:30:00',
+                      'Todo el día (de prueba)'
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      dni_paciente,
+                      dni_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      67,
+                      '03160917G',
+                      '88643753M',
+                      2,
+                      1629324000,
+                      '20:30:00',
+                      '20:30:00',
+                      'Prueba'
+                  );
+
+
+-- Table: hibernate_sequence
+DROP TABLE IF EXISTS hibernate_sequence;
+
+CREATE TABLE hibernate_sequence (
+    next_val BIGINT
+);
+
+INSERT INTO hibernate_sequence (
+                                   next_val
+                               )
+                               VALUES (
+                                   1
+                               );
 
 
 -- Table: pacientes
@@ -1648,32 +1411,6 @@ INSERT INTO sanitarios (
                            'Nutricionista'
                        );
 
-INSERT INTO sanitarios (
-                           dni_sanitario,
-                           nombre,
-                           apellidos,
-                           especialidad
-                       )
-                       VALUES (
-                           'dsgd',
-                           'dsg',
-                           NULL,
-                           NULL
-                       );
-
-INSERT INTO sanitarios (
-                           dni_sanitario,
-                           nombre,
-                           apellidos,
-                           especialidad
-                       )
-                       VALUES (
-                           'ASDFG',
-                           'ASDFG',
-                           NULL,
-                           NULL
-                       );
-
 
 -- Table: tratamientos
 DROP TABLE IF EXISTS tratamientos;
@@ -1786,143 +1523,6 @@ INSERT INTO tratamientos (
                              8,
                              'Cita con nutricionista',
                              'Cita con nutricionista estándar.',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             14,
-                             '2r',
-                             'twe',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             17,
-                             '435',
-                             '4643',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             18,
-                             'dsfsdg',
-                             'sdg',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             19,
-                             'etete',
-                             'gsd',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             20,
-                             '35235',
-                             '35',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             22,
-                             'werew',
-                             'tew',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             24,
-                             'dsdsgdsgdsgdsgdsgdsgdsgdsgdsgdsgdsgdsgdsgdsgdshfhfhfhfdhfdhfdhdfhfdh',
-                             'fdhfdhfdhfdh
-dsgdshdshdfshfdhfhfdhfdh
-fdhfd
-hfd
-hfd
-h
-fdh
-fdh
-fd
-hfd
-hfd
-sh
-fsdh
-sfd
-hfds
-hs
-fhsfdh
-fsd
-hsfd
-hs
-hs',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             25,
-                             'dsg',
-                             NULL,
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             26,
-                             'ASDFG',
-                             NULL,
                              NULL
                          );
 

@@ -137,6 +137,9 @@ public class CitasListadoController {
 	
 	List<CitasModelo> listado = citasService.listarCitasPorRangoDeFechas(fechaDesdeDatePicker.getValue(), fechaHastaDatePicker.getValue());
 	
+	// TODO: modificación del formato de la hora en al base de datos
+	listado.forEach(cita -> citasService.insertarActualizarCita(cita));
+	
 	listadoCitas.clear();
 	listadoCitas.addAll(listado);
 	

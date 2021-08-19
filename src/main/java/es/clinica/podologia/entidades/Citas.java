@@ -41,10 +41,10 @@ public class Citas {
     private Long fecha;
 
     @Column(name = "hora_inicio", nullable = true, unique = false)
-    private String horaDesde;
+    private Long horaDesde;
 
     @Column(name = "hora_fin", nullable = true, unique = false)
-    private String horaHasta;
+    private Long horaHasta;
 
     @Column(name = "observaciones", length = 100, nullable = true, unique = false)
     private String observaciones;
@@ -96,19 +96,19 @@ public class Citas {
 	this.fecha = fecha;
     }
 
-    public String getHoraDesde() {
+    public Long getHoraDesde() {
 	return horaDesde;
     }
 
-    public void setHoraDesde(String horaDesde) {
+    public void setHoraDesde(Long horaDesde) {
 	this.horaDesde = horaDesde;
     }
 
-    public String getHoraHasta() {
+    public Long getHoraHasta() {
 	return horaHasta;
     }
 
-    public void setHoraHasta(String horaHasta) {
+    public void setHoraHasta(Long horaHasta) {
 	this.horaHasta = horaHasta;
     }
 

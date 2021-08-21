@@ -196,7 +196,7 @@
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<Label fx:id="edadLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="390.0" layoutY="283.0" prefHeight="40.0" prefWidth="160.0" text="Edad" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+																<Label fx:id="edadPacienteLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="390.0" layoutY="283.0" prefHeight="40.0" prefWidth="160.0" text="Edad" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
@@ -362,7 +362,7 @@
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextArea fx:id="descripcionTratamientoTextField" editable="false" prefHeight="160.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+																<TextArea fx:id="descripcionTratamientoTextArea" editable="false" prefHeight="160.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>

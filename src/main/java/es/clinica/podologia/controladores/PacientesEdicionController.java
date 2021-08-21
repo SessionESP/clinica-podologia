@@ -2,7 +2,6 @@ package es.clinica.podologia.controladores;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -341,7 +340,7 @@ public class PacientesEdicionController {
 	nombreTextField.setText(modelo.getNombre());
 	apellidosTextField.setText(modelo.getApellidos());
 	fechaNacimientoDatePicker.setValue(modelo.getFechaNacimiento());
-	edadLabel.setText(imprimirEdad(modelo.getFechaNacimiento()));
+	edadLabel.setText(UtilidadesConversores.imprimirEdad(modelo.getFechaNacimiento()));
 	direccionTextField.setText(modelo.getDireccion());
 	telefonoTextField.setText(modelo.getTelefono());
 	
@@ -377,7 +376,7 @@ public class PacientesEdicionController {
     private void cargarEscuchadores() {
 	
 	// Recalcular la edad cada vez que cambia la fecha de nacimiento
-	fechaNacimientoDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> edadLabel.setText(imprimirEdad(newValue)));
+	fechaNacimientoDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> edadLabel.setText(UtilidadesConversores.imprimirEdad(newValue)));
 	
     }
     
@@ -388,17 +387,6 @@ public class PacientesEdicionController {
 	nombreAdjuntoLabel.setText(Constantes.CADENA_VACIA);
 	verAdjuntoImageView.setVisible(Boolean.FALSE);
 	modelo.setAdjunto(Constantes.CADENA_VACIA.getBytes());
-    }
-    
-    /**
-     * <p>Imprime la edad seguida de "años" en función de una fecha de nacimiento introducida como parámetro.</p>
-     * 
-     * @param fechaNacimiento {@link LocalDate} la que se ha introducido en el campo de la vista correspondiente
-     * 
-     * @return {@link String} edad calculada seguida de " años"
-     */
-    private String imprimirEdad(LocalDate fechaNacimiento) {
-	return UtilidadesConversores.convertirEnteroCadena(UtilidadesConversores.calcularEdad(fechaNacimiento)) + Constantes.ESPACIO + Constantes.ANIOS;
     }
     
     public PacientesModelo getModelo() {

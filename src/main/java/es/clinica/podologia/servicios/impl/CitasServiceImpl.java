@@ -64,7 +64,8 @@ public class CitasServiceImpl implements CitasService {
 	if(fecha != null) {
 	    
 	    // Realizar la consulta y conversión
-	    listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFecha(UtilidadesConversores.convertirFechaLong(fecha)));
+	    listado = convertirListadoEntidadesListadoModelos(
+		    citasRepository.findByFecha(UtilidadesConversores.convertirFechaLong(fecha)));
 	}
 	
 	return listado;
@@ -126,7 +127,8 @@ public class CitasServiceImpl implements CitasService {
 	    if(Boolean.TRUE.equals(sanitario.isPresent())) {
 		
 		// Realizar la consulta y conversión
-		listado = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAndSanitario(UtilidadesConversores.convertirFechaLong(fecha), sanitario.get()));
+		listado = convertirListadoEntidadesListadoModelos(
+			citasRepository.findByFechaAndSanitario(UtilidadesConversores.convertirFechaLong(fecha), sanitario.get()));
 		
 	    }
 	    
@@ -180,11 +182,16 @@ public class CitasServiceImpl implements CitasService {
 	    // Comprobar que se ha recuperado un sanitario con el DNI pasado como parámetro de entrada
 	    if(Boolean.TRUE.equals(sanitario.isPresent())) {
 		
-		// Realizar la consulta por fecha y sanitario
-		List<CitasModelo> listadoCitas = convertirListadoEntidadesListadoModelos(citasRepository.findByFechaAndSanitario(UtilidadesConversores.convertirFechaLong(fecha), sanitario.get()));
+		// Realizar la consulta por fecha, hora desde, hora hasta y sanitario
+		List<CitasModelo> listadoCitas = convertirListadoEntidadesListadoModelos(
+			citasRepository.findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanAndSanitario(
+				UtilidadesConversores.convertirFechaLong(fecha), 
+				UtilidadesConversores.convertirHoraLong(fecha, hora), 
+				UtilidadesConversores.convertirHoraLong(fecha, hora), 
+				sanitario.get()));
 		
-		// Buscar la cita dentro del listado
-		modelo = buscarCitaPorHora(listadoCitas , hora);
+		// Si el listado No está vacío, se recupera el primero de los registros
+		modelo = Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoCitas)) ? listadoCitas.get(0) : null;
 		
 	    }
 	    
@@ -404,35 +411,6 @@ public class CitasServiceImpl implements CitasService {
 	
 	// Retornar el listado de modelos
 	return listaModelos;
-	
-    }
-    
-    /**
-     * <p>Busca una cita dentro de un listado acotado por fecha y sanitario filtrando por una hora</p>
-     * 
-     * @param listaModelos {@link List}<{@link Citas}> listado de entidades que se quiere convertir
-     * @param hora {@link LocalTime} hora de la cita que se quiere buscar
-     * 
-     * @return {@link CitasModelo} cita encontrada
-     */
-    private CitasModelo buscarCitaPorHora(List<CitasModelo> listaModelos, LocalTime hora) {
-	
-	// Declarar el modelo que se va retornar al final del método
-	CitasModelo modelo = null;
-	
-	// Comprobar que los parámetros NO son nulos
-	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaModelos)) && hora != null) {
-	    
-	    // La hora debe ser menor/igual que la hora desde y menor que la hora hasta
-	    modelo = listaModelos.stream()
-		    .filter(cita -> hora.compareTo(cita.getHoraDesde()) >= 0 && hora.compareTo(cita.getHoraHasta()) < 0)
-		    .findAny()
-		    .orElse(null);
-	    
-	}
-	
-	// Retornar la entidad encontrada
-	return modelo;
 	
     }
 

@@ -223,6 +223,17 @@ public class UtilidadesConversores {
 	return fechaNacimiento != null ? Period.between(fechaNacimiento, LocalDate.now()).getYears() : 0;
     }
     
+    /**
+     * <p>Imprime la edad seguida de "años" en función de una fecha de nacimiento introducida como parámetro.</p>
+     * 
+     * @param fechaNacimiento {@link LocalDate} la que se ha introducido en el campo de la vista correspondiente
+     * 
+     * @return {@link String} edad calculada seguida de " años"
+     */
+    public static String imprimirEdad(LocalDate fechaNacimiento) {
+	return convertirEnteroCadena(UtilidadesConversores.calcularEdad(fechaNacimiento)) + Constantes.ESPACIO + Constantes.ANIOS;
+    }
+    
     // FECHAS - FIN
     
     

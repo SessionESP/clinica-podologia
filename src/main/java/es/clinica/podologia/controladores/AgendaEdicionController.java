@@ -18,9 +18,13 @@ import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.formateadores.DatePickerFormatted;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.CitasModelo;
+import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.modelos.SanitariosModelo;
+import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.CitasService;
+import es.clinica.podologia.servicios.PacientesService;
 import es.clinica.podologia.servicios.SanitariosService;
+import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
@@ -54,7 +58,13 @@ public class AgendaEdicionController {
     private CitasService citasService;
     
     @Autowired
+    private PacientesService pacientesService;
+    
+    @Autowired
     private SanitariosService sanitariosService;
+    
+    @Autowired
+    private TratamientosService tratamientosService;
     
     @FXML
     private AnchorPane agendaAnchorPane;
@@ -81,6 +91,8 @@ public class AgendaEdicionController {
     private TextField horaInicioCitaTextField;
     @FXML
     private TextField horaFinCitaTextField;
+    @FXML
+    private TextArea observacionesCitaTextArea;
     
     @FXML
     private TextField dniPacienteTextField;
@@ -91,12 +103,14 @@ public class AgendaEdicionController {
     @FXML
     private TextField fechaNacimientoPacienteTextField;
     @FXML
+    private Label edadPacienteLabel;
+    @FXML
     private TextField direccionPacienteTextField;
     @FXML
     private TextField telefonoPacienteTextField;
-    
     @FXML
-    private Label edadPacienteLabel;
+    private TextField nombreAdjuntoPacienteCitaTextField;
+
     
     @FXML
     private TextField dniSanitarioTextField;
@@ -113,11 +127,6 @@ public class AgendaEdicionController {
     private TextField nombreTratamientoTextField;
     @FXML
     private TextArea descripcionTratamientoTextArea;
-    
-
-    
-    @FXML
-    private TextArea observacionesTextArea;
     
     @Value("${spring.config.import}")
     private List<String> propiedadesExternas;
@@ -142,7 +151,8 @@ public class AgendaEdicionController {
     public void initialize() {
 	
 	// Inicializar el constructor con los parámetros del fichero externo
-	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
+	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = 
+		UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
 	
 	try {
 
@@ -179,11 +189,6 @@ public class AgendaEdicionController {
 	}
 	
 	fechaFiltroDatePicker.setValue(LocalDate.now());
-	
-	fechaFiltroDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-            UtilidadesAlertas.mostrarAlertaInformativa("Fecha seleccionada: " + newValue);
-        });
-	
 	fechaFiltroDatePicker.setConverter(new DatePickerFormatted());
 	
 	// Encuentra todos los sanitarios
@@ -194,6 +199,8 @@ public class AgendaEdicionController {
 	sanitarioFiltroComboBox.getSelectionModel().selectFirst();
 	
 	generarTabla();
+	
+	limpiarDetalle();
 	
     }
     
@@ -288,7 +295,7 @@ public class AgendaEdicionController {
 	    if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(agendaTableView.getColumns()))) {
 		
 		// Añadir la fila a la tabla
-		agendaTableView.getItems().addAll(generarFila(agendaTableView.getColumns().size(), i));
+		agendaTableView.getItems().addAll(generarFila(i));
 		
 	    }
 
@@ -299,12 +306,11 @@ public class AgendaEdicionController {
     /**
      * <p>Método que genera los valores de una fila de la tabla.</p>
      * 
-     * @param numeroColumnas {@link Integer} número de columnas que tiene la tabla
      * @param numeroFila {@link Integer} número de la fila
      * 
      * @return {@link List} {@link String} listado de valores de la fila
      */
-    private List<String> generarFila(Integer numeroColumnas, Integer numeroFila) {
+    private List<String> generarFila(Integer numeroFila) {
 
 	// Inicializar el array con los valores de la fila que se va a retornar al final del método
 	List<String> valoresFila = new ArrayList<>();
@@ -342,9 +348,110 @@ public class AgendaEdicionController {
 	
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(fila)) && Boolean.FALSE.equals(Utilidades.compararCadenas(fila.get(1), Constantes.LIBRE))) {
 	    modeloSeleccionado = citasService.encontrarCita(UtilidadesConversores.convertirCadenaEntero(fila.get(1)));
-	    TRAZAS.info("Paciente: " + modeloSeleccionado.getNombrePaciente() + "\nSanitario: " + modeloSeleccionado.getNombreSanitario());
+	    cargarDetalle();
+	} else {
+	    limpiarDetalle();
 	}
 	
+    }
+    
+    /**
+     * <p>En este método se procederá a cargar todos los controles del detalle de la vista</p>
+     */
+    private void cargarDetalle() {
+	
+	// Comprobar que se ha seleccionado una cita
+	if (modeloSeleccionado != null) {
+	    
+	    // CITA
+	    identificadorCitaTextField.setText(UtilidadesConversores.convertirEnteroCadena(modeloSeleccionado.getIdCita()));
+	    pacienteCitaTextField.setText(modeloSeleccionado.getDniPaciente());
+	    sanitarioCitaTextField.setText(modeloSeleccionado.getDniSanitario());
+	    tratamientoCitaTextField.setText(UtilidadesConversores.convertirEnteroCadena(modeloSeleccionado.getIdTratamiento()));
+	    fechaCitaTextField.setText(UtilidadesConversores.convertirFechaCadena(modeloSeleccionado.getFecha()));
+	    horaInicioCitaTextField.setText(UtilidadesConversores.convertirHoraCadena(modeloSeleccionado.getHoraDesde()));
+	    horaFinCitaTextField.setText(UtilidadesConversores.convertirHoraCadena(modeloSeleccionado.getHoraHasta()));
+	    observacionesCitaTextArea.setText(modeloSeleccionado.getObservaciones());
+
+	    // PACIENTE DE LA CITA
+	    PacientesModelo modeloPaciente = pacientesService.
+		    encontrarPaciente(modeloSeleccionado.getDniPaciente());
+	    
+	    // Comprobar que se he recuperado un paciente
+	    if (modeloPaciente != null) {
+		dniPacienteTextField.setText(modeloPaciente.getDniPaciente());
+		nombrePacienteTextField.setText(modeloPaciente.getNombre());
+		apellidosPacienteTextField.setText(modeloPaciente.getApellidos());
+		fechaNacimientoPacienteTextField.setText(UtilidadesConversores.convertirFechaCadena(modeloPaciente.getFechaNacimiento()));
+		edadPacienteLabel.setText(UtilidadesConversores.imprimirEdad(modeloPaciente.getFechaNacimiento()));
+		direccionPacienteTextField.setText(modeloPaciente.getDireccion());
+		telefonoPacienteTextField.setText(modeloPaciente.getTelefono());
+		nombreAdjuntoPacienteCitaTextField.setText(modeloPaciente.getNombreAdjunto());
+	    }
+
+	    // SANITARIO DE LA CITA
+	    SanitariosModelo modeloSanitario = sanitariosService
+		    .encontrarSanitario(modeloSeleccionado.getDniSanitario());
+	    
+	    // Comprobar que se ha recuperado un sanitario
+	    if (modeloSanitario != null) {
+		dniSanitarioTextField.setText(modeloSanitario.getDniSanitario());
+		nombreSanitarioTextField.setText(modeloSanitario.getNombre());
+		apellidosSanitarioTextField.setText(modeloSanitario.getApellidos());
+		especialidadSanitarioTextField.setText(modeloSanitario.getEspecialidad());
+	    }
+
+	    // TRATAMIENTO DE LA CITA
+	    TratamientosModelo modeloTratamientos = tratamientosService
+		    .encontrarTratamiento(modeloSeleccionado.getIdTratamiento());
+	    
+	    // Comprobar que se ha recuperado un tratamiento
+	    if (modeloTratamientos != null) {
+		identificadorTratamientoTextField.setText(UtilidadesConversores.convertirEnteroCadena(modeloTratamientos.getIdTratamiento()));
+		nombreTratamientoTextField.setText(modeloTratamientos.getNombre());
+		descripcionTratamientoTextArea.setText(modeloTratamientos.getDescripcion());
+	    }
+
+	}
+	
+    }
+    
+    /**
+     * <p>En este método se procederá a limpiar todos los controles del detalle de la vista</p>
+     */
+    private void limpiarDetalle() {
+
+	// CITA
+	identificadorCitaTextField.clear();
+	pacienteCitaTextField.clear();
+	sanitarioCitaTextField.clear();
+	tratamientoCitaTextField.clear();
+	fechaCitaTextField.clear();
+	horaInicioCitaTextField.clear();
+	horaFinCitaTextField.clear();
+	observacionesCitaTextArea.clear();
+
+	// PACIENTE DE LA CITA
+	dniPacienteTextField.clear();
+	nombrePacienteTextField.clear();
+	apellidosPacienteTextField.clear();
+	fechaNacimientoPacienteTextField.clear();
+	edadPacienteLabel.setText(Constantes.CADENA_VACIA);
+	direccionPacienteTextField.clear();
+	telefonoPacienteTextField.clear();
+	nombreAdjuntoPacienteCitaTextField.clear();
+
+	// SANITARIO DE LA CITA
+	dniSanitarioTextField.clear();
+	nombreSanitarioTextField.clear();
+	apellidosSanitarioTextField.clear();
+	especialidadSanitarioTextField.clear();
+
+	// TRATAMIENTO DE LA CITA
+	identificadorTratamientoTextField.clear();
+	nombreTratamientoTextField.clear();
+	descripcionTratamientoTextArea.clear();
+
     }
 
 }

@@ -148,6 +148,10 @@ private static final Logger TRAZAS = LoggerFactory.getLogger(SanitariosListadoCo
 	// Inicializar el constructor con los parámetros del fichero externo
 	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(1), Constantes.COMA);
 	
+	// Inicializar con valores por defecto
+	List<Integer> paginaciones = Arrays.asList(5, 10, 15);
+	Integer paginacion = Constantes.ESTADOS_PAGINACION_DEFECTO_5;
+	
 	try {
 	    
 	    // Comprobar que el constructor y los parámetros NO son nulos
@@ -156,9 +160,9 @@ private static final Logger TRAZAS = LoggerFactory.getLogger(SanitariosListadoCo
 		// Guardar la información del fichero de configuración en un objeto
 		FileBasedConfiguration configuracion = constructor.getConfiguration();
 		
-		List<Integer> paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(configuracion.getStringArray(Constantes.ESTADOS_SANITARIOS_PAGINACIONES));
+		paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(configuracion.getStringArray(Constantes.ESTADOS_SANITARIOS_PAGINACIONES));
 		
-		Integer paginacion = configuracion.getInteger(
+		paginacion = configuracion.getInteger(
 			Constantes.ESTADOS_SANITARIOS_PAGINACION, 
 			Constantes.ESTADOS_PAGINACION_DEFECTO_10);
 		
@@ -174,9 +178,9 @@ private static final Logger TRAZAS = LoggerFactory.getLogger(SanitariosListadoCo
 	}
 	
 	ObservableList<Integer> opciones = FXCollections.observableArrayList();
-        opciones.addAll(Arrays.asList(5, 10, 15));
+        opciones.addAll(paginaciones);
 	tamanioPaginacionComboBox.setItems(opciones);
-	tamanioPaginacionComboBox.setValue(5);
+	tamanioPaginacionComboBox.setValue(paginacion);
 	
     }
     
@@ -221,9 +225,16 @@ private static final Logger TRAZAS = LoggerFactory.getLogger(SanitariosListadoCo
      * @param event {@link ActionEvent} 
      */
     @FXML
-    private void cambiarSeleccionTamanioPaginacion(ActionEvent event) {
+    public void cambiarSeleccionTamanioPaginacion(ActionEvent event) {
+	
+	// Comprobar el el combobox tiene un valor seleccionado
 	if(tamanioPaginacionComboBox.getValue() != null) {
+	    
+	    // Cambiar la paginación de la tabla
 	    cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
+	    
+	    // Guardar la paginación como estado de la vista
+	    UtilidadesPropiedades.guardarPropiedad(constructor, Constantes.ESTADOS_SANITARIOS_PAGINACION, tamanioPaginacionComboBox.getValue());
 	}
     }
     

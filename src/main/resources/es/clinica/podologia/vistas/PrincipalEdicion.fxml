@@ -11,27 +11,27 @@
          <children>
             <TabPane fx:id="principalTabPane" prefHeight="900.0" prefWidth="1600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
-                  <Tab fx:id="agendaTab" text="Agenda">
+                  <Tab fx:id="agendaTab" onSelectionChanged="#inicializarAgenda" text="Agenda">
                     <content>
                       <AnchorPane fx:id="agendaAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                   </Tab>
-                  <Tab fx:id="citasTab" text="Citas">
+                  <Tab fx:id="citasTab" onSelectionChanged="#inicializarCitas" text="Citas">
                     <content>
                       <AnchorPane fx:id="citasAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                   </Tab>
-                  <Tab fx:id="pacientesTab" text="Pacientes">
+                  <Tab fx:id="pacientesTab" onSelectionChanged="#inicializarPacientes" text="Pacientes">
                     <content>
                       <AnchorPane fx:id="pacientesAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                   </Tab>
-                <Tab fx:id="sanitariosTab" text="Sanitarios">
+                <Tab fx:id="sanitariosTab" onSelectionChanged="#inicializarSanitarios" text="Sanitarios">
                   <content>
                     <AnchorPane fx:id="sanitariosAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
-                <Tab fx:id="tratamientosTab" text="Tratamientos">
+                <Tab fx:id="tratamientosTab" onSelectionChanged="#inicializarTratamientos" text="Tratamientos">
                   <content>
                     <AnchorPane fx:id="tratamientosAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>

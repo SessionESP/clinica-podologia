@@ -158,6 +158,10 @@ public class PacientesListadoController {
 	// Inicializar el constructor con los parámetros del fichero externo
 	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(1), Constantes.COMA);
 	
+	// Inicializar con valores por defecto
+	List<Integer> paginaciones = Arrays.asList(10, 20, 30, 40, 50);
+	Integer paginacion = Constantes.ESTADOS_PAGINACION_DEFECTO_10;
+	
 	try {
 	    
 	    // Comprobar que el constructor y los parámetros NO son nulos
@@ -166,9 +170,9 @@ public class PacientesListadoController {
 		// Guardar la información del fichero de configuración en un objeto
 		FileBasedConfiguration configuracion = constructor.getConfiguration();
 		
-		List<Integer> paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(configuracion.getStringArray(Constantes.ESTADOS_PACIENTES_PAGINACIONES));
+		paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(configuracion.getStringArray(Constantes.ESTADOS_PACIENTES_PAGINACIONES));
 		
-		Integer paginacion = configuracion.getInteger(
+		paginacion = configuracion.getInteger(
 			Constantes.ESTADOS_PACIENTES_PAGINACION, 
 			Constantes.ESTADOS_PAGINACION_DEFECTO_10);
 		
@@ -184,9 +188,9 @@ public class PacientesListadoController {
 	}
 	
 	ObservableList<Integer> opciones = FXCollections.observableArrayList();
-        opciones.addAll(Arrays.asList(10, 20, 30, 40, 50));
+        opciones.addAll(paginaciones);
 	tamanioPaginacionComboBox.setItems(opciones);
-	tamanioPaginacionComboBox.setValue(10);
+	tamanioPaginacionComboBox.setValue(paginacion);
 	
     }
     
@@ -235,9 +239,16 @@ public class PacientesListadoController {
      * @param event {@link ActionEvent} 
      */
     @FXML
-    private void cambiarSeleccionTamanioPaginacion(ActionEvent event) {
+    public void cambiarSeleccionTamanioPaginacion(ActionEvent event) {
+	
+	// Comprobar el el combobox tiene un valor seleccionado
 	if(tamanioPaginacionComboBox.getValue() != null) {
+	    
+	    // Cambiar la paginación de la tabla
 	    cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
+	    
+	    // Guardar la paginación como estado de la vista
+	    UtilidadesPropiedades.guardarPropiedad(constructor, Constantes.ESTADOS_PACIENTES_PAGINACION, tamanioPaginacionComboBox.getValue());
 	}
     }
     

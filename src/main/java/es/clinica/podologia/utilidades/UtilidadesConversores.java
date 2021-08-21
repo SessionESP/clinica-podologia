@@ -268,7 +268,7 @@ public class UtilidadesConversores {
      * @return {@link LocalTime} hora equivalente convertida
      */
     public static LocalTime convertirLongHora(Long epoch) {
-	return epoch != null ? Instant.ofEpochSecond(epoch).atZone(ZoneId.systemDefault()).toLocalTime() : null;
+	return epoch != null ? Instant.ofEpochSecond(epoch).atZone(ZoneId.of(Constantes.ZONA_HORARIA)).toLocalTime() : null;
     }
     
     /**
@@ -281,7 +281,7 @@ public class UtilidadesConversores {
      * @return {@link Long} hora en formato Epoch con milisegundos equivalente convertida
      */
     public static Long convertirHoraLong(LocalDate fecha, LocalTime hora) {
-	return hora != null ? hora.toEpochSecond(fecha, ZoneOffset.UTC) : null;
+	return hora != null ? hora.toEpochSecond(fecha, ZoneOffset.of(Constantes.ZONA_HORARIA)) : null;
     }
     
     /**

@@ -30,6 +30,7 @@ public class Constantes {
     public static final String PUNTO = ".";
     public static final String ANIOS = "años";
     public static final String LIBRE = "Libre";
+    public static final String ZONA_HORARIA = "+00:00";
     
     public static final String TITULO = "titulo";
     public static final String ALTURA = "altura";
@@ -73,6 +74,7 @@ public class Constantes {
     public static final String CONFIGURACION_CIERRE_DEFECTO = "21:00:00";
     public static final Integer CONFIGURACION_DURACION_DEFECTO = 30;
     
+    public static final String AGENDA_EDICION_CONTROLLER = "agendaEdicionController";
     public static final String CITAS_LISTADO_CONTROLLER = "citasListadoController";
     public static final String CITAS_EDICION_CONTROLLER = "citasEdicionController";
     public static final String PACIENTES_LISTADO_CONTROLLER = "pacientesListadoController";

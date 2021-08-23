@@ -2,6 +2,9 @@ package es.clinica.podologia.utilidades;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -137,6 +140,53 @@ public class UtilidadesConversores {
     }
     
     // NÚMEROS ENTEROS - FIN
+    
+    // NÚMEROS DECIMALES - INICIO
+    
+    /**
+     * <p>Método que convierte un número decimal en una cadena de caracteres que representa un precio en la moneda local.</p>
+     * 
+     * @param decimal {@link BigDecimal} valor decimal que se quiere convertir
+     * 
+     * @return {@link String} cadena de caracteres que representa un precio en la moneda local
+     */
+    public static String convertirDecimalMoneda(BigDecimal decimal) {
+	return decimal != null ? NumberFormat.getCurrencyInstance().format(decimal) : NumberFormat.getCurrencyInstance().format(BigDecimal.ZERO);
+    }
+    
+    /**
+     * <p>Método que convierte una cadena de caracteres que representa un precio en la moneda local en un valor decimal.</p>
+     * 
+     * @param cadena {@link String} cadena de caracteres que representa un precio en la moneda local
+     * 
+     * @return {@link BigDecimal} valor decimal que se quiere convertir
+     */
+    public static BigDecimal convertirMonedaDecimal(String cadena) {
+	
+	// Inicializar el decimal que se va a retornar al final del método
+	BigDecimal decimal = BigDecimal.ZERO;
+	
+	// Comprobar que la cadena que se quiere convertir NO es nula
+	if (Boolean.TRUE.equals(StringUtils.isNotBlank(cadena))) {
+		try {
+		    decimal = new BigDecimal(NumberFormat.getCurrencyInstance().parse(cadena).toString());
+		} catch (ParseException excepcion) {
+		    
+		    // Error al intentar convertir la cadena de caracteres
+		    TRAZAS.error(excepcion.getMessage());
+		    excepcion.printStackTrace();
+		    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+		    
+		}
+	}
+	
+
+	
+	// Retornar el decimal convertido
+	return decimal;
+    }
+    
+    // NÚMEROS DECIMALES - FIN
     
     
     // FECHAS - INICIO

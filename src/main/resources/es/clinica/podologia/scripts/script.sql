@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.3.2 on sá. ago. 21 23:11:13 2021
+-- File generated with SQLiteStudio v3.3.2 on lu. ago. 23 20:10:30 2021
 --
 -- Text encoding used: UTF-8
 --
@@ -1100,27 +1100,14 @@ INSERT INTO citas (
                   );
 
 
--- Table: hibernate_sequence
-DROP TABLE IF EXISTS hibernate_sequence;
-
-CREATE TABLE hibernate_sequence (
-    next_val BIGINT
-);
-
-INSERT INTO hibernate_sequence (
-                                   next_val
-                               )
-                               VALUES (
-                                   1
-                               );
-
-
 -- Table: pacientes
 DROP TABLE IF EXISTS pacientes;
 
 CREATE TABLE pacientes (
-    dni_paciente     TEXT (20)  PRIMARY KEY
-                                NOT NULL,
+    id_paciente      INTEGER    NOT NULL
+                                PRIMARY KEY ASC AUTOINCREMENT,
+    dni_paciente     TEXT (20)  NOT NULL
+                                UNIQUE,
     nombre           TEXT (50),
     apellidos        TEXT (50),
     fecha_nacimiento DATE,
@@ -1131,6 +1118,7 @@ CREATE TABLE pacientes (
 );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1141,6 +1129,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          1,
                           '10608076Q',
                           'LeBron',
                           'James',
@@ -1152,6 +1141,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1162,6 +1152,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          2,
                           '74298758H',
                           'Kawhi',
                           'Leonard',
@@ -1173,6 +1164,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1183,6 +1175,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          3,
                           '88336204N',
                           'Giannis',
                           'Antetokunmpo',
@@ -1194,6 +1187,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1204,6 +1198,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          4,
                           '03160917G',
                           'Donovan',
                           'Mitchell',
@@ -1215,6 +1210,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1225,6 +1221,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          5,
                           '96791541C',
                           'Nikola',
                           'Jokic',
@@ -1236,6 +1233,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1246,6 +1244,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          6,
                           '97806017N',
                           'Stephen',
                           'Curry',
@@ -1257,6 +1256,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1267,6 +1267,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          7,
                           '18364040N',
                           'Kevin',
                           'Durant',
@@ -1278,6 +1279,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1288,6 +1290,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          8,
                           '97651891D',
                           'Jayson',
                           'Tatum',
@@ -1299,6 +1302,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1309,6 +1313,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          9,
                           '61534088A',
                           'Luka',
                           'Doncic',
@@ -1320,6 +1325,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1330,6 +1336,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          10,
                           '64717899Q',
                           'Russell',
                           'Westbrook',
@@ -1341,6 +1348,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1351,6 +1359,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          11,
                           '08231730F',
                           'James',
                           'Harden',
@@ -1362,6 +1371,7 @@ INSERT INTO pacientes (
                       );
 
 INSERT INTO pacientes (
+                          id_paciente,
                           dni_paciente,
                           nombre,
                           apellidos,
@@ -1372,6 +1382,7 @@ INSERT INTO pacientes (
                           adjunto
                       )
                       VALUES (
+                          12,
                           '01586330C',
                           'Shaquille',
                           'O''Neal',
@@ -1387,19 +1398,24 @@ INSERT INTO pacientes (
 DROP TABLE IF EXISTS sanitarios;
 
 CREATE TABLE sanitarios (
-    dni_sanitario TEXT (20) PRIMARY KEY,
+    id_sanitario  INTEGER   PRIMARY KEY ASC AUTOINCREMENT
+                            NOT NULL,
+    dni_sanitario TEXT (20) NOT NULL
+                            UNIQUE,
     nombre        TEXT (50),
     apellidos     TEXT (50),
     especialidad  TEXT (50) 
 );
 
 INSERT INTO sanitarios (
+                           id_sanitario,
                            dni_sanitario,
                            nombre,
                            apellidos,
                            especialidad
                        )
                        VALUES (
+                           1,
                            '50053553X',
                            'Light',
                            'Yagami',
@@ -1407,12 +1423,14 @@ INSERT INTO sanitarios (
                        );
 
 INSERT INTO sanitarios (
+                           id_sanitario,
                            dni_sanitario,
                            nombre,
                            apellidos,
                            especialidad
                        )
                        VALUES (
+                           2,
                            '60909365Y',
                            'Kenshin',
                            'Himura',
@@ -1420,12 +1438,14 @@ INSERT INTO sanitarios (
                        );
 
 INSERT INTO sanitarios (
+                           id_sanitario,
                            dni_sanitario,
                            nombre,
                            apellidos,
                            especialidad
                        )
                        VALUES (
+                           3,
                            '88643753M',
                            'Clark',
                            'Kent',
@@ -1433,12 +1453,14 @@ INSERT INTO sanitarios (
                        );
 
 INSERT INTO sanitarios (
+                           id_sanitario,
                            dni_sanitario,
                            nombre,
                            apellidos,
                            especialidad
                        )
                        VALUES (
+                           4,
                            '32049545B',
                            'Shinji',
                            'Ikari',
@@ -1446,12 +1468,14 @@ INSERT INTO sanitarios (
                        );
 
 INSERT INTO sanitarios (
+                           id_sanitario,
                            dni_sanitario,
                            nombre,
                            apellidos,
                            especialidad
                        )
                        VALUES (
+                           5,
                            '75584124Y',
                            'Saori',
                            'Kido',
@@ -1463,127 +1487,131 @@ INSERT INTO sanitarios (
 DROP TABLE IF EXISTS tratamientos;
 
 CREATE TABLE tratamientos (
-    id_tratamiento INTEGER    PRIMARY KEY ASC AUTOINCREMENT,
+    id_tratamiento INTEGER        PRIMARY KEY ASC AUTOINCREMENT,
     nombre         TEXT (50),
     descripcion    TEXT (100),
-    identificador  INTEGER
+    color          TEXT (10)      DEFAULT ('#FFFFFF'),
+    precio         DECIMAL (3, 2) DEFAULT (0.0) 
 );
 
 INSERT INTO tratamientos (
                              id_tratamiento,
                              nombre,
                              descripcion,
-                             identificador
+                             color,
+                             precio
                          )
                          VALUES (
                              1,
                              'Infecciones por Hongos',
                              'Son causadas por diferentes tipos de hongos, incluyendo a los dermatofitos y las levaduras.',
-                             NULL
+                             '#FFFFFF',
+                             0
                          );
 
 INSERT INTO tratamientos (
                              id_tratamiento,
                              nombre,
                              descripcion,
-                             identificador
+                             color,
+                             precio
                          )
                          VALUES (
                              2,
                              'El pie de atleta (tinea pedis)',
                              'El pie de atleta es una de las infecciones fúngicas de la piel más frecuentes. Es causada por un hongo que crece en áreas cálidas y húmedas, por ejemplo, entre los dedos y planta del pie.',
-                             NULL
+                             '#FFFFFF',
+                             0
                          );
 
 INSERT INTO tratamientos (
                              id_tratamiento,
                              nombre,
                              descripcion,
-                             identificador
+                             color,
+                             precio
                          )
                          VALUES (
                              3,
                              'Hongos en uñas (Onicomicosis)',
                              'Los hongos en uñas son infecciones que suelen comenzar en el borde de la uña y se extienden poco a poco hasta la base.',
-                             NULL
+                             '#FFFFFF',
+                             0
                          );
 
 INSERT INTO tratamientos (
                              id_tratamiento,
                              nombre,
                              descripcion,
-                             identificador
+                             color,
+                             precio
                          )
                          VALUES (
                              4,
                              'Uña encarnada (Onicocriptosis)',
                              'La uña encarnada se presenta cuando el borde de la uña se incrusta dentro del borde interno o externo del dedo del pie, ocasionando dolor, enrojecimiento e inflamación en el borde de la uña.',
-                             NULL
+                             '#FFFFFF',
+                             0
                          );
 
 INSERT INTO tratamientos (
                              id_tratamiento,
                              nombre,
                              descripcion,
-                             identificador
+                             color,
+                             precio
                          )
                          VALUES (
                              5,
                              'Durezas',
                              'Nos referimos a las durezas como hiperqueratosis, la cual es una lesión que consiste en el engro-samiento de la capa externa de la piel compuesta por queratina.',
-                             NULL
+                             '#FFFFFF',
+                             0
                          );
 
 INSERT INTO tratamientos (
                              id_tratamiento,
                              nombre,
                              descripcion,
-                             identificador
+                             color,
+                             precio
                          )
                          VALUES (
                              6,
                              'EPI',
                              'Electrolisis Percutánea Intratisular.',
-                             NULL
+                             '#FFFFFF',
+                             0
                          );
 
 INSERT INTO tratamientos (
                              id_tratamiento,
                              nombre,
                              descripcion,
-                             identificador
+                             color,
+                             precio
                          )
                          VALUES (
                              7,
                              'Punción seca',
                              'Utiliza las agujas de acupuntura, pero más largas (dependiendo de la profundidad del músculo a tratar) para pinchar directamente ese “punto gatillo”.',
-                             NULL
+                             '#FFFFFF',
+                             0
                          );
 
 INSERT INTO tratamientos (
                              id_tratamiento,
                              nombre,
                              descripcion,
-                             identificador
+                             color,
+                             precio
                          )
                          VALUES (
                              8,
                              'Cita con nutricionista',
                              'Cita con nutricionista estándar.',
-                             NULL
-                         );
-
-INSERT INTO tratamientos (
-                             id_tratamiento,
-                             nombre,
-                             descripcion,
-                             identificador
-                         )
-                         VALUES (
-                             28,
-                             'dsgds',
-                             NULL,
-                             NULL
+                             '#FFFFFF',
+                             0
                          );
 
 

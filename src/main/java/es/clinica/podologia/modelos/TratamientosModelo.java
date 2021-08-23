@@ -1,9 +1,13 @@
 package es.clinica.podologia.modelos;
 
+import java.math.BigDecimal;
+
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -20,6 +24,10 @@ public class TratamientosModelo {
     private StringProperty nombre;
 
     private StringProperty descripcion;
+    
+    private StringProperty color;
+    
+    private ObjectProperty<BigDecimal> precio;
 
     /**
      * <p>Constructor vacío.</p>
@@ -29,6 +37,8 @@ public class TratamientosModelo {
 	this.idTratamiento = new SimpleIntegerProperty();
 	this.nombre = new SimpleStringProperty();
 	this.descripcion = new SimpleStringProperty();
+	this.color = new SimpleStringProperty();
+	this.precio = new SimpleObjectProperty<>();
     }
 
     public Integer getIdTratamiento() {
@@ -65,6 +75,30 @@ public class TratamientosModelo {
     
     public StringProperty descripcionProperty() {
 	return this.descripcion;
+    }
+    
+    public String getColor() {
+	return color.get();
+    }
+
+    public void setColor(String color) {
+	this.descripcion.set(color);
+    }
+    
+    public StringProperty colorProperty() {
+	return this.color;
+    }
+    
+    public BigDecimal getPrecio() {
+        return precio.get();
+    }
+
+    public void setFecha(BigDecimal precio) {
+        this.precio.set(precio);
+    }
+    
+    public ObjectProperty<BigDecimal> precioProperty() {
+	return this.precio;
     }
     
     /**

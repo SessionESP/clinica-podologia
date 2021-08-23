@@ -3,8 +3,10 @@ package es.clinica.podologia.modelos;
 import java.time.LocalDate;
 
 import es.clinica.podologia.constantes.Constantes;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBlobProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -16,6 +18,8 @@ import javafx.beans.property.StringProperty;
  *
  */
 public class PacientesModelo {
+    
+    private IntegerProperty idPaciente;
     
     private StringProperty dniPaciente;
 
@@ -38,6 +42,7 @@ public class PacientesModelo {
      * <p>Inicializa todos los atributos de la clase para evitar {@code NullPointerException}.</p>
      */
     public PacientesModelo() {
+	this.idPaciente = new SimpleIntegerProperty();
 	this.dniPaciente = new SimpleStringProperty();
 	this.nombre = new SimpleStringProperty();
 	this.apellidos = new SimpleStringProperty();
@@ -46,6 +51,18 @@ public class PacientesModelo {
 	this.telefono = new SimpleStringProperty();
 	this.nombreAdjunto = new SimpleStringProperty();
 	this.adjunto = new SimpleBlobProperty(Constantes.CADENA_VACIA.getBytes());
+    }
+    
+    public Integer getIdPaciente() {
+        return idPaciente.get();
+    }
+
+    public void setIdPaciente(Integer idPaciente) {
+        this.idPaciente.set(idPaciente);
+    }
+    
+    public IntegerProperty idPacienteProperty() {
+	return this.idPaciente;
     }
 
     public String getDniPaciente() {

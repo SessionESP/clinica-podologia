@@ -2,6 +2,8 @@ package es.clinica.podologia.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,8 +18,12 @@ import es.clinica.podologia.constantes.Constantes;
 @Entity
 @Table(name = "sanitarios")
 public class Sanitarios {
-
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sanitario", nullable = false, unique = true)
+    private Integer idSanitario;
+
     @Column(name = "dni_sanitario", length = 20, nullable = false, unique = true)
     private String dniSanitario;
 
@@ -35,6 +41,14 @@ public class Sanitarios {
      */
     public Sanitarios() {
 	// Constructor vacío de la entidad
+    }
+
+    public Integer getIdSanitario() {
+        return idSanitario;
+    }
+
+    public void setIdSanitario(Integer idSanitario) {
+        this.idSanitario = idSanitario;
     }
 
     public String getDniSanitario() {

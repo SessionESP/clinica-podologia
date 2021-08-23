@@ -1,6 +1,8 @@
 package es.clinica.podologia.modelos;
 
 import es.clinica.podologia.constantes.Constantes;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,6 +13,8 @@ import javafx.beans.property.StringProperty;
  *
  */
 public class SanitariosModelo {
+    
+    private IntegerProperty idSanitario;
     
     private StringProperty dniSanitario;
 
@@ -25,10 +29,23 @@ public class SanitariosModelo {
      * <p>Inicializa todos los atributos de la clase para evitar {@code NullPointerException}.</p>
      */
     public SanitariosModelo() {
+	this.idSanitario = new SimpleIntegerProperty();
 	this.dniSanitario = new SimpleStringProperty();
 	this.nombre = new SimpleStringProperty();
 	this.apellidos = new SimpleStringProperty();
 	this.especialidad = new SimpleStringProperty();
+    }
+    
+    public Integer getIdSanitario() {
+        return idSanitario.get();
+    }
+
+    public void setIdSanitario(Integer idSanitario) {
+        this.idSanitario.set(idSanitario);
+    }
+    
+    public IntegerProperty idSanitarioProperty() {
+	return this.idSanitario;
     }
 
     public String getDniSanitario() {

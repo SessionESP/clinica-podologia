@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.3.2 on lu. ago. 23 20:10:30 2021
+-- File generated with SQLiteStudio v3.3.2 on mi. ago. 25 21:33:48 2021
 --
 -- Text encoding used: UTF-8
 --
@@ -58,10 +58,10 @@ DROP TABLE IF EXISTS citas;
 CREATE TABLE citas (
     id_cita        INTEGER    PRIMARY KEY AUTOINCREMENT
                               NOT NULL,
-    dni_paciente   TEXT (20)  CONSTRAINT dni_paciente REFERENCES pacientes (dni_paciente) 
+    id_paciente    INTEGER    CONSTRAINT id_paciente REFERENCES pacientes (id_paciente) 
                               NOT NULL,
-    dni_sanitario  TEXT (20)  NOT NULL
-                              CONSTRAINT dni_sanitario REFERENCES sanitarios (dni_sanitario),
+    id_sanitario   INTEGER    NOT NULL
+                              CONSTRAINT id_sanitario REFERENCES sanitarios (id_sanitario),
     id_tratamiento INTEGER    CONSTRAINT identificador_tratamiento REFERENCES tratamientos (id_tratamiento) 
                               NOT NULL,
     fecha          DATE       NOT NULL,
@@ -72,8 +72,8 @@ CREATE TABLE citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -82,8 +82,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       1,
-                      '10608076Q',
-                      '50053553X',
+                      1,
+                      1,
                       1,
                       1630965600,
                       1631005200,
@@ -93,8 +93,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -103,8 +103,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       2,
-                      '88336204N',
-                      '50053553X',
+                      3,
+                      1,
                       3,
                       1631224800,
                       1631264400,
@@ -114,8 +114,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -124,8 +124,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       3,
-                      '10608076Q',
-                      '50053553X',
+                      1,
+                      1,
                       3,
                       1630965600,
                       1631012400,
@@ -135,8 +135,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -145,8 +145,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       4,
-                      '74298758H',
-                      '50053553X',
+                      2,
+                      1,
                       2,
                       1630965600,
                       1631017800,
@@ -156,8 +156,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -166,8 +166,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       5,
-                      '97806017N',
-                      '50053553X',
+                      6,
+                      1,
                       5,
                       1631224800,
                       1631268000,
@@ -177,8 +177,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -187,8 +187,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       7,
-                      '10608076Q',
-                      '50053553X',
+                      1,
+                      1,
                       6,
                       1631484000,
                       1631554200,
@@ -198,8 +198,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -208,8 +208,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       8,
-                      '10608076Q',
-                      '60909365Y',
+                      1,
+                      2,
                       6,
                       1630965600,
                       1631044800,
@@ -219,8 +219,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -229,8 +229,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       9,
-                      '88336204N',
-                      '60909365Y',
+                      3,
+                      2,
                       6,
                       1630965600,
                       1631041200,
@@ -240,8 +240,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -250,8 +250,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       10,
-                      '96791541C',
-                      '60909365Y',
+                      5,
+                      2,
                       6,
                       1631484000,
                       1631548800,
@@ -261,8 +261,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -271,8 +271,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       11,
-                      '18364040N',
-                      '60909365Y',
+                      7,
+                      2,
                       6,
                       1631224800,
                       1631278800,
@@ -282,8 +282,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -292,8 +292,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       12,
-                      '74298758H',
-                      '60909365Y',
+                      2,
+                      2,
                       1,
                       1631224800,
                       1631275200,
@@ -303,8 +303,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -313,8 +313,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       13,
-                      '74298758H',
-                      '60909365Y',
+                      2,
+                      2,
                       1,
                       1631484000,
                       1631543400,
@@ -324,8 +324,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -334,8 +334,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       14,
-                      '18364040N',
-                      '50053553X',
+                      7,
+                      1,
                       7,
                       1631484000,
                       1631552400,
@@ -345,8 +345,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -355,8 +355,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       15,
-                      '96791541C',
-                      '50053553X',
+                      5,
+                      1,
                       7,
                       1631484000,
                       1631548800,
@@ -366,8 +366,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -376,8 +376,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       18,
-                      '97651891D',
-                      '50053553X',
+                      8,
+                      1,
                       2,
                       1631484000,
                       1631559600,
@@ -387,8 +387,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -397,8 +397,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       19,
-                      '61534088A',
-                      '50053553X',
+                      9,
+                      1,
                       8,
                       1630965600,
                       1631044800,
@@ -408,8 +408,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -418,8 +418,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       20,
-                      '61534088A',
-                      '50053553X',
+                      9,
+                      1,
                       8,
                       1630965600,
                       1631005200,
@@ -429,8 +429,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -439,8 +439,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       21,
-                      '61534088A',
-                      '50053553X',
+                      9,
+                      1,
                       8,
                       1630965600,
                       1631023200,
@@ -450,8 +450,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -460,8 +460,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       22,
-                      '61534088A',
-                      '50053553X',
+                      9,
+                      1,
                       8,
                       1631570400,
                       1631613600,
@@ -471,8 +471,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -481,8 +481,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       25,
-                      '10608076Q',
-                      '60909365Y',
+                      1,
+                      2,
                       1,
                       1631224800,
                       1631271600,
@@ -492,8 +492,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -502,8 +502,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       30,
-                      '10608076Q',
-                      '88643753M',
+                      1,
+                      3,
                       8,
                       1631743200,
                       1631797200,
@@ -513,8 +513,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -523,8 +523,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       31,
-                      '10608076Q',
-                      '50053553X',
+                      1,
+                      1,
                       1,
                       1630533600,
                       1630602000,
@@ -534,8 +534,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -544,8 +544,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       32,
-                      '88336204N',
-                      '50053553X',
+                      3,
+                      1,
                       3,
                       1631743200,
                       1631815200,
@@ -555,8 +555,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -565,8 +565,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       33,
-                      '10608076Q',
-                      '50053553X',
+                      1,
+                      1,
                       3,
                       1631743200,
                       1631811600,
@@ -576,8 +576,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -586,8 +586,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       34,
-                      '74298758H',
-                      '50053553X',
+                      2,
+                      1,
                       2,
                       1631743200,
                       1631822400,
@@ -597,8 +597,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -607,8 +607,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       35,
-                      '97806017N',
-                      '50053553X',
+                      6,
+                      1,
                       5,
                       1631743200,
                       1631815200,
@@ -618,8 +618,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -628,8 +628,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       37,
-                      '10608076Q',
-                      '50053553X',
+                      1,
+                      1,
                       6,
                       1631743200,
                       1631800800,
@@ -639,8 +639,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -649,8 +649,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       38,
-                      '10608076Q',
-                      '60909365Y',
+                      1,
+                      2,
                       6,
                       1630965600,
                       1631023200,
@@ -660,8 +660,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -670,8 +670,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       39,
-                      '88336204N',
-                      '60909365Y',
+                      3,
+                      2,
                       6,
                       1630965600,
                       1631026800,
@@ -681,8 +681,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -691,8 +691,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       40,
-                      '96791541C',
-                      '60909365Y',
+                      5,
+                      2,
                       6,
                       1630965600,
                       1631044800,
@@ -702,8 +702,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -712,8 +712,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       41,
-                      '18364040N',
-                      '60909365Y',
+                      7,
+                      2,
                       6,
                       1630965600,
                       1631026800,
@@ -723,8 +723,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -733,8 +733,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       43,
-                      '74298758H',
-                      '60909365Y',
+                      2,
+                      2,
                       1,
                       1631743200,
                       1631786400,
@@ -744,8 +744,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -754,8 +754,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       44,
-                      '18364040N',
-                      '50053553X',
+                      7,
+                      1,
                       7,
                       1631570400,
                       1631644200,
@@ -765,8 +765,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -775,8 +775,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       45,
-                      '96791541C',
-                      '50053553X',
+                      5,
+                      1,
                       7,
                       1631570400,
                       1631620800,
@@ -786,8 +786,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -796,8 +796,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       52,
-                      '61534088A',
-                      '50053553X',
+                      9,
+                      1,
                       8,
                       1630965600,
                       1631041200,
@@ -807,8 +807,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -817,8 +817,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       53,
-                      '10608076Q',
-                      '60909365Y',
+                      1,
+                      2,
                       3,
                       1631484000,
                       1631534400,
@@ -828,8 +828,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -838,8 +838,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       54,
-                      '64717899Q',
-                      '60909365Y',
+                      10,
+                      2,
                       8,
                       1631484000,
                       1631561400,
@@ -849,8 +849,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -859,8 +859,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       55,
-                      '10608076Q',
-                      '60909365Y',
+                      1,
+                      2,
                       1,
                       1631484000,
                       1631545200,
@@ -870,8 +870,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -880,8 +880,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       56,
-                      '10608076Q',
-                      '60909365Y',
+                      1,
+                      2,
                       1,
                       1631484000,
                       1631543400,
@@ -891,8 +891,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -901,8 +901,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       57,
-                      '64717899Q',
-                      '60909365Y',
+                      10,
+                      2,
                       1,
                       1631484000,
                       1631529000,
@@ -912,8 +912,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -922,8 +922,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       58,
-                      '10608076Q',
-                      '88643753M',
+                      1,
+                      3,
                       4,
                       1631484000,
                       1631559600,
@@ -933,8 +933,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -943,8 +943,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       59,
-                      '97651891D',
-                      '88643753M',
+                      8,
+                      3,
                       2,
                       1630965600,
                       1631008800,
@@ -954,8 +954,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -964,8 +964,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       62,
-                      '97651891D',
-                      '60909365Y',
+                      8,
+                      2,
                       5,
                       1629237600,
                       1629297000,
@@ -975,8 +975,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -985,8 +985,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       63,
-                      '08231730F',
-                      '50053553X',
+                      11,
+                      1,
                       7,
                       1629842400,
                       1629891000,
@@ -996,8 +996,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -1006,8 +1006,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       64,
-                      '03160917G',
-                      '60909365Y',
+                      4,
+                      2,
                       3,
                       1629842400,
                       1629894600,
@@ -1017,8 +1017,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -1027,8 +1027,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       65,
-                      '08231730F',
-                      '50053553X',
+                      11,
+                      1,
                       2,
                       1629324000,
                       1629396000,
@@ -1038,8 +1038,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -1048,8 +1048,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       66,
-                      '01586330C',
-                      '88643753M',
+                      12,
+                      3,
                       4,
                       1629324000,
                       1629399600,
@@ -1059,8 +1059,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -1069,8 +1069,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       67,
-                      '03160917G',
-                      '88643753M',
+                      4,
+                      3,
                       2,
                       1629324000,
                       1629367200,
@@ -1080,8 +1080,8 @@ INSERT INTO citas (
 
 INSERT INTO citas (
                       id_cita,
-                      dni_paciente,
-                      dni_sanitario,
+                      id_paciente,
+                      id_sanitario,
                       id_tratamiento,
                       fecha,
                       hora_inicio,
@@ -1090,8 +1090,8 @@ INSERT INTO citas (
                   )
                   VALUES (
                       68,
-                      '08231730F',
-                      '88643753M',
+                      11,
+                      3,
                       3,
                       1629410400,
                       1629466200,

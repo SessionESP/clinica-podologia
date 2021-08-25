@@ -471,7 +471,7 @@ public class CitasEdicionController {
 	if (Boolean.TRUE.equals(StringUtils.isNotBlank(paciente))) {
 	    
 	    // Realizar búsqueda para cargar el paciente
-	    modeloPaciente = pacientesService.encontrarPaciente(paciente.split(Constantes.GUION_ESPACIADO)[0]);
+	    modeloPaciente = pacientesService.encontrarPacienteDNI(paciente.split(Constantes.GUION_ESPACIADO)[0]);
 	    
 	    // Comprobar si la consulta ha devuelto un modelo
 	    if (modeloPaciente != null) {
@@ -514,7 +514,7 @@ public class CitasEdicionController {
 	if (Boolean.TRUE.equals(StringUtils.isNotBlank(sanitario))) {
 	    
 	    // Realizar búsqueda para cargar el sanitario
-	    modeloSanitario = sanitariosService.encontrarSanitario(sanitario.split(Constantes.GUION_ESPACIADO)[0]);
+	    modeloSanitario = sanitariosService.encontrarSanitarioDNI(sanitario.split(Constantes.GUION_ESPACIADO)[0]);
 	    
 	    // Comprobar si la consulta ha devuelto un modelo
 	    if (modeloSanitario != null) {

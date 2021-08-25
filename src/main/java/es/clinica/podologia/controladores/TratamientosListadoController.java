@@ -34,12 +34,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  * <p>Controlador para los Tratamientos.</p>
@@ -84,6 +86,10 @@ public class TratamientosListadoController {
     private TextField busquedaTextField;
     @FXML
     private TextArea descripcionTextArea;
+    @FXML
+    private ColorPicker colorColorPicker;
+    @FXML
+    private TextField precioTextField;
     @FXML
     private Pagination paginacionTabla;
     
@@ -317,12 +323,30 @@ public class TratamientosListadoController {
 	// Se asigan el modelo seleccionado al que se pasará la vista
 	modeloSeleccionado = modelo;
 	
-	// Habilidar o deshabilitar los botones dependiendo de si se ha seleccionado o no algo en la tabla
-	editarButton.setDisable(modelo != null ? Boolean.FALSE : Boolean.TRUE);
-	eliminarButton.setDisable(modelo != null ? Boolean.FALSE : Boolean.TRUE);
-	
-	// Mostrar la descripción o no dependiendo de si el modelo NO es nulo
-	descripcionTextArea.setText(modelo != null ? Utilidades.comprobarCadena(modelo.getDescripcion(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
+	// Dependiendo de si el modelo es nulo o no se cargan los valores correspondientes o se limpian los campos de la vista
+	if (modelo != null) {
+
+	    // Habilitar los botones
+	    editarButton.setDisable(Boolean.FALSE);
+	    eliminarButton.setDisable(Boolean.FALSE);
+	    
+	    // Cargar valores del modelo en los campos de la vista
+	    descripcionTextArea.setText(Utilidades.comprobarCadena(modelo.getDescripcion(), Constantes.CADENA_VACIA));
+	    colorColorPicker.setValue(UtilidadesConversores.convertirHexadecimalColor(modelo.getColor()));
+	    precioTextField.setText(UtilidadesConversores.convertirDecimalMoneda(modelo.getPrecio()));
+	    
+	} else {
+	    
+	    // Deshabilitar los botones
+	    editarButton.setDisable(Boolean.TRUE);
+	    eliminarButton.setDisable(Boolean.TRUE);
+	    
+	    // Limpiar los valores de los campos de la vista
+	    descripcionTextArea.clear();
+	    colorColorPicker.setValue(Color.WHITE);
+	    precioTextField.clear();
+	    
+	}
 	
     }
 

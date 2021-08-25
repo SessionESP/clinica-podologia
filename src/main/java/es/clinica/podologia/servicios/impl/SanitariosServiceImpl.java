@@ -38,16 +38,16 @@ public class SanitariosServiceImpl implements SanitariosService {
      * <p>Método que retorna un registro buscado por su identificador.</p>
      */
     @Override
-    public SanitariosModelo encontrarSanitario(String dniSanitario) {
+    public SanitariosModelo encontrarSanitario(Integer idSanitario) {
 	
 	// Declarar el modelo que se va a retornar al final del método
 	SanitariosModelo modelo = null;
 	
-	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
-	if(StringUtils.isNotBlank(dniSanitario)) {
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if(idSanitario != null) {
 	    
 	    // Recuperar el tratamiento correspondiente a ese identificador
-	    Optional<Sanitarios> entidad = sanitariosRepository.findById(dniSanitario);
+	    Optional<Sanitarios> entidad = sanitariosRepository.findById(idSanitario);
 	    
 	    // Convertir la entidad recuperada en un modelo
 	    modelo = convertirEntidadModelo(entidad.isPresent() ? entidad.get() : null);
@@ -62,22 +62,67 @@ public class SanitariosServiceImpl implements SanitariosService {
      * <p>Método que comprueba si un Sanitario existe.</p>
      */
     @Override
-    public Boolean comprobarExistenciaSanitario(String dniSanitario) {
+    public Boolean comprobarExistenciaSanitario(Integer idSanitario) {
 
 	// Inicializar el booleano que indicará si el registro existe en la tabla
 	Boolean resultado = Boolean.FALSE;
 	
-	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
-	if(StringUtils.isNotBlank(dniSanitario)) {
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if(idSanitario != null) {
 	    
 	    // Comprobar si el tratamiento existe
-	    resultado = sanitariosRepository.existsById(dniSanitario);
+	    resultado = sanitariosRepository.existsById(idSanitario);
 	    
 	}
 	
 	// Retornar el resultado de la búsqueda
 	return resultado;
 	
+    }
+    
+    /**
+     * <p>Método que retorna un registro buscado por su identificador DNI.</p>
+     */
+    @Override
+    public SanitariosModelo encontrarSanitarioDNI(String dniSanitario) {
+	
+	// Declarar el modelo que se va a retornar al final del método
+	SanitariosModelo modelo = null;
+	
+	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
+	if(Boolean.TRUE.equals(StringUtils.isNotBlank(dniSanitario))) {
+	    
+	    // Recuperar el tratamiento correspondiente a ese identificador
+	    Optional<Sanitarios> entidad = sanitariosRepository.findByDniSanitario(dniSanitario);
+	    
+	    // Convertir la entidad recuperada en un modelo
+	    modelo = convertirEntidadModelo(entidad.isPresent() ? entidad.get() : null);
+	    
+	}
+	
+	// Retornar el modelo
+	return modelo;
+    }
+
+    /**
+     * <p>Método que comprueba si un sanitario existe por su DNI.</p>
+     */
+    @Override
+    public Boolean comprobarExistenciaSanitarioDNI(String dniSanitario) {
+	
+	// Inicializar el booleano que indicará si el registro existe en la tabla
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if(Boolean.TRUE.equals(StringUtils.isNotBlank(dniSanitario))) {
+	    
+	    // Comprobar si el tratamiento existe
+	    resultado = sanitariosRepository.existsByDniSanitario(dniSanitario);
+	    
+	}
+	
+	// Retornar el resultado de la búsqueda
+	return resultado;
     }
 
     /**
@@ -109,22 +154,22 @@ public class SanitariosServiceImpl implements SanitariosService {
      * <p>Método que elimina un registro de la tabla.</p>
      */
     @Override
-    public Boolean eliminarSanitario(String dniSanitario) {
+    public Boolean eliminarSanitario(Integer idSanitario) {
 
 	// Inicializar el booleano que indicará si la eliminación se ha realizado con éxito
 	Boolean resultado = Boolean.FALSE;
 	
 	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
-	if(StringUtils.isNotBlank(dniSanitario)) {
+	if(idSanitario != null) {
 	    
 	    // Eliminar el registro que coincida con el identificador
-	    sanitariosRepository.deleteById(dniSanitario);
+	    sanitariosRepository.deleteById(idSanitario);
 	    
 	    // Persistir los cambios
 	    sanitariosRepository.flush();
 	    
 	    // Comprobar si se ha eliminado correctamente
-	    resultado = !sanitariosRepository.existsById(dniSanitario);
+	    resultado = !sanitariosRepository.existsById(idSanitario);
 	    
 	}
 	
@@ -151,6 +196,7 @@ public class SanitariosServiceImpl implements SanitariosService {
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if(entidad != null) {
 	    
+	    modelo.setIdSanitario(entidad.getIdSanitario());
 	    modelo.setDniSanitario(entidad.getDniSanitario());
 	    modelo.setNombre(entidad.getNombre());
 	    modelo.setApellidos(entidad.getApellidos());
@@ -184,6 +230,7 @@ public class SanitariosServiceImpl implements SanitariosService {
 	    // Inicializar la entidad
 	    entidad = new Sanitarios();
 	    
+	    entidad.setIdSanitario(modelo.getIdSanitario());
 	    entidad.setDniSanitario(modelo.getDniSanitario());
 	    entidad.setNombre(modelo.getNombre());
 	    entidad.setApellidos(modelo.getApellidos());
@@ -201,14 +248,14 @@ public class SanitariosServiceImpl implements SanitariosService {
      * 
      * @param lista {@link List} {@link Sanitarios} listado de entidades que se quiere convertir
      * 
-     * @return {@link List} {@link SanitariosModelo} listado de entidades resultante
+     * @return {@link List}<{@link SanitariosModelo}> listado de entidades resultante
      * 
      * @see List#forEach(java.util.function.Consumer)
      */
     private List<SanitariosModelo> convertirListadoEntidadesListadoModelos(List<Sanitarios> listaEntidades) {
 	
 	// Inicializar el listado de modelos que se va a retornar
-	List<SanitariosModelo> listaModelos = new ArrayList<SanitariosModelo>();
+	List<SanitariosModelo> listaModelos = new ArrayList<>();
 	
 	// Comprobar que el lsitado de entidades NO es nulo ni está vacío
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {

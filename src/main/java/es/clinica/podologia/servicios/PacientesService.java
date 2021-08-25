@@ -21,6 +21,28 @@ public interface PacientesService {
     public List<PacientesModelo> listarPacientes();
     
     /**
+     * <p>Método que retorna un registro buscado por su identificador.</p>
+     * 
+     * @param idPaciente {@link Integer} identificador del paciente
+     * 
+     * @return {@link PacientesModelo} modelo recuperado
+     * 
+     * @see PacientesRepository#findById(String)
+     */
+    public PacientesModelo encontrarPaciente(Integer idPaciente);
+    
+    /**
+     * <p>Método que comprueba si un paciente existe.</p>
+     * 
+     * @param idPaciente {@link Integer} identificador del paciente
+     * 
+     * @return {@link Boolean} {@code true} en caso de que el identificador se corresponda a un Paciente existente
+     * 
+     * @see PacientesRepository#existsById(String)
+     */
+    public Boolean comprobarExistenciaPaciente(Integer idPaciente);
+    
+    /**
      * <p>Método que retorna un registro buscado por su identificador DNI.</p>
      * 
      * @param dniPaciente {@link String} identificador DNI del paciente
@@ -29,18 +51,18 @@ public interface PacientesService {
      * 
      * @see PacientesRepository#findById(String)
      */
-    public PacientesModelo encontrarPaciente(String dniPaciente);
+    public PacientesModelo encontrarPacienteDNI(String dniPaciente);
     
     /**
-     * <p>Método que comprueba si un paciente existe.</p>
+     * <p>Método que comprueba si un paciente existe por su DNI.</p>
      * 
      * @param dniPaciente {@link String} identificador DNI del paciente
      * 
-     * @return {@link Boolean} {@code true} en caso de que el identificador se corresponda a un Paciente existente
+     * @return {@link Boolean} {@code true} en caso de que el DNI se corresponda a un Paciente existente
      * 
      * @see PacientesRepository#existsById(String)
      */
-    public Boolean comprobarExistenciaPaciente(String dniPaciente);
+    public Boolean comprobarExistenciaPacienteDNI(String dniPaciente);
     
     /**
      * <p>Método que inserta o actualiza un registro de la tabla.</p>
@@ -56,14 +78,14 @@ public interface PacientesService {
     /**
      * <p>Método que elimina un registro de la tabla.</p>
      * 
-     * @param dniPaciente {@link String} identificador DNI del paciente
+     * @param idPaciente {@link Integer} identificador del paciente
      * 
      * @return {@link Boolean} retorna {@code true} en caso de que el registro se haya eliminado correctamente
      * 
-     * @see PacientesRepository#deleteById(String)
+     * @see PacientesRepository#deleteById(Integer)
      * @see PacientesRepository#flush()
-     * @see PacientesRepository#existsById(String)
+     * @see PacientesRepository#existsById(Integer)
      */
-    public Boolean eliminarPaciente(String dniPaciente);
+    public Boolean eliminarPaciente(Integer idPaciente);
 
 }

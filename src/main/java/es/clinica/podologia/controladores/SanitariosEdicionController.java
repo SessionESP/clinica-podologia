@@ -12,7 +12,6 @@ import es.clinica.podologia.modelos.SanitariosModelo;
 import es.clinica.podologia.servicios.SanitariosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
-import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -92,7 +91,7 @@ public class SanitariosEdicionController {
 	    cargarFormateadores();
 	    
 	    // En caso de que NO sea nulo, comprobar si existe
-	    modo = sanitarioService.comprobarExistenciaSanitario(modelo.getDniSanitario());
+	    modo = sanitarioService.comprobarExistenciaSanitario(modelo.getIdSanitario());
 	    
 	    if(Boolean.TRUE.equals(modo)) {
 		

@@ -375,7 +375,7 @@ public class AgendaEdicionController {
 
 	    // PACIENTE DE LA CITA
 	    PacientesModelo modeloPaciente = pacientesService.
-		    encontrarPaciente(modeloSeleccionado.getDniPaciente());
+		    encontrarPacienteDNI(modeloSeleccionado.getDniPaciente());
 	    
 	    // Comprobar que se he recuperado un paciente
 	    if (modeloPaciente != null) {
@@ -391,7 +391,7 @@ public class AgendaEdicionController {
 
 	    // SANITARIO DE LA CITA
 	    SanitariosModelo modeloSanitario = sanitariosService
-		    .encontrarSanitario(modeloSeleccionado.getDniSanitario());
+		    .encontrarSanitarioDNI(modeloSeleccionado.getDniSanitario());
 	    
 	    // Comprobar que se ha recuperado un sanitario
 	    if (modeloSanitario != null) {

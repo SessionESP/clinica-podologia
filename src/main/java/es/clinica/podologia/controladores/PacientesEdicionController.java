@@ -124,7 +124,7 @@ public class PacientesEdicionController {
 	if(modelo != null) {
 	    
 	    // En caso de que NO sea nulo, comprobar si existe
-	    modo = pacienteService.comprobarExistenciaPaciente(modelo.getDniPaciente());
+	    modo = pacienteService.comprobarExistenciaPaciente(modelo.getIdPaciente());
 	    
 	    if(Boolean.TRUE.equals(modo)) {
 		

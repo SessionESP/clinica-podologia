@@ -12,12 +12,15 @@ import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
+import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  * <p>Controlador para los Tratamientos.</p>
@@ -55,6 +58,10 @@ public class TratamientosEdicionController {
     private TextField nombreTextField;
     @FXML
     private TextArea descripcionTextArea;
+    @FXML
+    private ColorPicker colorColorPicker;
+    @FXML
+    private TextField precioTextField;
 
     @FXML
     private Button aceptarButton;
@@ -179,6 +186,8 @@ public class TratamientosEdicionController {
 	
 	nombreTextField.clear();
 	descripcionTextArea.clear();
+	colorColorPicker.setValue(Color.WHITE);
+	precioTextField.clear();
 	
     }
     
@@ -195,6 +204,8 @@ public class TratamientosEdicionController {
 	
 	nombreTextField.setText(modelo.getNombre());
 	descripcionTextArea.setText(modelo.getDescripcion());
+	colorColorPicker.setValue(UtilidadesConversores.convertirHexadecimalColor(modelo.getColor()));
+	precioTextField.setText(UtilidadesConversores.convertirDecimalMoneda(modelo.getPrecio()));
 	
     }
 

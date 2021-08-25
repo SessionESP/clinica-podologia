@@ -155,6 +155,8 @@ public class TratamientosServiceImpl implements TratamientosService {
 	    modelo.setIdTratamiento(entidad.getIdTratamiento());
 	    modelo.setNombre(entidad.getNombre());
 	    modelo.setDescripcion(entidad.getDescripcion());
+	    modelo.setColor(entidad.getColor());
+	    modelo.setPrecio(entidad.getPrecio());
 	    
 	}
 	
@@ -187,6 +189,8 @@ public class TratamientosServiceImpl implements TratamientosService {
 	    entidad.setIdTratamiento(modelo.getIdTratamiento());
 	    entidad.setNombre(modelo.getNombre());
 	    entidad.setDescripcion(modelo.getDescripcion());
+	    entidad.setColor(modelo.getColor());
+	    entidad.setPrecio(modelo.getPrecio());
 	    
 	}
 	

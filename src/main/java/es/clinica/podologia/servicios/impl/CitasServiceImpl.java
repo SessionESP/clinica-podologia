@@ -122,7 +122,7 @@ public class CitasServiceImpl implements CitasService {
 	// Comprobar que los parámetros de entrada NO son nulos
 	if(fecha != null && StringUtils.isNotBlank(dniSanitario)) {
 	    
-	    Optional<Sanitarios> sanitario = sanitariosRepository.findById(dniSanitario);
+	    Optional<Sanitarios> sanitario = sanitariosRepository.findByDniSanitario(dniSanitario);
 	    
 	    if(Boolean.TRUE.equals(sanitario.isPresent())) {
 		
@@ -177,7 +177,7 @@ public class CitasServiceImpl implements CitasService {
 	if(fecha != null && hora != null && StringUtils.isNotBlank(dniSanitario)) {
 	    
 	    // Buscar el sanitario correspondiente al DNI pasado como parámetro
-	    Optional<Sanitarios> sanitario = sanitariosRepository.findById(dniSanitario);
+	    Optional<Sanitarios> sanitario = sanitariosRepository.findByDniSanitario(dniSanitario);
 	    
 	    // Comprobar que se ha recuperado un sanitario con el DNI pasado como parámetro de entrada
 	    if(Boolean.TRUE.equals(sanitario.isPresent())) {
@@ -370,9 +370,9 @@ public class CitasServiceImpl implements CitasService {
 	    
 	    entidad.setIdCita(modelo.getIdCita());
 	    entidad.setPaciente(StringUtils.isNotBlank(modelo.getDniPaciente()) ? 
-		    pacientesRepository.findById(modelo.getDniPaciente()).orElse(null) : null);
+		    pacientesRepository.findByDniPaciente(modelo.getDniPaciente()).orElse(null) : null);
 	    entidad.setSanitario(StringUtils.isNotBlank(modelo.getDniSanitario()) ? 
-		    sanitariosRepository.findById(modelo.getDniSanitario()).orElse(null) : null);
+		    sanitariosRepository.findByDniSanitario(modelo.getDniSanitario()).orElse(null) : null);
 	    entidad.setTratamiento(Boolean.TRUE.equals(modelo.getIdTratamiento() != null) ? 
 		    tratamientosRepository.findById(modelo.getIdTratamiento()).orElse(null) : null);
 	    entidad.setFecha(UtilidadesConversores.convertirFechaLong(modelo.getFecha()));

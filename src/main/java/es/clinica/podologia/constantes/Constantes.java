@@ -31,6 +31,7 @@ public class Constantes {
     public static final String ANIOS = "años";
     public static final String LIBRE = "Libre";
     public static final String ZONA_HORARIA = "+00:00";
+    public static final String COLOR_BLANCO_HEXADECIMAL = "#FFFFFF";
     
     public static final String TITULO = "titulo";
     public static final String ALTURA = "altura";

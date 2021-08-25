@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.clinica.podologia.constantes.Constantes;
+import javafx.scene.paint.Color;
 
 /**
  * <p>Clase con métodos estáticos de conversión generales de uso común a lo largo de la aplicación.</p>
@@ -396,6 +397,55 @@ public class UtilidadesConversores {
     
     
     // BOOLEANO - INICIO
+    
+    
+    // COLORES - INICIO
+    
+    /**
+     * <p>Método que obtiene un color a partir de su valor hexadecimal.</p>
+     * <p>Por ejemplo, el valor hexadecimal {@code #FFFFFF} se corresponde con {@code Color.WHITE}.</p>
+     * 
+     * @param colorHexadecimal {@link String} valor hexadecimal del color que se quiere obtener
+     * 
+     * @return {@link Color} color obtenido del valor hexadecimal pasado como parámetro
+     */
+    public static Color convertirHexadecimalColor(String colorHexadecimal) {
+	return Boolean.TRUE.equals(StringUtils.isNotBlank(colorHexadecimal)) ? Color.web(colorHexadecimal) : Color.WHITE;
+    }
+    
+    /**
+     * <p>Método que obtiene el valor hexadecimal de un color.</p>
+     * <p>Por ejemplo, {@code Color.WHITE} tiene como valor hexadecimal {@code #FFFFFF}</p>
+     * 
+     * @param color {@link Color} cuyo valor hexadecimal se quiere recuperar
+     * 
+     * @return {@link String} valor hexadecimal del color pasado como parámetro
+     */
+    public static String convertirColorHexadecimal(Color color) {
+
+	// Inicializar la cadena de caracteres con el valor hexadecimal que se retornará al final de método
+	String colorHexadecimal = Constantes.COLOR_BLANCO_HEXADECIMAL;
+
+	// Comprobar que el color pasado como parámetro NO es nulo
+	if (color != null) {
+	    
+	    // Descomponer el color en sus valores RGBA
+	    int red = 	((int) Math.round(color.getRed() * 255)) << 24;
+	    int green = ((int) Math.round(color.getGreen() * 255)) << 16;
+	    int blue = 	((int) Math.round(color.getBlue() * 255)) << 8;
+	    int alpha = ((int) Math.round(color.getOpacity() * 255));
+	    
+	    // Formatear el valor hexadecimal a partir de los valores RGBA del color
+	    colorHexadecimal = String.format("#%08X", (red + green + blue + alpha));
+	    
+	}
+
+	// Valor hexadecimal del color
+	return colorHexadecimal;
+
+    }
+    
+    // COLORES - FIN
     
     
     // FICHEROS - INICIO

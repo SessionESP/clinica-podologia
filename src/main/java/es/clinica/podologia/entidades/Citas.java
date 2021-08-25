@@ -26,11 +26,11 @@ public class Citas {
     private Integer idCita;
 
     @ManyToOne
-    @JoinColumn(name = "dni_paciente", updatable = true, nullable = false)
+    @JoinColumn(name = "id_paciente", updatable = true, nullable = false)
     private Pacientes paciente;
 
     @OneToOne
-    @JoinColumn(name = "dni_sanitario", updatable = true, nullable = false)
+    @JoinColumn(name = "id_sanitario", updatable = true, nullable = false)
     private Sanitarios sanitario;
 
     @OneToOne

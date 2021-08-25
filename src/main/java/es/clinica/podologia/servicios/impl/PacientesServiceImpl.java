@@ -36,10 +36,57 @@ public class PacientesServiceImpl implements PacientesService {
     }
     
     /**
+     * <p>Método que retorna un registro buscado por su identificador.</p>
+     */
+    @Override
+    public PacientesModelo encontrarPaciente(Integer idPaciente) {
+
+	// Declarar el modelo que se va a retornar al final del método
+	PacientesModelo modelo = null;
+	
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if(idPaciente != null) {
+	    
+	    // Recuperar el tratamiento correspondiente a ese identificador
+	    Optional<Pacientes> entidad = pacientesRepository.findById(idPaciente);
+	    
+	    // Convertir la entidad recuperada en un modelo
+	    modelo = convertirEntidadModelo(entidad.isPresent() ? entidad.get() : null);
+	    
+	}
+	
+	// Retornar el modelo
+	return modelo;
+	
+    }
+
+    /**
+     * <p>Método que comprueba si un paciente existe.</p>
+     */
+    @Override
+    public Boolean comprobarExistenciaPaciente(Integer idPaciente) {
+
+	// Inicializar el booleano que indicará si el registro existe en la tabla
+	Boolean resultado = Boolean.FALSE;
+	
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if(idPaciente != null) {
+	    
+	    // Comprobar si el tratamiento existe
+	    resultado = pacientesRepository.existsById(idPaciente);
+	    
+	}
+	
+	// Retornar el resultado de la búsqueda
+	return resultado;
+	
+    }
+    
+    /**
      * <p>Método que retorna un registro buscado por su identificador DNI.</p>
      */
     @Override
-    public PacientesModelo encontrarPaciente(String dniPaciente) {
+    public PacientesModelo encontrarPacienteDNI(String dniPaciente) {
 	
 	// Declarar el modelo que se va a retornar al final del método
 	PacientesModelo modelo = null;
@@ -48,7 +95,7 @@ public class PacientesServiceImpl implements PacientesService {
 	if(StringUtils.isNotBlank(dniPaciente)) {
 	    
 	    // Recuperar el tratamiento correspondiente a ese identificador
-	    Optional<Pacientes> entidad = pacientesRepository.findById(dniPaciente);
+	    Optional<Pacientes> entidad = pacientesRepository.findByDniPaciente(dniPaciente);
 	    
 	    // Convertir la entidad recuperada en un modelo
 	    modelo = convertirEntidadModelo(entidad.isPresent() ? entidad.get() : null);
@@ -60,10 +107,10 @@ public class PacientesServiceImpl implements PacientesService {
     }
 
     /**
-     * <p>Método que comprueba si un paciente existe.</p>
+     * <p>Método que comprueba si un paciente existe por su DNI.</p>
      */
     @Override
-    public Boolean comprobarExistenciaPaciente(String dniPaciente) {
+    public Boolean comprobarExistenciaPacienteDNI(String dniPaciente) {
 
 	// Inicializar el booleano que indicará si el registro existe en la tabla
 	Boolean resultado = Boolean.FALSE;
@@ -72,7 +119,7 @@ public class PacientesServiceImpl implements PacientesService {
 	if(StringUtils.isNotBlank(dniPaciente)) {
 	    
 	    // Comprobar si el tratamiento existe
-	    resultado = pacientesRepository.existsById(dniPaciente);
+	    resultado = pacientesRepository.existsByDniPaciente(dniPaciente);
 	    
 	}
 	
@@ -110,22 +157,22 @@ public class PacientesServiceImpl implements PacientesService {
      * <p>Método que elimina un registro de la tabla.</p>
      */
     @Override
-    public Boolean eliminarPaciente(String dniPaciente) {
+    public Boolean eliminarPaciente(Integer idPaciente) {
 
 	// Inicializar el booleano que indicará si la eliminación se ha realizado con éxito
 	Boolean resultado = Boolean.FALSE;
 	
-	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
-	if(StringUtils.isNotBlank(dniPaciente)) {
+	// Comprobar que el identificador pasado como parámetro NO es nulo
+	if(idPaciente != null) {
 	    
 	    // Eliminar el registro que coincida con el identificador
-	    pacientesRepository.deleteById(dniPaciente);
+	    pacientesRepository.deleteById(idPaciente);
 	    
 	    // Persistir los cambios
 	    pacientesRepository.flush();
 	    
 	    // Comprobar si se ha eliminado correctamente
-	    resultado = !pacientesRepository.existsById(dniPaciente);
+	    resultado = !pacientesRepository.existsById(idPaciente);
 	    
 	}
 	
@@ -152,6 +199,7 @@ public class PacientesServiceImpl implements PacientesService {
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if(entidad != null) {
 	    
+	    modelo.setIdPaciente(entidad.getIdPaciente());
 	    modelo.setDniPaciente(entidad.getDniPaciente());
 	    modelo.setNombre(entidad.getNombre());
 	    modelo.setApellidos(entidad.getApellidos());
@@ -189,6 +237,7 @@ public class PacientesServiceImpl implements PacientesService {
 	    // Inicializar la entidad
 	    entidad = new Pacientes();
 	    
+	    entidad.setIdPaciente(modelo.getIdPaciente());
 	    entidad.setDniPaciente(modelo.getDniPaciente());
 	    entidad.setNombre(modelo.getNombre());
 	    entidad.setApellidos(modelo.getApellidos());

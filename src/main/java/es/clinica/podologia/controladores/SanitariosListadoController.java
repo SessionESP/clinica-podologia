@@ -310,7 +310,7 @@ private static final Logger TRAZAS = LoggerFactory.getLogger(SanitariosListadoCo
 	if(confirmacion.isPresent() && confirmacion.get() == ButtonType.OK) {
 	    
 	    // Elimiar el registro
-	    Boolean resultado = sanitariosService.eliminarSanitario(modeloSeleccionado.getDniSanitario());
+	    Boolean resultado = sanitariosService.eliminarSanitario(modeloSeleccionado.getIdSanitario());
 
 	    // Comprobar si se ha realizaco correctamente el guardado del tratamiento
 	    if (Boolean.TRUE.equals(resultado)) {

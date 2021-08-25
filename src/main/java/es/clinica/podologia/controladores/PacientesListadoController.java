@@ -330,7 +330,7 @@ public class PacientesListadoController {
 	if(confirmacion.isPresent() && confirmacion.get() == ButtonType.OK) {
 	    
 	    // Elimiar el registro
-	    Boolean resultado = pacientesService.eliminarPaciente(modeloSeleccionado.getDniPaciente());
+	    Boolean resultado = pacientesService.eliminarPaciente(modeloSeleccionado.getIdPaciente());
 
 	    // Comprobar si se ha realizaco correctamente el guardado del tratamiento
 	    if (Boolean.TRUE.equals(resultado)) {

@@ -93,7 +93,7 @@ public class TratamientosModelo {
         return precio.get();
     }
 
-    public void setFecha(BigDecimal precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio.set(precio);
     }
     

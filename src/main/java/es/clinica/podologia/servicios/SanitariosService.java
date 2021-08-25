@@ -21,26 +21,48 @@ public interface SanitariosService {
     public List<SanitariosModelo> listarSanitarios();
     
     /**
+     * <p>Método que retorna un registro buscado por su identificador.</p>
+     * 
+     * @param dniSanitario {@link Integer} identificador del sanitario
+     * 
+     * @return {@link SanitariosModelo} modelo recuperado
+     * 
+     * @see SanitariosRepository#findById(Integer)
+     */
+    public SanitariosModelo encontrarSanitario(Integer idSanitario);
+    
+    /**
+     * <p>Método que comprueba si un sanitario existe.</p>
+     * 
+     * @param idSanitario {@link Integer} identificador del sanitario
+     * 
+     * @return {@link Boolean} {@code true} en caso de que el identificador se corresponda a un Sanitario existente
+     * 
+     * @see SanitariosRepository#existsById(Integer)
+     */
+    public Boolean comprobarExistenciaSanitario(Integer idSanitario);
+    
+    /**
      * <p>Método que retorna un registro buscado por su identificador DNI.</p>
      * 
      * @param dniSanitario {@link String} identificador DNI del sanitario
      * 
      * @return {@link SanitariosModelo} modelo recuperado
      * 
-     * @see SanitariosRepository#findById(Integer)
+     * @see SanitariosRepository#findBy
      */
-    public SanitariosModelo encontrarSanitario(String dniSanitario);
+    public SanitariosModelo encontrarSanitarioDNI(String dniSanitario);
     
     /**
-     * <p>Método que comprueba si un sanitario existe.</p>
+     * <p>Método que comprueba si un sanitario existe por su DNI.</p>
      * 
      * @param dniSanitario {@link String} identificador DNI del sanitario
      * 
-     * @return {@link Boolean} {@code true} en caso de que el identificador se corresponda a un sanitario existente
+     * @return {@link Boolean} {@code true} en caso de que el identificador se corresponda a un Sanitario existente
      * 
      * @see SanitariosRepository#existsById(Integer)
      */
-    public Boolean comprobarExistenciaSanitario(String dniSanitario);
+    public Boolean comprobarExistenciaSanitarioDNI(String dniSanitario);
     
     /**
      * <p>Método que inserta o actualiza un registro de la tabla.</p>
@@ -56,7 +78,7 @@ public interface SanitariosService {
     /**
      * <p>Método que elimina un registro de la tabla.</p>
      * 
-     * @param dniSanitario {@link String} identificador DNI del sanitario
+     * @param dniSanitario {@link String} identificador del sanitario
      * 
      * @return {@link Boolean} retorna {@code true} en caso de que el registro se haya eliminado correctamente
      * 
@@ -64,6 +86,6 @@ public interface SanitariosService {
      * @see SanitariosRepository#flush()
      * @see SanitariosRepository#existsById(Integer)
      */
-    public Boolean eliminarSanitario(String dniSanitario);
+    public Boolean eliminarSanitario(Integer idSanitario);
 
 }

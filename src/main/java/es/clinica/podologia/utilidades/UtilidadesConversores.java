@@ -145,6 +145,49 @@ public class UtilidadesConversores {
     // NÚMEROS DECIMALES - INICIO
     
     /**
+     * <p>Método que convierte un número decimal en una cadena de caracteres.</p>
+     * 
+     * @param decimal {@link BigDecimal} valor decimal que se quiere convertir
+     * 
+     * @return {@link String} cadena de caracteres que representa un número decimal
+     */
+    public static String convertirDecimalCadena(BigDecimal decimal) {
+	return decimal != null ? NumberFormat.getInstance().format(decimal) : Constantes.CADENA_VACIA;
+    }
+    
+    /**
+     * <p>Método que convierte una cadena de caracteres en un valor decimal.</p>
+     * 
+     * @param cadena {@link String} cadena de caracteres que representa un número decimal
+     * 
+     * @return {@link BigDecimal} valor decimal que se quiere convertir
+     */
+    public static BigDecimal convertirCadenaDecimal(String cadena) {
+	
+	// Inicializar el decimal que se va a retornar al final del método
+	BigDecimal decimal = BigDecimal.ZERO;
+	
+	// Comprobar que la cadena que se quiere convertir NO es nula
+	if (Boolean.TRUE.equals(StringUtils.isNotBlank(cadena))) {
+		try {
+		    decimal = new BigDecimal(NumberFormat.getInstance().parse(cadena).toString());
+		} catch (ParseException excepcion) {
+		    
+		    // Error al intentar convertir la cadena de caracteres
+		    TRAZAS.error(excepcion.getMessage());
+		    excepcion.printStackTrace();
+		    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+		    
+		}
+	}
+	
+
+	
+	// Retornar el decimal convertido
+	return decimal;
+    }
+    
+    /**
      * <p>Método que convierte un número decimal en una cadena de caracteres que representa un precio en la moneda local.</p>
      * 
      * @param decimal {@link BigDecimal} valor decimal que se quiere convertir

@@ -82,7 +82,7 @@ public class TratamientosModelo {
     }
 
     public void setColor(String color) {
-	this.descripcion.set(color);
+	this.color.set(color);
     }
     
     public StringProperty colorProperty() {

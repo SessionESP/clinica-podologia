@@ -12,6 +12,7 @@ import es.clinica.podologia.modelos.TratamientosModelo;
 import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
+import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
@@ -109,6 +110,8 @@ public class TratamientosEdicionController {
 	    
 	}
 	
+	precioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_PRECIO, 6));
+	
     }
     
     /**
@@ -124,6 +127,8 @@ public class TratamientosEdicionController {
 		
 		modelo.setNombre(nombreTextField.getText());
 		modelo.setDescripcion(descripcionTextArea.getText());
+		modelo.setColor(UtilidadesConversores.convertirColorHexadecimal(colorColorPicker.getValue()));
+		modelo.setPrecio(UtilidadesConversores.convertirCadenaDecimal(precioTextField.getText()));
 
 		// Guardar el tratamiento
 		Boolean resultado = tratamientoService.insertarActualizarTratamiento(modelo);
@@ -205,7 +210,7 @@ public class TratamientosEdicionController {
 	nombreTextField.setText(modelo.getNombre());
 	descripcionTextArea.setText(modelo.getDescripcion());
 	colorColorPicker.setValue(UtilidadesConversores.convertirHexadecimalColor(modelo.getColor()));
-	precioTextField.setText(UtilidadesConversores.convertirDecimalMoneda(modelo.getPrecio()));
+	precioTextField.setText(UtilidadesConversores.convertirDecimalCadena(modelo.getPrecio()));
 	
     }
 

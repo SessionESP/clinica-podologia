@@ -333,7 +333,7 @@ public class TratamientosListadoController {
 	    // Cargar valores del modelo en los campos de la vista
 	    descripcionTextArea.setText(Utilidades.comprobarCadena(modelo.getDescripcion(), Constantes.CADENA_VACIA));
 	    colorColorPicker.setValue(UtilidadesConversores.convertirHexadecimalColor(modelo.getColor()));
-	    precioTextField.setText(UtilidadesConversores.convertirDecimalMoneda(modelo.getPrecio()));
+	    precioTextField.setText(UtilidadesConversores.convertirDecimalCadena(modelo.getPrecio()));
 	    
 	} else {
 	    

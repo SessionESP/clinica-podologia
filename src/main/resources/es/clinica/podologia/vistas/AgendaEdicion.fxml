@@ -10,140 +10,218 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="contenedorPrincipalBorderPane" styleClass="panel-default" stylesheets="@../estilos/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.AgendaEdicionController">
+<BorderPane fx:id="contenedorPrincipalBorderPane"
+	styleClass="panel-default" stylesheets="@../estilos/estilos.css"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="es.clinica.podologia.controladores.AgendaEdicionController">
 	<center>
-		<AnchorPane fx:id="principalAnchorPane" prefHeight="800.0" prefWidth="1600.0" styleClass="panel-default" BorderPane.alignment="CENTER">
+		<AnchorPane fx:id="principalAnchorPane" prefHeight="800.0"
+			prefWidth="1600.0" styleClass="panel-default"
+			BorderPane.alignment="CENTER">
 			<children>
-				<SplitPane dividerPositions="0.5" prefHeight="900.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				<SplitPane dividerPositions="0.6" prefHeight="900.0"
+					prefWidth="1600.0" AnchorPane.bottomAnchor="0.0"
+					AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+					AnchorPane.topAnchor="0.0">
 					<items>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="884.0">
+						<AnchorPane minHeight="0.0" minWidth="0.0"
+							prefHeight="798.0" prefWidth="884.0">
 							<children>
-                        <GridPane layoutX="214.0" layoutY="40.0" prefHeight="90.0" prefWidth="480.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
-                          <columnConstraints>
-                            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" prefWidth="240.0" />
-                            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" prefWidth="200.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                                                         <Label prefHeight="40.0" prefWidth="200.0" text="Seleccione una fecha">
-                                 <font>
-                                    <Font name="Comic Sans MS" size="18.0" />
-                                 </font></Label>
-                              <Label prefHeight="40.0" prefWidth="200.0" text="Seleccione un sanitario" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="Comic Sans MS" size="18.0" />
-                                 </font></Label>
-      								<DatePicker fx:id="fechaFiltroDatePicker" editable="false" onAction="#cambiarFecha" prefHeight="40.0" prefWidth="200.0" promptText="Fecha del día" GridPane.columnIndex="1" />
-                              <ComboBox fx:id="sanitarioFiltroComboBox" onAction="#cambiarSanitario" prefHeight="40.0" prefWidth="200.0" promptText="Seleccione un sanitario" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+								<GridPane layoutX="214.0" layoutY="40.0"
+									prefHeight="90.0" prefWidth="480.0"
+									AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+									<columnConstraints>
+										<ColumnConstraints fillWidth="false"
+											hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0"
+											prefWidth="240.0" />
+										<ColumnConstraints fillWidth="false"
+											hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0"
+											prefWidth="200.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints minHeight="10.0"
+											prefHeight="45.0" vgrow="SOMETIMES" />
+										<RowConstraints minHeight="10.0"
+											prefHeight="45.0" vgrow="SOMETIMES" />
+									</rowConstraints>
+									<children>
+										<Label prefHeight="40.0" prefWidth="200.0"
+											text="Seleccione una fecha">
+											<font>
+												<Font name="Comic Sans MS" size="18.0" />
+											</font>
+										</Label>
+										<Label prefHeight="40.0" prefWidth="200.0"
+											text="Seleccione un sanitario" GridPane.rowIndex="1">
+											<font>
+												<Font name="Comic Sans MS" size="18.0" />
+											</font>
+										</Label>
+										<DatePicker fx:id="fechaFiltroDatePicker"
+											editable="false" onAction="#cambiarFecha" prefHeight="40.0"
+											prefWidth="200.0" promptText="Fecha del día"
+											GridPane.columnIndex="1" />
+										<ComboBox fx:id="sanitarioFiltroComboBox"
+											onAction="#cambiarSanitario" prefHeight="40.0"
+											prefWidth="200.0" promptText="Seleccione un sanitario"
+											GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                           </children>
-                        </GridPane>
-								<TableView fx:id="agendaTableView" fixedCellSize="25.0" prefHeight="600.0" prefWidth="740.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0" />
+									</children>
+								</GridPane>
+								<TableView fx:id="agendaTableView"
+									fixedCellSize="25.0" prefHeight="600.0" prefWidth="740.0"
+									AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+									AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0" />
 							</children>
 						</AnchorPane>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="713.0">
+						<AnchorPane minHeight="0.0" minWidth="0.0"
+							prefHeight="798.0" prefWidth="732.0">
 							<children>
-								<Accordion fx:id="Accordion" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+								<Accordion fx:id="Accordion"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 									<panes>
-										<TitledPane fx:id="citaTitledPane" animated="false" text="Información completa de la cita">
+										<TitledPane fx:id="citaTitledPane" animated="false"
+											text="Información completa de la cita">
 											<content>
-												<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="506.0">
+												<AnchorPane minHeight="0.0" minWidth="0.0"
+													prefHeight="560.0" prefWidth="506.0">
 													<children>
-														<GridPane fx:id="citaGridPane" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+														<GridPane fx:id="citaGridPane"
+															AnchorPane.leftAnchor="20.0"
+															AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
 															<columnConstraints>
-																<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-																<ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+																<ColumnConstraints hgrow="SOMETIMES"
+																	minWidth="10.0" prefWidth="100.0" />
+																<ColumnConstraints fillWidth="false"
+																	hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
 															</columnConstraints>
 															<rowConstraints>
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="180.0" vgrow="SOMETIMES" />
 															</rowConstraints>
 															<children>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Identificador">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Identificador">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="identificadorCitaTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1">
+																<TextField fx:id="identificadorCitaTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Identificador de la cita"
+																	GridPane.columnIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Nombre del paciente" GridPane.rowIndex="1">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Nombre del paciente" GridPane.rowIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="pacienteCitaTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+																<TextField fx:id="pacienteCitaTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Nombre completo del paciente"
+																	GridPane.columnIndex="1" GridPane.rowIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Nombre del sanitario" GridPane.rowIndex="2">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Nombre del sanitario" GridPane.rowIndex="2">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="sanitarioCitaTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+																<TextField fx:id="sanitarioCitaTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Nombre completo del sanitario"
+																	GridPane.columnIndex="1" GridPane.rowIndex="2">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Tratamiento" GridPane.rowIndex="3">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Tratamiento" GridPane.rowIndex="3">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="tratamientoCitaTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+																<TextField fx:id="tratamientoCitaTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Nombre del tratamiento"
+																	GridPane.columnIndex="1" GridPane.rowIndex="3">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Fecha" GridPane.rowIndex="4">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Fecha" GridPane.rowIndex="4">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="fechaCitaTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+																<TextField fx:id="fechaCitaTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Fecha de la cita" GridPane.columnIndex="1"
+																	GridPane.rowIndex="4">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Hora de inicio" GridPane.rowIndex="5">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Hora de inicio" GridPane.rowIndex="5">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="horaInicioCitaTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+																<TextField fx:id="horaInicioCitaTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Hora de inicio de la cita"
+																	GridPane.columnIndex="1" GridPane.rowIndex="5">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Hora de fin" GridPane.rowIndex="6">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Hora de fin" GridPane.rowIndex="6">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="horaFinCitaTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+																<TextField fx:id="horaFinCitaTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Hora de fin de la cita"
+																	GridPane.columnIndex="1" GridPane.rowIndex="6">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" text="Observaciones" GridPane.rowIndex="7">
+																<Label prefHeight="40.0" text="Observaciones"
+																	GridPane.rowIndex="7">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextArea fx:id="observacionesCitaTextArea" editable="false" prefHeight="160.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+																<TextArea fx:id="observacionesCitaTextArea"
+																	editable="false" prefHeight="160.0" prefWidth="400.0"
+																	promptText="Observaciones de la cita"
+																	GridPane.columnIndex="1" GridPane.rowIndex="7">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
@@ -157,46 +235,125 @@
 												<Font name="Comic Sans MS" size="18.0" />
 											</font>
 										</TitledPane>
-										<TitledPane animated="false" text="Información completa del paciente">
+										<TitledPane animated="false"
+											text="Información completa del paciente">
 											<content>
-												<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="200.0">
+												<AnchorPane minHeight="0.0" minWidth="0.0"
+													prefHeight="420.0" prefWidth="200.0">
 													<children>
-														<GridPane layoutX="64.0" layoutY="201.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+														<GridPane layoutX="64.0" layoutY="201.0"
+															AnchorPane.leftAnchor="20.0"
+															AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
 															<columnConstraints>
-																<ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-																<ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+																<ColumnConstraints fillWidth="false"
+																	hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+																<ColumnConstraints fillWidth="false"
+																	hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
 															</columnConstraints>
 															<rowConstraints>
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
 															</rowConstraints>
 															<children>
-																<Label prefHeight="40.0" prefWidth="180.0" text="DNI">
+																<Label layoutX="10.0" layoutY="58.0"
+																	prefHeight="40.0" prefWidth="180.0"
+																	text="Identificador">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Nombre" GridPane.rowIndex="1">
+																<TextField
+																	fx:id="identificadorPacienteTextField" editable="false"
+																	layoutX="243.0" layoutY="58.0" prefHeight="40.0"
+																	prefWidth="400.0"
+																	promptText="Identificador del paciente"
+																	GridPane.columnIndex="1">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="DNI" GridPane.rowIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Apellidos" GridPane.rowIndex="2">
+																<TextField fx:id="dniPacienteTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="DNI del paciente" GridPane.columnIndex="1"
+																	GridPane.rowIndex="1">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Nombre"
+																	GridPane.rowIndex="2">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Fecha de nacimiento" GridPane.rowIndex="3">
+																<TextField fx:id="nombrePacienteTextField"
+																	editable="false" layoutX="10.0" layoutY="7.0"
+																	prefHeight="40.0" prefWidth="400.0"
+																	promptText="Nombre del paciente"
+																	GridPane.columnIndex="1" GridPane.rowIndex="2">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Apellidos"
+																	GridPane.rowIndex="3">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<Label fx:id="edadPacienteLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="390.0" layoutY="283.0" prefHeight="40.0" prefWidth="160.0" text="Edad" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+																<TextField fx:id="apellidosPacienteTextField"
+																	editable="false" layoutX="10.0" layoutY="7.0"
+																	prefHeight="40.0" prefWidth="400.0"
+																	promptText="Apellidos del paciente"
+																	GridPane.columnIndex="1" GridPane.rowIndex="3">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0"
+																	text="Fecha de nacimiento" GridPane.rowIndex="4">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</Label>
+																<TextField
+																	fx:id="fechaNacimientoPacienteTextField"
+																	editable="false" prefHeight="40.0" prefWidth="200.0"
+																	promptText="Fecha de nacimiento"
+																	GridPane.columnIndex="1" GridPane.rowIndex="4">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
+																<Label fx:id="edadPacienteLabel"
+																	alignment="CENTER_RIGHT" contentDisplay="RIGHT"
+																	layoutX="390.0" layoutY="283.0" prefHeight="40.0"
+																	prefWidth="160.0" text="Edad" textAlignment="RIGHT"
+																	GridPane.columnIndex="1" GridPane.halignment="RIGHT"
+																	GridPane.rowIndex="4">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
@@ -204,59 +361,58 @@
 																		<Insets right="10.0" />
 																	</padding>
 																	<GridPane.margin>
-                                                      <Insets right="15.0" />
+																		<Insets right="15.0" />
 																	</GridPane.margin>
 																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Dirección" GridPane.rowIndex="4">
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Dirección"
+																	GridPane.rowIndex="5">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Teléfono" GridPane.rowIndex="5">
+																<TextField fx:id="direccionPacienteTextField"
+																	editable="false" layoutX="10.0" layoutY="7.0"
+																	prefHeight="40.0" prefWidth="400.0"
+																	promptText="Dirección del paciente"
+																	GridPane.columnIndex="1" GridPane.rowIndex="5">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Teléfono"
+																	GridPane.rowIndex="6">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Adjunto" GridPane.rowIndex="6">
+																<TextField fx:id="telefonoPacienteTextField"
+																	editable="false" layoutX="10.0" layoutY="7.0"
+																	prefHeight="40.0" prefWidth="400.0"
+																	promptText="Telefono del paciente"
+																	GridPane.columnIndex="1" GridPane.rowIndex="6">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0"
+																	text="Nombre del adjunto" GridPane.rowIndex="7">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="dniPacienteTextField" editable="false" prefHeight="40.0" prefWidth="400.0" promptText="DNI del paciente" GridPane.columnIndex="1">
+																<TextField
+																	fx:id="nombreAdjuntoPacienteCitaTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Nombre del adjunto"
+																	GridPane.columnIndex="1" GridPane.rowIndex="7">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<TextField fx:id="nombrePacienteTextField" editable="false" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="400.0" promptText="Nombre del paciente" GridPane.columnIndex="1" GridPane.rowIndex="1">
-																	<font>
-																		<Font name="Comic Sans MS" size="18.0" />
-																	</font>
-																</TextField>
-																<TextField fx:id="apellidosPacienteTextField" editable="false" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="400.0" promptText="Apellidos del paciente" GridPane.columnIndex="1" GridPane.rowIndex="2">
-																	<font>
-																		<Font name="Comic Sans MS" size="18.0" />
-																	</font>
-																</TextField>
-																<TextField fx:id="direccionPacienteTextField" editable="false" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="400.0" promptText="Dirección del paciente" GridPane.columnIndex="1" GridPane.rowIndex="4">
-																	<font>
-																		<Font name="Comic Sans MS" size="18.0" />
-																	</font>
-																</TextField>
-																<TextField fx:id="telefonoPacienteTextField" editable="false" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="400.0" promptText="Telefono del paciente" GridPane.columnIndex="1" GridPane.rowIndex="5">
-																	<font>
-																		<Font name="Comic Sans MS" size="18.0" />
-																	</font>
-																</TextField>
-                                                <TextField fx:id="fechaNacimientoPacienteTextField" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Fecha de nacimiento" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                                   <font>
-                                                      <Font name="Comic Sans MS" size="18.0" />
-                                                   </font>
-                                                </TextField>
-                                                <TextField fx:id="nombreAdjuntoPacienteCitaTextField" editable="false" prefHeight="40.0" prefWidth="400.0" promptText="Nombre del adjunto" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                                   <font>
-                                                      <Font name="Comic Sans MS" size="18.0" />
-                                                   </font>
-                                                </TextField>
+
 															</children>
 														</GridPane>
 													</children>
@@ -266,58 +422,110 @@
 												<Font name="Comic Sans MS" size="18.0" />
 											</font>
 										</TitledPane>
-										<TitledPane animated="false" text="Información completa del sanitario">
+										<TitledPane animated="false"
+											text="Información completa del sanitario">
 											<content>
-												<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="200.0">
+												<AnchorPane minHeight="0.0" minWidth="0.0"
+													prefHeight="300.0" prefWidth="200.0">
 													<children>
-														<GridPane layoutX="64.0" layoutY="201.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+														<GridPane layoutX="64.0" layoutY="201.0"
+															AnchorPane.leftAnchor="20.0"
+															AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
 															<columnConstraints>
-																<ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-																<ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+																<ColumnConstraints fillWidth="false"
+																	hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+																<ColumnConstraints fillWidth="false"
+																	hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
 															</columnConstraints>
 															<rowConstraints>
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
 															</rowConstraints>
 															<children>
-																<Label prefHeight="40.0" prefWidth="180.0" text="DNI">
+																<Label layoutX="10.0" layoutY="58.0"
+																	prefHeight="40.0" prefWidth="180.0"
+																	text="Identificador">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Nombre" GridPane.rowIndex="1">
-																	<font>
-																		<Font name="Comic Sans MS" size="18.0" />
-																	</font>
-																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Apellidos" GridPane.rowIndex="2">
-																	<font>
-																		<Font name="Comic Sans MS" size="18.0" />
-																	</font>
-																</Label>
-																<Label layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="180.0" text="Especialidad" GridPane.rowIndex="3">
-																	<font>
-																		<Font name="Comic Sans MS" size="18.0" />
-																	</font>
-																</Label>
-																<TextField fx:id="dniSanitarioTextField" editable="false" prefHeight="40.0" prefWidth="400.0" promptText="DNI del sanitario" GridPane.columnIndex="1">
+																<TextField
+																	fx:id="identificadorSanitarioTextField"
+																	editable="false" layoutX="243.0" layoutY="58.0"
+																	prefHeight="40.0" prefWidth="400.0"
+																	promptText="Identificador del sanitario"
+																	GridPane.columnIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<TextField fx:id="nombreSanitarioTextField" editable="false" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="400.0" promptText="Nombre del sanitario" GridPane.columnIndex="1" GridPane.rowIndex="1">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="DNI" GridPane.rowIndex="1">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</Label>
+																<TextField fx:id="dniSanitarioTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="DNI del sanitario" GridPane.columnIndex="1"
+																	GridPane.rowIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<TextField fx:id="apellidosSanitarioTextField" editable="false" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="400.0" promptText="Apellidos del sanitario" GridPane.columnIndex="1" GridPane.rowIndex="2">
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Nombre"
+																	GridPane.rowIndex="2">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</Label>
+																<TextField fx:id="nombreSanitarioTextField"
+																	editable="false" layoutX="10.0" layoutY="7.0"
+																	prefHeight="40.0" prefWidth="400.0"
+																	promptText="Nombre del sanitario"
+																	GridPane.columnIndex="1" GridPane.rowIndex="2">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<TextField fx:id="especialidadSanitarioTextField" editable="false" layoutX="10.0" layoutY="7.0" prefHeight="40.0" prefWidth="400.0" promptText="Especialidad del sanitario" GridPane.columnIndex="1" GridPane.rowIndex="3">
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Apellidos"
+																	GridPane.rowIndex="3">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</Label>
+																<TextField fx:id="apellidosSanitarioTextField"
+																	editable="false" layoutX="10.0" layoutY="7.0"
+																	prefHeight="40.0" prefWidth="400.0"
+																	promptText="Apellidos del sanitario"
+																	GridPane.columnIndex="1" GridPane.rowIndex="3">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
+																<Label layoutX="10.0" layoutY="10.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Especialidad"
+																	GridPane.rowIndex="4">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</Label>
+																<TextField
+																	fx:id="especialidadSanitarioTextField" editable="false"
+																	layoutX="10.0" layoutY="7.0" prefHeight="40.0"
+																	prefWidth="400.0"
+																	promptText="Especialidad del sanitario"
+																	GridPane.columnIndex="1" GridPane.rowIndex="4">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
@@ -331,51 +539,105 @@
 												<Font name="Comic Sans MS" size="18.0" />
 											</font>
 										</TitledPane>
-										<TitledPane animated="false" text="Información completa del tratamiento">
+										<TitledPane animated="false"
+											text="Información completa del tratamiento">
 											<content>
-												<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="200.0">
+												<AnchorPane minHeight="0.0" minWidth="0.0"
+													prefHeight="420.0" prefWidth="200.0">
 													<children>
-														<GridPane fx:id="citaGridPane3" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+														<GridPane fx:id="citaGridPane3"
+															AnchorPane.leftAnchor="20.0"
+															AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
 															<children>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Identificador">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Identificador">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="identificadorTratamientoTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1">
+																<TextField
+																	fx:id="identificadorTratamientoTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Identificador del tratamiento"
+																	GridPane.columnIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Nombre" GridPane.rowIndex="1">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Nombre" GridPane.rowIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextField fx:id="nombreTratamientoTextField" editable="false" prefHeight="40.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+																<TextField fx:id="nombreTratamientoTextField"
+																	editable="false" prefHeight="40.0" prefWidth="400.0"
+																	promptText="Nombre del tratamiento"
+																	GridPane.columnIndex="1" GridPane.rowIndex="1">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextField>
-																<Label prefHeight="40.0" prefWidth="180.0" text="Descripción" GridPane.rowIndex="2">
+																<Label prefHeight="40.0" prefWidth="180.0"
+																	text="Descripción" GridPane.rowIndex="2">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</Label>
-																<TextArea fx:id="descripcionTratamientoTextArea" editable="false" prefHeight="160.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+																<TextArea
+																	fx:id="descripcionTratamientoTextArea" editable="false"
+																	prefHeight="160.0" prefWidth="400.0"
+																	promptText="Descripción del tratamiento"
+																	GridPane.columnIndex="1" GridPane.rowIndex="2">
 																	<font>
 																		<Font name="Comic Sans MS" size="18.0" />
 																	</font>
 																</TextArea>
+																<Label layoutX="10.0" layoutY="58.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Color"
+																	GridPane.rowIndex="3">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</Label>
+																<ColorPicker
+																	fx:id="colorTratamientoColorPicker" prefHeight="40.0"
+																	prefWidth="120.0" promptText="Color del tratamiento"
+																	GridPane.columnIndex="1" GridPane.rowIndex="3" />
+																<Label layoutX="10.0" layoutY="13.0"
+																	prefHeight="40.0" prefWidth="180.0" text="Precio"
+																	GridPane.rowIndex="4">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</Label>
+																<TextField fx:id="precioTratamientoTextField"
+																	alignment="CENTER_RIGHT" editable="false"
+																	layoutX="243.0" layoutY="13.0" prefHeight="40.0"
+																	prefWidth="400.0" promptText="Precio del tratamiento"
+																	GridPane.columnIndex="1" GridPane.rowIndex="4">
+																	<font>
+																		<Font name="Comic Sans MS" size="18.0" />
+																	</font>
+																</TextField>
 															</children>
 															<columnConstraints>
-																<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-																<ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+																<ColumnConstraints hgrow="SOMETIMES"
+																	minWidth="10.0" prefWidth="100.0" />
+																<ColumnConstraints fillWidth="false"
+																	hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
 															</columnConstraints>
 															<rowConstraints>
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-																<RowConstraints minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="180.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
+																<RowConstraints minHeight="10.0"
+																	prefHeight="45.0" vgrow="SOMETIMES" />
 															</rowConstraints>
 														</GridPane>
 													</children>

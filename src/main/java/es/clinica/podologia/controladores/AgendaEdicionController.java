@@ -33,6 +33,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -41,6 +42,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 /**
  * <p>Controlador para la vista de la agenda de la aplicación.</p>
@@ -95,6 +97,8 @@ public class AgendaEdicionController {
     private TextArea observacionesCitaTextArea;
     
     @FXML
+    private TextField identificadorPacienteTextField;
+    @FXML
     private TextField dniPacienteTextField;
     @FXML
     private TextField nombrePacienteTextField;
@@ -113,6 +117,8 @@ public class AgendaEdicionController {
 
     
     @FXML
+    private TextField identificadorSanitarioTextField;
+    @FXML
     private TextField dniSanitarioTextField;
     @FXML
     private TextField nombreSanitarioTextField;
@@ -127,6 +133,10 @@ public class AgendaEdicionController {
     private TextField nombreTratamientoTextField;
     @FXML
     private TextArea descripcionTratamientoTextArea;
+    @FXML
+    private ColorPicker colorTratamientoColorPicker;
+    @FXML
+    private TextField precioTratamientoTextField;
     
     @Value("${spring.config.import}")
     private List<String> propiedadesExternas;
@@ -379,6 +389,7 @@ public class AgendaEdicionController {
 	    
 	    // Comprobar que se he recuperado un paciente
 	    if (modeloPaciente != null) {
+		identificadorPacienteTextField.setText(UtilidadesConversores.convertirEnteroCadena(modeloPaciente.getIdPaciente()));
 		dniPacienteTextField.setText(modeloPaciente.getDniPaciente());
 		nombrePacienteTextField.setText(modeloPaciente.getNombre());
 		apellidosPacienteTextField.setText(modeloPaciente.getApellidos());
@@ -395,6 +406,7 @@ public class AgendaEdicionController {
 	    
 	    // Comprobar que se ha recuperado un sanitario
 	    if (modeloSanitario != null) {
+		identificadorSanitarioTextField.setText(UtilidadesConversores.convertirEnteroCadena(modeloSanitario.getIdSanitario()));
 		dniSanitarioTextField.setText(modeloSanitario.getDniSanitario());
 		nombreSanitarioTextField.setText(modeloSanitario.getNombre());
 		apellidosSanitarioTextField.setText(modeloSanitario.getApellidos());
@@ -410,6 +422,8 @@ public class AgendaEdicionController {
 		identificadorTratamientoTextField.setText(UtilidadesConversores.convertirEnteroCadena(modeloTratamientos.getIdTratamiento()));
 		nombreTratamientoTextField.setText(modeloTratamientos.getNombre());
 		descripcionTratamientoTextArea.setText(modeloTratamientos.getDescripcion());
+		colorTratamientoColorPicker.setValue(UtilidadesConversores.convertirHexadecimalColor(modeloTratamientos.getColor()));
+		precioTratamientoTextField.setText(UtilidadesConversores.convertirDecimalMoneda(modeloTratamientos.getPrecio()));
 	    }
 
 	}
@@ -432,6 +446,7 @@ public class AgendaEdicionController {
 	observacionesCitaTextArea.clear();
 
 	// PACIENTE DE LA CITA
+	identificadorPacienteTextField.clear();
 	dniPacienteTextField.clear();
 	nombrePacienteTextField.clear();
 	apellidosPacienteTextField.clear();
@@ -442,6 +457,7 @@ public class AgendaEdicionController {
 	nombreAdjuntoPacienteCitaTextField.clear();
 
 	// SANITARIO DE LA CITA
+	identificadorSanitarioTextField.clear();
 	dniSanitarioTextField.clear();
 	nombreSanitarioTextField.clear();
 	apellidosSanitarioTextField.clear();
@@ -451,6 +467,8 @@ public class AgendaEdicionController {
 	identificadorTratamientoTextField.clear();
 	nombreTratamientoTextField.clear();
 	descripcionTratamientoTextArea.clear();
+	colorTratamientoColorPicker.setValue(Color.WHITE);
+	precioTratamientoTextField.clear();
 
     }
 

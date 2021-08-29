@@ -115,28 +115,37 @@ public class TratamientosListadoController {
      */
     @FXML
     public void initialize() {
-	
+
 	cargarEstado();
-	
+
 	List<TratamientosModelo> listado = tratamientosService.listarTratamientos();
-	
+
 	listadoTratamientos.clear();
-	listadoTratamientos.addAll(listado);
 	
-	inicializarTabla();
-	
-	tratamientosTableView.setItems(listadoTratamientos);
-	
-        cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
-        paginacionTabla.currentPageIndexProperty().addListener(
-                (observable, oldValue, newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
-        
-        // Inicializar la descripción
-        habilitarBotonesFila(null);
-        
-        tratamientosTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
-        
-	
+	descripcionTextArea.setDisable(Boolean.TRUE);
+	colorColorPicker.setDisable(Boolean.TRUE);
+	precioTextField.setDisable(Boolean.TRUE);
+
+	if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(listado))) {
+
+	    listadoTratamientos.addAll(listado);
+
+	    inicializarTabla();
+
+	    tratamientosTableView.setItems(listadoTratamientos);
+
+	    cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
+	    paginacionTabla.currentPageIndexProperty().addListener((observable, oldValue,
+		    newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
+
+	    // Inicializar la descripción
+	    habilitarBotonesFila(null);
+
+	    tratamientosTableView.getSelectionModel().selectedItemProperty()
+		    .addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
+
+	}
+
     }
     
     /**
@@ -333,7 +342,7 @@ public class TratamientosListadoController {
 	    // Cargar valores del modelo en los campos de la vista
 	    descripcionTextArea.setText(Utilidades.comprobarCadena(modelo.getDescripcion(), Constantes.CADENA_VACIA));
 	    colorColorPicker.setValue(UtilidadesConversores.convertirHexadecimalColor(modelo.getColor()));
-	    precioTextField.setText(UtilidadesConversores.convertirDecimalCadena(modelo.getPrecio()));
+	    precioTextField.setText(UtilidadesConversores.convertirDecimalMoneda(modelo.getPrecio()));
 	    
 	} else {
 	    

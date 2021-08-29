@@ -110,7 +110,7 @@ public class TratamientosEdicionController {
 	    
 	}
 	
-	precioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_PRECIO, 6));
+	precioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_NUMEROS_ENTEROS, 3));
 	
     }
     

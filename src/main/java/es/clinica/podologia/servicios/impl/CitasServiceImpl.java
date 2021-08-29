@@ -335,6 +335,8 @@ public class CitasServiceImpl implements CitasService {
 	    modelo.setIdTratamiento(entidad.getTratamiento() != null ? entidad.getTratamiento().getIdTratamiento() : null);
 	    modelo.setNombreTratamiento(entidad.getTratamiento() != null ? 
 		    Utilidades.comprobarCadena(entidad.getTratamiento().getNombre(), Constantes.CADENA_VACIA) : Constantes.CADENA_VACIA);
+	    modelo.setColorTratamiento(entidad.getTratamiento() != null ? 
+		    Utilidades.comprobarCadena(entidad.getTratamiento().getColor(), Constantes.CADENA_VACIA) : Constantes.COLOR_BLANCO_HEXADECIMAL);
 	    modelo.setFecha(UtilidadesConversores.convertirLongFecha(entidad.getFecha()));
 	    modelo.setHoraDesde(UtilidadesConversores.convertirLongHora(entidad.getHoraDesde()));
 	    modelo.setHoraHasta(UtilidadesConversores.convertirLongHora(entidad.getHoraHasta()));

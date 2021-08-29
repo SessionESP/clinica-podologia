@@ -33,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 
 /**
@@ -151,6 +152,55 @@ public class AgendaSanitariosEdicionController {
     }
     
     /**
+     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#fechaFiltroDatePicker} o {@code AgendaEdicionController#sanitarioFiltroComBox}.</p>
+     * <p>Dependiendo de el control desde donde se haya invocado regenerará una tabla u otra.</p>
+     * 
+     * @param evento {@link ActionEvent} parámetro con la información asociada al evento
+     */
+    @SuppressWarnings("unchecked")
+    @FXML
+    private void regenerarTabla(Event evento) {
+
+	// Comprobar que el evento NO es nulo
+	if (evento != null) {
+	    // Obtener el numero del identificador del control que ha activado el evento
+
+	    String identificador = Constantes.CADENA_VACIA;
+
+	    if (evento.getSource() instanceof DatePicker) {
+
+		// Es una instancia de DatePicker
+		identificador = Utilidades.comprobarCadenaNula(((DatePicker) evento.getSource()).getId())
+			.replaceAll(Constantes.PATRON_TODO_MENOS_ENTEROS.toString(), Constantes.CADENA_VACIA);
+
+	    } else {
+
+		// Es una instancia de ComboBox por descarte
+		identificador = Utilidades
+			.comprobarCadenaNula(((ComboBox<SanitariosModelo>) evento.getSource()).getId())
+			.replaceAll(Constantes.PATRON_TODO_MENOS_ENTEROS.toString(), Constantes.CADENA_VACIA);
+	    }
+
+	    // Regenerar la tabla correspondiente
+	    switch (identificador) {
+	    case Constantes.NUMERO_UNO:
+		generarTabla(agendaSanitarios1TableView, sanitarioFiltro1ComboBox, fechaFiltro1DatePicker);
+		break;
+	    case Constantes.NUMERO_DOS:
+		generarTabla(agendaSanitarios2TableView, sanitarioFiltro2ComboBox, fechaFiltro2DatePicker);
+		break;
+	    case Constantes.NUMERO_TRES:
+		generarTabla(agendaSanitarios3TableView, sanitarioFiltro3ComboBox, fechaFiltro3DatePicker);
+		break;
+	    default:
+		break;
+	    }
+
+	}
+
+    }
+    
+    /**
      * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#fechaFiltroDatePicker}</p>
      * 
      * @param evento {@link ActionEvent} parámetro con la información asociada al evento
@@ -255,8 +305,34 @@ public class AgendaSanitariosEdicionController {
 	    // Generar las filas de la tabla
 	    generarFilas(tabla, listaDesplegable, recogedorFecha);
 
-	    agendaSanitarios1TableView.getSelectionModel().selectedItemProperty().
-	    	addListener((observable, oldValue, newValue) -> seleccionarFila(newValue));
+	    // Escuchador para cargar una cita cuando una línea es seleccionada
+	    tabla.getSelectionModel().selectedItemProperty().
+	    	addListener((observable, valorAntiguo, valorNuevo) -> seleccionarFila(valorNuevo));
+	    
+	    // Escuchador para limpiar la selección de la tabla cuando pierde el foco
+	    tabla.focusedProperty().addListener((observable, valorAntiguo, valorNuevo) -> {
+		if (Boolean.FALSE.equals(valorNuevo)) {
+		    tabla.getSelectionModel().clearSelection();
+		}
+		
+	    });
+	    
+	    // El color de fondo de la fila se cambiará dependiendo del que se haya definido
+	    // en el tratamiento de la cita
+	    tabla.setRowFactory(tv -> new TableRow<List<String>>() {
+		@Override
+		protected void updateItem(List<String> item, boolean empty) {
+		    
+		    super.updateItem(item, empty);
+
+		    // Establecer como color de fondo el que se ha asignado al tratamiento
+		    if (Utilidades.comprobarColeccion(item)
+			    && !Utilidades.compararCadenas(item.get(2), Constantes.COLOR_BLANCO_HEXADECIMAL)) {
+			setStyle("-fx-background-color: " + item.get(2) + ";");
+		    }
+
+		}
+	    });
 	    
 	}
 	
@@ -275,10 +351,13 @@ public class AgendaSanitariosEdicionController {
 	tabla.getColumns().clear();
 	
 	// Genera la primera columna con las horas
-	generarColumna(tabla, columna1, 0);
+	generarColumna(tabla, columna1, 0, Boolean.TRUE);
 	
 	// Generar una segunda columna con las citas del sanitario filtrado
-	generarColumna(tabla, listaDesplegable.getValue().toString(), 1);
+	generarColumna(tabla, listaDesplegable.getValue().toString(), 1, Boolean.TRUE);
+	
+	// Genera la primera columna con las horas
+	generarColumna(tabla, columna1, 2, Boolean.FALSE);
 	
     }
     
@@ -288,14 +367,17 @@ public class AgendaSanitariosEdicionController {
      * @param tabla {@link TableView} {@link List} {@link String} tabla donde se va a generar la columna
      * @param nombreColumna {@link String} nombre de la columna
      * @param indice {@link String} índice de la columna
+     * @param visible {@link Boolean} visibilidad de la columna: {@code true} para hacerla visible y {@code false} para hacerla invisible
      */
-    private void generarColumna(TableView<List<String>> tabla, String nombreColumna, Integer indice) {
+    private void generarColumna(TableView<List<String>> tabla, String nombreColumna, Integer indice, Boolean visible) {
 	
 	//Inicializar la columna con su nombre
 	TableColumn<List<String>, String> columna = new TableColumn<>(Utilidades.comprobarCadena(nombreColumna, Constantes.CADENA_VACIA));
 	
 	// Determinar el valor dentro de la fila que le corresponde
 	columna.setCellValueFactory(dato -> new SimpleStringProperty(dato.getValue().get(indice)));
+	
+	columna.setVisible(Boolean.TRUE.equals(visible) ? visible : Boolean.FALSE);
 	
 	// Añadir la columna a la tabla
 	tabla.getColumns().add(columna);
@@ -368,7 +450,8 @@ public class AgendaSanitariosEdicionController {
 		    UtilidadesConversores.convertirCadenaHora(hora), 
 		    listaDesplegable.getValue().getDniSanitario());
 	    
-	    valoresFila.add(cita != null ? UtilidadesConversores.convertirEnteroCadena(cita.getIdCita()) : Constantes.LIBRE);
+	    valoresFila.add(cita != null ? cita.toString() : Constantes.LIBRE);
+	    valoresFila.add(cita != null ? cita.getColorTratamiento() : Constantes.COLOR_BLANCO_HEXADECIMAL);
 	    
 	}
 	
@@ -387,7 +470,7 @@ public class AgendaSanitariosEdicionController {
     private void seleccionarFila(List<String> fila) {
 	
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(fila)) && Boolean.FALSE.equals(Utilidades.compararCadenas(fila.get(1), Constantes.LIBRE))) {
-	    modeloSeleccionado = citasService.encontrarCita(UtilidadesConversores.convertirCadenaEntero(fila.get(1)));
+	    modeloSeleccionado = citasService.encontrarCita(UtilidadesConversores.convertirCadenaEntero(fila.get(1).split(Constantes.GUION_ESPACIADO)[0]));
 	    cargarDetalle();
 	} else {
 	    limpiarDetalle();
@@ -416,5 +499,4 @@ public class AgendaSanitariosEdicionController {
 	
     }
     
-
 }

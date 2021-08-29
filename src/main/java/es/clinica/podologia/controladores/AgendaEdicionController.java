@@ -120,6 +120,9 @@ public class AgendaEdicionController {
     @FXML
     public void initialize() {
 	
+	// Limpiar primero para evitar la excepción de nodo duplicado al recargar la vista
+	agendaAnchorPane.getChildren().clear();
+	
 	// Añadir la vista que contiene las tres agendas
 	agendaAnchorPane.getChildren().add(UtilidadesNavegacion.cargarVista(AgendaSanitariosEdicionView.class));
 	

@@ -19,6 +19,7 @@ import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.SanitariosModelo;
 import es.clinica.podologia.servicios.SanitariosService;
+import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
@@ -117,27 +118,32 @@ private static final Logger TRAZAS = LoggerFactory.getLogger(SanitariosListadoCo
      */
     @FXML
     public void initialize() {
-	
+
 	cargarEstado();
-	
+
 	List<SanitariosModelo> listado = sanitariosService.listarSanitarios();
-	
+
 	listadoSanitarios.clear();
-	listadoSanitarios.addAll(listado);
-	
-	inicializarTabla();
-	
-	sanitariosTableView.setItems(listadoSanitarios);
-	
-        cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
-        paginacionTabla.currentPageIndexProperty().addListener(
-                (observable, oldValue, newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
-        
-        habilitarBotonesFila(null);
-        
-        sanitariosTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
-        
-	
+
+	if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(listado))) {
+
+	    listadoSanitarios.addAll(listado);
+
+	    inicializarTabla();
+
+	    sanitariosTableView.setItems(listadoSanitarios);
+
+	    cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
+	    paginacionTabla.currentPageIndexProperty().addListener((observable, oldValue,
+		    newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
+
+	    habilitarBotonesFila(null);
+
+	    sanitariosTableView.getSelectionModel().selectedItemProperty()
+		    .addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
+
+	}
+
     }
     
     /**

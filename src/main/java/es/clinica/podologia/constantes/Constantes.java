@@ -32,6 +32,9 @@ public class Constantes {
     public static final String LIBRE = "Libre";
     public static final String ZONA_HORARIA = "+00:00";
     public static final String COLOR_BLANCO_HEXADECIMAL = "#FFFFFF";
+    public static final String NUMERO_UNO = "1";
+    public static final String NUMERO_DOS = "2";
+    public static final String NUMERO_TRES = "3";
     
     public static final String TITULO = "titulo";
     public static final String ALTURA = "altura";
@@ -42,6 +45,7 @@ public class Constantes {
     public static final String PATRON_HORA = "HH:mm:ss";
     public static final String PATRON_MAYUSCULAS = "(?<!^)(?=[A-Z])";
     public static final Pattern PATRON_NUMEROS_ENTEROS = Pattern.compile("\\d*");
+    public static final Pattern PATRON_TODO_MENOS_ENTEROS = Pattern.compile("\\D+");
     public static final Pattern PATRON_PRECIO = Pattern.compile("^\\d{0,3}(\\,\\d{1,2})?$");
     public static final Pattern PATRON_DNI = Pattern.compile("^(([A-Z]\\d{8})|(\\d{8}[A-Z]))$");
     

@@ -21,6 +21,7 @@ import es.clinica.podologia.formateadores.PacientesModeloFechaNacimiento;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.servicios.PacientesService;
+import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
@@ -127,27 +128,32 @@ public class PacientesListadoController {
      */
     @FXML
     public void initialize() {
-	
+
 	cargarEstado();
-	
+
 	List<PacientesModelo> listado = pacientesService.listarPacientes();
-	
+
 	listadoPacientes.clear();
-	listadoPacientes.addAll(listado);
-	
-	inicializarTabla();
-	
-	pacientesTableView.setItems(listadoPacientes);
-	
-        cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
-        paginacionTabla.currentPageIndexProperty().addListener(
-                (observable, oldValue, newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
-        
-        habilitarBotonesFila(null);
-        
-        pacientesTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
-        
-	
+
+	if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(listado))) {
+
+	    listadoPacientes.addAll(listado);
+
+	    inicializarTabla();
+
+	    pacientesTableView.setItems(listadoPacientes);
+
+	    cambiarPaginacion(0, tamanioPaginacionComboBox.getValue());
+	    paginacionTabla.currentPageIndexProperty().addListener((observable, oldValue,
+		    newValue) -> cambiarPaginacion(newValue.intValue(), tamanioPaginacionComboBox.getValue()));
+
+	    habilitarBotonesFila(null);
+
+	    pacientesTableView.getSelectionModel().selectedItemProperty()
+		    .addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
+
+	}
+
     }
     
     /**

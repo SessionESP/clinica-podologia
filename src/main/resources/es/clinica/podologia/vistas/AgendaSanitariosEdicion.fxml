@@ -22,12 +22,12 @@
                   <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-						<ComboBox fx:id="sanitarioFiltro1ComboBox" onAction="#cambiarSanitario" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" />
-                  <ComboBox fx:id="sanitarioFiltro2ComboBox" layoutX="37.0" layoutY="13.0" onAction="#cambiarSanitario" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" GridPane.columnIndex="1" />
-                  <ComboBox fx:id="sanitarioFiltro3ComboBox" layoutX="37.0" layoutY="13.0" onAction="#cambiarSanitario" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" GridPane.columnIndex="2" />
-      						<DatePicker fx:id="fechaFiltro1DatePicker" editable="false" onAction="#cambiarFecha" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="fechaFiltro2DatePicker" editable="false" onAction="#cambiarFecha" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="fechaFiltro3DatePicker" editable="false" onAction="#cambiarFecha" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+						<ComboBox fx:id="sanitarioFiltro1ComboBox" onAction="#regenerarTabla" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" />
+                  <ComboBox fx:id="sanitarioFiltro2ComboBox" layoutX="37.0" layoutY="13.0" onAction="#regenerarTabla" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="sanitarioFiltro3ComboBox" layoutX="37.0" layoutY="13.0" onAction="#regenerarTabla" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" GridPane.columnIndex="2" />
+      						<DatePicker fx:id="fechaFiltro1DatePicker" editable="false" onAction="#regenerarTabla" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="fechaFiltro2DatePicker" editable="false" onAction="#regenerarTabla" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="fechaFiltro3DatePicker" editable="false" onAction="#regenerarTabla" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <TableView fx:id="agendaSanitarios1TableView" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="640.0" AnchorPane.topAnchor="120.0" />

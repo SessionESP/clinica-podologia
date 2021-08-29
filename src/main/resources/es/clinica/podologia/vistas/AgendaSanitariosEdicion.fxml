@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane styleClass="panel-default" stylesheets="@../estilos/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.AgendaSanitariosEdicionController">
+	<center>
+		<AnchorPane prefHeight="780.0" prefWidth="960.0" styleClass="panel-default" BorderPane.alignment="CENTER">
+			<children>
+            <GridPane AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+              <columnConstraints>
+                <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                  <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+						<ComboBox fx:id="sanitarioFiltro1ComboBox" onAction="#cambiarSanitario" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" />
+                  <ComboBox fx:id="sanitarioFiltro2ComboBox" layoutX="37.0" layoutY="13.0" onAction="#cambiarSanitario" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="sanitarioFiltro3ComboBox" layoutX="37.0" layoutY="13.0" onAction="#cambiarSanitario" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione un sanitario" GridPane.columnIndex="2" />
+      						<DatePicker fx:id="fechaFiltro1DatePicker" editable="false" onAction="#cambiarFecha" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="fechaFiltro2DatePicker" editable="false" onAction="#cambiarFecha" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="fechaFiltro3DatePicker" editable="false" onAction="#cambiarFecha" prefHeight="40.0" prefWidth="240.0" promptText="Seleccione una fecha" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <TableView fx:id="agendaSanitarios1TableView" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="640.0" AnchorPane.topAnchor="120.0" />
+            <TableView fx:id="agendaSanitarios2TableView" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="330.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="120.0" />
+            <TableView fx:id="agendaSanitarios3TableView" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="640.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0" />
+
+			</children>
+		</AnchorPane>
+	</center>
+</BorderPane>

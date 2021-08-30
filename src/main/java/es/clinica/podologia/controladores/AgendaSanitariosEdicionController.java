@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.componentes.BeansComponent;
+import es.clinica.podologia.constantes.Accion;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.formateadores.DatePickerFormatted;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
@@ -26,6 +27,8 @@ import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
+import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
+import es.clinica.podologia.vistas.CitasEdicionView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -35,6 +38,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 /**
  * <p>Controlador para la vista de la agenda de cada sanitario de la aplicación.</p>
@@ -201,7 +206,7 @@ public class AgendaSanitariosEdicionController {
     }
     
     /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#fechaFiltroDatePicker}</p>
+     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#fechaFiltroDatePicker}.</p>
      * 
      * @param evento {@link ActionEvent} parámetro con la información asociada al evento
      */
@@ -229,7 +234,7 @@ public class AgendaSanitariosEdicionController {
     }
     
     /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#sanitarioFiltroComBox}</p>
+     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#sanitarioFiltroComBox}.</p>
      * 
      * @param evento {@link ActionEvent} parámetro con la información asociada al evento
      */
@@ -309,16 +314,14 @@ public class AgendaSanitariosEdicionController {
 	    tabla.getSelectionModel().selectedItemProperty().
 	    	addListener((observable, valorAntiguo, valorNuevo) -> seleccionarFila(valorNuevo));
 	    
-	    // Escuchador para limpiar la selección de la tabla cuando pierde el foco
-//	    tabla.focusedProperty().addListener((observable, valorAntiguo, valorNuevo) -> {
-//		if (Boolean.FALSE.equals(valorNuevo)) {
-//		    tabla.getSelectionModel().clearSelection();
-//		}
-//		
-//	    });
+	    // Escuchador del doble clic para editar una cita
+	    tabla.setOnMouseClicked((MouseEvent evento) -> {
+		if (evento.getButton().equals(MouseButton.PRIMARY) && evento.getClickCount() == 2) {
+		    editarCita(tabla.getSelectionModel().getSelectedItem(), evento);
+		}
+	    });
 	    
-	    // El color de fondo de la fila se cambiará dependiendo del que se haya definido
-	    // en el tratamiento de la cita
+	    // El color de fondo de la fila se cambiará dependiendo del que se haya definido en el tratamiento de la cita
 	    tabla.setRowFactory(tv -> new TableRow<List<String>>() {
 		@Override
 		protected void updateItem(List<String> item, boolean empty) {
@@ -326,13 +329,14 @@ public class AgendaSanitariosEdicionController {
 		    super.updateItem(item, empty);
 
 		    // Establecer como color de fondo el que se ha asignado al tratamiento
-		    if (Utilidades.comprobarColeccion(item)
-			    && !Utilidades.compararCadenas(item.get(2), Constantes.COLOR_BLANCO_HEXADECIMAL)) {
+		    if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(item)) 
+			    && Boolean.FALSE.equals(Utilidades.compararCadenas(item.get(2), Constantes.COLOR_BLANCO_HEXADECIMAL))) {
 			setStyle("-fx-background-color: " + item.get(2) + ";");
 		    }
 
 		}
 	    });
+	 
 	    
 	}
 	
@@ -364,7 +368,7 @@ public class AgendaSanitariosEdicionController {
     /**
      * <p>Método que genera una columna dentro de la tabla de la agenda.</p>
      * 
-     * @param tabla {@link TableView} {@link List} {@link String} tabla donde se va a generar la columna
+     * @param tabla {@link TableView}<{@link List}<{@link String}>> tabla donde se va a generar la columna
      * @param nombreColumna {@link String} nombre de la columna
      * @param indice {@link String} índice de la columna
      * @param visible {@link Boolean} visibilidad de la columna: {@code true} para hacerla visible y {@code false} para hacerla invisible
@@ -387,8 +391,8 @@ public class AgendaSanitariosEdicionController {
     /**
      * <p>Método que genera las filas de la tabla de la agenda.</p>
      * 
-     * @param tabla {@link TableView} {@link List} {@link String} tabla donde se va a generar la columna
-     *      * @param listaDesplegable {@link ComboBox}<{@link SanitariosModelo}> lista desplegable con un listado de sanitarios
+     * @param tabla {@link TableView}<{@link List}<{@link String}>> tabla donde se va a generar la columna
+     * @param listaDesplegable {@link ComboBox}<{@link SanitariosModelo}> lista desplegable con un listado de sanitarios
      * @param recogedorFecha {@link DatePicker} control específico para recofer fechas
      */
     @SuppressWarnings("unchecked")
@@ -422,11 +426,11 @@ public class AgendaSanitariosEdicionController {
      * <p>Método que genera los valores de una fila de la tabla.</p>
      * 
      * @param numeroFila {@link Integer} número de la fila
-     * @param tabla {@link TableView} {@link List} {@link String} tabla donde se va a generar la columna
+     * @param tabla {@link TableView}<{@link List}<{@link String}>> tabla donde se va a generar la columna
      * @param listaDesplegable {@link ComboBox}<{@link SanitariosModelo}> lista desplegable con un listado de sanitarios
      * @param recogedorFecha {@link DatePicker} control específico para recofer fechas
      * 
-     * @return {@link List} {@link String} listado de valores de la fila
+     * @return {@link List}<{@link String}> listado de valores de la fila
      */
     private List<String> generarFila(
 	    Integer numeroFila, 
@@ -461,11 +465,11 @@ public class AgendaSanitariosEdicionController {
     }
     
     /**
-     * <p>Guardar el modelo seleccionado</p>
+     * <p>Guardar el modelo seleccionado.</p>
      * 
      * <p>Adicionalmente, asigna el modelo seleccionado al atributo que se utiliza en los métodos de dichos botones.</p>
      * 
-     * @param modelo {@link CitasModelo} objeto de paciente
+     * @param modelo {@link List}<{@link String}> listado de valores de la fila
      */
     private void seleccionarFila(List<String> fila) {
 	
@@ -474,6 +478,54 @@ public class AgendaSanitariosEdicionController {
 	    cargarDetalle();
 	} else {
 	    limpiarDetalle();
+	}
+	
+    }
+    
+    /**
+     * <p>Guardar el modelo seleccionado.</p>
+     * 
+     * <p>Adicionalmente, asigna el modelo seleccionado al atributo que se utiliza en los métodos de dichos botones.</p>
+     * 
+     * @param modelo {@link List}<{@link String}> listado de valores de la fila
+     * @param evento {@link MouseEvent} asociado al escuchador del doble click
+     */
+    private void editarCita(List<String> fila, MouseEvent evento) {
+	
+	// Comprobar que los parámetros de entrada NO son nulos
+	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(fila)) && evento != null) {
+	    
+	    // Controlador de la vista donde se editan las citas
+	    CitasEdicionController citasEdicionController;
+	    
+	    // Obtener el identificador del control que ha activado el evento
+//	    String identificador = ((TableView<List<String>>) evento.getSource()).getId();
+	    
+	    // Comprobar si se trata de una fila con o sin cita
+	    if(Boolean.TRUE.equals(Utilidades.compararCadenas(fila.get(1), Constantes.LIBRE))) {
+		
+		// Es un espacio SIN cita, se procede a dar de alta
+		UtilidadesVentanasEmergentes.abrirVentanaEmergente(CitasEdicionView.class, Constantes.CITAS_EDICION_CONTROLLER,
+			Accion.ALTA);
+
+		citasEdicionController = (CitasEdicionController) beansComponent
+			.obtenerControlador(Constantes.CITAS_EDICION_CONTROLLER);
+		citasEdicionController.setModelo(null);
+		citasEdicionController.initialize();
+		
+	    } else {
+		
+		// Es un espacio CON cita, se procede a dar editar
+		UtilidadesVentanasEmergentes.abrirVentanaEmergente(CitasEdicionView.class, Constantes.CITAS_EDICION_CONTROLLER,
+			Accion.EDICION);
+
+		citasEdicionController = (CitasEdicionController) beansComponent
+			.obtenerControlador(Constantes.CITAS_EDICION_CONTROLLER);
+		citasEdicionController.setModelo(modeloSeleccionado);
+		citasEdicionController.initialize();
+		
+	    }
+	    
 	}
 	
     }

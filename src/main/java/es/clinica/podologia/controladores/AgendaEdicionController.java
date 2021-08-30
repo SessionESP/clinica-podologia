@@ -126,6 +126,8 @@ public class AgendaEdicionController {
 	// Añadir la vista que contiene las tres agendas
 	agendaAnchorPane.getChildren().add(UtilidadesNavegacion.cargarVista(AgendaSanitariosEdicionView.class));
 	
+	colorTratamientoColorPicker.setDisable(Boolean.TRUE);
+	
 	limpiarDetalle();
 	
     }

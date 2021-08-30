@@ -103,6 +103,9 @@ public class PrincipalEdicionController {
 	    AgendaEdicionController agendaEdicionController = (AgendaEdicionController) beansComponent.obtenerControlador(Constantes.AGENDA_EDICION_CONTROLLER);
 	    agendaEdicionController.initialize();
 	    
+	    AgendaSanitariosEdicionController agendaSanitariosEdicionController = (AgendaSanitariosEdicionController) beansComponent.obtenerControlador(Constantes.AGENDA_SANITARIOS_EDICION_CONTROLLER);
+	    agendaSanitariosEdicionController.initialize();
+	    
 	}
 	
     }

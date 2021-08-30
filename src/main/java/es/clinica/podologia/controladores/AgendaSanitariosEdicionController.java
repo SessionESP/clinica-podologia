@@ -310,12 +310,12 @@ public class AgendaSanitariosEdicionController {
 	    	addListener((observable, valorAntiguo, valorNuevo) -> seleccionarFila(valorNuevo));
 	    
 	    // Escuchador para limpiar la selección de la tabla cuando pierde el foco
-	    tabla.focusedProperty().addListener((observable, valorAntiguo, valorNuevo) -> {
-		if (Boolean.FALSE.equals(valorNuevo)) {
-		    tabla.getSelectionModel().clearSelection();
-		}
-		
-	    });
+//	    tabla.focusedProperty().addListener((observable, valorAntiguo, valorNuevo) -> {
+//		if (Boolean.FALSE.equals(valorNuevo)) {
+//		    tabla.getSelectionModel().clearSelection();
+//		}
+//		
+//	    });
 	    
 	    // El color de fondo de la fila se cambiará dependiendo del que se haya definido
 	    // en el tratamiento de la cita

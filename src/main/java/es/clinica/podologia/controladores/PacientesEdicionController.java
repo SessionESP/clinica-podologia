@@ -332,9 +332,6 @@ public class PacientesEdicionController {
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloEdicionVista);
 	
-	// Deshabilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
-	dniPacienteTextField.setDisable(Boolean.TRUE);
-	
 	// Inicializar todas las cajas de texto con los valores de los atributos del modelo
 	dniPacienteTextField.setText(modelo.getDniPaciente());
 	nombreTextField.setText(modelo.getNombre());

@@ -163,8 +163,7 @@ public class CitasListadoController {
 	    citasTableView.getSelectionModel().selectedItemProperty()
 		    .addListener((observable, oldValue, newValue) -> habilitarBotonesFila(newValue));
 	    
-	    // El color de fondo de la fila se cambiará dependiendo del que se haya definido
-	    // en el tratamiento de la cita
+	    // El color de fondo de la fila se cambiará dependiendo del que se haya definido en el tratamiento de la cita
 	    citasTableView.setRowFactory(tv -> new TableRow<CitasModelo>() {
 		@Override
 		protected void updateItem(CitasModelo item, boolean empty) {
@@ -172,8 +171,8 @@ public class CitasListadoController {
 		    super.updateItem(item, empty);
 
 		    // Establecer como color de fondo el que se ha asignado al tratamiento
-		    if (item != null && !Utilidades.compararCadenas(item.getColorTratamiento(),
-			    Constantes.COLOR_BLANCO_HEXADECIMAL)) {
+		    if (item != null && 
+			    !Utilidades.compararCadenas(item.getColorTratamiento(), Constantes.COLOR_BLANCO_HEXADECIMAL)) {
 			setStyle("-fx-background-color: " + item.getColorTratamiento() + ";");
 		    }
 

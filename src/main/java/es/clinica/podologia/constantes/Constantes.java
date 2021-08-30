@@ -81,6 +81,7 @@ public class Constantes {
     public static final Integer CONFIGURACION_DURACION_DEFECTO = 30;
     
     public static final String AGENDA_EDICION_CONTROLLER = "agendaEdicionController";
+    public static final String AGENDA_SANITARIOS_EDICION_CONTROLLER = "agendaSanitariosEdicionController";
     public static final String CITAS_LISTADO_CONTROLLER = "citasListadoController";
     public static final String CITAS_EDICION_CONTROLLER = "citasEdicionController";
     public static final String PACIENTES_LISTADO_CONTROLLER = "pacientesListadoController";

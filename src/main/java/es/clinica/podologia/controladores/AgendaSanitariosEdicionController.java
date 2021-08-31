@@ -3,6 +3,7 @@ package es.clinica.podologia.controladores;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.configuration2.FileBasedConfiguration;
@@ -30,6 +31,8 @@ import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import es.clinica.podologia.vistas.CitasEdicionView;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -101,6 +104,32 @@ public class AgendaSanitariosEdicionController {
     @FXML
     public void initialize() {
 	
+	cargarParametrosCitas();
+	
+	// Encuentra todos los sanitarios
+	List<SanitariosModelo> listadoSanitarios = sanitariosService.listarSanitarios();
+	
+	// Cargar los filtros de las tres agendas
+	cargarFiltros(sanitarioFiltro1ComboBox, listadoSanitarios, fechaFiltro1DatePicker);
+	cargarFiltros(sanitarioFiltro2ComboBox, listadoSanitarios, fechaFiltro2DatePicker);
+	cargarFiltros(sanitarioFiltro3ComboBox, listadoSanitarios, fechaFiltro3DatePicker);
+	
+	cargarEstado();
+	
+	// Generar cada una de las agendas
+	generarTabla(agendaSanitarios1TableView, sanitarioFiltro1ComboBox, fechaFiltro1DatePicker);
+	generarTabla(agendaSanitarios2TableView, sanitarioFiltro2ComboBox, fechaFiltro2DatePicker);
+	generarTabla(agendaSanitarios3TableView, sanitarioFiltro3ComboBox, fechaFiltro3DatePicker);
+	
+	limpiarDetalle();
+	
+    }
+    
+    /**
+     * <p>Cargar el estado del formulario.</p>
+     */
+    private void cargarParametrosCitas() {
+	
 	// Inicializar el constructor con los parámetros del fichero externo
 	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = 
 		UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
@@ -138,22 +167,52 @@ public class AgendaSanitariosEdicionController {
 	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
 
 	}
-	
-	// Encuentra todos los sanitarios
-	List<SanitariosModelo> listadoSanitarios = sanitariosService.listarSanitarios();
-	
-	// Cargar los filtros de las tres agendas
-	cargarFiltros(sanitarioFiltro1ComboBox, listadoSanitarios, fechaFiltro1DatePicker);
-	cargarFiltros(sanitarioFiltro2ComboBox, listadoSanitarios, fechaFiltro2DatePicker);
-	cargarFiltros(sanitarioFiltro3ComboBox, listadoSanitarios, fechaFiltro3DatePicker);
-	
-	// Generar cada una de las agendas
-	generarTabla(agendaSanitarios1TableView, sanitarioFiltro1ComboBox, fechaFiltro1DatePicker);
-	generarTabla(agendaSanitarios2TableView, sanitarioFiltro2ComboBox, fechaFiltro2DatePicker);
-	generarTabla(agendaSanitarios3TableView, sanitarioFiltro3ComboBox, fechaFiltro3DatePicker);
-	
-	limpiarDetalle();
-	
+
+    }
+    
+    /**
+     * <p>Cargar el estado del formulario.</p>
+     */
+    private void cargarEstado() {
+
+//	// Inicializar el constructor con los parámetros del fichero externo
+//	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(1),
+//		Constantes.COMA);
+//
+//	// Inicializar con valores por defecto
+//	List<Integer> paginaciones = Arrays.asList(10, 20, 30, 40, 50);
+//	Integer identificadorSanitario = Constantes.ESTADOS_PAGINACION_DEFECTO_10;
+//
+//	try {
+//
+//	    // Comprobar que el constructor y los parámetros NO son nulos
+//	    if (constructor != null && constructor.getConfiguration() != null) {
+//
+//		// Guardar la información del fichero de configuración en un objeto
+//		FileBasedConfiguration configuracion = constructor.getConfiguration();
+//
+//		paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(
+//			configuracion.getStringArray(Constantes.ESTADOS_CITAS_PAGINACIONES));
+//
+//		paginacion = configuracion.getInteger(Constantes.ESTADOS_CITAS_PAGINACION,
+//			Constantes.ESTADOS_PAGINACION_DEFECTO_10);
+//
+//	    }
+//
+//	} catch (ConfigurationException excepcion) {
+//
+//	    // Error al intentar guardar las propiedades del fichero en un objeto
+//	    TRAZAS.error(excepcion.getMessage());
+//	    excepcion.printStackTrace();
+//	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+//
+//	}
+//
+//	ObservableList<Integer> opciones = FXCollections.observableArrayList();
+//	opciones.addAll(paginaciones);
+//	tamanioPaginacionComboBox.setItems(opciones);
+//	tamanioPaginacionComboBox.setValue(paginacion);
+
     }
     
     /**
@@ -170,7 +229,7 @@ public class AgendaSanitariosEdicionController {
 	if (evento != null) {
 	    // Obtener el numero del identificador del control que ha activado el evento
 
-	    String identificador = Constantes.CADENA_VACIA;
+	    String identificador = null;
 
 	    if (evento.getSource() instanceof DatePicker) {
 
@@ -203,63 +262,6 @@ public class AgendaSanitariosEdicionController {
 
 	}
 
-    }
-    
-    /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#fechaFiltroDatePicker}.</p>
-     * 
-     * @param evento {@link ActionEvent} parámetro con la información asociada al evento
-     */
-    @FXML
-    private void cambiarFecha(Event evento) {
-	
-	// Obtener el identificador del control que ha activado el evento
-	String identificador = ((DatePicker) evento.getSource()).getId();
-
-	// Generar la tabla correspondiente
-	switch (identificador) {
-	case "fechaFiltro1DatePicker":
-	    generarTabla(agendaSanitarios1TableView, sanitarioFiltro1ComboBox, fechaFiltro1DatePicker);
-	    break;
-	case "fechaFiltro2DatePicker":
-	    generarTabla(agendaSanitarios2TableView, sanitarioFiltro2ComboBox, fechaFiltro2DatePicker);
-	    break;
-	case "fechaFiltro3DatePicker":
-	    generarTabla(agendaSanitarios3TableView, sanitarioFiltro3ComboBox, fechaFiltro3DatePicker);
-	    break;
-	default:
-	    break;
-	}
-
-    }
-    
-    /**
-     * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#sanitarioFiltroComBox}.</p>
-     * 
-     * @param evento {@link ActionEvent} parámetro con la información asociada al evento
-     */
-    @SuppressWarnings("unchecked")
-    @FXML
-    private void cambiarSanitario(Event evento) {
-	
-	// Obtener el identificador del control que ha activado el evento
-	String identificador = ((ComboBox<SanitariosModelo>) evento.getSource()).getId();
-
-	// Generar la tabla correspondiente
-	switch (identificador) {
-	case "sanitarioFiltro1ComboBox":
-	    generarTabla(agendaSanitarios1TableView, sanitarioFiltro1ComboBox, fechaFiltro1DatePicker);
-	    break;
-	case "sanitarioFiltro2ComboBox":
-	    generarTabla(agendaSanitarios2TableView, sanitarioFiltro2ComboBox, fechaFiltro2DatePicker);
-	    break;
-	case "sanitarioFiltro3ComboBox":
-	    generarTabla(agendaSanitarios3TableView, sanitarioFiltro3ComboBox, fechaFiltro3DatePicker);
-	    break;
-	default:
-	    break;
-	}
-	
     }
     
     
@@ -329,9 +331,11 @@ public class AgendaSanitariosEdicionController {
 		    super.updateItem(item, empty);
 
 		    // Establecer como color de fondo el que se ha asignado al tratamiento
-		    if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(item)) 
-			    && Boolean.FALSE.equals(Utilidades.compararCadenas(item.get(2), Constantes.COLOR_BLANCO_HEXADECIMAL))) {
-			setStyle("-fx-background-color: " + item.get(2) + ";");
+		    if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(item)) && 
+			    Boolean.FALSE.equals(Utilidades.compararCadenas(item.get(2), Constantes.COLOR_BLANCO_HEXADECIMAL))) {
+			setStyle("-fx-background-color: " + Utilidades.comprobarCadena(item.get(2), Constantes.COLOR_BLANCO_HEXADECIMAL) + ";");
+		    } else {
+			setStyle("-fx-background-color: " +  Constantes.COLOR_BLANCO_HEXADECIMAL + ";");
 		    }
 
 		}
@@ -487,7 +491,7 @@ public class AgendaSanitariosEdicionController {
      * 
      * <p>Adicionalmente, asigna el modelo seleccionado al atributo que se utiliza en los métodos de dichos botones.</p>
      * 
-     * @param modelo {@link List}<{@link String}> listado de valores de la fila
+     * @param fila {@link List}<{@link String}> listado de valores de la fila
      * @param evento {@link MouseEvent} asociado al escuchador del doble click
      */
     private void editarCita(List<String> fila, MouseEvent evento) {
@@ -498,19 +502,17 @@ public class AgendaSanitariosEdicionController {
 	    // Controlador de la vista donde se editan las citas
 	    CitasEdicionController citasEdicionController;
 	    
-	    // Obtener el identificador del control que ha activado el evento
-//	    String identificador = ((TableView<List<String>>) evento.getSource()).getId();
-	    
 	    // Comprobar si se trata de una fila con o sin cita
 	    if(Boolean.TRUE.equals(Utilidades.compararCadenas(fila.get(1), Constantes.LIBRE))) {
 		
 		// Es un espacio SIN cita, se procede a dar de alta
 		UtilidadesVentanasEmergentes.abrirVentanaEmergente(CitasEdicionView.class, Constantes.CITAS_EDICION_CONTROLLER,
-			Accion.ALTA);
+			Accion.EDICION);
 
 		citasEdicionController = (CitasEdicionController) beansComponent
 			.obtenerControlador(Constantes.CITAS_EDICION_CONTROLLER);
-		citasEdicionController.setModelo(null);
+		CitasModelo modeloAlta = generarModeloAlta(fila, evento);
+		citasEdicionController.setModelo(modeloAlta);
 		citasEdicionController.initialize();
 		
 	    } else {
@@ -527,6 +529,57 @@ public class AgendaSanitariosEdicionController {
 	    }
 	    
 	}
+	
+    }
+    
+    /**
+     * <p>Método que genera un modelo de cita para el una alta desde la agenda cuando se ha hecho doble clic sobre una fila sin cita.</p>
+     * 
+     * @param fila {@link List}<{@link String}> listado de valores de la fila
+     * @param evento {@link MouseEvent} asociado al escuchador del doble click
+     * 
+     * @return {@link CitasModelo} modelo de citas para un alta desde la agenda
+     */
+    private CitasModelo generarModeloAlta(List<String> fila, MouseEvent evento) {
+	
+	// Inicializar el modelo que se va retornar al final del método
+	CitasModelo modeloAlta = new CitasModelo();
+	
+	// Comprobar que el evento pasado como parámetro NO es nulo
+	if(evento != null) {
+	    
+	    // Obtener el identificador numérico de la tabla donde se ha hecho doble click
+	    String identificador = Utilidades.comprobarCadenaNula(((TableView<?>) evento.getSource()).getId())
+		    .replaceAll(Constantes.PATRON_TODO_MENOS_ENTEROS.toString(), Constantes.CADENA_VACIA);
+
+	    // Establecer los valores por defecto en el alta dependiendo de la tabla de la agenda que se haya pulsado
+	    switch (identificador) {
+	    case Constantes.NUMERO_UNO:
+		modeloAlta.setDniSanitario(sanitarioFiltro1ComboBox.getValue().getDniSanitario());
+		modeloAlta.setNombreSanitario(sanitarioFiltro1ComboBox.getValue().toString());
+		modeloAlta.setFecha(fechaFiltro1DatePicker.getValue());
+		break;
+	    case Constantes.NUMERO_DOS:
+		modeloAlta.setDniSanitario(sanitarioFiltro2ComboBox.getValue().getDniSanitario());
+		modeloAlta.setNombreSanitario(sanitarioFiltro2ComboBox.getValue().toString());
+		modeloAlta.setFecha(fechaFiltro2DatePicker.getValue());
+		break;
+	    case Constantes.NUMERO_TRES:
+		modeloAlta.setDniSanitario(sanitarioFiltro3ComboBox.getValue().getDniSanitario());
+		modeloAlta.setNombreSanitario(sanitarioFiltro3ComboBox.getValue().toString());
+		modeloAlta.setFecha(fechaFiltro3DatePicker.getValue());
+		break;
+	    default:
+		break;
+	    }
+	    
+	    // Establecer la hora inicial de la cita en el alta
+	    modeloAlta.setHoraDesde(UtilidadesConversores.convertirCadenaHora(fila.get(0)));
+	    
+	}
+	
+	// Retornar el modelo de alta con los atributos necesarios establecidos
+	return modeloAlta;
 	
     }
     

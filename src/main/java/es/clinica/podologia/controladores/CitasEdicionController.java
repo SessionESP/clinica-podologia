@@ -203,12 +203,13 @@ public class CitasEdicionController {
 	    
 	    if(Boolean.TRUE.equals(modo)) {
 		
-		// Si existe, se trarta de una actualización
+		// Si existe, se trata de una actualización
 		prepararModificacion();
+		
 	    } else {
 		
-		// Si NO existe, se trarta de una inserción
-		prepararAlta();
+		// Si NO existe, se trata de una inserción desde la agenda, por lo que es necesario cargar ciertos valores del modelo
+		prepararAltaAgenda();
 	    }
 	    
 	} else {
@@ -388,11 +389,15 @@ public class CitasEdicionController {
 		// Comprobar si se ha realizaco correctamente el guardado del sanitario
 		if (Boolean.TRUE.equals(resultado)) {
 
-		    // El sanitario se ha guardado bien
+		    // La cita se ha guardado bien
 		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? citasModificacionCorrecta : citasAltaCorrecta);
 		    
 		    CitasListadoController citasListadoController = (CitasListadoController) beansComponent.obtenerControlador(Constantes.CITAS_LISTADO_CONTROLLER);
 		    citasListadoController.initialize();
+		    
+		    AgendaSanitariosEdicionController agendaSanitariosEdicionController = (AgendaSanitariosEdicionController) beansComponent.obtenerControlador(Constantes.AGENDA_SANITARIOS_EDICION_CONTROLLER);
+		    agendaSanitariosEdicionController.initialize();
+		    
 		    cancelarCita();
 
 		} else {
@@ -579,7 +584,7 @@ public class CitasEdicionController {
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloAltaVista);
 	
-	// Habilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
+	// Habilitar el cuadro de texto con el identificador de la cita, que es la clave primaria de la tabla
 	idCitaTextField.setDisable(Boolean.FALSE);
 	
 	// Inicializar todas las cajas de texto vacías
@@ -591,6 +596,33 @@ public class CitasEdicionController {
 	nombreTratamientoTextField.clear();
 	fechaDatePicker.setValue(null);
 	horaInicioComboBox.setValue(null);
+	horaFinComboBox.setValue(null);
+	observacionesTextArea.clear();
+	
+    }
+    
+    /**
+     * <p>Método donde se realizarán todos los preparativos para inicializar la vista para un alta nueva desde la agenda.</p>
+     */
+    private void prepararAltaAgenda() {
+	
+	// Aplicar el título de la vista
+	UtilidadesVentanasEmergentes.getDialogStage().setTitle(Utilidades.comprobarCadena(tituloAltaVista, ""));
+	
+	// Etiqueta con el título del formulario
+	tituloLabel.setText(tituloAltaVista);
+	
+	// Habilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
+	idCitaTextField.setDisable(Boolean.FALSE);
+	
+	// Inicializar todas las cajas de texto vacías
+	idCitaTextField.clear();
+	dniPacienteTextField.clear();
+	nombrePacienteTextField.clear();
+	cargarModeloSanitario(modelo.getDniSanitario());
+	nombreTratamientoTextField.clear();
+	fechaDatePicker.setValue(modelo.getFecha());
+	horaInicioComboBox.setValue(modelo.getHoraDesde());
 	horaFinComboBox.setValue(null);
 	observacionesTextArea.clear();
 	
@@ -609,8 +641,6 @@ public class CitasEdicionController {
 	
 	// Deshabilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
 	idCitaTextField.setDisable(Boolean.TRUE);
-	
-
 	
 	// Inicializar todas las cajas de texto, así como los modelos con los valores de los atributos del modelo principal de la cita
 	idCitaTextField.setText(UtilidadesConversores.convertirEnteroCadena(modelo.getIdCita()));

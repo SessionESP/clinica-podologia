@@ -174,6 +174,8 @@ public class CitasListadoController {
 		    if (item != null && 
 			    !Utilidades.compararCadenas(item.getColorTratamiento(), Constantes.COLOR_BLANCO_HEXADECIMAL)) {
 			setStyle("-fx-background-color: " + item.getColorTratamiento() + ";");
+		    } else {
+			setStyle("-fx-background-color: " +  Constantes.COLOR_BLANCO_HEXADECIMAL + ";");
 		    }
 
 		}

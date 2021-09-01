@@ -65,7 +65,6 @@ public class Constantes {
     public static final String CONFIGURACION_ELIMINACION_CITAS_ULTIMO_ANIO = "Último año";
     
     public static final String ESTADOS_AGENDA_SANITARIOS_EDICION_SANITARIO="estados.agenda.sanitario";
-    public static final String ESTADOS_AGENDA_SANITARIOS_EDICION_FECHA="estados.agenda.fecha";
     public static final String ESTADOS_CITAS_PAGINACIONES = "estados.citas.paginaciones";
     public static final String ESTADOS_CITAS_PAGINACION = "estados.citas.paginacion";
     public static final String ESTADOS_PACIENTES_PAGINACIONES = "estados.pacientes.paginaciones";

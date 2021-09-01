@@ -3,7 +3,6 @@ package es.clinica.podologia.controladores;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.configuration2.FileBasedConfiguration;
@@ -31,8 +30,6 @@ import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import es.clinica.podologia.vistas.CitasEdicionView;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -62,6 +59,8 @@ public class AgendaSanitariosEdicionController {
     private CitasService citasService;
     @Autowired
     private SanitariosService sanitariosService;
+    
+    private FileBasedConfigurationBuilder<FileBasedConfiguration> constructor;
     
     @FXML
     private ComboBox<SanitariosModelo> sanitarioFiltro1ComboBox;
@@ -114,8 +113,6 @@ public class AgendaSanitariosEdicionController {
 	cargarFiltros(sanitarioFiltro2ComboBox, listadoSanitarios, fechaFiltro2DatePicker);
 	cargarFiltros(sanitarioFiltro3ComboBox, listadoSanitarios, fechaFiltro3DatePicker);
 	
-	cargarEstado();
-	
 	// Generar cada una de las agendas
 	generarTabla(agendaSanitarios1TableView, sanitarioFiltro1ComboBox, fechaFiltro1DatePicker);
 	generarTabla(agendaSanitarios2TableView, sanitarioFiltro2ComboBox, fechaFiltro2DatePicker);
@@ -126,13 +123,12 @@ public class AgendaSanitariosEdicionController {
     }
     
     /**
-     * <p>Cargar el estado del formulario.</p>
+     * <p>Cargar los parámetros necesarios para generar cada una de las agendas de la vista.</p>
      */
     private void cargarParametrosCitas() {
 	
 	// Inicializar el constructor con los parámetros del fichero externo
-	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = 
-		UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
+	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
 	
 	try {
 
@@ -170,50 +166,6 @@ public class AgendaSanitariosEdicionController {
 
     }
     
-    /**
-     * <p>Cargar el estado del formulario.</p>
-     */
-    private void cargarEstado() {
-
-//	// Inicializar el constructor con los parámetros del fichero externo
-//	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(1),
-//		Constantes.COMA);
-//
-//	// Inicializar con valores por defecto
-//	List<Integer> paginaciones = Arrays.asList(10, 20, 30, 40, 50);
-//	Integer identificadorSanitario = Constantes.ESTADOS_PAGINACION_DEFECTO_10;
-//
-//	try {
-//
-//	    // Comprobar que el constructor y los parámetros NO son nulos
-//	    if (constructor != null && constructor.getConfiguration() != null) {
-//
-//		// Guardar la información del fichero de configuración en un objeto
-//		FileBasedConfiguration configuracion = constructor.getConfiguration();
-//
-//		paginaciones = UtilidadesConversores.convertirArrayCadenasListaEnteros(
-//			configuracion.getStringArray(Constantes.ESTADOS_CITAS_PAGINACIONES));
-//
-//		paginacion = configuracion.getInteger(Constantes.ESTADOS_CITAS_PAGINACION,
-//			Constantes.ESTADOS_PAGINACION_DEFECTO_10);
-//
-//	    }
-//
-//	} catch (ConfigurationException excepcion) {
-//
-//	    // Error al intentar guardar las propiedades del fichero en un objeto
-//	    TRAZAS.error(excepcion.getMessage());
-//	    excepcion.printStackTrace();
-//	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
-//
-//	}
-//
-//	ObservableList<Integer> opciones = FXCollections.observableArrayList();
-//	opciones.addAll(paginaciones);
-//	tamanioPaginacionComboBox.setItems(opciones);
-//	tamanioPaginacionComboBox.setValue(paginacion);
-
-    }
     
     /**
      * <p>Método invocado como un evento cuando cambia el valor de {@code AgendaEdicionController#fechaFiltroDatePicker} o {@code AgendaEdicionController#sanitarioFiltroComBox}.</p>
@@ -243,6 +195,12 @@ public class AgendaSanitariosEdicionController {
 		identificador = Utilidades
 			.comprobarCadenaNula(((ComboBox<SanitariosModelo>) evento.getSource()).getId())
 			.replaceAll(Constantes.PATRON_TODO_MENOS_ENTEROS.toString(), Constantes.CADENA_VACIA);
+		
+		// Guardar el nuevo valor en las propiedades
+		UtilidadesPropiedades.guardarPropiedad(
+			constructor, 
+			Constantes.ESTADOS_AGENDA_SANITARIOS_EDICION_SANITARIO + identificador, 
+			((ComboBox<SanitariosModelo>) evento.getSource()).getValue().getIdSanitario());
 	    }
 
 	    // Regenerar la tabla correspondiente
@@ -275,15 +233,61 @@ public class AgendaSanitariosEdicionController {
      */
     private void cargarFiltros(ComboBox<SanitariosModelo> listaDesplegable, List<SanitariosModelo> listadoSanitarios, DatePicker recogedorFecha) {
 	
-	// Comprobar que los parámetros de la lista desplegable NO son nulos
-	if(listaDesplegable != null && Utilidades.comprobarColeccion(listadoSanitarios)) {
-	    
-	    // Cargar e inicializar la lista desplegable
-	    listaDesplegable.getItems().clear();
-	    listaDesplegable.getItems().addAll(listadoSanitarios);
-	    listaDesplegable.getSelectionModel().selectFirst();
-	    
+	// Inicializar el constructor con los parámetros del fichero externo
+	constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(1),
+		Constantes.COMA);
+	
+	try {
+
+	    // Comprobar que el constructor y los parámetros NO son nulos
+	    if (constructor != null && constructor.getConfiguration() != null) {
+
+		// Guardar la información del fichero de configuración en un objeto
+		FileBasedConfiguration configuracion = constructor.getConfiguration();
+		
+		// Obtener el identificador numérico de la lista desplegable que se va a cargar
+		String identificador = Utilidades.comprobarCadenaNula((listaDesplegable.getId())
+			.replaceAll(Constantes.PATRON_TODO_MENOS_ENTEROS.toString(), Constantes.CADENA_VACIA));
+		
+		Integer identificadorSanitario = configuracion.getInteger(Constantes.ESTADOS_AGENDA_SANITARIOS_EDICION_SANITARIO + identificador, 0);
+		
+		// Comprobar que el listado de sanitarios NO es nulo NI está vacío
+		if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoSanitarios))) {
+
+		    // Cargar e inicializar la lista desplegable
+		    listaDesplegable.getItems().clear();
+		    listaDesplegable.getItems().addAll(listadoSanitarios);
+		    
+		    if(identificadorSanitario != null && identificadorSanitario != 0) {
+			// La propiedad tiene valor, se busca el sanitario correspondente y se asigna como valor de inicio
+			listaDesplegable.getSelectionModel().select(sanitariosService.encontrarSanitario(identificadorSanitario));
+		    } else {
+			// La propiedad NO tiene valor, se selecciona el primer sanitario del listado por defecto
+			listaDesplegable.getSelectionModel().selectFirst();
+
+		    }
+		    
+		    // Guardar el (nuevo) valor en las propiedades
+		    UtilidadesPropiedades.guardarPropiedad(
+			    constructor,
+			    Constantes.ESTADOS_AGENDA_SANITARIOS_EDICION_SANITARIO + identificador,
+			    listaDesplegable.getValue().getIdSanitario());
+		    
+
+		}
+
+	    }
+
+	} catch (ConfigurationException excepcion) {
+
+	    // Error al intentar guardar las propiedades del fichero en un objeto
+	    TRAZAS.error(excepcion.getMessage());
+	    excepcion.printStackTrace();
+	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+
 	}
+	
+
 	
 	// Comprobar que el parámetro con el control de la fecha NO es nulo
 	if(recogedorFecha != null) {

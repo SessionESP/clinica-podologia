@@ -2,10 +2,7 @@ package es.clinica.podologia.modelos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.StringJoiner;
 
-import es.clinica.podologia.constantes.Constantes;
-import es.clinica.podologia.utilidades.UtilidadesConversores;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -206,25 +203,6 @@ public class CitasModelo {
     
     public StringProperty observacionesProperty() {
 	return this.observaciones;
-    }
-
-    /**
-     * <p>Se sobreescribe el método {code Object#toString()}.</p>
-     * <p>Retornará el identificador de la cita y el nombre del paciente separados por un guion espaciado.</p>
-     * 
-     * @see StringJoiner
-     */
-    @Override
-    public String toString() {
-	
-	// Inicializar la cadena donde se concatenarán los valores que se representarán
-	StringJoiner cadenaCita = new StringJoiner(Constantes.GUION_ESPACIADO);
-	
-	cadenaCita.add(UtilidadesConversores.convertirEnteroCadena(getIdCita()));
-	cadenaCita.add(getNombrePaciente());
-	
-	// Retornar los calores en una cadena separados por un guion espaciado
-	return cadenaCita.toString();
     }
 
 }

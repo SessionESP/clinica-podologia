@@ -86,8 +86,14 @@ public class AgendaSanitariosEdicionController {
     @Value("${spring.config.import}")
     private List<String> propiedadesExternas;
     
-    @Value("${agenda.edicion.columna1}")
-    private String columna1;
+    @Value("${agenda.edicion.columna.horas}")
+    private String columnaHoras;
+    @Value("${agenda.edicion.columna.identificador}")
+    private String columnaIdentificador;
+    @Value("${agenda.edicion.columna.paciente}")
+    private String columnaPaciente;
+    @Value("${agenda.edicion.columna.color}")
+    private String columnaColor;
     
     private LocalTime apertura;
     private LocalTime cierre;
@@ -311,7 +317,7 @@ public class AgendaSanitariosEdicionController {
 	if (tabla != null) {
 	    
 	    // Generar las columnas de la tabla
-	    generarColumnas(tabla, listaDesplegable);
+	    generarColumnas(tabla);
 
 	    // Generar las filas de la tabla
 	    generarFilas(tabla, listaDesplegable, recogedorFecha);
@@ -336,8 +342,8 @@ public class AgendaSanitariosEdicionController {
 
 		    // Establecer como color de fondo el que se ha asignado al tratamiento
 		    if (Boolean.TRUE.equals(Utilidades.comprobarColeccion(item)) && 
-			    Boolean.FALSE.equals(Utilidades.compararCadenas(item.get(2), Constantes.COLOR_BLANCO_HEXADECIMAL))) {
-			setStyle("-fx-background-color: " + Utilidades.comprobarCadena(item.get(2), Constantes.COLOR_BLANCO_HEXADECIMAL) + ";");
+			    Boolean.FALSE.equals(Utilidades.compararCadenas(item.get(1), Constantes.COLOR_BLANCO_HEXADECIMAL))) {
+			setStyle("-fx-background-color: " + Utilidades.comprobarCadena(item.get(3), Constantes.COLOR_BLANCO_HEXADECIMAL) + ";");
 		    } else {
 			setStyle("-fx-background-color: " +  Constantes.COLOR_BLANCO_HEXADECIMAL + ";");
 		    }
@@ -355,21 +361,23 @@ public class AgendaSanitariosEdicionController {
      * <p>Método que genera las columnas de la tabla de la agenda.</p>
      * 
      * @param tabla {@link TableView}<{@link List}<{@link String}>> tabla con la información de la agenda
-     * @param sanitarioFiltroComboBox {@link ComboBox}<{@link SanitariosModelo}> lista desplegable con un listado de sanitarios
      */
-    private void generarColumnas(TableView<List<String>> tabla, ComboBox<SanitariosModelo> listaDesplegable) {
+    private void generarColumnas(TableView<List<String>> tabla) {
 	
 	// Limpiar la tabla de columnas anteriores, por si las tuviera (caso de refrescar la vista)
 	tabla.getColumns().clear();
 	
 	// Genera la primera columna con las horas
-	generarColumna(tabla, columna1, 0, Boolean.TRUE);
+	generarColumna(tabla, columnaHoras, 0, Boolean.TRUE);
 	
 	// Generar una segunda columna con las citas del sanitario filtrado
-	generarColumna(tabla, listaDesplegable.getValue().toString(), 1, Boolean.TRUE);
+	generarColumna(tabla, columnaIdentificador, 1, Boolean.FALSE);
+	
+	// Generar una segunda columna con las citas del sanitario filtrado
+	generarColumna(tabla, columnaPaciente, 2, Boolean.TRUE);
 	
 	// Genera la primera columna con las horas
-	generarColumna(tabla, columna1, 2, Boolean.FALSE);
+	generarColumna(tabla, columnaColor, 3, Boolean.FALSE);
 	
     }
     
@@ -389,6 +397,7 @@ public class AgendaSanitariosEdicionController {
 	// Determinar el valor dentro de la fila que le corresponde
 	columna.setCellValueFactory(dato -> new SimpleStringProperty(dato.getValue().get(indice)));
 	
+	// Establecer si la columna es visible o no
 	columna.setVisible(Boolean.TRUE.equals(visible) ? visible : Boolean.FALSE);
 	
 	// Añadir la columna a la tabla
@@ -462,7 +471,8 @@ public class AgendaSanitariosEdicionController {
 		    UtilidadesConversores.convertirCadenaHora(hora), 
 		    listaDesplegable.getValue().getDniSanitario());
 	    
-	    valoresFila.add(cita != null ? cita.toString() : Constantes.LIBRE);
+	    valoresFila.add(cita != null ? UtilidadesConversores.convertirEnteroCadena(cita.getIdCita()) : Constantes.LIBRE);
+	    valoresFila.add(cita != null ? cita.getNombrePaciente() : Constantes.LIBRE);
 	    valoresFila.add(cita != null ? cita.getColorTratamiento() : Constantes.COLOR_BLANCO_HEXADECIMAL);
 	    
 	}
@@ -482,7 +492,7 @@ public class AgendaSanitariosEdicionController {
     private void seleccionarFila(List<String> fila) {
 	
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(fila)) && Boolean.FALSE.equals(Utilidades.compararCadenas(fila.get(1), Constantes.LIBRE))) {
-	    modeloSeleccionado = citasService.encontrarCita(UtilidadesConversores.convertirCadenaEntero(fila.get(1).split(Constantes.GUION_ESPACIADO)[0]));
+	    modeloSeleccionado = citasService.encontrarCita(UtilidadesConversores.convertirCadenaEntero(fila.get(1)));
 	    cargarDetalle();
 	} else {
 	    limpiarDetalle();

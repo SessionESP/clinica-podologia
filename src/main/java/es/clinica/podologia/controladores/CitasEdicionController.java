@@ -134,8 +134,6 @@ public class CitasEdicionController {
     private Label tituloLabel;
     
     @FXML
-    private TextField idCitaTextField;
-    @FXML
     private TextField dniPacienteTextField;
     @FXML
     private TextField nombrePacienteTextField;
@@ -189,8 +187,6 @@ public class CitasEdicionController {
 	cargarAutocompletados();
 	
 	cargarHorarios();
-	
-	idCitaTextField.setDisable(Boolean.TRUE);
 	
 	// Comprobar si el modelo es nulo
 	if(modelo != null) {
@@ -392,9 +388,11 @@ public class CitasEdicionController {
 		    // La cita se ha guardado bien
 		    UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? citasModificacionCorrecta : citasAltaCorrecta);
 		    
+		    // Refresca el listado de citas
 		    CitasListadoController citasListadoController = (CitasListadoController) beansComponent.obtenerControlador(Constantes.CITAS_LISTADO_CONTROLLER);
 		    citasListadoController.initialize();
 		    
+		    // Refresca la agenda
 		    AgendaSanitariosEdicionController agendaSanitariosEdicionController = (AgendaSanitariosEdicionController) beansComponent.obtenerControlador(Constantes.AGENDA_SANITARIOS_EDICION_CONTROLLER);
 		    agendaSanitariosEdicionController.initialize();
 		    
@@ -584,11 +582,7 @@ public class CitasEdicionController {
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloAltaVista);
 	
-	// Habilitar el cuadro de texto con el identificador de la cita, que es la clave primaria de la tabla
-	idCitaTextField.setDisable(Boolean.FALSE);
-	
 	// Inicializar todas las cajas de texto vacías
-	idCitaTextField.clear();
 	dniPacienteTextField.clear();
 	nombrePacienteTextField.clear();
 	dniSanitarioTextField.clear();
@@ -612,11 +606,7 @@ public class CitasEdicionController {
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloAltaVista);
 	
-	// Habilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
-	idCitaTextField.setDisable(Boolean.FALSE);
-	
 	// Inicializar todas las cajas de texto vacías
-	idCitaTextField.clear();
 	dniPacienteTextField.clear();
 	nombrePacienteTextField.clear();
 	cargarModeloSanitario(modelo.getDniSanitario());
@@ -639,11 +629,7 @@ public class CitasEdicionController {
 	// Etiqueta con el título del formulario
 	tituloLabel.setText(tituloEdicionVista);
 	
-	// Deshabilitar el cuadro de texto con el DNI, que es la clave primaria de la tabla
-	idCitaTextField.setDisable(Boolean.TRUE);
-	
 	// Inicializar todas las cajas de texto, así como los modelos con los valores de los atributos del modelo principal de la cita
-	idCitaTextField.setText(UtilidadesConversores.convertirEnteroCadena(modelo.getIdCita()));
 	cargarModeloPaciente(modelo.getDniPaciente());
 	cargarModeloSanitario(modelo.getDniSanitario());
 	cargarModeloTratamiento(UtilidadesConversores.convertirEnteroCadena(modelo.getIdTratamiento()));

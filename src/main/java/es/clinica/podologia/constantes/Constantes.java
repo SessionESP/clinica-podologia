@@ -41,6 +41,12 @@ public class Constantes {
     public static final String ANCHURA = "anchura";
     public static final String REDIMENSIONABLE = "redimensionable";
     
+    public static final Integer LIMITE_3 = 3;
+    public static final Integer LIMITE_20 = 20;
+    public static final Integer LIMITE_50 = 50;
+    public static final Integer LIMITE_100 = 100;
+    public static final Integer LIMITE_1024 = 1024;
+    
     public static final String PATRON_FECHA = "dd-MM-yyyy";
     public static final String PATRON_HORA = "HH:mm:ss";
     public static final String PATRON_MAYUSCULAS = "(?<!^)(?=[A-Z])";

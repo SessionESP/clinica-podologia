@@ -317,8 +317,8 @@ public class ConfiguracionEdicionController {
 		Constantes.CONFIGURACION_DURACION, 
 		Constantes.CONFIGURACION_DURACION_DEFECTO);
 
-	duracionCitasTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_NUMEROS_ENTEROS, 2));
 	duracionCitasTextField.setText(UtilidadesConversores.convertirEnteroCadena(duracionCitas));
+	duracionCitasTextField.setTextFormatter(UtilidadesControles.formateadorConPatron(Constantes.PATRON_NUMEROS_ENTEROS, 2));
 	
     }
     

@@ -47,20 +47,41 @@ public class UtilidadesControles {
     }
     
     /**
-     * <p>Método que genera un formateador para una caja de texto.</p>
+     * <p>Método que genera un formateador para una caja de texto sin ningún patrón. Únicamente controlará el número de caracteres</p>
+     * <p>Útil para cajas de texto donde no se requiere validar que tengan un determinado formato</p>
+     * 
+     * @param numeroCaracteres {@link Integer} número máximo de caracteres del campo
+     * 
+     * @return {@link TextFormatter} {@link String} 
+     */
+    public static TextFormatter<String> formateadorSinPatron(Integer numeroCaracteres) {
+	
+	// Filtro que añade un número máximo de caracteres
+	UnaryOperator<TextFormatter.Change> filtro = cambios -> cambios.getControlNewText().length() <= numeroCaracteres ? cambios : null;
+	
+	// Retornar un formateador con el filtro creado
+	return new TextFormatter<>(filtro);
+	
+    }
+    
+    /**
+     * <p>Método que genera un formateador para una caja de texto de acuerdo a un patrón y un límite de caracteres.</p>
      * 
      * @param patron {@link Pattern} patrón por el que se filtrará
      * @param numeroCaracteres {@link Integer} número máximo de caracteres del campo
      * 
      * @return {@link TextFormatter} {@link String} 
      */
-    public static TextFormatter<String> formateador(Pattern patron, Integer numeroCaracteres) {
+    public static TextFormatter<String> formateadorConPatron(Pattern patron, Integer numeroCaracteres) {
 	
+	// Filtro que añade un patrón determinado y un número máximo de caracteres
 	UnaryOperator<TextFormatter.Change> filtro = 
 		cambios -> 
 			cambios.getControlNewText().matches(patron.toString()) && cambios.getControlNewText().length() <= numeroCaracteres ? 
 			cambios : 
 			null;
+	
+	// Retornar un formateador con el filtro creado
 	return new TextFormatter<>(filtro);
 	
     }

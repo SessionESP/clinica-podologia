@@ -12,6 +12,7 @@ import es.clinica.podologia.modelos.SanitariosModelo;
 import es.clinica.podologia.servicios.SanitariosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
+import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -87,9 +88,6 @@ public class SanitariosEdicionController {
 	// Comprobar si el modelo es nulo
 	if(modelo != null) {
 	    
-	    // Cargar los formateadores de cada una de las cajas de texto
-	    cargarFormateadores();
-	    
 	    // En caso de que NO sea nulo, comprobar si existe
 	    modo = sanitarioService.comprobarExistenciaSanitario(modelo.getIdSanitario());
 	    
@@ -111,6 +109,9 @@ public class SanitariosEdicionController {
 	    prepararAlta();
 	    
 	}
+	
+	// Cargar los formateadores de cada una de las cajas de texto
+	cargarFormateadores();
 	
     }
     
@@ -223,8 +224,16 @@ public class SanitariosEdicionController {
     }
     
     
+    /**
+     * <p>En este método se prepararán los formateadores de todos los controles de la vista.</p>
+     */
     private void cargarFormateadores() {
-//	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
+	
+	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
+	nombreTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
+	apellidosTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
+	especialidadTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
+	
     }
     
     public SanitariosModelo getModelo() {

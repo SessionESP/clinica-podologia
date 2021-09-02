@@ -15,6 +15,7 @@ import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.servicios.PacientesService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
+import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
 import javafx.fxml.FXML;
@@ -143,12 +144,12 @@ public class PacientesEdicionController {
 	    prepararAlta();
 	    
 	}
-	
-	// Cargar los formateadores de cada una de las cajas de texto
-	cargarFormateadores();
 
 	// Carga los Escuchadores de los controles de la vista
 	cargarEscuchadores();
+	
+	// Cargar los formateadores de cada una de las cajas de texto
+	cargarFormateadores();
 	
     }
     
@@ -366,14 +367,26 @@ public class PacientesEdicionController {
 	modelo.setAdjunto(UtilidadesConversores.convertirFicheroArrayBytes(archivo));
     }
     
-    private void cargarFormateadores() {
-//	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
-    }
-    
+    /**
+     * <p>En este método se cargan los escuchadores que realizan alguna acción cuando se produce un determinados evento en un control.</p>
+     */
     private void cargarEscuchadores() {
 	
 	// Recalcular la edad cada vez que cambia la fecha de nacimiento
 	fechaNacimientoDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> edadLabel.setText(UtilidadesConversores.imprimirEdad(newValue)));
+	
+    }
+    
+    /**
+     * <p>En este método se prepararán los formateadores de todos los controles de la vista.</p>
+     */
+    private void cargarFormateadores() {
+	
+	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
+	nombreTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
+	apellidosTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
+	direccionTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100));
+	telefonoTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
 	
     }
     

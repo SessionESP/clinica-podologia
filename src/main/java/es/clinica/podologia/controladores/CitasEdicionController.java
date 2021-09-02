@@ -29,6 +29,7 @@ import es.clinica.podologia.servicios.SanitariosService;
 import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
 import es.clinica.podologia.utilidades.UtilidadesAlertas;
+import es.clinica.podologia.utilidades.UtilidadesControles;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 import es.clinica.podologia.utilidades.UtilidadesPropiedades;
 import es.clinica.podologia.utilidades.UtilidadesVentanasEmergentes;
@@ -191,9 +192,6 @@ public class CitasEdicionController {
 	// Comprobar si el modelo es nulo
 	if(modelo != null) {
 	    
-	    // Cargar los formateadores de cada una de las cajas de texto
-	    cargarFormateadores();
-	    
 	    // En caso de que NO sea nulo, comprobar si existe
 	    modo = citasService.comprobarExistenciaCita(modelo.getIdCita());
 	    
@@ -214,6 +212,9 @@ public class CitasEdicionController {
 	    prepararAlta();
 	    
 	}
+	
+	// Cargar los formateadores de cada una de las cajas de texto
+	cargarFormateadores();
 	
     }
     
@@ -647,7 +648,8 @@ public class CitasEdicionController {
     private void cargarHorarios() {
 	
 	// Inicializar el constructor con los parámetros del fichero externo
-	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
+	FileBasedConfigurationBuilder<FileBasedConfiguration> constructor = 
+		UtilidadesPropiedades.crearConstructor(new Parameters(), propiedadesExternas.get(0), Constantes.COMA);
 	
 	try {
 
@@ -682,7 +684,7 @@ public class CitasEdicionController {
 		// Iterar sobre el número de filas obtenido
 		for (int i = 0; i < numeroElementos; i++) {
 		    horaInicioComboBox.getItems().add(apertura.plusMinutes(UtilidadesConversores.convertirEnteroLong(i * duracionCitas)));
-		    horaFinComboBox.getItems().add(apertura.plusMinutes(UtilidadesConversores.convertirEnteroLong(i * duracionCitas)));
+		    horaFinComboBox.getItems().add(apertura.plusMinutes(UtilidadesConversores.convertirEnteroLong((i + 1) * duracionCitas)));
 		}
 
 	    }
@@ -699,8 +701,18 @@ public class CitasEdicionController {
     }
     
     
+    /**
+     * <p>En este método se prepararán los formateadores de todos los controles de la vista.</p>
+     */
     private void cargarFormateadores() {
-//	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_DNI, 9));
+	
+	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
+	nombrePacienteTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100 + 1));
+	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
+	nombreSanitarioTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100 + 1));
+	nombreTratamientoTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
+	observacionesTextArea.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100));
+	
     }
     
     

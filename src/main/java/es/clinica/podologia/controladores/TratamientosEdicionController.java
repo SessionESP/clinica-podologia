@@ -110,7 +110,8 @@ public class TratamientosEdicionController {
 	    
 	}
 	
-	precioTextField.setTextFormatter(UtilidadesControles.formateador(Constantes.PATRON_NUMEROS_ENTEROS, 3));
+	// Cargar los formateadores de todos los controles de la vista
+	cargarFormateadores();
 	
     }
     
@@ -211,6 +212,17 @@ public class TratamientosEdicionController {
 	descripcionTextArea.setText(modelo.getDescripcion());
 	colorColorPicker.setValue(UtilidadesConversores.convertirHexadecimalColor(modelo.getColor()));
 	precioTextField.setText(UtilidadesConversores.convertirDecimalCadena(modelo.getPrecio()));
+	
+    }
+    
+    /**
+     * <p>En este método se prepararán los formateadores de todos los controles de la vista.</p>
+     */
+    private void cargarFormateadores() {
+	
+	nombreTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
+	descripcionTextArea.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100));
+	precioTextField.setTextFormatter(UtilidadesControles.formateadorConPatron(Constantes.PATRON_NUMEROS_ENTEROS, Constantes.LIMITE_3));
 	
     }
 

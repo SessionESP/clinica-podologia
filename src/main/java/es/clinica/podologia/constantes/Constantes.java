@@ -28,6 +28,7 @@ public class Constantes {
     public static final String EXTENSION_PDF = ".pdf";
     public static final String GUION_BAJO = "_";
     public static final String PUNTO = ".";
+    public static final String SALTO_LINEA = "\n";
     public static final String ANIOS = "años";
     public static final String LIBRE = "Libre";
     public static final String ZONA_HORARIA = "+00:00";
@@ -96,6 +97,10 @@ public class Constantes {
     public static final String SANITARIOS_EDICION_CONTROLLER = "sanitariosEdicionController";
     public static final String TRATAMIENTOS_LISTADO_CONTROLLER = "tratamientosListadoController";
     public static final String TRATAMIENTOS_EDICION_CONTROLLER = "tratamientosEdicionController";
+    
+    public static final String ERROR_SQLLITE_EXCEPTION = "SQLITE_CONSTRAINT_UNIQUE";
+    public static final String ERROR_DNI_PACIENTE = "dni_paciente";
+    public static final String ERROR_DNI_SANITARIO = "dni_sanitario";
     
     public static final DateTimeFormatter FORMATEADOR_FECHA = DateTimeFormatter.ofPattern(PATRON_FECHA);
 

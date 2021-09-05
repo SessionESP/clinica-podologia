@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.componentes.BeansComponent;
+import es.clinica.podologia.componentes.ValidacionesComponent;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.PacientesModelo;
@@ -69,6 +70,9 @@ public class PacientesEdicionController {
     @Value("${pacientes.abrir.sinadjunto}")
     private String sinAdjunto;
     
+    @Value("${pacientes.error.dni.vacio}")
+    private String errorDniPacienteVacio;
+    
     @FXML
     private Label tituloLabel;
 
@@ -105,6 +109,9 @@ public class PacientesEdicionController {
     
     @Autowired
     private BeansComponent beansComponent;
+    
+    @Autowired
+    private ValidacionesComponent validacionesComponent;
     
     @Autowired
     private PacientesService pacienteService;
@@ -150,6 +157,9 @@ public class PacientesEdicionController {
 	
 	// Cargar los formateadores de cada una de las cajas de texto
 	cargarFormateadores();
+	
+	// Cargar los validadores de cada una de las cajas de texto que lo requieran
+	cargarValidadores();
 	
     }
     
@@ -203,9 +213,7 @@ public class PacientesEdicionController {
 
 	    } catch (InterruptedException | IOException excepcion) {
 		// Error intentando abrir el adjunto
-		TRAZAS.error(excepcion.getMessage());
-		excepcion.printStackTrace();
-		UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+		validacionesComponent.visualizarError(excepcion, TRAZAS);
 		Thread.currentThread().interrupt();
 	    }
 	    
@@ -260,10 +268,8 @@ public class PacientesEdicionController {
 	    
 	} catch (Exception excepcion) {
 	    
-	    // Error al intentar guardar el tratamiento
-	    TRAZAS.error(excepcion.getMessage());
-	    excepcion.printStackTrace();
-	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    // Error al intentar guardar el paciente
+	    validacionesComponent.visualizarError(excepcion, TRAZAS);
 	    
 	}
 	
@@ -382,13 +388,23 @@ public class PacientesEdicionController {
      */
     private void cargarFormateadores() {
 	
-	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
-	nombreTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
-	apellidosTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
-	direccionTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100));
-	telefonoTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
+	dniPacienteTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_20));
+	nombreTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_50));
+	apellidosTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_50));
+	direccionTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_100));
+	telefonoTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_20));
 	
     }
+    
+    /**
+     * <p>Método donde se van a cargar los validadores de cada un ode los campos de la vista.</p>
+     */
+    private void cargarValidadores() {
+	
+	UtilidadesControles.cargarValidadorNulo(dniPacienteTextField, errorDniPacienteVacio, Boolean.TRUE);
+	
+    }
+    
     
     /**
      * <p>Método que desasigna el adjunto seleccionado al atributo correspondiente del modelo y actualiza el campo de la vista.</p>

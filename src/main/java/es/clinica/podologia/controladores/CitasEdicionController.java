@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.componentes.BeansComponent;
+import es.clinica.podologia.componentes.ValidacionesComponent;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.CitasModelo;
@@ -117,6 +118,9 @@ public class CitasEdicionController {
     
     @Autowired
     private BeansComponent beansComponent;
+    
+    @Autowired
+    private ValidacionesComponent validacionesComponent;
     
     @Autowired
     private CitasService citasService;
@@ -258,9 +262,7 @@ public class CitasEdicionController {
 	} catch (Exception excepcion) {
 	    
 	    // Error al intentar guardar el paciente
-	    TRAZAS.error(excepcion.getMessage());
-	    excepcion.printStackTrace();
-	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    validacionesComponent.visualizarError(excepcion, TRAZAS);
 	    
 	}
 	
@@ -306,9 +308,7 @@ public class CitasEdicionController {
 	} catch (Exception excepcion) {
 	    
 	    // Error al intentar guardar el paciente
-	    TRAZAS.error(excepcion.getMessage());
-	    excepcion.printStackTrace();
-	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    validacionesComponent.visualizarError(excepcion, TRAZAS);
 	    
 	}
 	
@@ -353,9 +353,7 @@ public class CitasEdicionController {
 	} catch (Exception excepcion) {
 	    
 	    // Error al intentar guardar el paciente
-	    TRAZAS.error(excepcion.getMessage());
-	    excepcion.printStackTrace();
-	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    validacionesComponent.visualizarError(excepcion, TRAZAS);
 	    
 	}
     }
@@ -411,9 +409,7 @@ public class CitasEdicionController {
 	} catch (Exception excepcion) {
 	    
 	    // Error al intentar guardar la cita
-	    TRAZAS.error(excepcion.getMessage());
-	    excepcion.printStackTrace();
-	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    validacionesComponent.visualizarError(excepcion, TRAZAS);
 	    
 	}
 	
@@ -706,12 +702,12 @@ public class CitasEdicionController {
      */
     private void cargarFormateadores() {
 	
-	dniPacienteTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
-	nombrePacienteTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100 + 1));
-	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
-	nombreSanitarioTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100 + 1));
-	nombreTratamientoTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
-	observacionesTextArea.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100));
+	dniPacienteTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_20));
+	nombrePacienteTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_100 + 1));
+	dniSanitarioTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_20));
+	nombreSanitarioTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_100 + 1));
+	nombreTratamientoTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_50));
+	observacionesTextArea.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_100));
 	
     }
     

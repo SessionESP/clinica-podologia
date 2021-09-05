@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.componentes.BeansComponent;
+import es.clinica.podologia.componentes.ValidacionesComponent;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.SanitariosModelo;
@@ -48,6 +49,9 @@ public class SanitariosEdicionController {
     @Value("${sanitarios.modificacion.guardado.false}")
     private String modificacionIncorrecta;
     
+    @Value("${sanitarios.error.dni.vacio}")
+    private String errorDniSanitarioVacio;
+    
     
     @FXML
     private Label tituloLabel;
@@ -69,6 +73,9 @@ public class SanitariosEdicionController {
     
     @Autowired
     private BeansComponent beansComponent;
+    
+    @Autowired
+    private ValidacionesComponent validacionesComponent;
     
     @Autowired
     private SanitariosService sanitarioService;
@@ -113,6 +120,9 @@ public class SanitariosEdicionController {
 	// Cargar los formateadores de cada una de las cajas de texto
 	cargarFormateadores();
 	
+	// Cargar los validadores de cada una de las cajas de texto que lo requieran
+	cargarValidadores();
+	
     }
     
     /**
@@ -156,10 +166,8 @@ public class SanitariosEdicionController {
 	    
 	} catch (Exception excepcion) {
 	    
-	    // Error al intentar guardar el tratamiento
-	    TRAZAS.error(excepcion.getMessage());
-	    excepcion.printStackTrace();
-	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    // Error al intentar guardar el sanitario
+	    validacionesComponent.visualizarError(excepcion, TRAZAS);
 	    
 	}
 	
@@ -229,10 +237,19 @@ public class SanitariosEdicionController {
      */
     private void cargarFormateadores() {
 	
-	dniSanitarioTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_20));
-	nombreTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
-	apellidosTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
-	especialidadTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
+	dniSanitarioTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_20));
+	nombreTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_50));
+	apellidosTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_50));
+	especialidadTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_50));
+	
+    }
+    
+    /**
+     * <p>Método donde se van a cargar los validadores de cada un ode los campos de la vista.</p>
+     */
+    private void cargarValidadores() {
+	
+	UtilidadesControles.cargarValidadorNulo(dniSanitarioTextField, errorDniSanitarioVacio, Boolean.TRUE);
 	
     }
     

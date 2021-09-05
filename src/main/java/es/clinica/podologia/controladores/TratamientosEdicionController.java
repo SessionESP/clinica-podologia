@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import es.clinica.podologia.componentes.BeansComponent;
+import es.clinica.podologia.componentes.ValidacionesComponent;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.javafx.jfxsupport.FXMLController;
 import es.clinica.podologia.modelos.TratamientosModelo;
@@ -52,6 +53,7 @@ public class TratamientosEdicionController {
     @Value("${tratamientos.modificacion.guardado.false}")
     private String modificacionIncorrecta;
     
+    
     @FXML
     private Label tituloLabel;
 
@@ -71,6 +73,9 @@ public class TratamientosEdicionController {
     
     @Autowired
     private BeansComponent beansComponent;
+    
+    @Autowired
+    private ValidacionesComponent validacionesComponent;
     
     @Autowired
     private TratamientosService tratamientoService;
@@ -156,9 +161,7 @@ public class TratamientosEdicionController {
 	} catch (Exception excepcion) {
 	    
 	    // Error al intentar guardar el tratamiento
-	    TRAZAS.error(excepcion.getMessage());
-	    excepcion.printStackTrace();
-	    UtilidadesAlertas.mostrarAlertaError(excepcion.getMessage());
+	    validacionesComponent.visualizarError(excepcion, TRAZAS);
 	    
 	}
 
@@ -220,9 +223,9 @@ public class TratamientosEdicionController {
      */
     private void cargarFormateadores() {
 	
-	nombreTextField.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_50));
-	descripcionTextArea.setTextFormatter(UtilidadesControles.formateadorSinPatron(Constantes.LIMITE_100));
-	precioTextField.setTextFormatter(UtilidadesControles.formateadorConPatron(Constantes.PATRON_NUMEROS_ENTEROS, Constantes.LIMITE_3));
+	nombreTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_50));
+	descripcionTextArea.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_100));
+	precioTextField.setTextFormatter(UtilidadesControles.cargarFormateadorConPatron(Constantes.PATRON_NUMEROS_ENTEROS, Constantes.LIMITE_3));
 	
     }
 

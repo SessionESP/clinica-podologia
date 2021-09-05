@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -7,86 +9,102 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane styleClass="panel-default" stylesheets="@../estilos/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.clinica.podologia.controladores.TratamientosListadoController">
-   <center>
-      <AnchorPane prefHeight="800.0" prefWidth="1600.0" styleClass="panel-default" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="tituloLabel" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" text="Listado de tratamientos" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
-               <font>
-                  <Font name="Comic Sans MS Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="busquedaLabel" layoutX="50.0" layoutY="150.0" prefHeight="40.0" prefWidth="160.0" text="Búsqueda" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="160.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="busquedaTextField" layoutX="216.0" layoutY="150.0" prefHeight="40.0" prefWidth="600.0" promptText="*" AnchorPane.leftAnchor="560.0" AnchorPane.topAnchor="160.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font>
-            </TextField>
-            <Label fx:id="descripcionLabel" layoutX="346.0" layoutY="114.0" prefHeight="40.0" text="Descripción" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="240.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font></Label>
-            <TextArea fx:id="descripcionTextArea" disable="true" editable="false" layoutX="174.0" layoutY="189.0" prefHeight="300.0" prefWidth="1040.0" promptText="Descripción del tratamiento" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="280.0">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font>
-            </TextArea>
-                  <Label fx:id="colorLabel" prefHeight="40.0" prefWidth="120.0" text="Color" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="600.0">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Label>
-                  <ColorPicker fx:id="colorColorPicker" prefHeight="40.0" prefWidth="120.0" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="600.0" />
+	<center>
+		<AnchorPane prefHeight="800.0" prefWidth="1600.0" styleClass="panel-default" BorderPane.alignment="CENTER">
+			<children>
+				<Label fx:id="tituloLabel" alignment="CENTER" prefHeight="40.0" prefWidth="280.0" text="Listado de tratamientos" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="40.0">
+					<font>
+						<Font name="Comic Sans MS Bold" size="18.0" />
+					</font>
+				</Label>
+				<Label fx:id="busquedaLabel" layoutX="50.0" layoutY="150.0" prefHeight="40.0" prefWidth="160.0" text="Búsqueda" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="160.0">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</Label>
+				<TextField fx:id="busquedaTextField" layoutX="216.0" layoutY="150.0" prefHeight="40.0" prefWidth="600.0" promptText="*" AnchorPane.leftAnchor="560.0" AnchorPane.topAnchor="160.0">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</TextField>
+				<Label fx:id="descripcionLabel" layoutX="346.0" layoutY="114.0" prefHeight="40.0" text="Descripción" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="240.0">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</Label>
+				<TextArea fx:id="descripcionTextArea" disable="true" editable="false" layoutX="174.0" layoutY="189.0" prefHeight="300.0" prefWidth="1040.0" promptText="Descripción del tratamiento" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="280.0">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</TextArea>
+				<Label fx:id="colorLabel" prefHeight="40.0" prefWidth="120.0" text="Color" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="600.0">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</Label>
+				<ColorPicker fx:id="colorColorPicker" prefHeight="40.0" prefWidth="120.0" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="600.0" />
 
-                  <Label fx:id="precioLabel" prefHeight="40.0" prefWidth="120.0" text="Precio" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="600.0">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="precioTextField" alignment="CENTER_RIGHT" editable="false" layoutX="680.0" layoutY="600.0" prefHeight="40.0" prefWidth="220.0" promptText="Precio del tratamiento" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="600.0">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </TextField>
-            <TableView fx:id="tratamientosTableView" layoutX="59.0" layoutY="140.0" prefHeight="400.0" prefWidth="480.0" stylesheets="@../estilos/estilos.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="240.0">
-              <columns>
-                <TableColumn fx:id="nombreColumn" prefWidth="470.0" text="Nombre" />
-              </columns>
-            </TableView>
-            <ComboBox fx:id="tamanioPaginacionComboBox" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefHeight="40.0" prefWidth="80.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />
-            <Pagination fx:id="paginacionTabla" layoutX="451.0" layoutY="818.0" maxPageIndicatorCount="5" prefHeight="40.0" prefWidth="320.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="100.0" />
-            <GridPane fx:id="botoneraGridPane" alignment="CENTER" layoutX="489.0" layoutY="670.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="560.0" AnchorPane.rightAnchor="560.0">
-              <columnConstraints>
-                <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button fx:id="nuevoButton" alignment="CENTER" mnemonicParsing="false" onAction="#crearTratamiento" prefHeight="40.0" prefWidth="140.0" text="Nuevo" textAlignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="editarButton" alignment="CENTER" mnemonicParsing="false" onAction="#editarTratamiento" prefHeight="40.0" prefWidth="140.0" text="Editar" textAlignment="CENTER" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="eliminarButton" alignment="CENTER" mnemonicParsing="false" onAction="#eliminarTratamiento" prefHeight="40.0" prefWidth="140.0" text="Eliminar" textAlignment="CENTER" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
-                     </font>
-                  </Button>
-               </children>
-            </GridPane>
+				<Label fx:id="precioLabel" prefHeight="40.0" prefWidth="120.0" text="Precio" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="600.0">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</Label>
+				<TextField fx:id="precioTextField" alignment="CENTER_RIGHT" editable="false" layoutX="680.0" layoutY="600.0" prefHeight="40.0" prefWidth="220.0" promptText="Precio del tratamiento" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="600.0">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</TextField>
+				<TableView fx:id="tratamientosTableView" prefHeight="400.0" prefWidth="480.0" stylesheets="@../estilos/estilos.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="240.0">
+					<columns>
+						<TableColumn fx:id="nombreColumn" prefWidth="470.0" text="Nombre" />
+					</columns>
+				</TableView>
+				<ComboBox fx:id="tamanioPaginacionComboBox" layoutX="25.0" layoutY="820.0" onAction="#cambiarSeleccionTamanioPaginacion" prefHeight="40.0" prefWidth="80.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" />
+				<Pagination fx:id="paginacionTabla" layoutX="451.0" layoutY="818.0" maxPageIndicatorCount="5" prefHeight="40.0" prefWidth="320.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="100.0" />
+				<Button fx:id="refrescarButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#refrescar" prefHeight="40.0" prefWidth="40.0" textAlignment="RIGHT" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="460.0">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+					<graphic>
+						<ImageView fx:id="refrescarImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../imagenes/refrescar.png" />
+							</image>
+						</ImageView>
+					</graphic>
+					<padding>
+                  <Insets top="1.0" />
+					</padding>
+				</Button>
+				<GridPane fx:id="botoneraGridPane" alignment="CENTER" layoutX="489.0" layoutY="670.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="560.0" AnchorPane.rightAnchor="560.0">
+					<columnConstraints>
+						<ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+						<ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+						<ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Button fx:id="nuevoButton" alignment="CENTER" mnemonicParsing="false" onAction="#crearTratamiento" prefHeight="40.0" prefWidth="140.0" text="Nuevo" textAlignment="CENTER">
+							<font>
+								<Font name="Comic Sans MS" size="18.0" />
+							</font>
+						</Button>
+						<Button fx:id="editarButton" alignment="CENTER" mnemonicParsing="false" onAction="#editarTratamiento" prefHeight="40.0" prefWidth="140.0" text="Editar" textAlignment="CENTER" GridPane.columnIndex="1">
+							<font>
+								<Font name="Comic Sans MS" size="18.0" />
+							</font>
+						</Button>
+						<Button fx:id="eliminarButton" alignment="CENTER" mnemonicParsing="false" onAction="#eliminarTratamiento" prefHeight="40.0" prefWidth="140.0" text="Eliminar" textAlignment="CENTER" GridPane.columnIndex="2">
+							<font>
+								<Font name="Comic Sans MS" size="18.0" />
+							</font>
+						</Button>
+					</children>
+				</GridPane>
 
-         </children>
-      </AnchorPane>
-   </center>
+			</children>
+		</AnchorPane>
+	</center>
 </BorderPane>

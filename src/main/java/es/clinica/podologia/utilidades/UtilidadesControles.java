@@ -3,6 +3,9 @@ package es.clinica.podologia.utilidades;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -54,7 +57,7 @@ public class UtilidadesControles {
      * 
      * @return {@link TextFormatter} {@link String} 
      */
-    public static TextFormatter<String> formateadorSinPatron(Integer numeroCaracteres) {
+    public static TextFormatter<String> cargarFormateadorSinPatron(Integer numeroCaracteres) {
 	
 	// Filtro que añade un número máximo de caracteres
 	UnaryOperator<TextFormatter.Change> filtro = cambios -> cambios.getControlNewText().length() <= numeroCaracteres ? cambios : null;
@@ -72,7 +75,7 @@ public class UtilidadesControles {
      * 
      * @return {@link TextFormatter} {@link String} 
      */
-    public static TextFormatter<String> formateadorConPatron(Pattern patron, Integer numeroCaracteres) {
+    public static TextFormatter<String> cargarFormateadorConPatron(Pattern patron, Integer numeroCaracteres) {
 	
 	// Filtro que añade un patrón determinado y un número máximo de caracteres
 	UnaryOperator<TextFormatter.Change> filtro = 
@@ -84,6 +87,42 @@ public class UtilidadesControles {
 	// Retornar un formateador con el filtro creado
 	return new TextFormatter<>(filtro);
 	
+    }
+    
+    /**
+     * <p>Método que carga un evento en una caja de Texto cuando pierde el foco, comprobando que no esté vacía</p>
+     * 
+     * @param cajaTexto {@link TextField} donde se quiere cargar el evento que hace la comprobación
+     * @param mensaje {@link String} lo que mostrará a alerta de error
+     * @param devolverFoco {@link Boolean} si se queire evitar que el usuario avance a otro campo
+     */
+    public static void cargarValidadorNulo(TextField cajaTexto, String mensaje, Boolean devolverFoco) {
+
+	// Comprobar que la caja de texto NO es nula
+	if (cajaTexto != null) {
+
+	    // Añadir el escuchador
+	    cajaTexto.focusedProperty().addListener((valor, valorAntiguo, valorNuevo) -> {
+		
+		// Comprobar que la caja de texto ha perdido el foco y esta vacía
+		if (Boolean.FALSE.equals(valorNuevo) && StringUtils.isBlank(cajaTexto.getText())) {
+		    
+		    // Mostrar alerta de error
+		    UtilidadesAlertas.mostrarAlertaError(mensaje);
+		    
+		    // Comprobar el parámetro del foco
+		    if(Boolean.TRUE.equals(devolverFoco)) {
+			
+			// Devuelve el foco a la caja de texto
+			cajaTexto.requestFocus();
+			
+		    }
+		    
+		}
+	    });
+
+	}
+
     }
 
 }

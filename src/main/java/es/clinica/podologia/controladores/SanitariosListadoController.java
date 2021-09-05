@@ -337,6 +337,14 @@ private static final Logger TRAZAS = LoggerFactory.getLogger(SanitariosListadoCo
     }
     
     /**
+     * <p>Método para refrescar la vista.</p>
+     */
+    @FXML
+    private void refrescar() {
+	initialize();
+    }
+    
+    /**
      * <p>Método que habilita o deshabilita los botones asociados a acciones a nivel de fila de la tabla: </p>
      * <ul>
      * <li>{@code editarButton}: para editar el sanitario seleccionado.</li>

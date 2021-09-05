@@ -117,7 +117,7 @@ public class Utilidades {
      * @return {@link byte}[] retorna el mismo array si  <b>NO ES NULO</b> o uno vacío en caso de que lo sea
      */
     public static byte[] comprobarArrayByteNulo(byte[] array) {
-	return comprobarArrayByte(array) ? array : Constantes.CADENA_VACIA.getBytes();
+	return Boolean.TRUE.equals(comprobarArrayByte(array)) ? array : Constantes.CADENA_VACIA.getBytes();
     }
     
     

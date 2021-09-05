@@ -5,9 +5,11 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import es.clinica.podologia.constantes.Constantes;
@@ -20,6 +22,7 @@ import es.clinica.podologia.repositorios.SanitariosRepository;
 import es.clinica.podologia.repositorios.TratamientosRepository;
 import es.clinica.podologia.servicios.CitasService;
 import es.clinica.podologia.utilidades.Utilidades;
+import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 
 /**
@@ -30,6 +33,24 @@ import es.clinica.podologia.utilidades.UtilidadesConversores;
  */
 @Service
 public class CitasServiceImpl implements CitasService {
+    
+    @Value("${pacientes.error.dni.vacio}")
+    private String errorDniPacienteVacio;
+    
+    @Value("${sanitarios.error.dni.vacio}")
+    private String errorDniSanitarioVacio;
+    
+    @Value("${tratamientos.error.nombre.vacio}")
+    private String errorNombreTratamientoVacio;
+    
+    @Value("${citas.error.fecha.vacio}")
+    private String errorFechaVacia;
+    
+    @Value("${citas.error.hora1.vacio}")
+    private String errorHoraDesdeVacia;
+    
+    @Value("${citas.error.hora2.vacio}")
+    private String errorHoraHastaVacia;
     
     @Autowired
     private CitasRepository citasRepository;
@@ -234,11 +255,24 @@ public class CitasServiceImpl implements CitasService {
 	// Comprobar que el modelo pasado como parámetro NO es nulo
 	if (modelo != null) {
 	    
-	    // Convertir el modelo en una entidad
-	    Citas entidad = convertirModeloEntidad(modelo);
+	    // Validar el modelo
+	    String errores = validar(modelo);
 	    
-	    // Guarda la entidad en la base de datos y persiste definitivamente los cambios
-	    resultado = citasRepository.saveAndFlush(entidad) != null;
+	    // Comprobar que no se han producido errores a la hora de de informar los campos del formulario
+	    if(Boolean.TRUE.equals(StringUtils.isBlank(errores))) {
+		
+		    // Convertir el modelo en una entidad
+		    Citas entidad = convertirModeloEntidad(modelo);
+		    
+		    // Guarda la entidad en la base de datos y persiste definitivamente los cambios
+		    resultado = citasRepository.saveAndFlush(entidad) != null;
+		
+	    } else {
+		
+		// Mostrar la lista de errores detectados
+		UtilidadesAlertas.mostrarAlertaError(errores);
+		
+	    }
 	    
 	}
 	
@@ -352,7 +386,7 @@ public class CitasServiceImpl implements CitasService {
     /**
      * <p>Método que convierte un objeto de tipo modelo en uno de tipo entidad.<p>
      * 
-     * @param entidad {@link CitasModelo} modelo que se quiere convertir
+     * @param modelo {@link CitasModelo} modelo que se quiere convertir
      * 
      * @return {@link Citas} entidad resultante
      * 
@@ -413,6 +447,53 @@ public class CitasServiceImpl implements CitasService {
 	
 	// Retornar el listado de modelos
 	return listaModelos;
+	
+    }
+    
+    
+    /**
+     * <p>Método donde se validarán todos los atributos del modelo.</p>
+     * 
+     * @param modelo {@link CitasModelo} modelo que se va a validar
+     * 
+     * @return {@link String} cadena de errores, si está vacía, es que el modelo se puede guardar en al base de datos
+     */
+    private String validar(CitasModelo modelo) {
+	
+	// Inicializar el objeto donde se concatenarán todos los errores que se encuentren
+	StringJoiner errores = new StringJoiner(Constantes.SALTO_LINEA);
+	
+	// Comprobar que el modelo NO es nulo
+	if(modelo != null) {
+	    
+	    if(StringUtils.isBlank(modelo.getDniPaciente())) {
+		errores.add(errorDniPacienteVacio);
+	    }
+	    
+	    if(StringUtils.isBlank(modelo.getDniSanitario())) {
+		errores.add(errorDniSanitarioVacio);
+	    }
+	    
+	    if(modelo.getNombreTratamiento() == null) {
+		errores.add(errorNombreTratamientoVacio);
+	    }
+	    
+	    if(modelo.getFecha() == null) {
+		errores.add(errorFechaVacia);
+	    }
+	    
+	    if(modelo.getHoraDesde() == null) {
+		errores.add(errorHoraDesdeVacia);
+	    }
+	    
+	    if(modelo.getHoraHasta() == null) {
+		errores.add(errorHoraHastaVacia);
+	    }
+	    
+	}
+	
+	// Retornar la cadena de errores generada
+	return errores.toString();
 	
     }
 

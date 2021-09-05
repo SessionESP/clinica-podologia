@@ -80,7 +80,7 @@
                </children>
             </GridPane>
             
-            <TableView fx:id="citasTableView" layoutX="137.0" layoutY="331.0" prefHeight="400.0" prefWidth="1560.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
+            <TableView fx:id="citasTableView" prefHeight="400.0" prefWidth="1560.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0">
               <columns>
                 <TableColumn fx:id="identificadorColumn" prefWidth="160.0" text="Identificador de la cita" />
                 <TableColumn fx:id="nombrePacienteColumn" prefWidth="240.0" text="Nombre del paciente" />

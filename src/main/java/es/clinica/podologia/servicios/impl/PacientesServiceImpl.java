@@ -3,16 +3,20 @@ package es.clinica.podologia.servicios.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.entidades.Pacientes;
 import es.clinica.podologia.modelos.PacientesModelo;
 import es.clinica.podologia.repositorios.PacientesRepository;
 import es.clinica.podologia.servicios.PacientesService;
 import es.clinica.podologia.utilidades.Utilidades;
+import es.clinica.podologia.utilidades.UtilidadesAlertas;
 import es.clinica.podologia.utilidades.UtilidadesConversores;
 
 /**
@@ -23,6 +27,9 @@ import es.clinica.podologia.utilidades.UtilidadesConversores;
  */
 @Service
 public class PacientesServiceImpl implements PacientesService {
+    
+    @Value("${pacientes.error.dni.vacio}")
+    private String errorDniPacienteVacio;
     
     @Autowired
     private PacientesRepository pacientesRepository;
@@ -140,11 +147,24 @@ public class PacientesServiceImpl implements PacientesService {
 	// Comprobar que el modelo pasado como parámetro NO es nulo
 	if (modelo != null) {
 	    
-	    // Convertir el modelo en una entidad
-	    Pacientes entidad = convertirModeloEntidad(modelo);
+	    // Validar el modelo
+	    String errores = validar(modelo);
 	    
-	    // Guarda la entidad en la base de datos y persiste definitivamente los cambios
-	    resultado = pacientesRepository.saveAndFlush(entidad) != null;
+	    // Comprobar que no se han producido errores a la hora de de informar los campos del formulario
+	    if(Boolean.TRUE.equals(StringUtils.isBlank(errores))) {
+		
+		// Convertir el modelo en una entidad
+		Pacientes entidad = convertirModeloEntidad(modelo);
+
+		// Guarda la entidad en la base de datos y persiste definitivamente los cambios
+		resultado = pacientesRepository.saveAndFlush(entidad) != null;
+		
+	    } else {
+		
+		// Mostrar la lista de errores detectados
+		UtilidadesAlertas.mostrarAlertaError(errores);
+		
+	    }
 	    
 	}
 	
@@ -278,6 +298,32 @@ public class PacientesServiceImpl implements PacientesService {
 	
 	// Retornar el listado de modelos
 	return listaModelos;
+	
+    }
+    
+    /**
+     * <p>Método donde se validarán todos los atributos del modelo.</p>
+     * 
+     * @param modelo {@link PacientesModelo} modelo que se va a validar
+     * 
+     * @return {@link String} cadena de errores, si está vacía, es que el modelo se puede guardar en al base de datos
+     */
+    private String validar(PacientesModelo modelo) {
+	
+	// Inicializar el objeto donde se concatenarán todos los errores que se encuentren
+	StringJoiner errores = new StringJoiner(Constantes.SALTO_LINEA);
+	
+	// Comprobar que el modelo NO es nulo
+	if(modelo != null) {
+	    
+	    if(StringUtils.isBlank(modelo.getDniPaciente())) {
+		errores.add(errorDniPacienteVacio);
+	    }
+	    
+	}
+	
+	// Retornar la cadena de errores generada
+	return errores.toString();
 	
     }
 

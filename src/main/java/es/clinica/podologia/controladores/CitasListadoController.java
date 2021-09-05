@@ -404,9 +404,7 @@ public class CitasListadoController {
     }
 
     /**
-     * <p>
-     * Método para refrescar la vista.
-     * </p>
+     * <p>Método para refrescar la vista.</p>
      */
     @FXML
     private void refrescar() {

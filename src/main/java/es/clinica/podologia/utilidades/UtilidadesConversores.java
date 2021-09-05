@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +66,7 @@ public class UtilidadesConversores {
     public static Integer convertirCadenaEntero(String cadena) {
 	
 	// Convertir siempre y cuando la cadena de caracteres pasada como parámetro NO sea nula NI esté vacía
-	return StringUtils.isNotBlank(cadena) ? Integer.valueOf(cadena) : null;
+	return StringUtils.isNotBlank(cadena) && NumberUtils.isCreatable(cadena) ? Integer.valueOf(cadena) : null;
 	
     }
     

@@ -56,6 +56,18 @@ public interface TratamientosService {
     public Boolean insertarActualizarTratamiento(TratamientosModelo modelo);
     
     /**
+     * <p>Método que inserta o actualiza un registro de la tabla.</p>
+     * <p>En el alta rápida se necesita obtener el identificador del tratamiento.</p>
+     * 
+     * @param modelo {@link TratamientosModelo} modelo que se quiere insertar o actualizar
+     * 
+     * @return {@link TratamientosModelo} retorna el modelo insertado/actualizado con el identificador generado
+     * 
+     * @see TratamientosRepository#saveAndFlush(es.clinica.podologia.entidades.Tratamientos)
+     */
+    public TratamientosModelo insertarActualizarTratamientoRapido(TratamientosModelo modelo);
+    
+    /**
      * <p>Método que elimina un registro de la tabla.</p>
      * 
      * @param identificador {@link Integer} identificador del registro que se quiere eliminar

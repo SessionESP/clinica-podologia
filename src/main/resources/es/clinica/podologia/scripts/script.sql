@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.3.2 on ju. sep. 2 21:26:45 2021
+-- File generated with SQLiteStudio v3.3.2 on do. sep. 5 18:13:39 2021
 --
 -- Text encoding used: UTF-8
 --
@@ -1206,6 +1206,27 @@ Supercalifragilisticoexpialidoso
 Supercalifragilisticoexpialidoso'
                   );
 
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      74,
+                      8,
+                      6,
+                      3,
+                      1630879200,
+                      1630918800,
+                      1630922400,
+                      ''
+                  );
+
 
 -- Table: pacientes
 DROP TABLE IF EXISTS pacientes;
@@ -1813,6 +1834,66 @@ Empaste de un diente o una muela
 ',
                              '#B3B31AFF',
                              45
+                         );
+
+INSERT INTO tratamientos (
+                             id_tratamiento,
+                             nombre,
+                             descripcion,
+                             color,
+                             precio
+                         )
+                         VALUES (
+                             14,
+                             'ata',
+                             NULL,
+                             NULL,
+                             NULL
+                         );
+
+INSERT INTO tratamientos (
+                             id_tratamiento,
+                             nombre,
+                             descripcion,
+                             color,
+                             precio
+                         )
+                         VALUES (
+                             15,
+                             '213',
+                             NULL,
+                             NULL,
+                             NULL
+                         );
+
+INSERT INTO tratamientos (
+                             id_tratamiento,
+                             nombre,
+                             descripcion,
+                             color,
+                             precio
+                         )
+                         VALUES (
+                             16,
+                             'gdshsdf',
+                             NULL,
+                             NULL,
+                             NULL
+                         );
+
+INSERT INTO tratamientos (
+                             id_tratamiento,
+                             nombre,
+                             descripcion,
+                             color,
+                             precio
+                         )
+                         VALUES (
+                             17,
+                             'sdgse',
+                             NULL,
+                             NULL,
+                             NULL
                          );
 
 

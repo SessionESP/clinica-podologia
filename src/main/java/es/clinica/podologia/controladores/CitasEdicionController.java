@@ -329,10 +329,13 @@ public class CitasEdicionController {
 	    modeloTratamiento.setNombre(nombreTratamientoTextField.getText());
 
 	    // Guardar el tratamiento
-	    Boolean resultado = tratamientosService.insertarActualizarTratamiento(modeloTratamiento);
+	    TratamientosModelo resultado = tratamientosService.insertarActualizarTratamientoRapido(modeloTratamiento);
 
-	    // Comprobar si se ha realizaco correctamente el guardado del tratamiento
-	    if (Boolean.TRUE.equals(resultado)) {
+	    // Comprobar si se ha realizado correctamente el guardado del tratamiento
+	    if (resultado != null) {
+		
+		// Alamcenar el identificador generado
+		modeloTratamiento.setIdTratamiento(resultado.getIdTratamiento());
 
 		// El sanitario se ha guardado bien
 		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? tratamientosModificacionCorrecta : tratamientosAltaCorrecta);
@@ -370,9 +373,13 @@ public class CitasEdicionController {
 	    if (modelo != null) {
 		
 		// Setear los valores de las cajas de texto en los atributos del modelo
+		cargarModeloPaciente(dniPacienteTextField.getText());
 		modelo.setDniPaciente(modeloPaciente.getDniPaciente());
+		cargarModeloSanitario(dniSanitarioTextField.getText());
 		modelo.setDniSanitario(modeloSanitario.getDniSanitario());
+		cargarModeloTratamiento(nombreTratamientoTextField.getText());
 		modelo.setIdTratamiento(modeloTratamiento.getIdTratamiento());
+		modelo.setNombreTratamiento(modeloTratamiento.getNombre());
 		modelo.setFecha(fechaDatePicker.getValue());
 		modelo.setHoraDesde(horaInicioComboBox.getValue());
 		modelo.setHoraHasta(horaFinComboBox.getValue());
@@ -480,6 +487,13 @@ public class CitasEdicionController {
 		dniPacienteTextField.setText(modeloPaciente.getDniPaciente());
 		nombrePacienteTextField.setText(modeloPaciente.toString());
 		
+	    } else {
+		
+		// Es un paciente que NO existe en la base de datos
+		modeloPaciente = new PacientesModelo();
+		modeloPaciente.setDniPaciente(dniPacienteTextField.getText());
+		modeloPaciente.setNombre(nombrePacienteTextField.getText());
+		
 	    }
 	}
     }
@@ -523,6 +537,13 @@ public class CitasEdicionController {
 		dniSanitarioTextField.setText(modeloSanitario.getDniSanitario());
 		nombreSanitarioTextField.setText(modeloSanitario.toString());
 		
+	    } else {
+		
+		// Es un sanitario que NO existe en la base de datos
+		modeloSanitario = new SanitariosModelo();
+		modeloSanitario.setDniSanitario(dniSanitarioTextField.getText());
+		modeloSanitario.setNombre(nombreSanitarioTextField.getText());
+		
 	    }
 	}
     }
@@ -552,16 +573,25 @@ public class CitasEdicionController {
 	// Comprobar que el parámetro de entrada NO es nulo Ni está vacío
 	if (Boolean.TRUE.equals(StringUtils.isNotBlank(tratamiento))) {
 	    
-	    // Realizar búsqueda para cargar el tratamiento
-	    modeloTratamiento = tratamientosService.encontrarTratamiento(UtilidadesConversores.convertirCadenaEntero(tratamiento.split(Constantes.GUION_ESPACIADO)[0]));
+	    if (tratamiento.contains(Constantes.GUION_ESPACIADO)) {
+		// Realizar búsqueda para cargar el tratamiento
+		modeloTratamiento = tratamientosService.encontrarTratamiento(UtilidadesConversores.convertirCadenaEntero(tratamiento.split(Constantes.GUION_ESPACIADO)[0]));
+	    }
 	    
 	    // Comprobar si la consulta ha devuelto un modelo
 	    if (modeloTratamiento != null) {
 		
-		// Cargar el valor correspondiente en la caja de texto
-		nombreTratamientoTextField.setText(modeloTratamiento.getNombre());
+		// Es un tratamiento que NO existe en la base de datos
+		modeloTratamiento.setNombre(nombreTratamientoTextField.getText());
 		
 	    }
+	    
+	} else {
+	    
+	    // Es un tratamiento que NO existe en la base de datos
+	    modeloTratamiento = new TratamientosModelo();
+	    modeloTratamiento.setNombre(nombreTratamientoTextField.getText());
+	    
 	}
     }
     
@@ -570,8 +600,13 @@ public class CitasEdicionController {
      */
     private void prepararAlta() {
 	
-	// Inicializar el objeto modelo
+	// Inicializar el objeto modelo de la cita
 	modelo = new CitasModelo();
+	
+	// Inicializar los objetos modelo que dependen de la cita
+	modeloPaciente = new PacientesModelo();
+	modeloSanitario = new SanitariosModelo();
+	modeloTratamiento = new TratamientosModelo();
 	
 	// Aplicar el título de la vista
 	UtilidadesVentanasEmergentes.getDialogStage().setTitle(Utilidades.comprobarCadena(tituloAltaVista, ""));
@@ -596,6 +631,10 @@ public class CitasEdicionController {
      * <p>Método donde se realizarán todos los preparativos para inicializar la vista para un alta nueva desde la agenda.</p>
      */
     private void prepararAltaAgenda() {
+	
+	// Inicializar los objetos modelo que dependen de la cita
+	modeloPaciente = new PacientesModelo();
+	modeloTratamiento = new TratamientosModelo();
 	
 	// Aplicar el título de la vista
 	UtilidadesVentanasEmergentes.getDialogStage().setTitle(Utilidades.comprobarCadena(tituloAltaVista, ""));

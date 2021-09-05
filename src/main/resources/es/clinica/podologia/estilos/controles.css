@@ -13,3 +13,7 @@
 .image-view:pressed {
 	
 }
+
+.error {
+	-fx-control-inner-background: red;
+}

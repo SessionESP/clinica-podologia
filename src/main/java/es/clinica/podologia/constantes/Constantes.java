@@ -46,7 +46,7 @@ public class Constantes {
     public static final Integer LIMITE_20 = 20;
     public static final Integer LIMITE_50 = 50;
     public static final Integer LIMITE_100 = 100;
-    public static final Integer LIMITE_1024 = 1024;
+    public static final Long LIMITE_1024 = 1024L;
     
     public static final String PATRON_FECHA = "dd-MM-yyyy";
     public static final String PATRON_HORA = "HH:mm:ss";

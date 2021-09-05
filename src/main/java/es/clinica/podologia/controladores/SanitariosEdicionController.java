@@ -249,7 +249,8 @@ public class SanitariosEdicionController {
      */
     private void cargarValidadores() {
 	
-	UtilidadesControles.cargarValidadorNulo(dniSanitarioTextField, errorDniSanitarioVacio, Boolean.TRUE);
+	
+	UtilidadesControles.cargarValidadorNulo(dniSanitarioTextField, errorDniSanitarioVacio);
 	
     }
     

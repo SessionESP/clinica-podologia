@@ -37,11 +37,20 @@ public class CitasServiceImpl implements CitasService {
     @Value("${pacientes.error.dni.vacio}")
     private String errorDniPacienteVacio;
     
+    @Value("${pacientes.error.dni.noexiste}")
+    private String errorDniPacienteNoExiste;
+    
     @Value("${sanitarios.error.dni.vacio}")
     private String errorDniSanitarioVacio;
     
+    @Value("${sanitarios.error.dni.noexiste}")
+    private String errorDniSanitarioNoExiste;
+    
     @Value("${tratamientos.error.nombre.vacio}")
     private String errorNombreTratamientoVacio;
+    
+    @Value("${tratamientos.error.id.noexiste}")
+    private String errorIdTratamientoNoExiste;
     
     @Value("${citas.error.fecha.vacio}")
     private String errorFechaVacia;
@@ -352,10 +361,13 @@ public class CitasServiceImpl implements CitasService {
     private CitasModelo convertirEntidadModelo(Citas entidad) {
 	
 	// Inicializar el modelo que se va retornar al final
-	CitasModelo modelo = new CitasModelo();
+	CitasModelo modelo = null;
 	
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if(entidad != null) {
+	    
+	    // Instanciar el modelo
+	    modelo = new CitasModelo();
 	    
 	    modelo.setIdCita(entidad.getIdCita());
 	    modelo.setDniPaciente(entidad.getPaciente() != null ? 
@@ -441,7 +453,7 @@ public class CitasServiceImpl implements CitasService {
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {
 	    
 	    // Recorrer el listado de entidades e ir añadiéndolo al listado de modelos
-	    listaEntidades.forEach(entidad -> listaModelos.add(convertirEntidadModelo(entidad)));
+	    listaEntidades.forEach(entidad -> listaModelos.add(entidad != null ? convertirEntidadModelo(entidad) : new CitasModelo()));
 	    
 	}
 	
@@ -465,17 +477,20 @@ public class CitasServiceImpl implements CitasService {
 	
 	// Comprobar que el modelo NO es nulo
 	if(modelo != null) {
-	    
-	    if(StringUtils.isBlank(modelo.getDniPaciente())) {
-		errores.add(errorDniPacienteVacio);
+
+	    String erroresPaciente = validarPaciente(modelo);
+	    if(StringUtils.isNotBlank(erroresPaciente)) {
+		errores.add(erroresPaciente);
 	    }
 	    
-	    if(StringUtils.isBlank(modelo.getDniSanitario())) {
-		errores.add(errorDniSanitarioVacio);
+	    String erroresSanitario = validarSanitario(modelo);
+	    if(StringUtils.isNotBlank(erroresSanitario)) {
+		errores.add(erroresSanitario);
 	    }
 	    
-	    if(modelo.getNombreTratamiento() == null) {
-		errores.add(errorNombreTratamientoVacio);
+	    String erroresTratamiento = validarTratamiento(modelo);
+	    if(StringUtils.isNotBlank(erroresTratamiento)) {
+		errores.add(erroresTratamiento);
 	    }
 	    
 	    if(modelo.getFecha() == null) {
@@ -494,6 +509,78 @@ public class CitasServiceImpl implements CitasService {
 	
 	// Retornar la cadena de errores generada
 	return errores.toString();
+	
+    }
+    
+    /**
+     * <p>Método donde se validarán los atributos que se corresponden con el paciente.</p>
+     * 
+     * @param modelo {@link CitasModelo} modelo que se va a validar
+     * 
+     * @return {@link String} cadena de errores, si está vacía, es que el modelo se puede guardar en al base de datos
+     */
+    private String validarPaciente(CitasModelo modelo) {
+	
+	// Inicializar la cadena que se retornará al final del método
+	String error = null;
+	
+	// Comprobar que si el DNI está vacío y si existe en la base de datos
+	if (StringUtils.isBlank(modelo.getDniPaciente())) {
+	    error = errorDniPacienteVacio;
+	} else if (pacientesRepository.findByDniPaciente(modelo.getDniPaciente()).isEmpty()) {
+	    error = errorDniPacienteNoExiste;
+	}
+	
+	// Retornar la cadena de errores
+	return error;
+	
+    }
+    
+    /**
+     * <p>Método donde se validarán los atributos que se corresponden con el sanitario.</p>
+     * 
+     * @param modelo {@link CitasModelo} modelo que se va a validar
+     * 
+     * @return {@link String} cadena de errores, si está vacía, es que el modelo se puede guardar en al base de datos
+     */
+    private String validarSanitario(CitasModelo modelo) {
+	
+	// Inicializar la cadena que se retornará al final del método
+	String error = null;
+	
+	// Comprobar que si el DNI está vacío y si existe en la base de datos
+	if (StringUtils.isBlank(modelo.getDniSanitario())) {
+	    error = errorDniSanitarioVacio;
+	} else if (sanitariosRepository.findByDniSanitario(modelo.getDniSanitario()).isEmpty()) {
+	    error = errorDniSanitarioNoExiste;
+	}
+	
+	// Retornar la cadena de errores
+	return error;
+	
+    }
+    
+    /**
+     * <p>Método donde se validarán los atributos que se corresponden con el tratamiento.</p>
+     * 
+     * @param modelo {@link CitasModelo} modelo que se va a validar
+     * 
+     * @return {@link String} cadena de errores, si está vacía, es que el modelo se puede guardar en al base de datos
+     */
+    private String validarTratamiento(CitasModelo modelo) {
+	
+	// Inicializar la cadena que se retornará al final del método
+	String error = null;
+	
+	// Comprobar que si el identificador es nulo/cero y si existe el identificador en la base de datos
+	if (StringUtils.isBlank(modelo.getNombreTratamiento())) {
+	    error = errorNombreTratamientoVacio;
+	} else if (tratamientosRepository.findById(modelo.getIdTratamiento()).isEmpty()) {
+	    error = errorIdTratamientoNoExiste;
+	}
+	
+	// Retornar la cadena de errores
+	return error;
 	
     }
 

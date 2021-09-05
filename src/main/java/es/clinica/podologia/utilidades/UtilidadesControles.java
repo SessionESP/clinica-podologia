@@ -4,6 +4,8 @@ import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -17,6 +19,9 @@ import javafx.scene.input.KeyEvent;
  *
  */
 public class UtilidadesControles {
+    
+    // Trazas
+    private static Logger trazas = LoggerFactory.getLogger(UtilidadesControles.class);
     
     /**
      * <p>Constructor privado vacío.</p>
@@ -96,7 +101,7 @@ public class UtilidadesControles {
      * @param mensaje {@link String} lo que mostrará a alerta de error
      * @param devolverFoco {@link Boolean} si se queire evitar que el usuario avance a otro campo
      */
-    public static void cargarValidadorNulo(TextField cajaTexto, String mensaje, Boolean devolverFoco) {
+    public static void cargarValidadorNulo(TextField cajaTexto, String mensaje) {
 
 	// Comprobar que la caja de texto NO es nula
 	if (cajaTexto != null) {
@@ -107,16 +112,7 @@ public class UtilidadesControles {
 		// Comprobar que la caja de texto ha perdido el foco y esta vacía
 		if (Boolean.FALSE.equals(valorNuevo) && StringUtils.isBlank(cajaTexto.getText())) {
 		    
-		    // Mostrar alerta de error
-		    UtilidadesAlertas.mostrarAlertaError(mensaje);
-		    
-		    // Comprobar el parámetro del foco
-		    if(Boolean.TRUE.equals(devolverFoco)) {
-			
-			// Devuelve el foco a la caja de texto
-			cajaTexto.requestFocus();
-			
-		    }
+		    UtilidadesTrazas.imprimirTrazaAdvertencia(trazas, mensaje);
 		    
 		}
 	    });

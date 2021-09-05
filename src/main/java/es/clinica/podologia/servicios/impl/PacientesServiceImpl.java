@@ -214,10 +214,13 @@ public class PacientesServiceImpl implements PacientesService {
     private PacientesModelo convertirEntidadModelo(Pacientes entidad) {
 	
 	// Inicializar el modelo que se va retornar al final
-	PacientesModelo modelo = new PacientesModelo();
+	PacientesModelo modelo = null;
 	
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if(entidad != null) {
+	    
+	    // Instanciar el modelo
+	    modelo = new PacientesModelo();
 	    
 	    modelo.setIdPaciente(entidad.getIdPaciente());
 	    modelo.setDniPaciente(entidad.getDniPaciente());
@@ -292,7 +295,7 @@ public class PacientesServiceImpl implements PacientesService {
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {
 	    
 	    // Recorrer el listado de entidades e ir añadiéndolo al listado de modelos
-	    listaEntidades.forEach(entidad -> listaModelos.add(convertirEntidadModelo(entidad)));
+	    listaEntidades.forEach(entidad -> listaModelos.add(entidad != null ? convertirEntidadModelo(entidad) : new PacientesModelo()));
 	    
 	}
 	

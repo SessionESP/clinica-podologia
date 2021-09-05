@@ -2,6 +2,7 @@ package es.clinica.podologia.controladores;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +58,9 @@ public class PacientesEdicionController {
     
     @Value("${pacientes.modificacion.guardado.false}")
     private String modificacionIncorrecta;
+    
+    @Value("${pacientes.error.tamanio.adjunto}")
+    private String errorTamanioAdjunto;
     
     @Value("${pacientes.seleccionar.ficha}")
     private String tituloSelectorFicha;
@@ -367,10 +371,22 @@ public class PacientesEdicionController {
      * @param archivo {@link File} archivo que se va a adjuntar al modelo
      */
     private void asignarAdjunto(File archivo) {
-	nombreAdjuntoLabel.setText(archivo.getName());
-	verAdjuntoImageView.setVisible(Boolean.TRUE);
-	modelo.setNombreAdjunto(archivo.getName());
-	modelo.setAdjunto(UtilidadesConversores.convertirFicheroArrayBytes(archivo));
+	
+	// Comprobar que el archivo adjunto no supera el tamaño máximo definido
+	if(Constantes.LIMITE_1024.compareTo(archivo.length() / 1024) > 0) {
+	    
+	    nombreAdjuntoLabel.setText(archivo.getName());
+	    verAdjuntoImageView.setVisible(Boolean.TRUE);
+	    modelo.setNombreAdjunto(archivo.getName());
+	    modelo.setAdjunto(UtilidadesConversores.convertirFicheroArrayBytes(archivo));
+	    
+	} else {
+	    
+	    UtilidadesAlertas.mostrarAlertaError(MessageFormat.format(errorTamanioAdjunto, Constantes.LIMITE_1024));
+	    
+	}
+	
+
     }
     
     /**
@@ -401,7 +417,7 @@ public class PacientesEdicionController {
      */
     private void cargarValidadores() {
 	
-	UtilidadesControles.cargarValidadorNulo(dniPacienteTextField, errorDniPacienteVacio, Boolean.TRUE);
+	UtilidadesControles.cargarValidadorNulo(dniPacienteTextField, errorDniPacienteVacio);
 	
     }
     

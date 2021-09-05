@@ -211,10 +211,13 @@ public class SanitariosServiceImpl implements SanitariosService {
     private SanitariosModelo convertirEntidadModelo(Sanitarios entidad) {
 	
 	// Inicializar el modelo que se va retornar al final
-	SanitariosModelo modelo = new SanitariosModelo();
+	SanitariosModelo modelo = null;
 	
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if(entidad != null) {
+	    
+	    // Instanciar el modelo
+	    modelo = new SanitariosModelo();
 	    
 	    modelo.setIdSanitario(entidad.getIdSanitario());
 	    modelo.setDniSanitario(entidad.getDniSanitario());
@@ -281,7 +284,7 @@ public class SanitariosServiceImpl implements SanitariosService {
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {
 	    
 	    // Recorrer el listado de entidades e ir añadiéndolo al listado de modelos
-	    listaEntidades.forEach(entidad -> listaModelos.add(convertirEntidadModelo(entidad)));
+	    listaEntidades.forEach(entidad -> listaModelos.add(entidad != null ? convertirEntidadModelo(entidad) : new SanitariosModelo()));
 	    
 	}
 	

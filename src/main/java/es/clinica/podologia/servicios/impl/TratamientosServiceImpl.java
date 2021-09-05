@@ -102,6 +102,32 @@ public class TratamientosServiceImpl implements TratamientosService {
 	return resultado;
 	
     }
+    
+    /**
+     * <p>Método que inserta o actualiza un registro de la tabla.</p>
+     * <p>En el alta rápida se necesita obtener el identificador del tratamiento.</p>
+     */
+    @Override
+    public TratamientosModelo insertarActualizarTratamientoRapido(TratamientosModelo modelo) {
+	
+	// Inicializar el modelo que indicará si la inserción/actualización se ha realizado con éxito
+	TratamientosModelo resultado = null;
+	
+	// Comprobar que el modelo pasado como parámetro NO es nulo
+	if (modelo != null) {
+	    
+	    // Convertir el modelo en una entidad
+	    Tratamientos entidad = convertirModeloEntidad(modelo);
+	    
+	    // Guarda la entidad en la base de datos y persiste definitivamente los cambios
+	    resultado = convertirEntidadModelo(tratamientosRepository.saveAndFlush(entidad));
+	    
+	}
+	
+	// Retornar el resultado de la inserción/actualización
+	return resultado;
+	
+    }
 
     /**
      * <p>Método que elimina un registro de la tabla.</p>
@@ -217,7 +243,7 @@ public class TratamientosServiceImpl implements TratamientosService {
 	if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listaEntidades))) {
 	    
 	    // Recorrer el listado de entidades e ir añadiéndolo al listado de modelos
-	    listaEntidades.forEach(entidad -> listaModelos.add(convertirEntidadModelo(entidad)));
+	    listaEntidades.forEach(entidad -> listaModelos.add(entidad != null ? convertirEntidadModelo(entidad) : new TratamientosModelo()));
 	    
 	}
 	

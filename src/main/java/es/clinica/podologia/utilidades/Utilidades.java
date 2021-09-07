@@ -23,6 +23,18 @@ public class Utilidades {
 	throw new IllegalStateException("Constructor privado de la clase de utilidades.");
     }
     
+    /**
+     * <p>Método que comprueba si un entero es nulo, retornando un valor por defecto en caso de que lo sea.</p>
+     * 
+     * @param entero {@link Integer} entero que se quiere comprobar
+     * @param defecto {@link Integer} entero por defecto que se retornará en caso de que sea nulo
+     * 
+     * @return {@link Integer} retorna el primer parámetro en caso de que <b>NO</b> sea nulo, el segundo en caso de que lo sea
+     */
+    public static Integer comprobarEntero(Integer entero, Integer defecto) {
+	return entero != null ? entero : defecto;
+    }
+    
     
     /**
      * <p>Método que comprueba si una cadena de caracteres es nula, retornando un valor por defecto en caso de que lo sea.</p>

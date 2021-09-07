@@ -72,6 +72,22 @@ public class UtilidadesConversores {
     
     /**
      * <p>Convertir una cadena de caracteres en un entero.</p>
+     * <p>Retorna un valor por defecto en caso de la cadena sea nula o no convertible en un número entero.</p>
+     * 
+     * @param cadena {@link String} cadena de caracteres que se quiere convertir
+     * @param valorDefecto {@link Integer} valor por defecto en caso de que la cadena sea nula o no convertible
+     * 
+     * @return {@link Integer} entero convertido
+     */
+    public static Integer convertirCadenaEnteroDefecto(String cadena, Integer valorDefecto) {
+	
+	// Convertir siempre y cuando la cadena de caracteres pasada como parámetro NO sea nula NI esté vacía
+	return StringUtils.isNotBlank(cadena) && NumberUtils.isCreatable(cadena) ? Integer.valueOf(cadena) : valorDefecto;
+	
+    }
+    
+    /**
+     * <p>Convertir una cadena de caracteres en un entero.</p>
      * 
      * @param cadena {@link Integer} entero que se quiere convertir
      * 
@@ -435,7 +451,7 @@ public class UtilidadesConversores {
      * @param cadenaBooleana {@link String} cadena de caracteres que represente un valor posible
      * @return {@link Boolean} booleano correspondiente
      */
-    public static Boolean cadenaBooleano(String cadenaBooleana) {
+    public static Boolean convertirCadenaBooleano(String cadenaBooleana) {
 	return StringUtils.isNotBlank(cadenaBooleana) ? Boolean.valueOf(cadenaBooleana) : null;
     }
     

@@ -46,8 +46,8 @@ public class CitasServiceImpl implements CitasService {
     @Value("${sanitarios.error.dni.noexiste}")
     private String errorDniSanitarioNoExiste;
     
-    @Value("${tratamientos.error.nombre.vacio}")
-    private String errorNombreTratamientoVacio;
+    @Value("${tratamientos.error.id.vacio}")
+    private String errorIdTratamientoVacio;
     
     @Value("${tratamientos.error.id.noexiste}")
     private String errorIdTratamientoNoExiste;
@@ -60,6 +60,9 @@ public class CitasServiceImpl implements CitasService {
     
     @Value("${citas.error.hora2.vacio}")
     private String errorHoraHastaVacia;
+    
+    @Value("${citas.error.rangohoras}")
+    private String errorRangoHoras;
     
     @Autowired
     private CitasRepository citasRepository;
@@ -497,12 +500,9 @@ public class CitasServiceImpl implements CitasService {
 		errores.add(errorFechaVacia);
 	    }
 	    
-	    if(modelo.getHoraDesde() == null) {
-		errores.add(errorHoraDesdeVacia);
-	    }
-	    
-	    if(modelo.getHoraHasta() == null) {
-		errores.add(errorHoraHastaVacia);
+	    String erroresHoras = validarHoras(modelo);
+	    if(StringUtils.isNotBlank(erroresHoras)) {
+		errores.add(erroresHoras);
 	    }
 	    
 	}
@@ -573,8 +573,8 @@ public class CitasServiceImpl implements CitasService {
 	String error = null;
 	
 	// Comprobar que si el identificador es nulo/cero y si existe el identificador en la base de datos
-	if (StringUtils.isBlank(modelo.getNombreTratamiento())) {
-	    error = errorNombreTratamientoVacio;
+	if (modelo.getIdTratamiento() == null || modelo.getIdTratamiento() == 0 || StringUtils.isBlank(modelo.getNombreTratamiento())) {
+	    error = errorIdTratamientoVacio;
 	} else if (tratamientosRepository.findById(modelo.getIdTratamiento()).isEmpty()) {
 	    error = errorIdTratamientoNoExiste;
 	}
@@ -582,6 +582,37 @@ public class CitasServiceImpl implements CitasService {
 	// Retornar la cadena de errores
 	return error;
 	
+    }
+    
+    /**
+     * <p>Método donde se validarán el rango de hroas de la cita.</p>
+     * 
+     * @param modelo {@link CitasModelo} modelo que se va a validar
+     * 
+     * @return {@link String} cadena de errores, si está vacía, es que el modelo se puede guardar en al base de datos
+     */
+    private String validarHoras(CitasModelo modelo) {
+
+	// Inicializar el objeto donde se concatenarán todos los errores que se encuentren
+	StringJoiner errores = new StringJoiner(Constantes.SALTO_LINEA);
+
+	if (modelo.getHoraDesde() == null) {
+	    errores.add(errorHoraDesdeVacia);
+	}
+
+	if (modelo.getHoraHasta() == null) {
+	    errores.add(errorHoraHastaVacia);
+	}
+	
+	// Comprobar que la hora desde no es igual ni mayor que la hora hasta
+	if(modelo.getHoraDesde() != null && modelo.getHoraHasta() != null && 
+		modelo.getHoraDesde().compareTo(modelo.getHoraHasta()) >= 0) {
+	    errores.add(errorRangoHoras);
+	}
+
+	// Retornar la cadena de errores generada
+	return errores.toString();
+
     }
 
 }

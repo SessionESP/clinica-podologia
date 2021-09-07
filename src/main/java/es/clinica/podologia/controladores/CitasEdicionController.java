@@ -147,6 +147,8 @@ public class CitasEdicionController {
     @FXML
     private TextField nombreSanitarioTextField;
     @FXML
+    private TextField identificadorTratamientoTextField;
+    @FXML
     private TextField nombreTratamientoTextField;
     
     @FXML
@@ -325,17 +327,15 @@ public class CitasEdicionController {
 	    // Inicializar el modelo
 	    modeloTratamiento = new TratamientosModelo();
 
-	    // Setear el valor de las caja de texto en el atributo del modelo
+	    // Setear los valores de las cajas de texto en los atributos del modelo
+	    modeloTratamiento.setIdTratamientoCadena(identificadorTratamientoTextField.getText());
 	    modeloTratamiento.setNombre(nombreTratamientoTextField.getText());
 
 	    // Guardar el tratamiento
-	    TratamientosModelo resultado = tratamientosService.insertarActualizarTratamientoRapido(modeloTratamiento);
+	    Boolean resultado = tratamientosService.insertarActualizarTratamiento(modeloTratamiento);
 
-	    // Comprobar si se ha realizado correctamente el guardado del tratamiento
-	    if (resultado != null) {
-		
-		// Alamcenar el identificador generado
-		modeloTratamiento.setIdTratamiento(resultado.getIdTratamiento());
+	    // Comprobar si se ha realizaco correctamente el guardado del tratamiento
+	    if (Boolean.TRUE.equals(resultado)) {
 
 		// El sanitario se ha guardado bien
 		UtilidadesAlertas.mostrarAlertaInformativa(Boolean.TRUE.equals(modo) ? tratamientosModificacionCorrecta : tratamientosAltaCorrecta);
@@ -355,10 +355,11 @@ public class CitasEdicionController {
 	    
 	} catch (Exception excepcion) {
 	    
-	    // Error al intentar guardar el paciente
+	    // Error al intentar guardar el tratamiento
 	    validacionesComponent.visualizarError(excepcion, TRAZAS);
 	    
 	}
+	
     }
     
     /**
@@ -377,9 +378,9 @@ public class CitasEdicionController {
 		modelo.setDniPaciente(modeloPaciente.getDniPaciente());
 		cargarModeloSanitario(dniSanitarioTextField.getText());
 		modelo.setDniSanitario(modeloSanitario.getDniSanitario());
-		cargarModeloTratamiento(nombreTratamientoTextField.getText());
-		modelo.setIdTratamiento(modeloTratamiento.getIdTratamiento());
-		modelo.setNombreTratamiento(modeloTratamiento.getNombre());
+		cargarModeloTratamiento(identificadorTratamientoTextField.getText());
+		modelo.setIdTratamiento(UtilidadesConversores.convertirCadenaEnteroDefecto(identificadorTratamientoTextField.getText(), 0));
+		modelo.setNombreTratamiento(nombreTratamientoTextField.getText());
 		modelo.setFecha(fechaDatePicker.getValue());
 		modelo.setHoraDesde(horaInicioComboBox.getValue());
 		modelo.setHoraHasta(horaFinComboBox.getValue());
@@ -461,7 +462,7 @@ public class CitasEdicionController {
 		TextFields.bindAutoCompletion(dniPacienteTextField, listadoPacientes.stream().map(PacientesModelo::getDniPaciente).collect(Collectors.toList()));
 	dniPacienteAutocompletado.setOnAutoCompleted(event -> cargarModeloPaciente(event.getCompletion()));
 	
-	// Instanciar el autocompletado del nombre del paciente
+	// Instanciar el autocompletado del DNI y nombre del paciente
 	AutoCompletionBinding<String> nombrePacienteAutocompletado = 
 		TextFields.bindAutoCompletion(nombrePacienteTextField, listadoPacientes.stream().map(PacientesModelo::buscar).collect(Collectors.toList()));
 	nombrePacienteAutocompletado.setOnAutoCompleted(event -> cargarModeloPaciente(event.getCompletion()));
@@ -511,6 +512,8 @@ public class CitasEdicionController {
 	AutoCompletionBinding<String> dniSanitarioAutocompletado = 
 		TextFields.bindAutoCompletion(dniSanitarioTextField, listadoSanitarios.stream().map(SanitariosModelo::getDniSanitario).collect(Collectors.toList()));
 	dniSanitarioAutocompletado.setOnAutoCompleted(event -> cargarModeloSanitario(event.getCompletion()));
+	
+	// Instanciar el autocompletado del DNI y nombre del sanitario
 	AutoCompletionBinding<String> nombreSanitarioAutocompletado = 
 		TextFields.bindAutoCompletion(nombreSanitarioTextField, listadoSanitarios.stream().map(SanitariosModelo::buscar).collect(Collectors.toList()));
 	nombreSanitarioAutocompletado.setOnAutoCompleted(event -> cargarModeloSanitario(event.getCompletion()));
@@ -556,6 +559,11 @@ public class CitasEdicionController {
 	// Obtener un listado con todos los tratamientos de la tabla
 	List<TratamientosModelo> listadoTratamientos = tratamientosService.listarTratamientos();
 	
+	// Instanciar el autocompletado del identificador del tratamiento
+	AutoCompletionBinding<String> identificadorTratamientoAutocompletado = 
+		TextFields.bindAutoCompletion(identificadorTratamientoTextField, listadoTratamientos.stream().map(TratamientosModelo::getIdTratamientoCadena).collect(Collectors.toList()));
+	identificadorTratamientoAutocompletado.setOnAutoCompleted(event -> cargarModeloTratamiento(event.getCompletion()));
+	
 	// Instanciar el autocompletado del identificador y el nombre del tratamiento
 	AutoCompletionBinding<String> nombreTratamientoAutocompletado = 
 		TextFields.bindAutoCompletion(nombreTratamientoTextField, listadoTratamientos.stream().map(TratamientosModelo::toString).collect(Collectors.toList()));
@@ -573,25 +581,24 @@ public class CitasEdicionController {
 	// Comprobar que el parámetro de entrada NO es nulo Ni está vacío
 	if (Boolean.TRUE.equals(StringUtils.isNotBlank(tratamiento))) {
 	    
-	    if (tratamiento.contains(Constantes.GUION_ESPACIADO)) {
-		// Realizar búsqueda para cargar el tratamiento
-		modeloTratamiento = tratamientosService.encontrarTratamiento(UtilidadesConversores.convertirCadenaEntero(tratamiento.split(Constantes.GUION_ESPACIADO)[0]));
-	    }
+	    // Realizar búsqueda para cargar el tratamiento
+	    modeloTratamiento = tratamientosService.encontrarTratamiento(UtilidadesConversores.convertirCadenaEntero(tratamiento.split(Constantes.GUION_ESPACIADO)[0]));
 	    
 	    // Comprobar si la consulta ha devuelto un modelo
 	    if (modeloTratamiento != null) {
 		
+		// Cargar los valores correspondientes en las cajas de texto
+		identificadorTratamientoTextField.setText(modeloTratamiento.getIdTratamientoCadena());
+		nombreTratamientoTextField.setText(modeloTratamiento.getNombre());
+		
+	    } else {
+		
 		// Es un tratamiento que NO existe en la base de datos
+		modeloTratamiento = new TratamientosModelo();
+		modeloTratamiento.setIdTratamientoCadena(identificadorTratamientoTextField.getText());
 		modeloTratamiento.setNombre(nombreTratamientoTextField.getText());
 		
 	    }
-	    
-	} else {
-	    
-	    // Es un tratamiento que NO existe en la base de datos
-	    modeloTratamiento = new TratamientosModelo();
-	    modeloTratamiento.setNombre(nombreTratamientoTextField.getText());
-	    
 	}
     }
     
@@ -619,6 +626,7 @@ public class CitasEdicionController {
 	nombrePacienteTextField.clear();
 	dniSanitarioTextField.clear();
 	nombreSanitarioTextField.clear();
+	identificadorTratamientoTextField.clear();
 	nombreTratamientoTextField.clear();
 	fechaDatePicker.setValue(null);
 	horaInicioComboBox.setValue(null);
@@ -646,6 +654,7 @@ public class CitasEdicionController {
 	dniPacienteTextField.clear();
 	nombrePacienteTextField.clear();
 	cargarModeloSanitario(modelo.getDniSanitario());
+	identificadorTratamientoTextField.clear();
 	nombreTratamientoTextField.clear();
 	fechaDatePicker.setValue(modelo.getFecha());
 	horaInicioComboBox.setValue(modelo.getHoraDesde());
@@ -745,6 +754,7 @@ public class CitasEdicionController {
 	nombrePacienteTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_100 + 1));
 	dniSanitarioTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_20));
 	nombreSanitarioTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_100 + 1));
+	identificadorTratamientoTextField.setTextFormatter(UtilidadesControles.cargarFormateadorConPatron(Constantes.PATRON_NUMEROS_ENTEROS, Constantes.LIMITE_5));
 	nombreTratamientoTextField.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_50));
 	observacionesTextArea.setTextFormatter(UtilidadesControles.cargarFormateadorSinPatron(Constantes.LIMITE_100));
 	

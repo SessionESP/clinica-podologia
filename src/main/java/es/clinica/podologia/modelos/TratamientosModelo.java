@@ -44,9 +44,17 @@ public class TratamientosModelo {
     public Integer getIdTratamiento() {
 	return idTratamiento.get();
     }
+    
+    public String getIdTratamientoCadena() {
+	return UtilidadesConversores.convertirEnteroCadena(idTratamiento.get());
+    }
 
     public void setIdTratamiento(Integer idTratamiento) {
 	this.idTratamiento.set(idTratamiento);
+    }
+    
+    public void setIdTratamientoCadena(String idTratamiento) {
+	this.idTratamiento.set(UtilidadesConversores.convertirCadenaEntero(idTratamiento));
     }
     
     public IntegerProperty idTratamientoProperty() {

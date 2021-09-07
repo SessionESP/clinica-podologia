@@ -43,6 +43,7 @@ public class Constantes {
     public static final String REDIMENSIONABLE = "redimensionable";
     
     public static final Integer LIMITE_3 = 3;
+    public static final Integer LIMITE_5 = 5;
     public static final Integer LIMITE_20 = 20;
     public static final Integer LIMITE_50 = 50;
     public static final Integer LIMITE_100 = 100;

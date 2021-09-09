@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.clinica.podologia.entidades.Citas;
+import es.clinica.podologia.entidades.Pacientes;
 import es.clinica.podologia.entidades.Sanitarios;
 
 /**
@@ -67,7 +68,7 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * <p>Consulta filtrando por las columnas: </p>
      * <ul>
      * <li>Igual a {@code CITAS.FECHA}</li>
-     * <li>Igual a {@code CITAS.DNI_SANITARIO}</li>
+     * <li>Igual a {@code CITAS.ID_SANITARIO}</li>
      * </ul>
      * 
      * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
@@ -83,17 +84,65 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * <li>Igual a {@code CITAS.FECHA}</li>
      * <li>Menor o igual a {@code CITAS.HORA_DESDE}</li>
      * <li>Mayor que {@code CITAS.HORA_HASTA}</li>
-     * <li>Igual a {@code CITAS.DNI_SANITARIO}</li>
+     * <li>Igual a {@code CITAS.ID_SANITARIO}</li>
      * </ul>
      * 
      * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
      * @param horaDesde {@link Long} valor de la hora desde la que se quiere filtrar
-     * @param FechaHasya {@link Long} valor de la hora hasta la que se quiere filtrar
+     * @param FechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
      * @param sanitario {@link Sanitarios} valor del sanitario por el que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      */
-    public List<Citas> findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanAndSanitario(Long fecha, Long horaDesde, Long fechaHasta, Sanitarios sanitario);
+    public List<Citas> findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanAndSanitario(
+	    Long fecha, 
+	    Long horaDesde, 
+	    Long fechaHasta, 
+	    Sanitarios sanitario);
+    
+    /**
+     * <p>Consulta filtrando por las columnas: </p>
+     * <ul>
+     * <li>Igual a {@code CITAS.FECHA}</li>
+     * <li>Menor o igual a {@code CITAS.HORA_DESDE}</li>
+     * <li>Mayor o igual a {@code CITAS.HORA_HASTA}</li>
+     * <li>Igual a {@code CITAS.ID_SANITARIO}</li>
+     * </ul>
+     * 
+     * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
+     * @param horaDesde {@link Long} valor de la hora desde la que se quiere filtrar
+     * @param FechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
+     * @param sanitario {@link Sanitarios} valor del sanitario por el que se quiere filtrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     */
+    public List<Citas> findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanEqualAndPaciente(
+	    Long fecha, 
+	    Long horaDesde, 
+	    Long fechaHasta, 
+	    Pacientes paciente);
+    
+    /**
+     * <p>Consulta filtrando por las columnas: </p>
+     * <ul>
+     * <li>Igual a {@code CITAS.FECHA}</li>
+     * <li>Menor o igual a {@code CITAS.HORA_DESDE}</li>
+     * <li>Mayor o igual a {@code CITAS.HORA_HASTA}</li>
+     * <li>Igual a {@code CITAS.ID_PACIENTE}</li>
+     * </ul>
+     * 
+     * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
+     * @param horaDesde {@link Long} valor de la hora desde la que se quiere filtrar
+     * @param FechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
+     * @param sanitario {@link Pacientes} valor del paciente por el que se quiere filtrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     */
+    public List<Citas> findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanEqualAndSanitario(
+	    Long fecha, 
+	    Long horaDesde, 
+	    Long fechaHasta, 
+	    Sanitarios sanitario);
     
     /**
      * <p>Eliminación filtrando por la columna {@code CITAS.FECHA}.</p>

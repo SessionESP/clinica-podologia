@@ -40,11 +40,17 @@ public class CitasServiceImpl implements CitasService {
     @Value("${pacientes.error.dni.noexiste}")
     private String errorDniPacienteNoExiste;
     
+    @Value("${citas.error.coincidencia.paciente}")
+    private String errorCoincidenciaPaciente;
+    
     @Value("${sanitarios.error.dni.vacio}")
     private String errorDniSanitarioVacio;
     
     @Value("${sanitarios.error.dni.noexiste}")
     private String errorDniSanitarioNoExiste;
+    
+    @Value("${citas.error.coincidencia.sanitario}")
+    private String errorCoincidenciaSanitario;
     
     @Value("${tratamientos.error.id.vacio}")
     private String errorIdTratamientoVacio;
@@ -529,10 +535,54 @@ public class CitasServiceImpl implements CitasService {
 	    error = errorDniPacienteVacio;
 	} else if (pacientesRepository.findByDniPaciente(modelo.getDniPaciente()).isEmpty()) {
 	    error = errorDniPacienteNoExiste;
+	} else if(Boolean.TRUE.equals(coincidenciaPaciente(convertirModeloEntidad(modelo)))){
+	    error = errorCoincidenciaPaciente;
 	}
 	
 	// Retornar la cadena de errores
 	return error;
+	
+    }
+    
+    /**
+     * <p>Método donde se validará que el paciente no tenga citas el mismo día y a la misma hora.</p>
+     * 
+     * @param modelo {@link Citas} entidad que se va a validar
+     * 
+     * @return {@link Boolean} retornará {@code true} en caso de que encuentre citas coincidentes
+     */
+    private Boolean coincidenciaPaciente(Citas entidad) {
+	
+	// Inicializar la variable que se va a retornar al final del método
+	Boolean coincidencias = Boolean.FALSE;
+	
+	// Comprobar que la entidad pasada como parámetro NO es nula
+	if (entidad != null) {
+	    
+	    // Buscar alguna cita cuyo rango de horas incluya la fecha inicial de la cita que se pretende dar de alta
+	    List<Citas> listadoDesde = citasRepository.findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanEqualAndPaciente(
+		    entidad.getFecha(), 
+		    entidad.getHoraDesde(), 
+		    entidad.getHoraDesde(), 
+		    entidad.getPaciente());
+	    
+		
+	    // Buscar alguna cita cuyo rango de horas incluya la fecha final de la cita que se pretende dar de alta
+	    List<Citas> listadoHasta = citasRepository.findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanEqualAndPaciente(
+		    entidad.getFecha(),
+		    entidad.getHoraHasta(), 
+		    entidad.getHoraHasta(), 
+		    entidad.getPaciente());
+		
+	    // Comprobar si alguno de los listados NO es nulo o NO está vacío
+	    if(Utilidades.comprobarColeccion(listadoDesde) || Utilidades.comprobarColeccion(listadoHasta)) {
+		coincidencias = Boolean.TRUE;
+	    }
+	    
+	}
+	
+	// Retornar el resultado del método
+	return coincidencias;
 	
     }
     
@@ -553,10 +603,53 @@ public class CitasServiceImpl implements CitasService {
 	    error = errorDniSanitarioVacio;
 	} else if (sanitariosRepository.findByDniSanitario(modelo.getDniSanitario()).isEmpty()) {
 	    error = errorDniSanitarioNoExiste;
+	} else if(Boolean.TRUE.equals(coincidenciaSanitario(convertirModeloEntidad(modelo)))){
+	    error = errorCoincidenciaSanitario;
 	}
 	
 	// Retornar la cadena de errores
 	return error;
+	
+    }
+    
+    /**
+     * <p>Método donde se validará que el sanitario no tenga citas el mismo día y a la misma hora.</p>
+     * 
+     * @param modelo {@link Citas} entidad que se va a validar
+     * 
+     * @return {@link Boolean} retornará {@code true} en caso de que encuentre citas coincidentes
+     */
+    private Boolean coincidenciaSanitario(Citas entidad) {
+	
+	// Inicializar la variable que se va a retornar al final del método
+	Boolean coincidencias = Boolean.FALSE;
+	
+	// Comprobar que la entidad pasada como parámetro NO es nula
+	if (entidad != null) {
+	    
+	    // Buscar alguna cita cuyo rango de horas incluya la fecha inicial de la cita que se pretende dar de alta
+	    List<Citas> listadoDesde = citasRepository.findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanEqualAndSanitario(
+		    entidad.getFecha(), 
+		    entidad.getHoraDesde(), 
+		    entidad.getHoraDesde(), 
+		    entidad.getSanitario());
+		
+	    // Buscar alguna cita cuyo rango de horas incluya la fecha final de la cita que se pretende dar de alta
+	    List<Citas> listadoHasta = citasRepository.findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanEqualAndSanitario(
+		    entidad.getFecha(),
+		    entidad.getHoraHasta(), 
+		    entidad.getHoraHasta(), 
+		    entidad.getSanitario());
+		
+	    // Comprobar si alguno de los listados NO es nulo o NO está vacío
+	    if(Utilidades.comprobarColeccion(listadoDesde) || Utilidades.comprobarColeccion(listadoHasta)) {
+		coincidencias = Boolean.TRUE;
+	    }
+	    
+	}
+	
+	// Retornar el resultado del método
+	return coincidencias;
 	
     }
     
@@ -585,7 +678,7 @@ public class CitasServiceImpl implements CitasService {
     }
     
     /**
-     * <p>Método donde se validarán el rango de hroas de la cita.</p>
+     * <p>Método donde se validarán el rango de horas de la cita.</p>
      * 
      * @param modelo {@link CitasModelo} modelo que se va a validar
      * 

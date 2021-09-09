@@ -1,7 +1,7 @@
 package es.clinica.podologia.repositorios.impl;
 
 /**
- * <p>Implementaci�n de la interfaz del Objeto de Acceso a Datos de la tabla {@code citas}.</p>
+ * <p>Implementación de la interfaz del Objeto de Acceso a Datos de la tabla {@code Citas}.</p>
  *
  * @author Ignacio Rafael
  *

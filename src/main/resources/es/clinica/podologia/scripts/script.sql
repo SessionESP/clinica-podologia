@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.3.2 on do. sep. 5 18:13:39 2021
+-- File generated with SQLiteStudio v3.3.2 on ju. sep. 9 21:47:07 2021
 --
 -- Text encoding used: UTF-8
 --
@@ -1224,6 +1224,27 @@ INSERT INTO citas (
                       1630879200,
                       1630918800,
                       1630922400,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      76,
+                      14,
+                      2,
+                      4,
+                      1630965600,
+                      1631010600,
+                      1631011500,
                       ''
                   );
 

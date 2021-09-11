@@ -317,12 +317,8 @@ public class PacientesServiceImpl implements PacientesService {
 	StringJoiner errores = new StringJoiner(Constantes.SALTO_LINEA);
 	
 	// Comprobar que el modelo NO es nulo
-	if(modelo != null) {
-	    
-	    if(StringUtils.isBlank(modelo.getDniPaciente())) {
-		errores.add(errorDniPacienteVacio);
-	    }
-	    
+	if(modelo != null && StringUtils.isBlank(modelo.getDniPaciente())) {
+	    errores.add(errorDniPacienteVacio);
 	}
 	
 	// Retornar la cadena de errores generada

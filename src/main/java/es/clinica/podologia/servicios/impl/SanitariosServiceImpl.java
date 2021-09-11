@@ -306,12 +306,8 @@ public class SanitariosServiceImpl implements SanitariosService {
 	StringJoiner errores = new StringJoiner(Constantes.SALTO_LINEA);
 	
 	// Comprobar que el modelo NO es nulo
-	if(modelo != null) {
-	    
-	    if(StringUtils.isBlank(modelo.getDniSanitario())) {
-		errores.add(errorDniSanitarioVacio);
-	    }
-	    
+	if(modelo != null && StringUtils.isBlank(modelo.getDniSanitario())) {
+	    errores.add(errorDniSanitarioVacio);
 	}
 	
 	// Retornar la cadena de errores generada

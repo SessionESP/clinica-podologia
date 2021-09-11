@@ -89,7 +89,7 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * 
      * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
      * @param horaDesde {@link Long} valor de la hora desde la que se quiere filtrar
-     * @param FechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
+     * @param fechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
      * @param sanitario {@link Sanitarios} valor del sanitario por el que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
@@ -110,15 +110,40 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * </ul>
      * 
      * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
-     * @param horaDesde {@link Long} valor de la hora desde la que se quiere filtrar
-     * @param FechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
-     * @param sanitario {@link Sanitarios} valor del sanitario por el que se quiere filtrar
+     * @param fechaDesde {@link Long} valor de la hora desde la que se quiere filtrar
+     * @param fechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
+     * @param paciente {@link Pacientes} valor del paciente por el que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      */
-    public List<Citas> findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanEqualAndPaciente(
+    public List<Citas> findByFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndPaciente(
 	    Long fecha, 
-	    Long horaDesde, 
+	    Long fechaDesde, 
+	    Long fechaHasta, 
+	    Pacientes paciente);
+    
+    /**
+     * <p>Consulta filtrando por las columnas: </p>
+     * <ul>
+     * <li>Diferente a {@code CITAS.ID_CITA}</li>
+     * <li>Igual a {@code CITAS.FECHA}</li>
+     * <li>Menor o igual a {@code CITAS.HORA_DESDE}</li>
+     * <li>Mayor o igual a {@code CITAS.HORA_HASTA}</li>
+     * <li>Igual a {@code CITAS.ID_SANITARIO}</li>
+     * </ul>
+     * 
+     * @param idCita {@link Integer} valor del identificador de la cita que se quiere excluir de la consulta
+     * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
+     * @param fechaDesde {@link Long} valor de la hora desde la que se quiere filtrar
+     * @param fechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
+     * @param paciente {@link Pacientes} valor del paciente por el que se quiere filtrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     */
+    public List<Citas> findByIdCitaNotAndFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndPaciente(
+	    Integer idCita, 
+	    Long fecha, 
+	    Long fechaDesde, 
 	    Long fechaHasta, 
 	    Pacientes paciente);
     
@@ -132,15 +157,40 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      * </ul>
      * 
      * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
-     * @param horaDesde {@link Long} valor de la hora desde la que se quiere filtrar
-     * @param FechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
-     * @param sanitario {@link Pacientes} valor del paciente por el que se quiere filtrar
+     * @param fechaDesde {@link Long} valor de la hora desde la que se quiere filtrar
+     * @param fechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
+     * @param sanitario {@link Sanitarios} valor del sanitario por el que se quiere filtrar
      * 
      * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
      */
-    public List<Citas> findByFechaAndHoraDesdeLessThanEqualAndHoraHastaGreaterThanEqualAndSanitario(
+    public List<Citas> findByFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndSanitario(
 	    Long fecha, 
-	    Long horaDesde, 
+	    Long fechaDesde, 
+	    Long fechaHasta, 
+	    Sanitarios sanitario);
+    
+    /**
+     * <p>Consulta filtrando por las columnas: </p>
+     * <ul>
+     * <li>Diferente a {@code CITAS.ID_CITA}</li>
+     * <li>Igual a {@code CITAS.FECHA}</li>
+     * <li>Menor o igual a {@code CITAS.HORA_DESDE}</li>
+     * <li>Mayor o igual a {@code CITAS.HORA_HASTA}</li>
+     * <li>Igual a {@code CITAS.ID_PACIENTE}</li>
+     * </ul>
+     * 
+     * @param idCita {@link Integer} valor del identificador de la cita que se quiere excluir de la consulta
+     * @param fecha {@link Long} valor de la fecha por el que se quiere filtrar
+     * @param fechaDesde {@link Long} valor de la hora desde la que se quiere filtrar
+     * @param fechaHasta {@link Long} valor de la hora hasta la que se quiere filtrar
+     * @param sanitario {@link Sanitarios} valor del sanitario por el que se quiere filtrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     */
+    public List<Citas> findByIdCitaNotAndFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndSanitario(
+	    Integer idCita, 
+	    Long fecha, 
+	    Long fechaDesde, 
 	    Long fechaHasta, 
 	    Sanitarios sanitario);
     

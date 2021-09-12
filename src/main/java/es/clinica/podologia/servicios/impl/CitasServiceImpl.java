@@ -559,49 +559,33 @@ public class CitasServiceImpl implements CitasService {
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if (entidad != null) {
 	    
-	    // Inicializar listados
-	    List<Citas> listadoDesde = null;
-	    List<Citas> listadoHasta = null;
+	    // Inicializar el listado de citas solapadas
+	    List<Citas> listadoCitasSolapadas = null;
 	    
 	    // Si el identificador de la cita NO es nulo, hay que excluirlo de la búsqueda
 	    if(entidad.getIdCita() != null && entidad.getIdCita() != 0) {
 		
-		// Buscar alguna cita cuyo rango de horas incluya la fecha inicial de la cita que se pretende dar de alta
-		listadoDesde = citasRepository.findByIdCitaNotAndFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndPaciente(
+		// Búsqueda de citas solapadas excluyendo la cita que se pretende modificar
+		listadoCitasSolapadas = citasRepository.findByIdCitaNotAndFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndPaciente(
 			entidad.getIdCita(), 
 			entidad.getFecha(), 
-			entidad.getHoraDesde(), 
-			entidad.getHoraDesde(), 
-			entidad.getPaciente());
-
-		// Buscar alguna cita cuyo rango de horas incluya la fecha final de la cita que se pretende dar de alta
-		listadoHasta = citasRepository.findByIdCitaNotAndFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndPaciente(
-			entidad.getIdCita(), 
-			entidad.getFecha(),
 			entidad.getHoraHasta(), 
-			entidad.getHoraHasta(), 
+			entidad.getHoraDesde(), 
 			entidad.getPaciente());
 		
 	    } else {
 		
-		// Buscar alguna cita cuyo rango de horas incluya la fecha inicial de la cita que se pretende dar de alta
-		listadoDesde = citasRepository.findByFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndPaciente(
+		// Búsqueda de citas solapadas a la que se pretende dar de alta
+		listadoCitasSolapadas = citasRepository.findByFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndPaciente(
 			entidad.getFecha(), 
-			entidad.getHoraDesde(), 
-			entidad.getHoraDesde(), 
-			entidad.getPaciente());
-
-		// Buscar alguna cita cuyo rango de horas incluya la fecha final de la cita que se pretende dar de alta
-		listadoHasta = citasRepository.findByFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndPaciente(
-			entidad.getFecha(),
 			entidad.getHoraHasta(), 
-			entidad.getHoraHasta(), 
+			entidad.getHoraDesde(), 
 			entidad.getPaciente());
 		
 	    }
 		
-	    // Comprobar si alguno de los listados NO es nulo o NO está vacío
-	    if(Utilidades.comprobarColeccion(listadoDesde) || Utilidades.comprobarColeccion(listadoHasta)) {
+	    // Comprobar si el listado contiene alguna cita que se pueda solapar
+	    if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoCitasSolapadas))) {
 		coincidencias = Boolean.TRUE;
 	    }
 	    
@@ -653,49 +637,33 @@ public class CitasServiceImpl implements CitasService {
 	// Comprobar que la entidad pasada como parámetro NO es nula
 	if (entidad != null) {
 	    
-	    // Inicializar listados
-	    List<Citas> listadoDesde = null;
-	    List<Citas> listadoHasta = null;
+	    // Inicializar el listado de citas solapadas
+	    List<Citas> listadoCitasSolapadas = null;
 	    
 	    // Si el identificador de la cita NO es nulo, hay que excluirlo de la búsqueda
 	    if(entidad.getIdCita() != null && entidad.getIdCita() != 0) {
 		
-		// Buscar alguna cita cuyo rango de horas incluya la fecha inicial de la cita que se pretende dar de alta
-		listadoDesde = citasRepository.findByIdCitaNotAndFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndSanitario(
+		// Búsqueda de citas solapadas excluyendo la cita que se pretende modificar
+		listadoCitasSolapadas = citasRepository.findByIdCitaNotAndFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndSanitario(
 			entidad.getIdCita(), 
 			entidad.getFecha(), 
-			entidad.getHoraDesde(), 
-			entidad.getHoraDesde(), 
-			entidad.getSanitario());
-
-		// Buscar alguna cita cuyo rango de horas incluya la fecha final de la cita que se pretende dar de alta
-		listadoHasta = citasRepository.findByIdCitaNotAndFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndSanitario(
-			entidad.getIdCita(), 
-			entidad.getFecha(),
 			entidad.getHoraHasta(), 
-			entidad.getHoraHasta(), 
+			entidad.getHoraDesde(), 
 			entidad.getSanitario());
 		
 	    } else {
 		
-		// Buscar alguna cita cuyo rango de horas incluya la fecha inicial de la cita que se pretende dar de alta
-		listadoDesde = citasRepository.findByFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndSanitario(
+		// Búsqueda de citas solapadas a la que se pretende dar de alta
+		listadoCitasSolapadas = citasRepository.findByFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndSanitario(
 			entidad.getFecha(), 
-			entidad.getHoraDesde(), 
-			entidad.getHoraDesde(), 
-			entidad.getSanitario());
-
-		// Buscar alguna cita cuyo rango de horas incluya la fecha final de la cita que se pretende dar de alta
-		listadoHasta = citasRepository.findByFechaAndHoraDesdeLessThanAndHoraHastaGreaterThanAndSanitario(
-			entidad.getFecha(),
 			entidad.getHoraHasta(), 
-			entidad.getHoraHasta(), 
+			entidad.getHoraDesde(), 
 			entidad.getSanitario());
 		
 	    }
 		
-	    // Comprobar si alguno de los listados NO es nulo o NO está vacío
-	    if(Utilidades.comprobarColeccion(listadoDesde) || Utilidades.comprobarColeccion(listadoHasta)) {
+	    // Comprobar si el listado contiene alguna cita que se pueda solapar
+	    if(Boolean.TRUE.equals(Utilidades.comprobarColeccion(listadoCitasSolapadas))) {
 		coincidencias = Boolean.TRUE;
 	    }
 	    

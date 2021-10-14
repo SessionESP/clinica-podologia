@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import es.clinica.podologia.entidades.Citas;
 import es.clinica.podologia.entidades.Pacientes;
 import es.clinica.podologia.entidades.Sanitarios;
+import es.clinica.podologia.entidades.Tratamientos;
 
 /**
  * <p>Interfaz del Objeto de Acceso a Datos de la tabla {@code citas}.</p>
@@ -18,6 +19,39 @@ import es.clinica.podologia.entidades.Sanitarios;
  */
 @Repository
 public interface CitasRepository extends JpaRepository<Citas, Integer> {
+    
+    /**
+     * <p>Consulta filtrando por la columna {@code CITAS.ID_PACIENTE}.</p>
+     * 
+     * @param paciente {@link Pacientes} valor del paciente cuyas citas se desean borrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     * 
+     * @see Citas
+     */
+    public List<Citas> findByPaciente(Pacientes paciente);
+    
+    /**
+     * <p>Consulta filtrando por la columna {@code CITAS.ID_SANITARIO}.</p>
+     * 
+     * @param sanitario {@link Sanitarios} valor del sanitario cuyas citas se desean borrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     * 
+     * @see Citas
+     */
+    public List<Citas> findBySanitario(Pacientes paciente);
+    
+    /**
+     * <p>Consulta filtrando por la columna {@code CITAS.ID_TRATAMIENTO}.</p>
+     * 
+     * @param tratamiento {@link Tratamientos} valor del tratamiento cuyas citas se desean borrar
+     * 
+     * @return {@link List}<{@link Citas}> listado de {@code CITAS} coincidentes
+     * 
+     * @see Citas
+     */
+    public List<Citas> findByTratamiento(Tratamientos tratamiento);
     
     /**
      * <p>Consulta filtrando por la columna {@code CITAS.FECHA}.</p>
@@ -208,5 +242,35 @@ public interface CitasRepository extends JpaRepository<Citas, Integer> {
      */
     @Transactional
     public void deleteByFechaBetween(Long inicio, Long fin);
+    
+    /**
+     * <p>Eliminación filtrando por la columna {@code CITAS.ID_PACIENTE}.</p>
+     * 
+     * @param paciente {@link Pacientes} valor del paciente cuyas citas se desean borrar
+     * 
+     * @see Citas
+     */
+    @Transactional
+    public void deleteByPaciente(Pacientes paciente);
+    
+    /**
+     * <p>Eliminación filtrando por la columna {@code CITAS.ID_SANITARIO}.</p>
+     * 
+     * @param sanitario {@link Sanitarios} valor del sanitario cuyas citas se desean borrar
+     * 
+     * @see Citas
+     */
+    @Transactional
+    public void deleteBySanitario(Sanitarios sanitario);
+    
+    /**
+     * <p>Eliminación filtrando por la columna {@code CITAS.ID_TRATAMIENTO}.</p>
+     * 
+     * @param tratamiento {@link Tratamientos} valor del tratamiento cuyas citas se desean borrar
+     * 
+     * @see Citas
+     */
+    @Transactional
+    public void deleteByTratamiento(Tratamientos tratamiento);
 
 }

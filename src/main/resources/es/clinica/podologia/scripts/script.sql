@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.3.2 on ju. sep. 9 21:47:07 2021
+-- File generated with SQLiteStudio v3.3.2 on do. sep. 12 17:04:51 2021
 --
 -- Text encoding used: UTF-8
 --
@@ -1245,6 +1245,174 @@ INSERT INTO citas (
                       1630965600,
                       1631010600,
                       1631011500,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      77,
+                      10,
+                      2,
+                      4,
+                      1631311200,
+                      1631353500,
+                      1631361600,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      78,
+                      10,
+                      2,
+                      5,
+                      1631311200,
+                      1631350800,
+                      1631353500,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      79,
+                      3,
+                      2,
+                      6,
+                      1631311200,
+                      1631361600,
+                      1631363400,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      80,
+                      3,
+                      6,
+                      3,
+                      1631311200,
+                      1631361600,
+                      1631365200,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      90,
+                      12,
+                      3,
+                      1,
+                      1631397600,
+                      1631440800,
+                      1631448000,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      91,
+                      12,
+                      2,
+                      2,
+                      1631397600,
+                      1631437200,
+                      1631440800,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      92,
+                      12,
+                      2,
+                      3,
+                      1631397600,
+                      1631448000,
+                      1631455200,
+                      ''
+                  );
+
+INSERT INTO citas (
+                      id_cita,
+                      id_paciente,
+                      id_sanitario,
+                      id_tratamiento,
+                      fecha,
+                      hora_inicio,
+                      hora_fin,
+                      observaciones
+                  )
+                  VALUES (
+                      93,
+                      12,
+                      6,
+                      4,
+                      1631397600,
+                      1631455200,
+                      1631473200,
                       ''
                   );
 

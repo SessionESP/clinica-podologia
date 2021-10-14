@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.entidades.Pacientes;
 import es.clinica.podologia.modelos.PacientesModelo;
+import es.clinica.podologia.repositorios.CitasRepository;
 import es.clinica.podologia.repositorios.PacientesRepository;
 import es.clinica.podologia.servicios.PacientesService;
 import es.clinica.podologia.utilidades.Utilidades;
@@ -33,6 +34,9 @@ public class PacientesServiceImpl implements PacientesService {
     
     @Autowired
     private PacientesRepository pacientesRepository;
+    
+    @Autowired
+    private CitasRepository citasRepository;
 
     /**
      * <p>Método que retorna un listado con todos los registros de la vista.</p>
@@ -185,6 +189,15 @@ public class PacientesServiceImpl implements PacientesService {
 	// Comprobar que el identificador pasado como parámetro NO es nulo
 	if(idPaciente != null) {
 	    
+	    // Obtener el paciente correspondiente al identificados
+	    Optional<Pacientes> paciente = pacientesRepository.findById(idPaciente);
+	    
+	    // Comprobar que el paciente existe
+	    if (paciente.isPresent()) {
+		// Eliminar las citas asociadas al paciente
+		citasRepository.deleteByPaciente(paciente.get());
+	    }
+
 	    // Eliminar el registro que coincida con el identificador
 	    pacientesRepository.deleteById(idPaciente);
 	    

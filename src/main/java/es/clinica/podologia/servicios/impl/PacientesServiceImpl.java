@@ -189,13 +189,15 @@ public class PacientesServiceImpl implements PacientesService {
 	// Comprobar que el identificador pasado como parámetro NO es nulo
 	if(idPaciente != null) {
 	    
-	    // Obtener el paciente correspondiente al identificados
+	    // Obtener el paciente correspondiente al identificador
 	    Optional<Pacientes> paciente = pacientesRepository.findById(idPaciente);
 	    
 	    // Comprobar que el paciente existe
 	    if (paciente.isPresent()) {
+		
 		// Eliminar las citas asociadas al paciente
 		citasRepository.deleteByPaciente(paciente.get());
+		
 	    }
 
 	    // Eliminar el registro que coincida con el identificador

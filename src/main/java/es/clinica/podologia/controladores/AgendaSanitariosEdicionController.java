@@ -264,7 +264,11 @@ public class AgendaSanitariosEdicionController {
 		    listaDesplegable.getItems().clear();
 		    listaDesplegable.getItems().addAll(listadoSanitarios);
 		    
-		    if(identificadorSanitario != null && identificadorSanitario != 0) {
+		    SanitariosModelo sanitarioSeleccionado = (identificadorSanitario != null && identificadorSanitario != 0)
+				    ? sanitariosService.encontrarSanitario(identificadorSanitario)
+				    : null;
+		    
+		    if(sanitarioSeleccionado != null) {
 			// La propiedad tiene valor, se busca el sanitario correspondente y se asigna como valor de inicio
 			listaDesplegable.getSelectionModel().select(sanitariosService.encontrarSanitario(identificadorSanitario));
 		    } else {

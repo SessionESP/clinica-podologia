@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import es.clinica.podologia.entidades.Tratamientos;
 import es.clinica.podologia.modelos.TratamientosModelo;
+import es.clinica.podologia.repositorios.CitasRepository;
 import es.clinica.podologia.repositorios.TratamientosRepository;
 import es.clinica.podologia.servicios.TratamientosService;
 import es.clinica.podologia.utilidades.Utilidades;
@@ -24,6 +25,9 @@ public class TratamientosServiceImpl implements TratamientosService {
     
     @Autowired
     private TratamientosRepository tratamientosRepository;
+    
+    @Autowired
+    private CitasRepository citasRepository;
 
     /**
      * <p>Método que retorna un listado con todos los registros de la vista.</p>
@@ -140,6 +144,17 @@ public class TratamientosServiceImpl implements TratamientosService {
 	
 	// Comprobar que el identificador pasado como parámetro NO es nulo
 	if (identificador != null) {
+	    
+	    // Obtener el tratamiento correspondiente al identificador
+	    Optional<Tratamientos> tratamiento = tratamientosRepository.findById(identificador);
+	    
+	    // Comprobar que el tratamiento existe
+	    if (tratamiento.isPresent()) {
+		
+		// Eliminar las citas asociadas al tratamiento
+		citasRepository.deleteByTratamiento(tratamiento.get());
+		
+	    }
 	    
 	    // Eliminar el registro que coincida con el identificador
 	    tratamientosRepository.deleteById(identificador);

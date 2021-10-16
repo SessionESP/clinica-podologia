@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>es.clinica</groupId>
 	<artifactId>podologia</artifactId>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 	<name>podologia</name>
 	<description>Aplicación con base de datos de pacientes para clínica de podología</description>
 	<properties>

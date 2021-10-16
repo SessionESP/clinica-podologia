@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import es.clinica.podologia.constantes.Constantes;
 import es.clinica.podologia.entidades.Sanitarios;
 import es.clinica.podologia.modelos.SanitariosModelo;
+import es.clinica.podologia.repositorios.CitasRepository;
 import es.clinica.podologia.repositorios.SanitariosRepository;
 import es.clinica.podologia.servicios.SanitariosService;
 import es.clinica.podologia.utilidades.Utilidades;
@@ -32,6 +33,9 @@ public class SanitariosServiceImpl implements SanitariosService {
     
     @Autowired
     private SanitariosRepository sanitariosRepository;
+    
+    @Autowired
+    private CitasRepository citasRepository;
 
     /**
      * <p>Método que retorna un listado con todos los registros de la vista.</p>
@@ -181,6 +185,17 @@ public class SanitariosServiceImpl implements SanitariosService {
 	
 	// Comprobar que el identificador DNI pasado como parámetro NO es nulo
 	if(idSanitario != null) {
+	    
+	    // Obtener el sanitario correspondiente al identificador
+	    Optional<Sanitarios> sanitario = sanitariosRepository.findById(idSanitario);
+	    
+	    // Comprobar que el sanitario existe
+	    if (sanitario.isPresent()) {
+		
+		// Eliminar las citas asociadas al sanitario
+		citasRepository.deleteBySanitario(sanitario.get());
+		
+	    }
 	    
 	    // Eliminar el registro que coincida con el identificador
 	    sanitariosRepository.deleteById(idSanitario);
